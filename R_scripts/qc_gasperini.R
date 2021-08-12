@@ -90,7 +90,7 @@ subsetted_pairs <- all_pairs %>% dplyr::filter(gene_id %in% get_feature_ids(gene
 set.seed(4)
 sample_pairs <- subsetted_pairs %>% dplyr::filter(gene_id %in% sample(x = subsetted_pairs$gene_id, size = 4, replace = FALSE) &
                                   gRNA_id %in% sample(x = subsetted_pairs$gRNA_id, size = 4, replace = FALSE)) %>%
-  dplyr::slice_sample(n = 15)
+  dplyr::slice_sample(n = 15)c
 
 ########################################################
 # 5. Save ODMs, subsetted pairs, global covariate matrix
