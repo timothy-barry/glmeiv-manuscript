@@ -27,7 +27,6 @@ gRNA_odm <- read_odm(gRNA_counts_fp, gRNA_counts_meta)
 ################
 # 1. QC on cells
 ################
-
 # construct a multimodal ODM for cell QC.
 multimodal_odm <- multimodal_ondisc_matrix(list(gene = gene_odm, gRNA = gRNA_odm))
 
@@ -56,7 +55,11 @@ global_covariate_matrix <- multimodal_odm_sub %>%
                                           lg_gRNA_lib_size = log(gRNA_n_umis),
                                           batch = gene_batch,
                                           p_mito = gene_p_mito) %>%
-  dplyr::select(lg_mRNA_lib_size, lg_gRNA_lib_size, batch, p_mito)
+  dplyr::select(lg_mRNA_lib_size, lg_gRNA_lib_size, batch, p_mito) %>%
+  dplyr::mutate(batch = ifelse(batch == "prep_batch_1", 0L, 1L))
+covariate_matrix_to_save <- global_covariate_matrix %>% dplyr::select(batch, p_mito)
+m_offsets_to_save <- global_covariate_matrix %>% dplyr::pull(lg_mRNA_lib_size)
+g_offsets_to_save <- global_covariate_matrix %>% dplyr::pull(lg_gRNA_lib_size)
 
 ################
 # 2. QC on genes
@@ -75,11 +78,7 @@ gene_odm_qc_to_save <- gene_odm_qc %>% mutate_cell_covariates(n_nonzero = NULL, 
 # 3. QC on gRNAs
 ################
 gRNA_odm_sub <- get_modality(multimodal_odm_sub, "gRNA")
-p_expressed <- gRNA_odm_sub %>% get_feature_covariates() %>% dplyr::mutate(p_expressed =  n_nonzero/ncol(multimodal_odm)) %>% dplyr::pull(p_expressed)
-ok_gRNAs <- p_expressed > 0.005
-
-gRNA_odm_qc <- gRNA_odm_sub[ok_gRNAs,]
-gRNA_odm_qc_to_save <- gRNA_odm_qc %>% mutate_cell_covariates(n_nonzero = NULL, n_umis = NULL)
+gRNA_odm_qc_to_save <- gRNA_odm_sub %>% mutate_cell_covariates(n_nonzero = NULL, n_umis = NULL)
 
 ###########################
 # 4. Subset gene-gRNA pairs
@@ -87,21 +86,32 @@ gRNA_odm_qc_to_save <- gRNA_odm_qc %>% mutate_cell_covariates(n_nonzero = NULL, 
 subsetted_pairs <- all_pairs %>% dplyr::filter(gene_id %in% get_feature_ids(gene_odm_qc_to_save),
                                                gRNA_id %in% get_feature_ids(gRNA_odm_qc_to_save))
 
-set.seed(4)
+set.seed(11)
 sample_pairs <- subsetted_pairs %>% dplyr::filter(gene_id %in% sample(x = subsetted_pairs$gene_id, size = 4, replace = FALSE) &
                                   gRNA_id %in% sample(x = subsetted_pairs$gRNA_id, size = 4, replace = FALSE)) %>%
-  dplyr::slice_sample(n = 15)c
+  dplyr::slice_sample(n = 15)
 
 ########################################################
 # 5. Save ODMs, subsetted pairs, global covariate matrix
 ########################################################
+# gene metadata
 save_odm(odm = gene_odm_qc_to_save,
          paste0(glmeiv_offsite_dir_gasp_data, "gene_qc_metadata.rds"))
+# gRNA metadata
 save_odm(odm = gRNA_odm_qc_to_save,
          paste0(glmeiv_offsite_dir_gasp_data, "gRNA_qc_metadata.rds"))
-saveRDS(object = global_covariate_matrix,
+# covariate matrix
+saveRDS(object = covariate_matrix_to_save,
         paste0(glmeiv_offsite_dir_gasp_data, "covariate_matrix.rds"))
+# subsetted pairs
 saveRDS(object = subsetted_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs.rds"))
+# sample pairs
 saveRDS(sample_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs_sample.rds"))
+# m offsets
+saveRDS(object = global_covariate_matrix %>% dplyr::pull(lg_mRNA_lib_size),
+        file = paste0(glmeiv_offsite_dir_gasp_data, "m_offsets.rds"))
+# g offsets
+saveRDS(object = global_covariate_matrix %>% dplyr::pull(lg_gRNA_lib_size),
+        file = paste0(glmeiv_offsite_dir_gasp_data, "g_offsets.rds"))
