@@ -23,14 +23,14 @@ covariate_matrix=$processed_data_dir"covariate_matrix.rds"
 m_offsets=$processed_data_dir"m_offsets.rds"
 g_offsets=$processed_data_dir"g_offsets.rds"
 # v. pairs to analyze (using small version)
-gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs.rds"
+gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_sample.rds" #"gRNA_gene_pairs.rds"
 # vi. family strings
 m_fam="nb"
 g_fam="poisson"
 # vii. pod sizes (control parallelization amount)
-gene_pod_size=500
-gRNA_pod_size=500
-pair_pod_size=500
+gene_pod_size=3 #500
+gRNA_pod_size=3 #500
+pair_pod_size=3 #500
 # viii. results directory
 result_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
 
@@ -50,4 +50,5 @@ nextflow run $nf_pipeline --pairs $gRNA_gene_pairs \
 --gRNA_odm $gRNA_odm \
 --gRNA_metadata $gRNA_metadata \
 --g_offsets $g_offsets \
---g_fam_str $g_fam
+--g_fam_str $g_fam \
+-bg > $PWD/log -ansi-log false -with-trace
