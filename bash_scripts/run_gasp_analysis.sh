@@ -32,7 +32,7 @@ gene_pod_size=3
 gRNA_pod_size=3
 pair_pod_size=3
 # viii. results directory
-results_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
+result_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
 
 ##########################
 # 3. Run Nextflow pipeline
@@ -40,6 +40,7 @@ results_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
 nextflow run $nf_pipeline --pairs $gRNA_gene_pairs \
 --covariate_matrix $covariate_matrix \
 --pair_pod_size $pair_pod_size \
+--result_dir $result_dir \
 --gene_pod_size $gene_pod_size \
 --gene_odm $gene_odm \
 --gene_metadata $gene_metadata \
@@ -49,4 +50,4 @@ nextflow run $nf_pipeline --pairs $gRNA_gene_pairs \
 --gRNA_odm $gRNA_odm \
 --gRNA_metadata $gRNA_metadata \
 --g_offsets $g_offsets \
---g_fam_str $g_fam
+--g_fam_str $g_fam \
