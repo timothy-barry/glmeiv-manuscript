@@ -29,6 +29,8 @@ m_fam="nb"
 g_fam="poisson"
 # vii. pod sizes (control parallelization amount)
 gene_pod_size=3
+gRNA_pod_size=3
+pair_pod_size=3
 # viii. results directory
 results_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
 
@@ -36,9 +38,15 @@ results_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
 # 3. Run Nextflow pipeline
 ##########################
 nextflow run $nf_pipeline --pairs $gRNA_gene_pairs \
+--covariate_matrix $covariate_matrix \
+--pair_pod_size $pair_pod_size \
 --gene_pod_size $gene_pod_size \
 --gene_odm $gene_odm \
 --gene_metadata $gene_metadata \
---covariate_matrix $covariate_matrix \
 --m_offsets $m_offsets \
---m_fam_str $m_fam
+--m_fam_str $m_fam \
+--gRNA_pod_size $gRNA_pod_size \
+--gRNA_odm $gRNA_odm \
+--gRNA_metadata $gRNA_metadata \
+--g_offsets $g_offsets \
+--g_fam_str $g_fam
