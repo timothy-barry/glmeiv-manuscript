@@ -78,12 +78,13 @@ all_pairs_ch = all_par_ch_raw.splitText().map{it.trim()}.map{it.split(" ")}
 all_pair_genes_labelled_ch = gene_precomp_ch.cross(all_pairs_ch).map{[it[1][0], it[1][1], it[0][1]]}
 // Buffer the all_pairs_labelled array
 all_pairs_labelled_buffered = all_pair_genes_labelled_ch.collate(params.pair_pod_size).map{it.flatten()}.map{it.join(' ')}
-
+all_pairs_labelled_buffered
 
 // Run the gene-gRNA analysis
 process run_gene_gRNA_analysis {
   errorStrategy  { task.attempt <= 4  ? 'retry' : 'finish' }
   time { 1.m * params.pair_pod_size }
+  echo true
 
   output:
   file 'raw_result.rds' into raw_results_ch

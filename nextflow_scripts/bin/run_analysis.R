@@ -1,7 +1,7 @@
 ##############################
 # 0. Set a few hyperparameters
 ##############################
-thresholds <- c(1L, 3L, 5L, 7L)
+thresholds <- c(1L, 3L, 5L, 20L)
 
 ########################################
 # 1. Load packages and command-line args

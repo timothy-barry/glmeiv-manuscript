@@ -38,7 +38,7 @@ g_fam="poisson"
 # vi. pairs to analyze and pod sizes
 if [ $trial = true ]
 then
-  gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_sample.rds"
+  gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_sample_pc.rds"
   gene_pod_size=3 #500
   gRNA_pod_size=3 #500
   pair_pod_size=3 #500

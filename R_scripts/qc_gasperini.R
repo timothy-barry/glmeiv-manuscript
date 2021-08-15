@@ -85,11 +85,11 @@ gRNA_odm_qc_to_save <- gRNA_odm_sub %>% mutate_cell_covariates(n_nonzero = NULL,
 ###########################
 subsetted_pairs <- all_pairs %>% dplyr::filter(gene_id %in% get_feature_ids(gene_odm_qc_to_save),
                                                gRNA_id %in% get_feature_ids(gRNA_odm_qc_to_save))
-
 set.seed(11)
 sample_pairs <- subsetted_pairs %>% dplyr::filter(gene_id %in% sample(x = subsetted_pairs$gene_id, size = 4, replace = FALSE) &
                                   gRNA_id %in% sample(x = subsetted_pairs$gRNA_id, size = 4, replace = FALSE)) %>%
   dplyr::slice_sample(n = 15)
+sample_pairs_pc <- subsetted_pairs %>% dplyr::filter(site_type == "selfTSS") %>% dplyr::slice_sample(n = 15)
 
 ########################################################
 # 5. Save ODMs, subsetted pairs, global covariate matrix
@@ -109,6 +109,9 @@ saveRDS(object = subsetted_pairs,
 # sample pairs
 saveRDS(sample_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs_sample.rds"))
+# sample pairs pc
+saveRDS(sample_pairs_pc,
+        paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs_sample_pc.rds"))
 # m offsets
 saveRDS(object = global_covariate_matrix %>% dplyr::pull(lg_mRNA_lib_size),
         file = paste0(glmeiv_offsite_dir_gasp_data, "m_offsets.rds"))
