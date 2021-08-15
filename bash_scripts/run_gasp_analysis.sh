@@ -1,5 +1,15 @@
 source ~/.research_config
 
+# check for trial flag -t on command line
+trial=false
+while getopts t OPT
+do
+    case "$OPT" in
+        t) trial=true ;;
+    esac
+done
+
+
 #############################
 # 1. Locate nextflow pipeline
 #############################
@@ -22,21 +32,30 @@ gRNA_metadata=$processed_data_dir"gRNA_qc_metadata.rds"
 covariate_matrix=$processed_data_dir"covariate_matrix.rds"
 m_offsets=$processed_data_dir"m_offsets.rds"
 g_offsets=$processed_data_dir"g_offsets.rds"
-# v. pairs to analyze (using small version)
-gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_sample.rds" #"gRNA_gene_pairs.rds"
-# vi. family strings
+# v. family strings
 m_fam="nb"
 g_fam="poisson"
-# vii. pod sizes (control parallelization amount)
-gene_pod_size=3 #500
-gRNA_pod_size=3 #500
-pair_pod_size=3 #500
+# vi. pairs to analyze and pod sizes
+if [ $trial = true ]
+then
+  gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_sample.rds"
+  gene_pod_size=3 #500
+  gRNA_pod_size=3 #500
+  pair_pod_size=3 #500
+else
+  gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs.rds"
+  gene_pod_size=500
+  gRNA_pod_size=200
+  pair_pod_size=500
+fi
+
 # viii. results directory
 result_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
 
 ##########################
 # 3. Run Nextflow pipeline
 ##########################
+rm -f trace.txt
 nextflow run $nf_pipeline --pairs $gRNA_gene_pairs \
 --covariate_matrix $covariate_matrix \
 --pair_pod_size $pair_pod_size \
