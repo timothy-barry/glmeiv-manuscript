@@ -83,7 +83,7 @@ all_pairs_labelled_buffered = all_pair_genes_labelled_ch.collate(params.pair_pod
 // Run the gene-gRNA analysis
 process run_gene_gRNA_analysis {
   errorStrategy  { task.attempt <= 4  ? 'retry' : 'finish' }
-  time { 2.m * params.pair_pod_size }
+  time { 1.m * params.pair_pod_size }
 
   output:
   file 'raw_result.rds' into raw_results_ch

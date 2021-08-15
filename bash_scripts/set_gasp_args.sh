@@ -44,8 +44,8 @@ then
   pair_pod_size=3 #500
 else
   gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs.rds"
-  gene_pod_size=500
-  gRNA_pod_size=200
+  gene_pod_size=200
+  gRNA_pod_size=500
   pair_pod_size=500
 fi
 
