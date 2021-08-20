@@ -3,3 +3,4 @@ bash_scripts/nextflow.config
 bash_scripts/log
 bash_scripts/trace.txt
 .DS_Store
+R_scripts/.Rhistory

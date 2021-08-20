@@ -4,7 +4,9 @@ source set_gasp_args.sh
 # Run Nextflow pipeline
 #######################
 rm -f trace.txt
-nextflow run $glmeiv_nf_pipeline --pairs $gRNA_gene_pairs \
+# nextflow run $glmeiv_nf_pipeline \
+nextflow run https://github.com/timothy-barry/glmeiv-pipeline -r main \
+--pairs $gRNA_gene_pairs \
 --covariate_matrix $covariate_matrix \
 --pair_pod_size $pair_pod_size \
 --result_dir $result_dir \
