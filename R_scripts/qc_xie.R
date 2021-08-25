@@ -35,8 +35,11 @@ gRNA_gene_pairs <- readRDS(paste0(xie_offsite, "aux/pairs_grouped.rds"))
 # sample 5000 cis pairs and 50000 negative control
 set.seed(4)
 gRNA_gene_pairs_sub <- dplyr::filter(gRNA_gene_pairs, gene_id %in% get_feature_ids(gene_odm))
-gRNA_gene_sample <- rbind(gRNA_gene_pairs_sub %>% dplyr::filter(type == "cis"), gRNA_gene_pairs_sub %>%
-                            dplyr::filter(type == "neg_control") %>% dplyr::slice_sample(n = 50000))
+# check for duplication of pair id
+gRNA_gene_pairs_sub %>% dplyr::summarize(pair_id = paste0(gene_id, gRNA_id)) %>%
+  dplyr::pull() %>% duplicated() %>% any()
+gRNA_gene_sample <- rbind(gRNA_gene_pairs_sub %>% dplyr::filter(type == "cis"),
+                          gRNA_gene_pairs_sub %>% dplyr::filter(type == "neg_control") %>% dplyr::slice_sample(n = 50000))
 
 ############################################################
 # 5. Save the metadata RDS, offsets, global covariate matrix
