@@ -33,7 +33,8 @@ m_offsets=$processed_data_dir"m_offset.rds"
 g_offsets=$processed_data_dir"g_offset.rds"
 # v. family strings
 m_fam="nb"
-g_fam="poisson"
+g_fam="nb"
+g_theta=10
 # vi. pairs to analyze and pod sizes
 if [ $trial = true ]
 then
@@ -50,3 +51,4 @@ fi
 
 # vii. results directory
 result_dir=$LOCAL_GLMEIV_DATA_DIR"public/xie/results"
+result_file_name="glmeiv_result_nb10.rds"

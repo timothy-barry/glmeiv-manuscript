@@ -20,5 +20,6 @@ nextflow run https://github.com/timothy-barry/glmeiv-pipeline -r main \
 --gRNA_metadata $gRNA_metadata \
 --g_offsets $g_offsets \
 --g_fam_str $g_fam \
---g_theta 10 \
+--g_theta $g_theta \
+--result_file_name $result_file_name \
 -bg > $PWD/log -ansi-log false -with-trace
