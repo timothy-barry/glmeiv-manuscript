@@ -1,0 +1,264 @@
+\documentclass{beamer}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{/Users/timbarry/optionFiles/mymacros}
+%Information to be included in the title page:
+\title{A generalized errors-in-variables model, with application to single-cell CRISPR screens}
+\author{Tim Barry$^1$, Eugene Katsevich$^2$, Kathyrn Roeder$^1$}
+\institute{$^1$CMU Statistics and Data Science\\ $^2$Wharton Statistics and Data Science}
+\date{September 2021}
+
+\begin{document}
+	
+\frame{\titlepage}
+	
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+\item \textbf{Background}
+\item Analysis objective and challenges
+\item Existing approach
+\item Proposed method
+\item Simulation results
+\item Real data results
+\end{itemize}
+\end{frame}
+	
+\begin{frame}
+\frametitle{Single-cell CRISPR screens are a powerful technology for mapping the regulatory wiring of the genome.}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{extra_figs/regulatory_wiring}
+	\label{regulatorywiring}
+\end{figure}
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Single-cell CRISPR screens entail sequencing gRNAs and mRNAs in individual cells.}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{extra_figs/experimental_protocol}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+	\item Background
+	\item\textbf{Analysis Challenges}
+	\item Existing approach
+	\item Proposed method
+	\item Simulation results
+	\item Real data results
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{There are several challenges to the analysis of single-cell CRISPR screen data:}
+
+\begin{itemize}
+\item[1.] The perturbation is unobserved.
+\item[2.] Technical factors, such as batch and sequencing depth, explain variability in mRNA and gRNA counts.
+\item[3.] Unperturbed cells exhibit ``background gRNA reads.'' \cite{Schraivogel2020}
+\item[4.] The mRNA and gRNA expression data are highly discrete.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{(1) The perturbation is unobserved, and (2) technical factors are present.}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{../figures/fig1/dag}
+	\label{dag}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{(3) Unperturbed cells exhibit background gRNA reads.}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{../figures/fig1/density_plot_annotated.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{(4) The count data are highly discrete.}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{../figures/fig1/mRNA_count_hist_annotated.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+	\item Background
+	\item Analysis Challenges
+	\item \textbf{Existing approach}
+	\item Proposed method
+	\item Simulation results
+	\item Real data results
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Data and notation}
+
+\begin{itemize}
+\item Observe $n \approx 100,000 - 250,000$ cells.
+\item Consider a given mRNA and gRNA of interest.
+\item For cell $i \in \{1, \dots, n\}$, let 
+\begin{itemize}
+\item $p_i \in \{0, 1\}$ indicate whether a perturbation occurred. 
+\item $m_i \in \mathbb{N}$ be the mRNA count.
+\item $g_i \in \mathbb{N}$ be the gRNA count.
+\item $l^m_i \in \mathbb{N}$ be the mRNA library size.
+\item $z_i \in \R^{d-1}$ be a vector of technical factors, possibly including an intercept term.
+\end{itemize}
+\item $\approx5,000$ genes, $\approx500 - 5,000$ gRNAs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The ``thresholding method''}
+
+\begin{itemize}
+\item[1.] For given threshold $c \in \N$, estimate $P_i$ by $$ \begin{cases} \hat{P}_i = 0 \textrm{ if } g_i \geq c, \\ \hat{P}_i = 1 \textrm{ if } g_i < c \end{cases}.$$
+\item[2.] Fit the regression model \cite{Sarkar2021}
+$$ m_i | \left( z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ where $\theta >0$ is the NB size parameter and $$\log\left(\mu_i\right) = \beta_m \hat{P}_i + \gamma^T_m z_i + \log\left( l_i^m\right).$$
+\item[3.] Obtain an estimate $\hat{\beta}_m$ of $\beta_m$ and compute a CI for $\beta_m$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problem 1: There is no clear location at which to draw the threshold.}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{../figures/fig2/histograms}
+\end{figure}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Problem 2: Thresholding leads to attenuation bias in many measurement error models \cite{Stefanski2000}.}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Research question}
+Does modeling the gRNA count distribution directly (thereby bypassing thresholding) improve estimation and inference?
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+	\item Background
+	\item Analysis Challenges
+	\item Existing approach
+	\item \textbf{Proposed method}
+	\item Simulation results
+	\item Real data results
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A bit more notation}
+For cell $i \in \{ 1, \dots, n\}$, let $l^g_i$ be the gRNA library size.
+\end{frame}
+
+\begin{frame}
+\frametitle{We extend the parametric model of \cite{Sarkar2021} to model both mRNA \textit{and} gRNA counts.}
+\begin{itemize}
+\item[1.] \textbf{mRNA}: $m_i | (z_i, l_i^m) \sim \textrm{NB}_\theta(\mu^m_i),$ where $$ \log\left( \mu^m_i \right) = \beta_m P_i + \gamma_m^T z_i + \log(l^m_i).$$
+\item[2.] \textbf{gRNA}: $g_i | (z_i, l_i^g) \sim \textrm{NB}_\theta (\mu_i^g),$ where $$\log(\mu_i^g) = \beta_g P_i + \gamma_g^T z_i + \log(l_i^g)$$
+\item[3.] \textbf{Perturbation}: $P_i \sim \textrm{Bern}(\pi)$, where $\pi \in [0, 1/2)$. $P_i$ is latent.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generalizing the NB model to arbitrary exponential family response distribution and link function yields the ``GLM-EIV'' (GLM errors-in-variables) model.}
+
+This extension is important, because authors have used
+ \begin{itemize}
+ \item \textcolor{blue}{Negative binomial}, \cite{Choudhary2021}
+ \item \textcolor{blue}{Poisson}, \cite{Schraivogel2020}
+ \item and \textcolor{blue}{Gaussian} \cite{Lin2021}
+ \end{itemize}
+distributions to model single-cell data.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Generalizing the NB model to arbitrary exponential family response distribution and link function yields the ``GLM-EIV'' (GLM errors-in-variables) model.}
+
+\begin{itemize}
+\item[1.] \textbf{mRNA density}: $$f_m(m_i; \eta^m_i) = \exp\left\{m_i \eta_i^m - \psi_m(\eta_i^m) + c_m(m_i) \right\}.$$
+\item[2.] \textbf{gRNA density}: $$f_g(g_i; \eta^g_i) = \exp\left\{ g_i \eta_i^g - \psi_g(\eta_i^g) + c_g(g_i) \right\}.$$
+\item[3.] \textbf{Perturbation density}: $$ f(p_i) = \pi^{p_i} (1-\pi)^{1-p_i}.$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generalizing the NB model to arbitrary exponential family response distribution and link function yields the ``GLM-EIV'' (GLM errors-in-variables) model.}
+
+The canonical parameter of the mRNA distribution for the $i$th cell, $\eta^m_i$, is given by $$\eta_i^m = h_m\left( \beta_m P_i + \gamma^T_m z_i + \log\left( l_i^m \right) \right).$$ If the canonical link function is used, then $h_m$ is the identity. The case for $\eta_i^g$ is similar.
+\end{frame}
+
+\begin{frame}
+\frametitle{We derive an EM algorithm to fit the model.}
+
+\textbf{E step}:
+\begin{itemize}
+\item Compute membership probabilities $T_1, \dots, T_n$ using the model.
+\end{itemize}
+
+\textbf{M step}:
+\begin{itemize}
+\item Augment count vectors $m \rightarrow [m, m], g \rightarrow [g, g]$.
+\item Augment offset vectors $l_m \rightarrow [l_m, l_m], l_g \rightarrow [l_g, l_g]$.
+\item Augment covariate matrix  $Z \rightarrow [Z, Z];$ append column of $1$s and $0$s for perturbation indicators.
+\item Fit weighted GLM to both modalities using membership probabilities $[T_1, \dots, T_n, 1 - T_1, \dots, 1 - T_n]$ as weights.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{We derive an analytic expression for the observed information matrix to enable fast inference (CIs, $p$-values).}
+
+\begin{multline*}
+J(\hat{\theta}; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | g, m, \hat{\theta} \right] \\ + \E\left[ \nabla \mathcal{L}(\theta; m, g, p) |  g, m, \hat{\theta} \right] \cdot \E\left[ \nabla \mathcal{L}(\theta; m, g, p) | g, m, \hat{\theta}\right]^T \\ - \E\left[ \nabla\mathcal{L}(\theta; m, g, p) \nabla \mathcal{L}(\theta; m, g, p)^T | g, m, \hat{\theta} \right].
+\end{multline*}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\linewidth]{extra_figs/fig3_crop}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{We implement several statistical accelerations to make the method fast.}
+\end{frame}
+
+% However, the model gives us many insights into single-cell CRISPR screen datasets.
+% What is the fold change in gRNA expression?
+% What is the perturbation probability?
+% 
+
+% Practical strategies:
+% Is thresholding a reasonable strategy for these data?
+% How can I choose a good threshold (cell-specific threshold; use only cells with high or low posterior membership probabilities, and throw all others out)?
+
+\bibliography{/Users/timbarry/optionFiles/glmeiv.bib}
+\bibliographystyle{apalike}
+
+\end{document}
