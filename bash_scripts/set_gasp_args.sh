@@ -51,3 +51,4 @@ fi
 
 # vii. results directory
 result_dir=$LOCAL_GLMEIV_DATA_DIR"public/gasperini/results"
+result_file_name="glmeiv_result.rds"
