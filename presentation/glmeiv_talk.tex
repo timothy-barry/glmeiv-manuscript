@@ -7,6 +7,7 @@
 \author{Tim Barry$^1$, Eugene Katsevich$^2$, Kathyrn Roeder$^1$}
 \institute{$^1$CMU Statistics and Data Science\\ $^2$Wharton Statistics and Data Science}
 \date{September 2021}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
 	
@@ -120,7 +121,7 @@
 \item $l^m_i \in \mathbb{N}$ be the mRNA library size.
 \item $z_i \in \R^{d-1}$ be a vector of technical factors, possibly including an intercept term.
 \end{itemize}
-\item $\approx5,000$ genes, $\approx500 - 5,000$ gRNAs
+\item We measure $\approx5,000$ genes, $\approx500 - 5,000$ gRNAs
 \end{itemize}
 \end{frame}
 
@@ -128,15 +129,15 @@
 \frametitle{The ``thresholding method''}
 
 \begin{itemize}
-\item[1.] For given threshold $c \in \N$, estimate $P_i$ by $$ \begin{cases} \hat{P}_i = 0 \textrm{ if } g_i \geq c, \\ \hat{P}_i = 1 \textrm{ if } g_i < c \end{cases}.$$
+\item[1.] For given threshold $c \in \N$, estimate $p_i$ by $$ \begin{cases} \hat{p}_i = 0 \textrm{ if } g_i \geq c, \\ \hat{p}_i = 1 \textrm{ if } g_i < c \end{cases}.$$
 \item[2.] Fit the regression model \cite{Sarkar2021}
-$$ m_i | \left( z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ where $\theta >0$ is the NB size parameter and $$\log\left(\mu_i\right) = \beta_m \hat{P}_i + \gamma^T_m z_i + \log\left( l_i^m\right).$$
+$$ m_i | \left( z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ where $\theta >0$ is the NB size parameter, and $$\log\left(\mu_i\right) = \beta_m \hat{p}_i + \gamma^T_m z_i + \log\left( l_i^m\right).$$
 \item[3.] Obtain an estimate $\hat{\beta}_m$ of $\beta_m$ and compute a CI for $\beta_m$.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Problem 1: There is no clear location at which to draw the threshold.}
+\frametitle{Problem 1: There is no clear location in the data at which to draw the threshold.}
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth]{../figures/fig2/histograms}
@@ -147,10 +148,36 @@ $$ m_i | \left( z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ where $\the
 
 
 \begin{frame}
-\frametitle{Problem 2: Thresholding leads to attenuation bias in many measurement error models \cite{Stefanski2000}.}
+\frametitle{Problem 2: Thresholding can lead to attenuation bias.}
+
+
+As a simple example, suppose
+$$
+\begin{cases}
+p_1, \dots, p_n \sim \textrm{Bern}(\pi) \\
+y_i = \beta_m p_i + \ep_i \\
+x_i = \beta_g p_i + \tau_i,
+\end{cases}
+$$
+where $\ep_i \indep \tau_i$ and $\ep_i, \tau_i \sim N(0,1)$. We observe
+$$ \{(x_1, y_1), \dots, (x_n, y_n)\},$$ and we want to estimate $\beta_m$ using the thresholding method. Assume $\beta_g$ and $\pi$ are known. We select the threshold $c$ so as to minimize the misclassification rate, i.e., $$c = \argmin_{c \in \R} \frac{1}{n} \sum_{i=1}^n \mathbb{I}(\hat{P}_i \neq P_i).$$
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{The thresholding method shows clear attenuation bias.}
+\begin{itemize}
+\item We set $\beta_m$ to 1.
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{../figures/fig2/att_bias}
+\end{figure}
+
+
+\end{frame}
 
 \begin{frame}
 \frametitle{Research question}
@@ -179,9 +206,9 @@ For cell $i \in \{ 1, \dots, n\}$, let $l^g_i$ be the gRNA library size.
 \begin{frame}
 \frametitle{We extend the parametric model of \cite{Sarkar2021} to model both mRNA \textit{and} gRNA counts.}
 \begin{itemize}
-\item[1.] \textbf{mRNA}: $m_i | (z_i, l_i^m) \sim \textrm{NB}_\theta(\mu^m_i),$ where $$ \log\left( \mu^m_i \right) = \beta_m P_i + \gamma_m^T z_i + \log(l^m_i).$$
-\item[2.] \textbf{gRNA}: $g_i | (z_i, l_i^g) \sim \textrm{NB}_\theta (\mu_i^g),$ where $$\log(\mu_i^g) = \beta_g P_i + \gamma_g^T z_i + \log(l_i^g)$$
-\item[3.] \textbf{Perturbation}: $P_i \sim \textrm{Bern}(\pi)$, where $\pi \in [0, 1/2)$. $P_i$ is latent.
+\item[1.] \textbf{mRNA}: $m_i | (z_i, l_i^m) \sim \textrm{NB}_\theta(\mu^m_i),$ where $$ \log\left( \mu^m_i \right) = \beta_m p_i + \gamma_m^T z_i + \log(l^m_i).$$
+\item[2.] \textbf{gRNA}: $g_i | (z_i, l_i^g) \sim \textrm{NB}_\theta (\mu_i^g),$ where $$\log(\mu_i^g) = \beta_g p_i + \gamma_g^T z_i + \log(l_i^g)$$
+\item[3.] \textbf{Perturbation}: $p_i \sim \textrm{Bern}(\pi)$, where $\pi \in [0, 1/2)$. $p_i$ is latent.
 \end{itemize}
 \end{frame}
 
@@ -211,12 +238,18 @@ distributions to model single-cell data.
 \begin{frame}
 \frametitle{Generalizing the NB model to arbitrary exponential family response distribution and link function yields the ``GLM-EIV'' (GLM errors-in-variables) model.}
 
-The canonical parameter of the mRNA distribution for the $i$th cell, $\eta^m_i$, is given by $$\eta_i^m = h_m\left( \beta_m P_i + \gamma^T_m z_i + \log\left( l_i^m \right) \right).$$ If the canonical link function is used, then $h_m$ is the identity. The case for $\eta_i^g$ is similar.
+Consider the mRNA model.
+\begin{itemize}
+\item Let $g_m : \R \to \R$ be the link function, i.e.
+$$g_m(\mu_i) = \beta_m p_i + \gamma^T_m z_i + \log(l_i^m).$$
+\item The canonical parameter for the $i$th cell, $\eta^m_i$, is given by
+$$ \eta_i^m = \left[ \psi_m' \right]^{-1} \left( \mu_i \right) = \left[ \psi'_m \right]^{-1} \left( g_m^{-1} \left( \beta_m p_i + \gamma_m^T z_i + \log(l_i^m) \right)\right).$$
+\item Thus, the model is defined by (i) the cumulant-generating function $\psi_m$, and (ii) the link function $g_m$. 
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{We derive an EM algorithm to fit the model.}
-
 \textbf{E step}:
 \begin{itemize}
 \item Compute membership probabilities $T_1, \dots, T_n$ using the model.
@@ -229,30 +262,99 @@ The canonical parameter of the mRNA distribution for the $i$th cell, $\eta^m_i$,
 \item Augment covariate matrix  $Z \rightarrow [Z, Z];$ append column of $1$s and $0$s for perturbation indicators.
 \item Fit weighted GLM to both modalities using membership probabilities $[T_1, \dots, T_n, 1 - T_1, \dots, 1 - T_n]$ as weights.
 \end{itemize}
-
 \end{frame}
+
+
+\begin{frame}
+\frametitle{We use statistical tricks to produce an accurate pilot estimate of the parameters, enabling us to run the EM algorithm using only one restart.}
+\begin{itemize}
+	\item Naive approach (random parameter initialization): $$\left( \textrm{15 EM restarts} \right) \left( \frac{ \textrm{20 iterations} }{\textrm{EM restart}} \right) \left( \frac{\textrm{2 GLMs}}{\textrm{iteration}}\right) \approx \textrm{600 GLMs}.$$
+	\item GLM-EIV approach: 
+	$$ \left(\textrm{1 EM restart}\right) \left( \frac{ \textrm{3 iterations}}{\textrm{EM restart}} \right)\left( \frac{ \textrm{2 GLMs} }{ \textrm{iteration} } \right) \approx \textrm{6 GLMs}.$$
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{We derive an analytic expression for the observed information matrix to enable fast inference (CIs, $p$-values).}
-
 \begin{multline*}
-J(\hat{\theta}; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | g, m, \hat{\theta} \right] \\ + \E\left[ \nabla \mathcal{L}(\theta; m, g, p) |  g, m, \hat{\theta} \right] \cdot \E\left[ \nabla \mathcal{L}(\theta; m, g, p) | g, m, \hat{\theta}\right]^T \\ - \E\left[ \nabla\mathcal{L}(\theta; m, g, p) \nabla \mathcal{L}(\theta; m, g, p)^T | g, m, \hat{\theta} \right].
+J(\hat{\theta}; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | g, m, \hat{\theta} \right] \\ + \E\left[ \nabla \mathcal{L}(\theta; m, g, p) |  g, m, \hat{\theta} \right] \E\left[ \nabla \mathcal{L}(\theta; m, g, p) | g, m, \hat{\theta}\right]^T \\ - \E\left[ \nabla\mathcal{L}(\theta; m, g, p) \nabla \mathcal{L}(\theta; m, g, p)^T | g, m, \hat{\theta} \right].
 \end{multline*}
+\end{frame}
+
+\begin{frame}
+\frametitle{We develop a pipeline to deploy the method across hundreds or thousands of processors on HPC and cloud.}
 
 \begin{figure}
-\centering
-\includegraphics[width=0.4\linewidth]{extra_figs/fig3_crop}
+	\centering
+	\includegraphics[width=0.6\linewidth]{extra_figs/computing}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{We implement several statistical accelerations to make the method fast.}
+\frametitle{Method summary}
+\begin{itemize}
+\item We extend the parametric model of \cite{Sarkar2021} to model both mRNA counts and gRNA counts in single-cell CRISPR screen experiments.
+\begin{itemize}
+\item Arbitrary exponential family distributions and link functions are supported. 
+\end{itemize}
+\item We (i) develop a fast EM algorithm to fit the model, (ii) derive an analytic expression for the observed information matrix, and (iii) implement a computational pipeline to deploy the method on HPC and cloud. 
+\begin{itemize}
+\item These features enable GLM-EIV to scale to large datasets.
+\end{itemize}
+\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+	\item Background
+	\item Analysis objective and challenges
+	\item Existing approach
+	\item Proposed method
+	\item \textbf{Simulation results}
+	\item Real data results
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+	\item Background
+	\item Analysis objective and challenges
+	\item Existing approach
+	\item Proposed method
+	\item Simulation results
+	\item\textbf{Real data results}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Real data analysis details}
+\begin{itemize}
+\item Quality control
+\begin{itemize}
+\item Lowly-expressed genes removed
+\item Cells with library sizes below 5th percentile or above 95th percentile removed
+\end{itemize}
+\item mRNA model
+\begin{itemize}
+\item negative binomial distribution (with log link)
+\item size parameter $\theta$ estimated from data.
+\end{itemize}
+\item gRNA model
+\begin{itemize}
+\item Poisson distribution (with log link) \cite{Choudhary2021}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
 
 % However, the model gives us many insights into single-cell CRISPR screen datasets.
 % What is the fold change in gRNA expression?
 % What is the perturbation probability?
-% 
 
 % Practical strategies:
 % Is thresholding a reasonable strategy for these data?

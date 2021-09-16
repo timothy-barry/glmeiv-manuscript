@@ -31,7 +31,7 @@ p1 <- ggplot(data = to_plot, mapping = aes(x = x, y = y, col = Status)) +
   theme(legend.position="bottom") + theme(legend.position="bottom", legend.title=element_blank()) +
   geom_vline(data = dplyr::filter(to_plot, modality == "mRNA"), mapping = aes(xintercept = -0.4), col = "darkred") +
   geom_vline(data = dplyr::filter(to_plot, modality == "mRNA"), mapping = aes(xintercept = 0.0), col = "darkred") +
-  scale_color_manual(values = my_cols) +  geom_line(lwd = 1.1)
+  scale_color_manual(values = my_cols) + geom_line(lwd = 1.1)
 ggsave(filename = paste0(fig1_dir, "density_plot.pdf"), plot = p1, device = "pdf", scale = 1, width = 4, height = 4)
 
 
