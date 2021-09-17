@@ -6,36 +6,36 @@ Database file #1: /Users/timbarry/optionFiles/glmeiv.bib
 Warning--there's a number but no volume in Choudhary2021
 You've used 6 entries,
             1935 wiz_defined-function locations,
-            520 strings with 5138 characters,
-and the built_in function-call counts, 3108 in all, are:
-= -- 294
-> -- 172
-< -- 3
-+ -- 62
-- -- 62
-* -- 309
-:= -- 541
+            521 strings with 5281 characters,
+and the built_in function-call counts, 3263 in all, are:
+= -- 306
+> -- 193
+< -- 2
++ -- 70
+- -- 70
+* -- 330
+:= -- 568
 add.period$ -- 18
 call.type$ -- 6
-change.case$ -- 61
+change.case$ -- 65
 chr.to.int$ -- 6
 cite$ -- 7
 duplicate$ -- 84
-empty$ -- 194
-format.name$ -- 72
-if$ -- 585
+empty$ -- 197
+format.name$ -- 80
+if$ -- 612
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 6
 newline$ -- 33
 num.names$ -- 18
-pop$ -- 47
+pop$ -- 52
 preamble$ -- 1
-purify$ -- 61
+purify$ -- 65
 quote$ -- 0
-skip$ -- 62
+skip$ -- 61
 stack$ -- 0
-substring$ -- 257
+substring$ -- 266
 swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0

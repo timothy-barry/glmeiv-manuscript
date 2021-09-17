@@ -34,10 +34,10 @@ Schraivogel, D., Gschwind, A.~R., Milbank, J.~H., Leonce, D.~R., Jakob, P.,
   cells}.
 \newblock {\em Nature Methods}, 17(6):629--635.
 
-\bibitem[Stefanski, 2000]{Stefanski2000}
-Stefanski, L.~A. (2000).
-\newblock {Measurement Error Models}.
-\newblock {\em Journal of the American Statistical Association},
-  95(452):1353--1358.
+\bibitem[Xie et~al., 2019]{Xie2019}
+Xie, S., Armendariz, D., Zhou, P., Duan, J., and Hon, G.~C. (2019).
+\newblock {Global Analysis of Enhancer Targets Reveals Convergent
+  Enhancer-Driven Regulatory Modules}.
+\newblock {\em Cell Reports}, 29(9):2570--2578.e5.
 
 \end{thebibliography}

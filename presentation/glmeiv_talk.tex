@@ -37,12 +37,20 @@
 	
 \begin{frame}
 	\frametitle{Single-cell CRISPR screens entail sequencing gRNAs and mRNAs in individual cells.}
-	
 	\begin{figure}
 		\centering
 		\includegraphics[width=1\linewidth]{extra_figs/experimental_protocol}
 	\end{figure}
 \end{frame}
+
+\begin{frame}
+\frametitle{We investigate single-cell CRISPR screen datasets produced by \cite{Gasperini2019} and \cite{Xie2019}.}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{extra_figs/papers}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Overview}
@@ -160,7 +168,7 @@ x_i = \beta_g p_i + \tau_i,
 \end{cases}
 $$
 where $\ep_i \indep \tau_i$ and $\ep_i, \tau_i \sim N(0,1)$. We observe
-$$ \{(x_1, y_1), \dots, (x_n, y_n)\},$$ and we want to estimate $\beta_m$ using the thresholding method. Assume $\beta_g$ and $\pi$ are known. We select the threshold $c$ so as to minimize the misclassification rate, i.e., $$c = \argmin_{c \in \R} \frac{1}{n} \sum_{i=1}^n \mathbb{I}(\hat{P}_i \neq P_i).$$
+$$ \{(x_1, y_1), \dots, (x_n, y_n)\},$$ and we want to estimate $\beta_m$ using the thresholding method. Assume $\beta_g$ and $\pi$ are known. We select the threshold $c$ so as to minimize the misclassification rate, i.e., $$c = \argmin_{c \in \R} \frac{1}{n} \sum_{i=1}^n \mathbb{I}(\hat{p}_i \neq p_i).$$
 
 \end{frame}
 
@@ -181,7 +189,7 @@ $$ \{(x_1, y_1), \dots, (x_n, y_n)\},$$ and we want to estimate $\beta_m$ using 
 
 \begin{frame}
 \frametitle{Research question}
-Does modeling the gRNA count distribution directly (thereby bypassing thresholding) improve estimation and inference?
+Does modeling the gRNA count distribution (thereby bypassing thresholding) improve estimation and inference?
 \end{frame}
 
 
@@ -294,11 +302,11 @@ J(\hat{\theta}; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | g, m, 
 \begin{frame}
 \frametitle{Method summary}
 \begin{itemize}
-\item We extend the parametric model of \cite{Sarkar2021} to model both mRNA counts and gRNA counts in single-cell CRISPR screen experiments.
+\item We extend the parametric model of \cite{Sarkar2021} to model both mRNA counts and gRNA counts.
 \begin{itemize}
 \item Arbitrary exponential family distributions and link functions are supported. 
 \end{itemize}
-\item We (i) develop a fast EM algorithm to fit the model, (ii) derive an analytic expression for the observed information matrix, and (iii) implement a computational pipeline to deploy the method on HPC and cloud. 
+\item We (i) propose a fast EM algorithm to fit the model, (ii) derive an analytic expression for the observed information matrix, and (iii) implement a computational pipeline to deploy the method on HPC and cloud. 
 \begin{itemize}
 \item These features enable GLM-EIV to scale to large datasets.
 \end{itemize}
@@ -317,6 +325,34 @@ J(\hat{\theta}; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | g, m, 
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Simulation setup}
+\begin{itemize}
+\item No covariates
+\item No offset terms (i.e., library size fixed at one)
+\item Intercept terms fixed
+\item $\pi$ fixed
+\item $\beta_m$ fixed (and of moderate size)
+\item $\beta_g$ varied over an interval
+\item Gaussian, Poisson, and negative binomial distributions
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{../figures/fig3/simulation_warmup_arm_g}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{GLM-EIV outperforms the thresholding method on the simulated data for two main reasons:}
+\begin{itemize}
+\item[1.] GLM-EIV leverages information from \textit{both} modalities to assign perturbation identities to cells.
+\item[2.] GLM-EIV generates \textit{soft} rather than \textit{hard} assignments, capturing the inherent uncertainty in whether a perturbation occurred.
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Overview}
@@ -330,32 +366,138 @@ J(\hat{\theta}; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | g, m, 
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}
-\frametitle{Real data analysis details}
+\frametitle{We followed recommendations of \cite{Choudhary2021} for quality control and modeling.}
+
 \begin{itemize}
 \item Quality control
 \begin{itemize}
-\item Lowly-expressed genes removed
-\item Cells with library sizes below 5th percentile or above 95th percentile removed
+\item Lowly-expressed genes filtered
+\item Cells with library sizes below 5th percentile or above 95th percentile filtered
 \end{itemize}
 \item mRNA model
 \begin{itemize}
-\item negative binomial distribution (with log link)
-\item size parameter $\theta$ estimated from data.
+\item used negative binomial distribution (with log link)
+\item size parameter $\theta$ estimated from data
 \end{itemize}
 \item gRNA model
 \begin{itemize}
-\item Poisson distribution (with log link) \cite{Choudhary2021}
+\item used Poisson distribution (with log link)
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 
+\begin{frame}
+\frametitle{The estimate $\hat{\beta}_g$ for $\beta_g$ was large on both datasets across all site types.}
+\begin{center}
+\textbf{Gasperini}
+\end{center}
+\begin{center}
+\begin{tabular}{|c|c|}
+	\hline 
+	Site type & Mean $\exp\left(\beta_g\right)$ 95\% CI \\ 
+	\hline 
+ 	 \textcolor{blue}{Candidate \textit{cis}} & $(4453, 5353)$ \\ 
+	\hline 
+	\textcolor{blue}{Negative control} &  $(4484, 5408)$ \\ 
+	\hline
+	\textcolor{blue}{TSS-targeting} & $(3605, 4205)$ \\
+	\hline
+\end{tabular} 
+\end{center}
+
+\begin{center}
+	\textbf{Xie}
+\end{center}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline 
+		Site type & Mean $\exp\left(\beta_g\right)$ 95\% CI \\ 
+		\hline 
+		\textcolor{blue}{Candidate \textit{cis}} & $(307, 324)$ \\ 
+		\hline 
+		\textcolor{blue}{Negative control} &  $(299, 316)$ \\
+		\hline
+	\end{tabular} 
+\end{center}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{GLM-EIV and thresholding exhibited similar CI coverage rates on the negative control pairs.}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline 
+	Dataset & GLM-EIV & Thresholding \\ 
+	\hline 
+	\textcolor{blue}{Xie} & 93.7\% & 93.2\% \\ 
+	\hline 
+	\textcolor{blue}{Gasperini} & 90.6\% & 91.4\%  \\ 
+	\hline 
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Estimates and CIs produced by GLM-EIV and the thresholding method were similar.}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{../figures/fig5/comparison}
+\end{figure}
+\begin{center}
+Candidate \textit{cis} pairs in Xie et al.\ data.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{We now can answer our core research question.}
+\textbf{Research question}: Does modeling the gRNA count distribution (thereby bypassing thresholding) improve estimation and inference?
+\begin{itemize}
+\item Yes, if the problem is in a ``sufficiently challenging'' setting.
+\item The real data that we analyzed, surprisingly, were in an ``easy'' setting.
+\item Therefore, GLM-EIV and the thresholding method performed similarly on the real data.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The proposed method could help solve practical challenges.}
+\begin{itemize}
+\item Selecting cell-specific thresholds
+\item Identifying ``problem difficulty'' and thus whether thresholding is appropriate
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Together, GLM-EIV and SCEPTRE shed light on core analysis challenges posed by single-cell CRISPR screens, paving the way for the development of new methods.}
+\begin{itemize}
+	\item[1.] Perturbation unobserved
+	\item[2.] Confounders and nuisance variables
+	\item[3.] Possible model mispecification
+	\item[4.] Background reads
+	\item[5.] Highly discrete data
+	\item[6.] Ineffective gRNAs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Thank you.}
+Acknowledgments:
+\begin{itemize}
+\item Xuran Wang helped with the Xie data preprocessing.
+\item All analyses were run on Pittsburgh Supercomputer.
+\end{itemize}
+\end{frame}
 
 % However, the model gives us many insights into single-cell CRISPR screen datasets.
 % What is the fold change in gRNA expression?
 % What is the perturbation probability?
-
 % Practical strategies:
 % Is thresholding a reasonable strategy for these data?
 % How can I choose a good threshold (cell-specific threshold; use only cells with high or low posterior membership probabilities, and throw all others out)?
