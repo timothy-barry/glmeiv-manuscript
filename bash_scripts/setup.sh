@@ -19,4 +19,5 @@ $public_dir"simulations/results" \
 $public_dir"gasperini/data" \
 $public_dir"gasperini/results" \
 $public_dir"xie/data" \
-$public_dir"xie/results"
+$public_dir"xie/results" \
+$public_dir"aux"

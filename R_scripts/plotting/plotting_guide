@@ -1,0 +1,16 @@
+1. Analysis challenges (analysis_challenges.R)
+a) DAG showing unobserved perturbation.
+b) Densities illustrating background reads.
+c) Histogram of gene distributions to show discreteness.
+
+2. Theoretical study of thresholding method (thresholding_theory.R)
+a) Estimate vs. threshold c for three different values of \beta_g: \beta_g = 0.5, \beta_g = 1.33, \beta_g = 2
+b) Plot of limiting bias (for c = infinity) vs pi for multiple values of \beta^g (single panel probably suffices)
+c) Plot of variance vs. threshold under null hypothesis and alternative hypothesis for different values c.
+
+3. Empirical study of thresholding method (thresholding_empirical.R)
+a) Plot of estimates for thresh = 1 vs. thresh = 5
+b) Plot estimates of thresh = 5 vs. thresh = 20
+c) p-values of thresh = 5 vs. thresh = 20
+d) CIs of thresh = 5 vs. thresh = 20
+e) (possibly) plot of gRNA counts for Gasperini and Xie, illustrating that there is no clear location at which to draw threshold.

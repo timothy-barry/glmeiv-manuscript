@@ -28,7 +28,6 @@ summarized_results_gaus <- simulatr::summarize_results(sim_spec = sim_spec, sim_
 pi <- summarized_results_gaus$pi[1]  
 m_pert <- sim_spec@fixed_parameters$m_perturbation
 my_funct <- function(x) glmeiv::get_tresholding_estimator_bias(m_perturbation = m_pert, g_perturbation = x, pi = pi)
-my_cols <- c("firebrick3", "dodgerblue3")
 
 density_dfs_and_thresholds <- glmeiv::get_theoretical_densities_and_thresholds(sim_spec = sim_spec,
                                                                                xgrid = seq(-10, 10, 0.1))
