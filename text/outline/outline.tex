@@ -10,29 +10,27 @@
 \noindent
 Tim, Gene, Kathryn
 \begin{center}
-\textbf{A generalized errors-in-variables model, with application to CRISPR genome editing and single-cell sequencing}
+\textbf{Applying a new class of measurement error models to CRISPR genome editing and single-cell sequencing}
 \end{center}
 
 \section{Introduction}
 CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new medical therapies \cite{Rothgangl2021,Musunuru2021} and transforming basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resulting assays, known as a ``single-cell CRISPR screens,'' link genetic perturbations in individual cells to changes in gene expression, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
 
-Despite their promise, single-cell CRISPR screens present substantial statistical challenges. A major difficulty is that CRISPR perturbations are (i) unobserved and (ii) assigned randomly to cells. The analyst cannot know with certainty which cells were perturbed and instead must leverage an indirect, noisy proxy of perturbation presence or absence -- namely, transcribed barcode counts -- to ``guess'' which cells were perturbed. Using these imputed perturbation assignments, the analyst can attempt to estimate the effect of the perturbation on gene expression. The standard approach, which we call the ``thresholding method,'' is to assign perturbation identities to cells by thresholding the barcode counts.
+Despite their promise, single-cell CRISPR screens present substantial statistical challenges. A major difficulty is that CRISPR perturbations are (i) unobserved and (ii) assigned randomly to cells. The analyst does not know with certainty which cells were perturbed and instead must leverage an indirect, noisy proxy of perturbation presence or absence -- namely, transcribed barcode counts -- to ``guess'' which cells were perturbed. Using these imputed perturbation assignments, the analyst can attempt to estimate the effect of the perturbation on gene expression. The standard approach, which we call the ``thresholding method,'' is to assign perturbation identities to cells by thresholding the barcode counts.
 
 We study estimation and inference in single-cell CRISPR screens from a statistical perspective, formulating the data generating mechanism as a new class of errors-in-variables (or measurement error) models. We assume that the response variable $y$ is a GLM of an underlying predictor variable $x^*$. We do not observe $x^*$ directly; rather, we observe a noisy version $x$ of $x^*$ that itself is a GLM of $x^*$. The goal of the analysis is to estimate the effect of $x^*$ on $y$ using the observed data $(x , y)$ only. In the context of the biological application, $x^*$, $y$, and $x$ are CRISPR perturbations, gene expressions, and barcode counts, respectively.
 
-Within this framework we make two contributions. First, we study the thresholding method from theoretical and empirical perspectives. We characterize the properties of the estimator and uncover settings in which 
+Within this framework we make two main contributions. First, we carefully study the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate the existence of a bias-variance tradeoff for the thresholding method on real data, and we recover this phenomenon in precise mathematical terms in an idealized Gaussian model. Second, we introduce a new method for estimation and inference in single-cell CRISPR screens that accounts for measurement error inherent in the experiment. The method, called \textit{GLM-EIV} (generalized linear model with errors-in-variables), implicitly estimates the probability that each cell received a perturbation, obviating the need to explicitly impute perturbation identities via thresholding or some other heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in vast regions of the parameter space.
 
-% Next, we propose a new method 
+We implement several statistical accelerations to bring the cost of GLM-EIV to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights. 
 
-GLM-EIV (GLM-based errors in variables). GLM-EIV implicitly estimates the probability that each cell was perturbed, thereby obviating the need to explicitly impute perturbation identities via thresholding or some other heuristic. 
-
-% Overall, we show how coupling novel, principled statistical approaches to current, powerful technologies from genomics and computer science -- namely, CRISPR genome engineering, single-cell sequencing, cloud computing, and high-performance computing -- can drive new biological insights.
+% Overall, our work shows how coupling a novel statistical approach to powerful technologies from genomics and computer science -- CRISPR genome engineering, single-cell sequencing, cloud computing, and high-performance computing -- can drive new biological insights.
 
 \section{Background and analysis challenges}
 
-\begin{itemize}
-\item 
-\end{itemize}
+\subsection{Background on experimental protocol}
+
+\subsection{Analysis challenges}
 
 \section{Related work}
 
