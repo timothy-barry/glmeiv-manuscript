@@ -8,30 +8,22 @@
 
 \begin{document}
 \noindent
-Tim B.
+Tim, Gene, Kathryn
 \begin{center}
-\textbf{A generalized errors-in-variables model, with application to single-cell CRISPR screens}
+\textbf{A generalized errors-in-variables model, with application to CRISPR genome editing and single-cell sequencing}
 \end{center}
 
 \section{Introduction}
-CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new therapies for diseases \cite{Rothgangl2021,Musunuru2021} and accelerating basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resultant assays, known as a ``single-cell CRISPR screens,'' link specific genetic perturbations to changes in cellular phenotypes, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
+CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new medical therapies \cite{Rothgangl2021,Musunuru2021} and transforming basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resulting assays, known as a ``single-cell CRISPR screens,'' link genetic perturbations in individual cells to changes in gene expression, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
 
-Despite their extraordinary promise, single-cell CRISPR screens present substantial statistical and computational challenges. 
+Despite their extraordinary promise, single-cell CRISPR screens present substantial statistical challenges. A major difficulty is that CRISPR perturbations are (i) unobserved and (ii) assigned randomly to cells. These facts together imply that the analyst cannot know with certainty which cells were perturbed in a single-cell CRISPR screen experiment. The analyst instead must leverage an indirect, noisy proxy of perturbation presence or absence -- namely, transcribed barcode counts -- to ``guess'' which cells were perturbed. Using these imputed perturbation assignments, the analyst can attempt to estimate the effect of the perturbation on gene expression. The standard approach, which we call the ``thresholding method,'' is to assign perturbation identities to cells by thresholding the barcode counts.
 
-% These assays, called ``single-cell CRISPR screens,'' could 
-	 % These assays, called single-cell CRISPR screens, promise to transform our understanding of disease by enabling 
-	% CRISPR promises to transform clinical treatment of diseases and basic biology research alike: 
-%	\begin{itemize}
-	% a biotechnology that enables scientists to precisely and efficiently edit genomes.
-	% \item CRISPR technology also can be used to drive basic biological discovery. 
-	% \end{itemize}
-%	\item \textbf{P2}:  \cite{Przybyla2021}
-%	\item \textbf{P3}: Despite their considerable promise, single-cell CRISPR screens pose substantial statistical and computational challenges.
-%	\item \textbf{P4}: In this work we make two main contributions.
-%	\begin{itemize}
-%	\item First, we study the thresholding method from both theoretical and empirical perspectives, characterizing its properties and illuminating the settings in which it is expected to fail.
-%	\item Second, we propose 
-%	\end{itemize}
+We study estimation and inference in single-cell CRISPR screen experiments  from a statistical perspective, casting the data generating mechanism as a new class of errors-in-variables (or measurement error) models. We assume that the response variable $y$ is a GLM of an underlying predictor variable $x^*$. We do not observe $x^*$ directly; rather, we observe a noisy version $x$ of $x^*$ that itself is a GLM of $x^*$. The goal of the analysis is to estimate (and perform inference on) the effect of $x^*$ on $y$ using the observed data $(x, y)$. In the context of the biological application, $x^*$, $y$, and $x$ are perturbations, gene expressions, and barcode counts, respectively.
+
+
+
+% First, within the proposed GLM-EIV 
+
 	
 	% \item In summary we couple a novel statistical method -- GLM-EIV -- to powerful technologies from genomics and computer science -- CRISPR genome engineering, single-cell sequencing, clound computing, and high-performance computing -- to yield new statistical and biological insights.
 % \end{itemize}
