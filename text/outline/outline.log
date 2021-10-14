@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 OCT 2021 20:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 OCT 2021 23:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -287,31 +287,31 @@ File: analysis_challenges.jpg Graphic file (type jpg)
 Package pdftex.def Info: analysis_challenges.jpg  used on input line 41.
 (pdftex.def)             Requested size: 350.99762pt x 196.07237pt.
  [3 <./analysis_challenges.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 56.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 62.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
- (./outline.bbl
-[4] [5] [6]) [7] (./outline.aux) ) 
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 62.
+ [4]
+(./outline.bbl [5] [6]) [7] (./outline.aux) ) 
 Here is how much of TeX's memory you used:
- 3442 strings out of 492649
- 49294 string characters out of 6129622
- 121568 words of memory out of 5000000
- 7271 multiletter control sequences out of 15000+600000
+ 3444 strings out of 492649
+ 49315 string characters out of 6129622
+ 121576 words of memory out of 5000000
+ 7273 multiletter control sequences out of 15000+600000
  10150 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,6n,38p,1331b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmti12.pfb>
-Output written on outline.pdf (7 pages, 2188358 bytes).
+</usr/local/texlive/2018/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on outline.pdf (7 pages, 2190997 bytes).
 PDF statistics:
  53 PDF objects out of 1000 (max. 8388607)
  36 compressed objects within 1 object stream

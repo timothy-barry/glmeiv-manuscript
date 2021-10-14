@@ -89,4 +89,18 @@ Joseph~G. Ibrahim.
 \newblock {\em Journal of the American Statistical Association},
   85(411):765--769, 1990.
 
+\bibitem{Barry2020}
+Timothy Barry, Xuran Wang, John~A. Morris, Kathryn Roeder, and Eugene
+  Katsevich.
+\newblock {Conditional resampling improves calibration and sensitivity in
+  single-cell CRISPR screen analysis}.
+\newblock {\em bioRxiv}, page 2020.08.13.250092, 2020.
+
+\bibitem{Yang2019}
+Lin Yang, Yuqing Zhu, Hua Yu, Sitong Chen, Yulan Chu, He~Huang, Jin Zhang, and
+  Wei Li.
+\newblock {Linking genotypes with multiple phenotypes in single-cell CRISPR
+  screens}.
+\newblock {\em bioRxiv}, page 658146, 2019.
+
 \end{thebibliography}
