@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Rothgangl2021}
 Tanja Rothgangl, Melissa~K. Dennis, Paulo~J.C. Lin, Rurika Oka, Dominik
@@ -57,5 +57,36 @@ John~A. Morris, Zharko Daniloski, J{\'{u}}lia Domingo, Timothy Barry, Marcello
 \newblock {Discovery of target genes and pathways of blood trait loci using
   pooled CRISPR screens and single cell RNA sequencing}.
 \newblock {\em bioRxiv}, page 2021.04.07.438882, 2021.
+
+\bibitem{Lin2021}
+Kevin~Z. Lin, Jing Lei, and Kathryn Roeder.
+\newblock {Exponential-Family Embedding With Application to Cell Developmental
+  Trajectories for Single-Cell RNA-Seq Data}.
+\newblock {\em Journal of the American Statistical Association}, 0(0):1--32,
+  2021.
+
+\bibitem{Lause2021}
+Jan Lause, Philipp Berens, and Dmitry Kobak.
+\newblock {Analytic Pearson residuals for normalization of single-cell RNA-seq
+  UMI data}.
+\newblock {\em Genome Biology}, 22(1):1--20, 2021.
+
+\bibitem{Townes2019}
+F.~William Townes, Stephanie~C. Hicks, Martin~J. Aryee, and Rafael~A. Irizarry.
+\newblock {Feature selection and dimension reduction for single-cell RNA-Seq
+  based on a multinomial model}.
+\newblock {\em Genome Biology}, 20(1):1--16, 2019.
+
+\bibitem{Grun2008}
+Bettina Gr{\"{u}}n and Friedrich Leisch.
+\newblock {\em {Finite Mixtures of Generalized Linear Regression Models}},
+  pages 205--230.
+\newblock Physica-Verlag HD, Heidelberg, 2008.
+
+\bibitem{Ibrahim1990}
+Joseph~G. Ibrahim.
+\newblock {Incomplete Data in Generalized Linear Models}.
+\newblock {\em Journal of the American Statistical Association},
+  85(411):765--769, 1990.
 
 \end{thebibliography}
