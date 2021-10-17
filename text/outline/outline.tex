@@ -7,24 +7,29 @@
 \usepackage{float}
 \usepackage[caption = false]{subfig}
 \usepackage{/Users/timbarry/optionFiles/mymacros}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
 \noindent
 Tim, Gene, Kathryn
 \begin{center}
-\textbf{A new class of measurement error models, with application to CRISPR genome editing and single-cell sequencing}
+\textbf{CRISPR genome editing, single-cell sequencing, and exponential family measurement error models}
 \end{center}
+
+\begin{abstract}
+CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. First, we demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
+\end{abstract}
 
 \section{Introduction}
 CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new medical therapies \cite{Rothgangl2021,Musunuru2021} and transforming basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resulting assays, known as a ``single-cell CRISPR screens,'' link genetic perturbations in individual cells to changes in gene expression, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
 
-Despite their promise, single-cell CRISPR screens present substantial statistical challenges. A major difficulty is that CRISPR perturbations are unobservable and assigned stochastically to cells. As a consequence, one cannot know with certainty which cells were perturbed. Instead, one must leverage an indirect, noisy proxy of perturbation presence or absence -- namely, transcribed barcode counts -- to ``guess'' which cells were perturbed. Using these imputed perturbation assignments, one can attempt to estimate the effect of the perturbation on gene expression. The standard approach, which we call the ``thresholding method,'' is to assign perturbation identities to cells by simply thresholding the barcode counts.
+Despite their promise, single-cell CRISPR screens present substantial statistical challenges. A major difficulty is that CRISPR perturbations are unobservable and assigned stochastically to cells. As a consequence, one cannot know with certainty which cells were perturbed. Instead, one must leverage an indirect, noisy proxy of perturbation presence or absence -- namely, transcribed barcode counts -- to ``guess'' which cells were perturbed. Using these imputed perturbation assignments, one can attempt to estimate the effect of the perturbation on gene expression. The standard approach, which we call ``thresholded regression'' or the ``thresholding method,'' is to assign perturbation identities to cells by simply thresholding the barcode counts.
 
 We study estimation and inference in single-cell CRISPR screens from a statistical perspective, formulating the data generating mechanism using a new class of errors-in-variables (or measurement error) models. We assume that the response variable $y$ is a GLM of an underlying predictor variable $x^*$. We do not observe $x^*$ directly; rather, we observe a noisy version $x$ of $x^*$ that itself is a GLM of $x^*$. The goal of the analysis is to estimate the effect of $x^*$ on $y$ using the observed data $(x , y)$ only. In the context of the biological application, $x^*$, $y$, and $x$ are CRISPR perturbations, gene expressions, and barcode counts, respectively.
 
-Our work makes two main contributions. First, we study the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate on real data that the thresholding method exhibits a bias-variance tradeoff as a function of the selected threshold, and we recover this phenomenon in precise mathematical terms in an Gaussian model. Second, we introduce a new method for estimation and inference in single-cell CRISPR screens that accounts for the measurement error inherent in the data generating process. The method, called \textit{GLM-EIV} (generalized linear model with errors-in-variables), implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
+Our work makes two main contributions. First, we study the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian model. Second, we introduce a new method for estimation and inference in single-cell CRISPR screens that accounts for the measurement error inherent in the experiment. The method, called \textit{GLM-EIV} (generalized linear model with errors-in-variables), implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
 
-We implement several statistical accelerations to bring the cost of GLM-EIV down to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights. 
+We implement several statistical accelerations (that possibly are of independent utility) to bring the cost of GLM-EIV down to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights. 
 
 \section{Background and analysis challenges}
 
@@ -45,26 +50,103 @@ Our focus in this work is on high multiplicity-of-infection (MOI), enhancer-targ
 
 \section{Related work}
 
-Motivated by the challenges of single-cell data, several authors recently have extended statistical models that (implicitly or explicitly) assume Gaussianity and homoscedasticity to a broad class of exponential family distributions. For example, Lin, Lei, and Roeder  \cite{Lin2021} developed eSVD, an extension of SVD to exponential family and curved Gaussian response distributions. Unlike SVD, eSVD captures the relationship between the mean and variance of a gene's expression level, a phenomenon induced by the countedness and sparsity of single-cell data \cite{Lause2021}. Along similar lines, Townes et al.\ \cite{Townes2019} proposed GLM-PCA, an extension of PCA that directly models gene expression counts while regressing out technical factors. We see our work as a continuation of this broad effort to ``port'' common statistical methods and models to single-cell count data. Our focus, however, is on regression rather than dimension reduction: we extend the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed.
+Motivated by the challenges of single-cell data, several authors recently have extended statistical models that (implicitly or explicitly) assume Gaussianity and homoscedasticity to a broader class of exponential family distributions. For example, Lin, Lei, and Roeder \cite{Lin2021} developed eSVD, an extension of SVD to exponential family and curved Gaussian responses. Unlike SVD, eSVD models the relationship between the mean and variance of a gene's expression level, a phenomenon induced by the countedness of single-cell data \cite{Lause2021}.
+Similarly, Townes et al.\ \cite{Townes2019} proposed GLM-PCA, an extension of PCA that directly models Poisson- or negative binomially-distributed gene expression counts. We see our work as a continuation of this broad effort to ``port'' common statistical methods and models to single-cell count data. Our focus, however, is on regression rather than dimension reduction: we extend the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed.
 
 % Several applied methods for linking perturbations to changes in gene expression in single-cell CRISPR screens ; however, these methods focus on hypothesis test (rather than estimation) 
 % SCEPTRE \cite{Barry2020} 
 
-The closest parallels to our work in the statistical methodology literature are Gr\"{u}n \& Leisch \cite{Grun2008} and Ibrahim \cite{Ibrahim1990}. Gr\"{u}n \& Leisch consider estimation and inference in a $k$-component mixture of GLMs. While we prefer to view the GLM-EIV model as a kind of errors-in-variables model, the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Ibrahim derives a method for fitting GLMs in the presence of missing-at-random covariates. Our method, by contrast, involves fitting two conditionally independent GLMs in the presence of a totally latent covariate. Thus, while Ibrahim is helpful reference, our estimation and inference tasks are more complex than his.
+The closest parallels to our work in the statistical methodology literature are Gr\"{u}n \& Leisch \cite{Grun2008} and Ibrahim \cite{Ibrahim1990}. Gr\"{u}n \& Leisch considered estimation and inference in a $k$-component mixture of GLMs. While we prefer to view the GLM-EIV model as an errors-in-variables model,  the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Ibrahim derived a method for fitting GLMs in the presence of missing-at-random covariates. Our method, by contrast, involves fitting two conditionally independent GLMs in the presence of a totally latent covariate. Thus, while Ibrahim is a helpful reference, our estimation and inference tasks are more complex.
 
-The genomics literature has produced several applied methods for linking perturbations to changes in gene expression in single-cell CRISPR screens: SCEPTRE \cite{Barry2020}, MIMOSCA \cite{Dixit2016}, and scMAGeCK \cite{Yang2019}. These methods in general are focused on hypothesis testing rather than estimation; none, for instance, produces a confidence interval for the effect size of a perturbation on change in gene expression. Additionally, two of these methods (MIMOSCA and scMAGeCK) use linear models to model gene expressions, disregarding the countedness and sparsity of the data. 
-
+The genomics literature has produced several applied methods for linking perturbations to changes in gene expression in single-cell CRISPR screens: SCEPTRE \cite{Barry2020}, MIMOSCA \cite{Dixit2016}, and scMAGeCK \cite{Yang2019}. These methods in general are focused on hypothesis testing rather than estimation; none, for instance, produces a confidence interval for the effect size of a perturbation on gene expression change. Additionally, two of these methods (MIMOSCA and scMAGeCK) use (possibly penalized) linear models to model gene expressions, thereby disregarding the countedness and sparsity of the data. 
 
 \section{Thresholding method}
 
+In this section we study the thresholding method from empirical and theoretical perspectives. First, we define some notation.
+
+\blue{Let $n \approx 100,000 - 250,000$ be the number of cells in the experiment. Consider a single perturbation-gene pair. For cell $i \in \{ 1, \dots, n \},$ let $p_i \in \{ 0,1 \}$ indicate whether the cell was perturbed, $m_i \in \N$ be the number of observed gene UMIs, $g_i \in \N$ be the number of observed gRNA UMIs, $l^m_i \in \N$ be the gene library size, and $z_i \in \R^{d-1}$ be a vector of technical factors (e.g., batch, percent mitochondrial reads, etc.). The thresholding method is defined as follows:}
+\blue{
 \begin{itemize}
-\item 
-\item 
-\end{itemize}
+\item[1.] For given threshold $c \in \N$, calculate the imputed value $\hat{p}_i$ of $p_i$ by $$\begin{cases} \hat{p}_i = 0 \textrm{ if } g_i \geq c, \\ \hat{p}_i = 1 \textrm{ if } g_i < c. \end{cases}$$
+\item[2.] Fit the regression model \cite{Sarkar2021}
+$$ m_i | \left(\hat{p}_i, z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ where $\theta >0$ is the NB size parameter, and $$\log\left(\mu_i\right) = \beta_m^0 + \beta_m \hat{p}_i + \gamma^T_m z_i + \log\left( l_i^m\right).$$
+\item[3.] Fit a GLM to obtain an estimate $\hat{\beta}_m$ of $\beta_m$. Compute a confidence interval and $p$-value for $\beta_m$.
+\end{itemize}}
+
+\subsection{Empirical analysis}
+
+\blue{To investigate the impact of threshold selection on the thresholding method, we applied the thresholding method to the set of positive control (i.e., gene-targeting) perturbation-gene pairs in the Gasperini data using three different choices for the threshold: 1, 5, and 20.}
+
+\blue{Description of panels a-d; threshold = 1 leads to considerable attenuation bias (a); threshold = 5 and threshold = 20 produce similar estimates, though the effect sizes are slightly greater for threshold = 20, suggesting threshold = 5 yields mild attenuation bias (b); the threshold = 20 estimates are more variable than than those of threshold = 5, as evidenced by the smaller $p$-values and wider confidence intervals.}
+
+\blue{Description of panels e-f: these are the empirical gRNA count distributions for randomly selected gRNAs from the Gasperini and Xie datasets. There does not appear to be a clear location at which to draw the threshold; aside from the initial spike at one (zero not shown), the histograms gradually decrease.}
+
+\blue{Take-home message: (i) the threshold is a tuning parameter that substantially affects the result; (ii) as the threshold increases, bias seems to decrease and variance seems to increase; (iii) it is not clear where to draw the threshold from gRNA counts alone.}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{../../figures/thresholding_empirical/plot}
+	\caption{\textbf{Empirical challenges of thresholded regression.}}
+	\label{thresholding_empirical}
+\end{figure}
+\newpage
 
 \subsection{Theoretical analysis}
 
-\subsection{Empirical analysis}
+\blue{\textbf{Bias}: We use the following theoretical model to study bias of the thresholding method: 
+$$
+\begin{cases}
+m_i = \beta^m_0 + \beta^m_1 p_i + \ep_i \\
+g_i = \beta^g_0 + \beta^g_1 p_i + \tau_i \\
+p_i \sim \textrm{Bern}(\pi) \\
+\ep_i, \tau_i \sim N(0,1) \\
+p_i \indep \tau_i \indep \ep_i
+\end{cases}.
+$$}
+We can solve for the limit in probability of $\hat{\beta}_m$. We have that $$\hat{\beta}^m_1 \xrightarrow{P} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),$$ where
+$$\begin{cases}
+\omega = \pi\left( 1 - \Phi(c - \beta_1^g - \beta_0^g) \right),\\ \zeta = (1-\pi)(1 - \Phi\left( c - \beta^g_0 \right)), \\ \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi. 
+\end{cases}$$
+Let $\gamma: \R^4 \to \R$ be defined by
+$$ \gamma( \beta^g_0, \beta^g_1, c, \pi ) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i] (1 - \E[\hat{p}_i]) }.$$ We call $\gamma$ the attenuation function. Observe that (i) $\gamma$ does not depend on $\beta^m_1$ or $\beta^m_0$, and (ii) $ \hat{\beta}^m_1 \xrightarrow{P} [\gamma(\beta_0^g, \beta_1^g, c, \pi)] \beta^m_1.$ Let $b: \R^4 \to \R$ be the asymptotic bias of $\hat{\beta}^m_1$. We can express $b$ in terms of $\gamma$ as $$b\left(\beta^g_0, \beta^g_1, c, \pi \right) = \beta^m_1 - \gamma( \beta_0^g, \beta_1^g, c, \pi) \beta^m_1 = \beta^m_1 \left[ 1- \gamma(\beta^g_0, \beta^g_1, c, \pi) \right].$$ The asymptotic bias vanishes when the attenuation function equals $1$.
+
+\begin{center}
+\textbf{Bias as a function of threshold (Panel a)}
+\end{center}
+
+To investigate the basic question of ``What is a good threshold selection strategy?'', we studied the relationship between the asymptotic bias $b$ of $\hat{\beta}^m_1$ and the selected threshold $c$. For simplicity, we set the perturbation probability $\pi$ to $1/2$. Additionally, without loss of generality, we set the target of inference $\beta^m_1$ to $1$. Let $c_\textrm{bayes} \in \R$ be the Bayes-optimal decision boundary for classifying cells as perturbed or unperturbed, i.e. $$c_\textrm{bayes} = \argmin_{c \in \R} \P(\hat{p}_i \neq p_i).$$ Simple algebra shows that $c_\textrm{bayes} = \beta_0^g + (1/2) \beta^g_1.$ Below, we state several results relating the limiting bias $b$ of $\hat{\beta}^m_1$ to $c_\textrm{bayes}$ and $\beta^g_1$, deferring proofs to the appendix.
+
+\begin{itemize}
+\item[1.] The Bayes-optimal threshold $c_\textrm{bayes}$ is a critical value of the bias function $b$, i.e. 
+$$ \frac{\partial b( \beta^g_0, \beta^g_1, c, 1/2)}{\partial c} \vline_{c = c_\textrm{bayes}} = 0.$$
+\item[2.] For certain values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a maximizer of the bias (Figure \ref{thresholding_theoretical}a, left); for other values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a minimizer of the bias (Figure \ref{thresholding_theoretical}a, right).
+\item[3.] The limit of the bias in $c$ is $1/2$, i.e. 
+$$\lim_{c \to \infty} b(\beta^g_0, \beta^g_1, c, 1/2) = 1/2.$$ In other words, we always can set the threshold to a large number and achieve a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, all panels). This fact establishes an upper bound on the bias of thresholded regression (under optimal threshold selection).
+\item[4.] For $\beta^g_1 < 2 \Phi(3/4) \approx 1.35$, $c = c_\textrm{bayes}$ yields a \textit{larger} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, left); for $\beta^g_1 > 2 \Phi(3/4)$, $c_\textrm{bayes}$ yields a \textit{smaller} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, right); finally, for $\beta^g_1 = 2 \Phi(3/4)$, $c = c_\textrm{bayes}$ and $c = \infty$ both yield a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, middle).
+\item[5.] The bias decreases monotonically as $\beta_1^g$ increases (Figure \ref{thresholding_theoretical}a; fix a threshold and scan the panels from left to right). This is consistent with the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated.
+\item[6.] For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the bias is strictly greater than $0$ and less than $2$. Therefore, the thresholding method suffers from attenuation bias, a common phenomenon in errors-in-variables models.
+\end{itemize}
+
+These results are subtle, but we can distill them as follows. First, selecting a threshold that minimizes the bias is deceptively challenging, as there is no rule of thumb that we can apply universally for this purpose (e.g., ``always choose the Bayes-optimal decision boundary'' or ``always choose a large number''). Furthermore, the optimal threshold depends on unknown parameters. Finally, even \textit{if} we have selected a good threshold, the thresholding method incurs a strict attenuation bias.
+
+\begin{center}
+\textbf{Bias of large threshold strategy vs.\ $\pi$ (Panel b)}
+\end{center}
+
+Intrigued by the finding that selecting a large threshold when $\pi = 1/2$ yields a bias of $1/2$, we investigated the relationship between bias and other values of $\pi$ under the large threshold selection strategy. 
+
+\begin{center}
+	\textbf{Bias-variance tradeoff (Panel c)}
+\end{center}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{../../figures/thresholding_theoretical/plot}
+	\caption{\textbf{Theoretical challenges of thresholded regression.}}
+	\label{thresholding_theoretical}
+\end{figure}
+
+% These difficulties motivate our core research question: does bypassing thresholding altogether lead to better estimation and inference in single-cell CRISPR screens? To answer this question, we propose GLM-EIV, method for single-cell CRISPR screen analysis that models gRNA counts directly.
 
 \section{GLM-EIV}
 
@@ -76,9 +158,9 @@ The genomics literature has produced several applied methods for linking perturb
 
 \section{Appendix}
 
-% \subsection{Dictionary of symbols}
+\subsection{Theoretical results for thresholding estimator}
 
-\subsection{Proofs of theoretical results for thresholding estimator}
+
 
 \subsection{Derivation of EM algorithm}
 
@@ -90,7 +172,9 @@ The genomics literature has produced several applied methods for linking perturb
 
 \subsection{Additional simulation results}
 
+
 \bibliographystyle{unsrt}
+\newpage
 \bibliography{/Users/timbarry/optionFiles/glmeiv.bib}
 
 

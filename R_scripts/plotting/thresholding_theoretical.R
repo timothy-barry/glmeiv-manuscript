@@ -4,6 +4,9 @@ library(magrittr)
 library(ggplot2)
 library(cowplot)
 
+fig_dir <- paste0(.get_config_path("LOCAL_CODE_DIR"), "glmeiv-manuscript/figures/thresholding_theoretical")
+if (!dir.exists(fig_dir)) dir.create(fig_dir)
+
 # a) estimate vs. threshold for different values of beta_g
 x_grid <- seq(0, 7, length.out = 501)
 beta_gs <- c(1, qnorm(0.75) * 2, 1.5)
@@ -53,11 +56,13 @@ var <- get_thresholding_estimator_var_no_int(c = xgrid, g_beta = g_beta, pi = pi
 to_plot_c <- data.frame(Metric = rep(c("Bias^2", "Variance", "MSE"), each = length(xgrid)),
                         value = c(bias_sq, var, bias_sq + var),
                         threshold = rep(xgrid, times = 3))
-p_c <- ggplot(data = to_plot_c, mapping = aes(x = threshold, y = value, col = Metric)) + geom_line() + theme_cowplot(font_size = 11) + xlab("Threshold") + ylab("") +
+p_c <- ggplot(data = to_plot_c %>% dplyr::mutate(Metric = factor(Metric, levels = c("Bias^2", "Variance", "MSE"),
+                                                                 labels = c("Bias^2", "Variance", "MSE"))), mapping = aes(x = threshold, y = value, col = Metric)) + geom_line() + theme_cowplot(font_size = 10) + xlab("Threshold") + ylab("") +
   scale_color_manual(values = c("black", my_cols[1], my_cols[2]), labels = c("MSE", expression(Bias^2), "Variance"), breaks = c("MSE", expression(Bias^2), "Variance"))
-
 
 # combine
 p_bottom <- plot_grid(p_b, p_c, align = "h", ncol = 2, rel_widths = c(1,2), labels = c("b", "c"))
 p <- plot_grid(p_a, p_bottom, ncol = 1, labels = c("a", ""))
 
+# save
+ggsave(filename = paste0(fig_dir, "/plot.jpeg"), plot = p, device = "jpeg", scale = 1.25, width = 6, height = 4)

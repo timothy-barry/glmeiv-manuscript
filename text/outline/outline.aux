@@ -6,35 +6,40 @@
 \citation{Datlinger2017}
 \citation{Morris2021a}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background and analysis challenges}{2}}
 \citation{Lin2021}
 \citation{Lause2021}
 \citation{Townes2019}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Overview of experimental design and analysis challenges}: \textbf  {a,} Experimental design. For a given perturbation (e.g., the perturbation represented in yellow), we partition the cells into two groups: those that received the perturbation, and those that did not receive the perturbation. For a given gene, we conduct a differential expression analysis across the two groups of cells, yielding an estimate of the impact of the given perturbation on the given gene. \textbf  {b,} DAG representing the variables in the analysis. The perturbation (unobserved) affects both gene expression and gRNA expression; technical factors (e.g., batch, sequencing depth, etc.) act as nuisance variables. The target of inference is the effect of the perturbation on gene expression (denoted with question mark). \textbf  {c,} Schematic illustrating ``background reads.'' The gRNA modality has a nonzero, ``background read'' distribution even in the absence of a perturbation, complicating the assignment of perturbations to cells. \textbf  {d}, Example data for a given perturbation-gene pair. Notice that (i) the perturbations are unobserved, and (ii) the gene and gRNA expression data take the form of discrete counts.}}{3}}
-\newlabel{analysis_challenges}{{1}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background and analysis challenges}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Related work}{3}}
 \citation{Grun2008}
 \citation{Ibrahim1990}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Overview of experimental design and analysis challenges}: \textbf  {a,} Experimental design. For a given perturbation (e.g., the perturbation represented in yellow), we partition the cells into two groups: those that received the perturbation, and those that did not receive the perturbation. For a given gene, we conduct a differential expression analysis across the two groups of cells, yielding an estimate of the impact of the given perturbation on the given gene. \textbf  {b,} DAG representing the variables in the analysis. The perturbation (unobserved) affects both gene expression and gRNA expression; technical factors (e.g., batch, sequencing depth, etc.) act as nuisance variables. The target of inference is the effect of the perturbation on gene expression (denoted with question mark). \textbf  {c,} Schematic illustrating ``background reads.'' The gRNA modality has a nonzero, ``background read'' distribution even in the absence of a perturbation, complicating the assignment of perturbations to cells. \textbf  {d}, Example data for a given perturbation-gene pair. Notice that (i) the perturbations are unobserved, and (ii) the gene and gRNA expression data take the form of discrete counts.}}{4}}
+\newlabel{analysis_challenges}{{1}{4}}
 \citation{Barry2020}
 \citation{Dixit2016}
 \citation{Yang2019}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Related work}{4}}
+\citation{Sarkar2021}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Thresholding method}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Empirical analysis}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Empirical challenges of thresholded regression.}}}{7}}
+\newlabel{thresholding_empirical}{{2}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Theoretical analysis}{7}}
 \bibstyle{unsrt}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Theoretical challenges of thresholded regression.}}}{10}}
+\newlabel{thresholding_theoretical}{{3}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}GLM-EIV}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Simulation studies}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Real data analysis}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Theoretical results for thresholding estimator}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Derivation of EM algorithm}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Derivation of observed information matrix}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Implementation using R family objects}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Statistical accelerations to GLM-EIV}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Additional simulation results}{10}}
 \bibdata{/Users/timbarry/optionFiles/glmeiv.bib}
 \bibcite{Rothgangl2021}{1}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Thresholding method}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Theoretical analysis}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Empirical analysis}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}GLM-EIV}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Simulation studies}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Real data analysis}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Proofs of theoretical results for thresholding estimator}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Derivation of EM algorithm}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Derivation of observed information matrix}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Implementation using R family objects}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Statistical accelerations to GLM-EIV}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Additional simulation results}{5}}
 \bibcite{Musunuru2021}{2}
 \bibcite{Przybyla2021}{3}
 \bibcite{Dixit2016}{4}
@@ -47,3 +52,4 @@
 \bibcite{Ibrahim1990}{11}
 \bibcite{Barry2020}{12}
 \bibcite{Yang2019}{13}
+\bibcite{Sarkar2021}{14}
