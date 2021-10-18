@@ -53,9 +53,6 @@ Our focus in this work is on high multiplicity-of-infection (MOI), enhancer-targ
 Motivated by the challenges of single-cell data, several authors recently have extended statistical models that (implicitly or explicitly) assume Gaussianity and homoscedasticity to a broader class of exponential family distributions. For example, Lin, Lei, and Roeder \cite{Lin2021} developed eSVD, an extension of SVD to exponential family and curved Gaussian responses. Unlike SVD, eSVD models the relationship between the mean and variance of a gene's expression level, a phenomenon induced by the countedness of single-cell data \cite{Lause2021}.
 Similarly, Townes et al.\ \cite{Townes2019} proposed GLM-PCA, an extension of PCA that directly models Poisson- or negative binomially-distributed gene expression counts. We see our work as a continuation of this broad effort to ``port'' common statistical methods and models to single-cell count data. Our focus, however, is on regression rather than dimension reduction: we extend the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed.
 
-% Several applied methods for linking perturbations to changes in gene expression in single-cell CRISPR screens ; however, these methods focus on hypothesis test (rather than estimation) 
-% SCEPTRE \cite{Barry2020} 
-
 The closest parallels to our work in the statistical methodology literature are Gr\"{u}n \& Leisch \cite{Grun2008} and Ibrahim \cite{Ibrahim1990}. Gr\"{u}n \& Leisch considered estimation and inference in a $k$-component mixture of GLMs. While we prefer to view the GLM-EIV model as an errors-in-variables model,  the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Ibrahim derived a method for fitting GLMs in the presence of missing-at-random covariates. Our method, by contrast, involves fitting two conditionally independent GLMs in the presence of a totally latent covariate. Thus, while Ibrahim is a helpful reference, our estimation and inference tasks are more complex.
 
 The genomics literature has produced several applied methods for linking perturbations to changes in gene expression in single-cell CRISPR screens: SCEPTRE \cite{Barry2020}, MIMOSCA \cite{Dixit2016}, and scMAGeCK \cite{Yang2019}. These methods in general are focused on hypothesis testing rather than estimation; none, for instance, produces a confidence interval for the effect size of a perturbation on gene expression change. Additionally, two of these methods (MIMOSCA and scMAGeCK) use (possibly penalized) linear models to model gene expressions, thereby disregarding the countedness and sparsity of the data. 
@@ -93,7 +90,7 @@ $$ m_i | \left(\hat{p}_i, z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ w
 
 \subsection{Theoretical analysis}
 
-We study the thresholding method from a theoretical perspective in an idealized Gaussian setting. Suppose we observe data $(g_1, m_1), \dots, (g_n, m_n)$ from the following model:
+We study the thresholding method from a theoretical perspective in an idealized Gaussian setting. Suppose that we observe data $(g_1, m_1), \dots, (g_n, m_n)$ from the following model:
 
 \begin{equation}\label{theoretical_model}
 \begin{cases}
@@ -104,10 +101,13 @@ p_i \sim \textrm{Bern}(\pi) \\
 p_i \indep \tau_i \indep \ep_i.
 \end{cases}
 \end{equation}
-For a given threshold $c \in \R$, let $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_0$ for $\beta^m_0$ is given by $$\hat{\beta}^m_0 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ The limit in probability (as $n \to \infty$) of $\hat{\beta}^m_0$ is
-$$\hat{\beta}^m_1 \xrightarrow{P} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),$$ where
+For a given threshold $c \in \R$, let $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is given by $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ The limit in probability (as $n \to \infty$) of $\hat{\beta}^m_0$ is
+\begin{equation}\label{thresh_est_intercepts}
+\hat{\beta}^m_1 \xrightarrow{P} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),
+\end{equation}
+where
 $$\begin{cases}
-\omega = \pi\left( 1 - \Phi(c - \beta_1^g - \beta_0^g) \right),\\ \zeta = (1-\pi)(1 - \Phi\left( c - \beta^g_0 \right)), \\ \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi. 
+\omega = 1 - \Phi\left(c - \beta_1^g - \beta_0^g \right) ,\\ \zeta = 1 - \Phi\left( c - \beta^g_0 \right), \\ \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi. 
 \end{cases}$$
 Let $\gamma: \R^4 \to \R$ be defined by
 $$ \gamma( \beta^g_0, \beta^g_1, c, \pi ) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i] (1 - \E[\hat{p}_i]) }.$$ We call $\gamma$ the \textit{attenuation function}. Observe that \begin{itemize}
@@ -139,19 +139,8 @@ These results are subtle, but we can summarize them as follows. First, selecting
 \textbf{Generalizing to $\pi \in [0,1/2]$ (Panel b)}
 \end{center}
 
-Next, we generalize the expression for bias to arbitrary $\pi \in [0,1/2]$. The following simple relationship holds:
-$$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$ In other words, when the perturbation probability is equal to $\pi$, setting the threshold to a large number yields a bias of $\pi$ (Figure \ref{thresholding_theoretical}b). We can build intuition for this result by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, one correctly classifies nearly all \textit{unperturbed} cells as \textit{unperturbed}; on the other hand, the \textit{perturbed} cells that one misclassifies as \textit{unperturbed} are swamped in number by the truly \textit{unperturbed} cells, resulting in a small bias.
-
-\begin{center}
-	\textbf{Bias-variance tradeoff (Panel c)}
-\end{center}
-
-Finally, we study the variance of the thresholding estimator. Let $v$ denote the limiting variance of scaled estimator $\sqrt{n} \hat{\beta}^m_1$, i.e.,
-$$v(\beta^g_0, \beta^g_1, c, \pi) = \lim_{n \to \infty} \V(\sqrt{n} \hat{\beta}^m_1).$$ The limiting variance of $\sqrt{n} \hat{\beta}^m_1$ grows without bound as the threshold $c$ tends to infinity: 
-$$ \lim_{c \to \infty} v(\beta^g_0, \beta^g_1, c, \pi) = \infty.$$ Thus, while selecting a large threshold is effective from a bias reduction standpoint when $\pi$ is small, it causes the variance to explode.
-
-To more precisely characterize the bias-variance tradeoff of the thresholding method, we consider a slightly simpler model: we set $\beta^m_0$ and $\beta^g_0$ to zero in (\ref{theoretical_model}) and study the no-intercept least squares estimator
-$$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_i^2}.$$ We uncover an exact bias-variance tradeoff as a function of the selected threshold (Figure \ref{thresholding_theoretical}c). The bias-variance analysis reveals that the best strategy for minimizing mean-squared error is to select a threshold that induces moderate bias. (A downside of this approach, of course, is that constructing valid confidence intervals becomes more challenging.)
+Next, we generalize the expression for bias when the threshold is large to arbitrary $\pi \in [0,1/2]$. The following simple relationship holds:
+$$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$ In other words, when the perturbation probability is equal to $\pi$, setting the threshold to a large number yields a bias of $\pi$ (Figure \ref{thresholding_theoretical}b). We can build intuition for this result by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, one correctly classifies nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that one misclassifies as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
 
 \begin{figure}[h!]
 	\centering
@@ -159,6 +148,18 @@ $$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_
 	\caption{\textbf{Theoretical challenges of thresholded regression.}}
 	\label{thresholding_theoretical}
 \end{figure}
+
+\begin{center}
+	\textbf{Bias-variance tradeoff (Panel c)}
+\end{center}
+
+Finally, to shed light on limitations of the large threshold selection strategy, we study the variance of the thresholding estimator. Let $v$ denote the limiting variance of scaled estimator $\sqrt{n} \hat{\beta}^m_1$, i.e.,
+$$v(\beta^g_0, \beta^g_1, c, \pi) = \lim_{n \to \infty} \V(\sqrt{n} \hat{\beta}^m_1).$$ The limiting variance of $\sqrt{n} \hat{\beta}^m_1$ grows without bound as the threshold $c$ tends to infinity: 
+$$ \lim_{c \to \infty} v(\beta^g_0, \beta^g_1, c, \pi) = \infty.$$ Thus, while selecting a large threshold is effective from a bias reduction standpoint when $\pi$ is small, it causes the variance to explode.
+
+To more precisely characterize the bias-variance tradeoff of the thresholding method, we consider a slightly simpler model: we set $\beta^m_0$ and $\beta^g_0$ to zero in (\ref{theoretical_model}) and study the no-intercept least squares estimator
+$$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_i^2}.$$ We uncover an exact bias-variance tradeoff as a function of the selected threshold (Figure \ref{thresholding_theoretical}c). The bias-variance analysis reveals that the best strategy for minimizing mean-squared error is to select a threshold that induces moderate bias. (A downside of this approach, of course, is that constructing valid confidence intervals becomes more challenging.)
+
 
 % These difficulties motivate our core research question: does bypassing thresholding altogether lead to better estimation and inference in single-cell CRISPR screens? To answer this question, we propose GLM-EIV, method for single-cell CRISPR screen analysis that models gRNA counts directly.
 
@@ -172,7 +173,39 @@ $$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_
 
 \section{Appendix}
 
-\subsection{Theoretical results for thresholding estimator}
+\subsection{Theoretical details for thresholding estimator}
+
+This section contains proofs for results presented the section ``Theoretical analysis of thresholding estimator.'' 
+
+\subsubsection{Limit of $\hat{\beta}^m_1$ in Gaussian model with intercepts}
+
+Consider the thresholding estimator $\hat{\beta}^m_1$ for the Gaussian model with intercepts (\ref{theoretical_model}). Dividing by $n$ in (\ref{thresh_est_intercepts}), we can express $\hat{\beta}^m_1$ as
+$$ \hat{\beta}^m_1 = \frac{ \frac{1}{n} \sum_{i=1}^n ( \hat{p}_i - \overline{\hat{p}_i})(m_i - \overline{m})}{ \frac{1}{n} \sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ By WLLN,
+$$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\textrm{Cov}(\hat{p}_i, m_i)}{\V\left(\hat{p}_i\right)}.$$ To compute this quantity, we first compute several simpler quantities:
+\begin{itemize}
+\item[1.] \textbf{Expectation of $m_i$}: $\E[m_i] = \beta^m_0 + \beta^m_1\pi.$
+\item[2.] \textbf{Expectation of $\hat{p}_i$}: Let $f$ denote the $N(0,1)$ density. Then \begin{multline*}
+\E[\hat{p}_i] = \P\left[\hat{p}_i = 1\right] = \P\left[\beta^g_0 + \beta^g_1 + \tau_i \geq c \right] = \\ \textrm{(By LOTP) } \P\left[ \beta^g_0 + \tau_i \geq c \right]\P\left[p_i = 0\right] + \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \P[p_i = 1] \\ = \P\left[ \tau_i \geq c - \beta^g_0\right](1- \pi) + \P\left[ \tau_i \geq c - \beta^g_1 - \beta^g_0 \right](\pi) \\ = \left(\int_{c - \beta^g_0}^\infty f\right) (1 - \pi) + \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right)(\pi) = \zeta(1-\pi) + \omega \pi,
+\end{multline*}
+where $$\zeta = \int_{c - \beta_0^g}^\infty f = 1 - \Phi(c - \beta^g_0)$$ and 
+$$ \omega = \int_{c - \beta^g_1 - \beta^g_0} f = 1 - \Phi(c - \beta^g_1 - \beta^g_0).$$
+\item[3.] \textbf{Expectation of $\hat{p}_i p_i$}: 
+$$\E\left[ \hat{p}_i p_i \right] = \E\left[ \hat{p}_i | p_i = 1 \right] \P\left[ p_i =1 \right] = \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \pi = \omega \pi.$$
+\item[4.] \textbf{Expectation of $\hat{p}_i m_i$}:
+\begin{multline*}
+\E\left[\hat{p}_i m_i\right] = \E[\hat{p}_i (\beta^m_0 + \beta^m_1 p_i + \ep_i)] = \beta^m_0 \E\left[\hat{p}_i\right] + \beta^m_1 \E\left[\hat{p}_i p_i\right] + \E[\hat{p}_i \ep_i] \\ = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi + \E[\hat{p}_i] \E[\ep_i] = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi.
+\end{multline*}
+\item[5.] \textbf{Variance of $\hat{p}_i$}: Because $\hat{p}_i$ is binary, we have that $\V[\hat{p}_i] = \E[\hat{p}_i]\left(1 - \E[\hat{p}_i]\right) .$
+\item[6.] \textbf{Covariance of $\hat{p}_i, m_i$}:
+\begin{multline*}
+\textrm{Cov}\left(\hat{p}_i, m_i\right) = \E\left[\hat{p}_i m_i\right] - \E[\hat{p}_i] \E[m_i] = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi - \E[\hat{p}_i]( \beta^m_0 + \beta^m_1 \pi)\\ = \beta^m_1 \omega \pi - \E[\hat{p}_i] \beta_1^m \pi = \beta^m_1 \pi \left( \omega - \E[\hat{p}_i]\right).
+\end{multline*}
+Combining these expressions, we have that
+$$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\beta^m_1 \pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i](1 - \E[\hat{p}_i])} = \beta^m_1 \gamma(\beta^g_0, \beta^g_1, c, \pi).$$
+\end{itemize}
+\subsubsection{Re-expressing $\gamma$ when $\pi = 1/2$}
+
+Suppose $\pi = 1/2$. We rewrite the attenuation fraction $\gamma$ in a way that makes it more amenable to theoretical analysis.
 
 \subsection{Derivation of EM algorithm}
 
