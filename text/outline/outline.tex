@@ -29,7 +29,7 @@ We study estimation and inference in single-cell CRISPR screens from a statistic
 
 Our work makes two main contributions. First, we study the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian model. Second, we introduce a new method for estimation and inference in single-cell CRISPR screens that accounts for the measurement error inherent in the experiment. The method, called \textit{GLM-EIV} (generalized linear model with errors-in-variables), implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
 
-We implement several statistical accelerations (that possibly are of independent utility) to bring the cost of GLM-EIV down to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights. 
+We implement several statistical accelerations (that likely are of independent utility) to bring the cost of GLM-EIV down to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights. 
 
 \section{Background and analysis challenges}
 
@@ -93,51 +93,65 @@ $$ m_i | \left(\hat{p}_i, z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ w
 
 \subsection{Theoretical analysis}
 
-\blue{\textbf{Bias}: We use the following theoretical model to study bias of the thresholding method: 
-$$
+We study the thresholding method from a theoretical perspective in an idealized Gaussian setting. Suppose we observe data $(g_1, m_1), \dots, (g_n, m_n)$ from the following model:
+
+\begin{equation}\label{theoretical_model}
 \begin{cases}
 m_i = \beta^m_0 + \beta^m_1 p_i + \ep_i \\
 g_i = \beta^g_0 + \beta^g_1 p_i + \tau_i \\
 p_i \sim \textrm{Bern}(\pi) \\
 \ep_i, \tau_i \sim N(0,1) \\
-p_i \indep \tau_i \indep \ep_i
-\end{cases}.
-$$}
-We can solve for the limit in probability of $\hat{\beta}_m$. We have that $$\hat{\beta}^m_1 \xrightarrow{P} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),$$ where
+p_i \indep \tau_i \indep \ep_i.
+\end{cases}
+\end{equation}
+For a given threshold $c \in \R$, let $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_0$ for $\beta^m_0$ is given by $$\hat{\beta}^m_0 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ The limit in probability (as $n \to \infty$) of $\hat{\beta}^m_0$ is
+$$\hat{\beta}^m_1 \xrightarrow{P} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),$$ where
 $$\begin{cases}
 \omega = \pi\left( 1 - \Phi(c - \beta_1^g - \beta_0^g) \right),\\ \zeta = (1-\pi)(1 - \Phi\left( c - \beta^g_0 \right)), \\ \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi. 
 \end{cases}$$
 Let $\gamma: \R^4 \to \R$ be defined by
-$$ \gamma( \beta^g_0, \beta^g_1, c, \pi ) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i] (1 - \E[\hat{p}_i]) }.$$ We call $\gamma$ the attenuation function. Observe that (i) $\gamma$ does not depend on $\beta^m_1$ or $\beta^m_0$, and (ii) $ \hat{\beta}^m_1 \xrightarrow{P} [\gamma(\beta_0^g, \beta_1^g, c, \pi)] \beta^m_1.$ Let $b: \R^4 \to \R$ be the asymptotic bias of $\hat{\beta}^m_1$. We can express $b$ in terms of $\gamma$ as $$b\left(\beta^g_0, \beta^g_1, c, \pi \right) = \beta^m_1 - \gamma( \beta_0^g, \beta_1^g, c, \pi) \beta^m_1 = \beta^m_1 \left[ 1- \gamma(\beta^g_0, \beta^g_1, c, \pi) \right].$$ The asymptotic bias vanishes when the attenuation function equals $1$.
+$$ \gamma( \beta^g_0, \beta^g_1, c, \pi ) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i] (1 - \E[\hat{p}_i]) }.$$ We call $\gamma$ the \textit{attenuation function}. Observe that \begin{itemize}
+\item[i.] $\gamma$ does not depend on $\beta^m_1$ or $\beta^m_0$, and
+\item[ii.] $\hat{\beta}^m_1 \xrightarrow{P} [\gamma(\beta_0^g, \beta_1^g, c, \pi)] \beta^m_1.$
+\end{itemize}
+Let $b: \R^4 \to \R$ be the asymptotic bias of $\hat{\beta}^m_1$. We can express $b$ in terms of $\gamma$ as $$b\left(\beta^g_0, \beta^g_1, c, \pi \right) = \beta^m_1 - \gamma( \beta_0^g, \beta_1^g, c, \pi) \beta^m_1 = \beta^m_1 \left[ 1- \gamma(\beta^g_0, \beta^g_1, c, \pi) \right].$$ The asymptotic bias vanishes when the attenuation function equals $1$.
 
 \begin{center}
 \textbf{Bias as a function of threshold (Panel a)}
 \end{center}
 
-To investigate the basic question of ``What is a good threshold selection strategy?'', we studied the relationship between the asymptotic bias $b$ of $\hat{\beta}^m_1$ and the selected threshold $c$. For simplicity, we set the perturbation probability $\pi$ to $1/2$. Additionally, without loss of generality, we set the target of inference $\beta^m_1$ to $1$. Let $c_\textrm{bayes} \in \R$ be the Bayes-optimal decision boundary for classifying cells as perturbed or unperturbed, i.e. $$c_\textrm{bayes} = \argmin_{c \in \R} \P(\hat{p}_i \neq p_i).$$ Simple algebra shows that $c_\textrm{bayes} = \beta_0^g + (1/2) \beta^g_1.$ Below, we state several results relating the limiting bias $b$ of $\hat{\beta}^m_1$ to $c_\textrm{bayes}$ and $\beta^g_1$, deferring proofs to the appendix.
+To investigate the basic question of ``What is a good threshold selection strategy?'', we study the relationship between the asymptotic bias $b$ of $\hat{\beta}^m_1$ and the selected threshold $c$. For simplicity, we set the perturbation probability $\pi$ to $1/2$. Additionally, without loss of generality, we set the target of inference $\beta^m_1$ to $1$. Let $c_\textrm{bayes} \in \R$ be the Bayes-optimal decision boundary for classifying cells as perturbed or unperturbed, i.e. $$c_\textrm{bayes} = \argmin_{c \in \R} \P(\hat{p}_i \neq p_i).$$ Simple algebra shows that $c_\textrm{bayes} = \beta_0^g + (1/2) \beta^g_1.$ Below, we state several results relating the limiting bias $b$ of $\hat{\beta}^m_1$ to $c_\textrm{bayes}$ and $\beta^g_1$. We defer proofs to the appendix.
 
 \begin{itemize}
-\item[1.] The Bayes-optimal threshold $c_\textrm{bayes}$ is a critical value of the bias function $b$, i.e. 
+\item[1.] The Bayes-optimal threshold $c_\textrm{bayes}$ is a critical value of the bias function $b$ (Figure \ref{thresholding_theoretical}a, all panels), i.e. 
 $$ \frac{\partial b( \beta^g_0, \beta^g_1, c, 1/2)}{\partial c} \vline_{c = c_\textrm{bayes}} = 0.$$
 \item[2.] For certain values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a maximizer of the bias (Figure \ref{thresholding_theoretical}a, left); for other values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a minimizer of the bias (Figure \ref{thresholding_theoretical}a, right).
 \item[3.] The limit of the bias in $c$ is $1/2$, i.e. 
 $$\lim_{c \to \infty} b(\beta^g_0, \beta^g_1, c, 1/2) = 1/2.$$ In other words, we always can set the threshold to a large number and achieve a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, all panels). This fact establishes an upper bound on the bias of thresholded regression (under optimal threshold selection).
 \item[4.] For $\beta^g_1 < 2 \Phi(3/4) \approx 1.35$, $c = c_\textrm{bayes}$ yields a \textit{larger} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, left); for $\beta^g_1 > 2 \Phi(3/4)$, $c_\textrm{bayes}$ yields a \textit{smaller} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, right); finally, for $\beta^g_1 = 2 \Phi(3/4)$, $c = c_\textrm{bayes}$ and $c = \infty$ both yield a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, middle).
-\item[5.] The bias decreases monotonically as $\beta_1^g$ increases (Figure \ref{thresholding_theoretical}a; fix a threshold and scan the panels from left to right). This is consistent with the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated.
-\item[6.] For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the bias is strictly greater than $0$ and less than $2$. Therefore, the thresholding method suffers from attenuation bias, a common phenomenon in errors-in-variables models.
+\item[5.] The bias decreases monotonically as $\beta_1^g$ increases (Figure \ref{thresholding_theoretical}a; fix threshold and scan panels from left to right). This is consistent with the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated.
+\item[6.] For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the bias is strictly greater than $0$ and less than $2$ (Figure \ref{thresholding_theoretical}a, all panels). Therefore, the thresholding method suffers from attenuation bias.% a common phenomenon in errors-in-variables models.
 \end{itemize}
 
-These results are subtle, but we can distill them as follows. First, selecting a threshold that minimizes the bias is deceptively challenging, as there is no rule of thumb that we can apply universally for this purpose (e.g., ``always choose the Bayes-optimal decision boundary'' or ``always choose a large number''). Furthermore, the optimal threshold depends on unknown parameters. Finally, even \textit{if} we have selected a good threshold, the thresholding method incurs a strict attenuation bias.
+These results are subtle, but we can summarize them as follows. First, selecting a threshold that minimizes the bias is deceptively challenging, as there is no rule of thumb that we can apply universally (e.g., ``always choose the Bayes-optimal decision boundary'' or ``always choose a large number''). Second, even if we \textit{have} selected a good threshold, the thresholding method incurs a strict attenuation bias.
 
 \begin{center}
-\textbf{Bias of large threshold strategy vs.\ $\pi$ (Panel b)}
+\textbf{Generalizing to $\pi \in [0,1/2]$ (Panel b)}
 \end{center}
 
-Intrigued by the finding that selecting a large threshold when $\pi = 1/2$ yields a bias of $1/2$, we investigated the relationship between bias and other values of $\pi$ under the large threshold selection strategy. 
+Next, we generalize the expression for bias to arbitrary $\pi \in [0,1/2]$. The following simple relationship holds:
+$$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$ In other words, when the perturbation probability is equal to $\pi$, setting the threshold to a large number yields a bias of $\pi$ (Figure \ref{thresholding_theoretical}b). We can build intuition for this result by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, one correctly classifies nearly all \textit{unperturbed} cells as \textit{unperturbed}; on the other hand, the \textit{perturbed} cells that one misclassifies as \textit{unperturbed} are swamped in number by the truly \textit{unperturbed} cells, resulting in a small bias.
 
 \begin{center}
 	\textbf{Bias-variance tradeoff (Panel c)}
 \end{center}
+
+Finally, we study the variance of the thresholding estimator. Let $v$ denote the limiting variance of scaled estimator $\sqrt{n} \hat{\beta}^m_1$, i.e.,
+$$v(\beta^g_0, \beta^g_1, c, \pi) = \lim_{n \to \infty} \V(\sqrt{n} \hat{\beta}^m_1).$$ The limiting variance of $\sqrt{n} \hat{\beta}^m_1$ grows without bound as the threshold $c$ tends to infinity: 
+$$ \lim_{c \to \infty} v(\beta^g_0, \beta^g_1, c, \pi) = \infty.$$ Thus, while selecting a large threshold is effective from a bias reduction standpoint when $\pi$ is small, it causes the variance to explode.
+
+To more precisely characterize the bias-variance tradeoff of the thresholding method, we consider a slightly simpler model: we set $\beta^m_0$ and $\beta^g_0$ to zero in (\ref{theoretical_model}) and study the no-intercept least squares estimator
+$$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_i^2}.$$ We uncover an exact bias-variance tradeoff as a function of the selected threshold (Figure \ref{thresholding_theoretical}c). The bias-variance analysis reveals that the best strategy for minimizing mean-squared error is to select a threshold that induces moderate bias. (A downside of this approach, of course, is that constructing valid confidence intervals becomes more challenging.)
 
 \begin{figure}[h!]
 	\centering
@@ -159,8 +173,6 @@ Intrigued by the finding that selecting a large threshold when $\pi = 1/2$ yield
 \section{Appendix}
 
 \subsection{Theoretical results for thresholding estimator}
-
-
 
 \subsection{Derivation of EM algorithm}
 
