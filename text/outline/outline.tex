@@ -180,23 +180,23 @@ This section contains proofs for results presented the section ``Theoretical ana
 \subsubsection{Limit of $\hat{\beta}^m_1$ in Gaussian model with intercepts}
 
 Consider the thresholding estimator $\hat{\beta}^m_1$ for the Gaussian model with intercepts (\ref{theoretical_model}). Dividing by $n$ in (\ref{thresh_est_intercepts}), we can express $\hat{\beta}^m_1$ as
-$$ \hat{\beta}^m_1 = \frac{ \frac{1}{n} \sum_{i=1}^n ( \hat{p}_i - \overline{\hat{p}_i})(m_i - \overline{m})}{ \frac{1}{n} \sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ By WLLN,
+$$ \hat{\beta}^m_1 = \frac{ \frac{1}{n} \sum_{i=1}^n ( \hat{p}_i - \overline{\hat{p}_i})(m_i - \overline{m})}{ \frac{1}{n} \sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ By weak LLN,
 $$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\textrm{Cov}(\hat{p}_i, m_i)}{\V\left(\hat{p}_i\right)}.$$ To compute this quantity, we first compute several simpler quantities:
 \begin{itemize}
-\item[1.] \textbf{Expectation of $m_i$}: $\E[m_i] = \beta^m_0 + \beta^m_1\pi.$
-\item[2.] \textbf{Expectation of $\hat{p}_i$}: Let $f$ denote the $N(0,1)$ density. Then \begin{multline*}
+\item[1.] Expectation of $m_i$: $\E[m_i] = \beta^m_0 + \beta^m_1\pi.$
+\item[2.] Expectation of $\hat{p}_i$: Let $f$ denote the $N(0,1)$ density. Then \begin{multline*}
 \E[\hat{p}_i] = \P\left[\hat{p}_i = 1\right] = \P\left[\beta^g_0 + \beta^g_1 + \tau_i \geq c \right] = \\ \textrm{(By LOTP) } \P\left[ \beta^g_0 + \tau_i \geq c \right]\P\left[p_i = 0\right] + \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \P[p_i = 1] \\ = \P\left[ \tau_i \geq c - \beta^g_0\right](1- \pi) + \P\left[ \tau_i \geq c - \beta^g_1 - \beta^g_0 \right](\pi) \\ = \left(\int_{c - \beta^g_0}^\infty f\right) (1 - \pi) + \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right)(\pi) = \zeta(1-\pi) + \omega \pi,
 \end{multline*}
 where $$\zeta = \int_{c - \beta_0^g}^\infty f = 1 - \Phi(c - \beta^g_0)$$ and 
-$$ \omega = \int_{c - \beta^g_1 - \beta^g_0} f = 1 - \Phi(c - \beta^g_1 - \beta^g_0).$$
-\item[3.] \textbf{Expectation of $\hat{p}_i p_i$}: 
+$$ \omega = \int_{c - \beta^g_1 - \beta^g_0}^\infty f = 1 - \Phi(c - \beta^g_1 - \beta^g_0).$$
+\item[3.] Expectation of $\hat{p}_i p_i$: 
 $$\E\left[ \hat{p}_i p_i \right] = \E\left[ \hat{p}_i | p_i = 1 \right] \P\left[ p_i =1 \right] = \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \pi = \omega \pi.$$
-\item[4.] \textbf{Expectation of $\hat{p}_i m_i$}:
+\item[4.] Expectation of $\hat{p}_i m_i$:
 \begin{multline*}
 \E\left[\hat{p}_i m_i\right] = \E[\hat{p}_i (\beta^m_0 + \beta^m_1 p_i + \ep_i)] = \beta^m_0 \E\left[\hat{p}_i\right] + \beta^m_1 \E\left[\hat{p}_i p_i\right] + \E[\hat{p}_i \ep_i] \\ = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi + \E[\hat{p}_i] \E[\ep_i] = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi.
 \end{multline*}
-\item[5.] \textbf{Variance of $\hat{p}_i$}: Because $\hat{p}_i$ is binary, we have that $\V[\hat{p}_i] = \E[\hat{p}_i]\left(1 - \E[\hat{p}_i]\right) .$
-\item[6.] \textbf{Covariance of $\hat{p}_i, m_i$}:
+\item[5.] Variance of $\hat{p}_i$: Because $\hat{p}_i$ is binary, we have that $\V[\hat{p}_i] = \E[\hat{p}_i]\left(1 - \E[\hat{p}_i]\right) .$
+\item[6.] Covariance of $\hat{p}_i, m_i$:
 \begin{multline*}
 \textrm{Cov}\left(\hat{p}_i, m_i\right) = \E\left[\hat{p}_i m_i\right] - \E[\hat{p}_i] \E[m_i] = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi - \E[\hat{p}_i]( \beta^m_0 + \beta^m_1 \pi)\\ = \beta^m_1 \omega \pi - \E[\hat{p}_i] \beta_1^m \pi = \beta^m_1 \pi \left( \omega - \E[\hat{p}_i]\right).
 \end{multline*}
@@ -205,7 +205,52 @@ $$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\beta^m_1 \pi (\omega - \E[\hat{p}_i])}
 \end{itemize}
 \subsubsection{Re-expressing $\gamma$ when $\pi = 1/2$}
 
-Suppose $\pi = 1/2$. We rewrite the attenuation fraction $\gamma$ in a way that makes it more amenable to theoretical analysis.
+Suppose $\pi = 1/2$. We rewrite the attenuation fraction $\gamma$ in a way that makes it more amenable to theoretical analysis. We leverage the fact that $f$ integrates to unity and is even. First,
+\begin{multline*} \E\left[\hat{p}_i\right] = (1/2) \left( \int_{c - \beta^g_0}^\infty f \right) + (1/2) \left( \int_{c - \beta_0^g - \beta_1^g}^\infty f \right) \\ = (1/2) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + (1/2) \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right). \end{multline*} and so \begin{multline*} 1 - \E\left[\hat{p}_i\right] = (1/2) + (1/2) - \E[\hat{p}_i]  = (1/2) \left(1 - \int_{c - \beta_0^g}^\infty f \right)  + (1/2) \left( 1 - \int_{c - \beta^g_0 - \beta^g_1}^\infty f \right) \\ = (1/2) \left( \int_{-\infty}^{c - \beta^g_0} f \right) + (1/2) \left( \int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right)
+\end{multline*}
+Next,
+$$\omega = \int_{c - \beta^g_1 - \beta^g_0}^\infty f,$$ and so
+\begin{multline*}
+\omega - \E[\hat{p}_i]  = \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right) - (1/2) \left( \int_{c - \beta^g_0}^\infty f \right) - (1/2) \left( \int_{c - \beta_0^g - \beta_1^g}^\infty f \right) \\ = (1/2) \left(\int_{c - \beta^g_0 - \beta^g_1 }^\infty f \right) - (1/2) \left(\int_{c - \beta^g_0}^\infty f \right) =  (1/2)\left(\int_{-\infty}^{\beta_0^g + \beta_1^g - c} f \right) - (1/2) \left( \int_{-\infty}^{ \beta_0^g - c} f \right).
+\end{multline*}
+Therefore,
+\begin{multline*}
+\gamma(\beta_0^g, \beta_1^g, c, 1/2) = \frac{ (1/2) (\omega - \E[\hat{p}_i])}{ \E[\hat{p}_i] \left(1 - \E[\hat{p}_i] \right)} \\ = \frac{(1/2) \left[ (1/2) \left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - (1/2) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) \right]}{ \left[(1/2) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + (1/2) \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[ (1/2) \left( \int_{-\infty}^{c - \beta^g_0} f \right) + (1/2) \left( \int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]} \\ = \frac{\left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - \left( \int_{-\infty}^{ \beta_0^g - c} f \right) }{ \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
+\end{multline*}
+Treating $\beta^g_0$ as a fixed constant, define 
+$$g(\beta^g_1, c) = \left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - \left( \int_{-\infty}^{ \beta_0^g - c} f \right) ,$$ and
+$$h(\beta^g_1, c) = \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right].$$ We can write
+$$\gamma(\beta^g_0, \beta^g_1, c, 1/2) = \frac{ g(\beta^g_1, c) }{ h(\beta^g_1, c)}.$$ We will write $g(\beta^g_1, \cdot)$ (resp., $g(\cdot, \beta^g_1)$) to denote the univariate function that results from holding the second (resp., first) argument of $g$ fixed. We adopt similar notation for $h$. 
+
+\subsubsection{Bayes-optimal decision boundary as a critical value}
+Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and fixed $(\beta^g_0, \beta^g_1)$ , i.e, $$\frac{\partial  \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} \vline_{[c = c_\textrm{bayes}]} = 0.$$ By quotient rule,
+$$ \frac{\partial  \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} = \frac{g'(\cdot, c) h(\cdot, c) - g(\cdot, c) h'(\cdot, c)}{\left[ h(\cdot, c) \right]^2}.$$ First,
+$$g'(\cdot, c) = - f( \beta^g_0 + \beta^g_1 - c ) + f(\beta^g_0 - c).$$ Second, 
+\begin{multline*}
+h'(\cdot, c) = -[f(\beta^g_0 - c)  + f( \beta^g_0 + \beta^g_1 - c )]  \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right] \\ +[ f(c - \beta^g_0) + f(c - \beta^g_0 - \beta^g_1) ] \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right].
+\end{multline*}
+Evaluating $g'(\cdot, c)$ and $h'(\cdot, c)$ at $c = c_\textrm{bayes} $, we find that
+$$g'(\beta^g_0 + (1/2) \beta^g_1) = -f(\beta^g_1/2) + f(- \beta^g_1/2) = -f(\beta^g_1/2) + f(\beta^g_1/2) = 0,$$ where the second equality follows from the evenness of $f$. Similarly, 
+\begin{multline*}
+ h'(\beta^g_0 + (1/2) \beta^g_1) = - \left[ f( -\beta^g_1/2) + f( \beta^g_1/2 ) \right] \left[ \int_{-\infty}^{ \beta^g_1/2} f + \int_{-\infty}^{ -\beta^g_1/2} f \right] + \\ \left[ f( \beta^g_1/2) + f( -\beta^g_1/2 ) \right] \left[ \int_{-\infty}^{ -\beta^g_1/2} f + \int_{-\infty}^{ \beta^g_1/2 f} \right] = 0.
+\end{multline*}
+We conclude that
+$$ \frac{\partial \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} \vline_{[c = c_\textrm{bayes}]} = \frac{0\cdot h(\cdot, c_\textrm{bayes}) - g(\cdot, c_\textrm{bayes}) \cdot 0}{ h(\cdot, c_\textrm{bayes})^2} = 0.$$ Finally, because asymptotic bias $b$ can be expressed in terms of $\gamma$ as $$b(\beta^g_0. \beta^g_1, c, \pi) = \beta^m_1 \left[ 1 - \gamma(\beta^g_0, \beta^g_1, c, \pi) \right],$$ it follows that $c = c_\textrm{bayes}$ is a critical value of $b$ for $\pi = 1/2$ and fixed $(\beta^g_0, \beta^g_1)$.
+
+\subsubsection{Limit in $\beta^g_1$}
+
+We compute the limit of $\gamma(\beta^g_0, \beta^g_1, c, 1/2)$ in $\beta^g_1.$ We have that
+
+\begin{multline*}
+ \lim_{\beta^g_1 \to \infty } \gamma(\beta^g_0, \beta^g_1, c, 1/2) = \frac{ 1 - \int_{-\infty}^{\beta^g_0 - c } f}{\left[ 1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} \\ = \frac{\int_{-\infty}^{c - \beta^g_0} f }{ \left[1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} = \frac{1}{1 + \int_{-\infty}^{\beta^g_0 - c} f} < 1.
+ \end{multline*}
+ 
+ Similarly,
+\begin{multline*}
+\lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_0, \beta^g_1, c, 1/2) = \frac{ -\int_{-\infty}^{\beta^g_0 - c} f }{\left[ \int_{-\infty}^{\beta^g_0 - c} f \right] \left[ \int_{-\infty}^{c - \beta^g_0} f + 1 \right]} = \frac{-1}{1 + \int_{-\infty}^{c - \beta^g_0} f} > -1.
+\end{multline*}
+
+\subsubsection{Monotonicity in $\beta^g_1$}
 
 \subsection{Derivation of EM algorithm}
 
