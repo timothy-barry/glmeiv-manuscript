@@ -279,11 +279,22 @@ $$\lim_{c \to \infty} b(\beta^g_1, c, \pi) = \beta_1^m(1 - \lim_{c \to \infty} \
 A corollary is that
 $$\lim_{c \to \infty} b(\beta^g_1, c, 1/2) = (1/2)\beta^m_1.$$
 
-\subsubsection{Critical values of }
+\subsubsection{Bayes-optimal decision boundary as a critical value of $\gamma$}
+Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and given $\beta^g_1$, i.e, $$D_2 \gamma (\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ By the quotient rule,
+\begin{multline}\label{quotient_rule}
+D_2\gamma(\beta^g_1, c, 1/2) \\ = \frac{(1/2) D_2g(\beta^g_1, c, 1/2) h(\beta^g_1, c, 1/2) - (1/2) g(\beta^g_1, c, 1/2) D_2 h(\beta^g_1, c, 1/2)}{[h(\beta^g_1, c, \pi)]^2} \\ = \frac{\left[4(1/2) D_2g(\beta^g_1, c, 1/2)\right] h(\beta^g_1, c, 1/2) - (1/2) g(\beta^g_1, c, 1/2) \left[4 D_2 h(\beta^g_1, c, 1/2)\right]}{[2h(\beta^g_1, c, \pi)]^2},
+\end{multline}
+where the second equality multiplies both numerator and denominator by $4$. We have by (\ref{dg_dc}) that
+\begin{multline}\label{dg_dc_bayes}
+4 \cdot (1/2) \cdot D_2 g(\beta^g_1, c_\textrm{bayes}, 1/2)  = f( \beta^g_1/2) - f( -\beta^g_1/2) \\ = f(\beta^g_1/2) - f(\beta^g_1/2) = 0.
+\end{multline}
+Next, we have by (\ref{dh_dc}) that
+\begin{multline}\label{dh_dc_bayes}
+4 \cdot D_2 h(\beta^g_1, c_\textrm{bayes}, \pi) = [f( \beta^g_1/2) + f( -\beta^g_1/2)] \cdot \\ \left[  \int_{-\infty}^{-\beta^g_1/2} f + \int_{-\infty}^{\beta^g_1/2} f - \int_{-\infty}^{\beta^g_1/2} f - \int_{-\infty}^{-\beta^g_1/2} f \right] = 0.
+\end{multline}
+Plugging in (\ref{dh_dc_bayes}) and (\ref{dg_dc_bayes}) to (\ref{quotient_rule}), we find that 
+$$D_2(\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$
 
-% \subsubsection{Bayes-optimal decision boundary as a critical value}
-% Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and fixed $(\beta^g_0, \beta^g_1)$ , i.e, $$\frac{\partial  \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} \vline_{[c = c_\textrm{bayes}]} = 0.$$ By quotient rule,
-% $$ \frac{\partial  \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} = \frac{g'(\cdot, c) h(\cdot, c) - g(\cdot, c) h'(\cdot, c)}{\left[ h(\cdot, c) \right]^2}.$$ First,
 % $$g'(\cdot, c) = - f( \beta^g_0 + \beta^g_1 - c ) + f(\beta^g_0 - c).$$ Second, 
 % \begin{multline*}
 % h'(\cdot, c) = -[f(\beta^g_0 - c)  + f( \beta^g_0 + \beta^g_1 - c )]  \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right] \\ +[ f(c - \beta^g_0) + f(c - \beta^g_0 - \beta^g_1) ] \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right].
