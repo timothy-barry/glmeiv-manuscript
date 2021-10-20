@@ -234,16 +234,52 @@ Combining (\ref{thm:gamma_expression_1}, \ref{thm:gamma_expression_2}, \ref{thm:
 \begin{multline}\label{gamma_alternative}
 \gamma(\beta^g_1, c, \pi) = \frac{\pi(\omega - \E[\hat{p}_i])}{\E[\hat{p}_i](1 - \E[\hat{p}_i])} \\ = \frac{\pi \left[ (1 - \pi) \left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - (1 - \pi) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) \right]}{\left[(1-\pi) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \pi \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[(1 - \pi) \left( \int_{-\infty}^{c - \beta^g_0} f \right) + \pi \left( \int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
 \end{multline}
-As a corollary, when $\pi = 1/2$, we have that
+As a corollary, when $\pi = 1/2$,
 \begin{multline}\label{gamma_alternative_pi_half}
 \gamma(\beta^g_1, c, 1/2)  \\ = \frac{\left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - \left( \int_{-\infty}^{ \beta_0^g - c} f \right) }{ \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
 \end{multline}
 Recalling the definitions of $g$ (\ref{def_g}) and $h$ (\ref{def_h}), we can write $\gamma$ as
-$$ \gamma(\beta^g_1, c, \pi) = \frac{g(\beta^g_1, c, \pi)}{h(\beta^g_1, c,\pi)}.$$
+$$ \gamma(\beta^g_1, c, \pi) = \frac{\pi g(\beta^g_1, c, \pi)}{h(\beta^g_1, c,\pi)}.$$
 
 \subsubsection{Derivatives of  $g$ and $h$ in $c$}
 
-We compute the derivatives of $g$ and $h$ in $c$, which we will need for subsequent results.
+We compute the derivatives of $g$ and $h$ in $c$, which we will need to prove subsequent results. First, by FTC and the evenness of $f$, we have that
+\begin{multline}\label{dg_dc}
+D_2 g(\beta^g_1, c, \pi) = -(1-\pi)f( \beta^g_0 + \beta^g_1 - c ) + (1-\pi) f(\beta^g_0 - c) \\ = (1-\pi) f(c - \beta^g_0) - (1-\pi)f(c - \beta^g_0 - \beta^g_1).
+\end{multline}
+Second, we have that
+\begin{multline}\label{dh_dc}
+D_2 h(\beta^g_1, c, \pi) \\ = -[(1-\pi)f(\beta^g_0 - c) + \pi f( \beta^g_0 + \beta^g_1 - c )]\left[(1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) + \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right] \\ + [(1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1)] \left[(1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \\ = \left[ (1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1) \right] \cdot \\ \bigg[ (1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \\ - (1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) - \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \bigg].
+\end{multline}
+
+\subsubsection{Limit of $\gamma$ in $c$}
+
+Assume (without loss of generality) that $\beta^g_1 > 0$. We compute $\lim_{c \to \infty} \gamma(\beta^g_1, c, \pi)$. Observe that $$\lim_{c \to \infty} g(\beta^g_1, c, \pi) = \lim_{c \to \infty} h(\beta^g_1, c, \pi)  = 0.$$ Therefore, we can apply L'H\^{o}pital's rule. We have by (\ref{dg_dc}) and (\ref{dh_dc}) that \begin{multline}\label{c_limit_product}
+\lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \lim_{c \to \infty} \frac{\pi D_2 g(\beta^g_1, c, \pi)}{D_2h(\beta^g_1, c, \pi)} \\ = \lim_{c \to \infty} \bigg\{ \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} \\ \cdot \bigg[ (1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \\ - (1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) - \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \bigg] \bigg\}^{-1}.
+ \end{multline}
+ We evaluate the two terms in the product (\ref{c_limit_product}) separately. First, observe that
+ \begin{equation}\label{c_limit_product_2}
+ \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} = \frac{\frac{(1-\pi) f(c - \beta^g_0)}{ f(c - \beta^g_0 - \beta^g_1)} + \pi}{\frac{ \pi(1-\pi) f(c - \beta^g_0)}{ f(c - \beta^g_0 - \beta^g_1)} - \pi(1-\pi)}.
+ \end{equation}
+ To evaluate the limit of (\ref{c_limit_product_2}), must evaluate the limit of
+ \begin{multline}\label{c_limit_product_3}
+ \frac{f(c - \beta^g_0)}{f(c - \beta^g_0 - \beta^g_1)} = \frac{\exp{[-(1/2)(c - \beta_0^g)^2]}}{\exp{[-(1/2)( c - \beta^g_0 - \beta^g_1)^2]}} \\ = \frac{\exp[ -(1/2)(c^2 - 2 c \beta^g_0 + (\beta^g_0)^2)]}{\exp\left[-(1/2)( c^2 - 2c \beta^g_0 - 2 c \beta^g_1 + (\beta^g_0)^2 + 2( \beta^g_0 \beta^g_1) + (\beta^g_1)^2)\right]} \\ = \exp\big[-c^2/2 + c \beta^g_0 - (\beta^g_0)^2/2 \\ + c^2/2 - c \beta^g_0 - c \beta^g_1 + (\beta^g_0)^2/2 + \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2 \big] \\ = \exp[ -c \beta^g_1 + \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2] = \exp[ \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2]\exp[ -c \beta^g_1]. 
+\end{multline}
+Computing the limit of (\ref{c_limit_product_3}), we obtain
+$$
+\lim_{c \to \infty} \frac{f(c - \beta^g_0)}{f(c - \beta^g_0 - \beta^g_1)} = \exp[ \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2] \lim_{c \to \infty} \exp[ -c \beta^g_1] = 0
+$$ for $\beta^g_1 > 0$. We now can evaluate the limit of (\ref{c_limit_product_2}) (for $\beta^g_1 > 0$):
+$$ \lim_{c \to \infty} \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} = \frac{-\pi}{\pi(1-\pi)} = -\frac{1}{1 -\pi}.$$ Next, we compute the limit of the other term in the product (\ref{c_limit_product}):
+\begin{multline}\label{c_limit_product_4}
+\lim_{c \to \infty} \bigg[ (1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \\ - (1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) - \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \bigg] = -(1-\pi) - \pi = -1.
+\end{multline}
+Combining (\ref{c_limit_product_2}) and (\ref{c_limit_product_4}), the limit (\ref{c_limit_product}) evaluates to
+$$ \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \left(  \frac{ 1 }{ 1 - \pi }\right)^{-1} = 1 - \pi.$$ It follows that the limit in $c$ of the bias $b$ is
+$$\lim_{c \to \infty} b(\beta^g_1, c, \pi) = \beta_1^m(1 - \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi)) = \beta^m_1 \pi.$$
+A corollary is that
+$$\lim_{c \to \infty} b(\beta^g_1, c, 1/2) = (1/2)\beta^m_1.$$
+
+\subsubsection{Critical values of }
 
 % \subsubsection{Bayes-optimal decision boundary as a critical value}
 % Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and fixed $(\beta^g_0, \beta^g_1)$ , i.e, $$\frac{\partial  \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} \vline_{[c = c_\textrm{bayes}]} = 0.$$ By quotient rule,
