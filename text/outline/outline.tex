@@ -236,13 +236,17 @@ Combining (\ref{thm:gamma_expression_1}, \ref{thm:gamma_expression_2}, \ref{thm:
 \end{multline}
 As a corollary, when $\pi = 1/2$,
 \begin{multline}\label{gamma_alternative_pi_half}
-\gamma(\beta^g_1, c, 1/2)  \\ = \frac{\left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - \left( \int_{-\infty}^{ \beta_0^g - c} f \right) }{ \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
+\gamma(\beta^g_1, c, 1/2)  \\ = \frac{\left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - \left( \int_{-\infty}^{ \beta_0^g - c} f \right)}{\left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
 \end{multline}
 Recalling the definitions of $g$ (\ref{def_g}) and $h$ (\ref{def_h}), we can write $\gamma$ as
 $$ \gamma(\beta^g_1, c, \pi) = \frac{\pi g(\beta^g_1, c, \pi)}{h(\beta^g_1, c,\pi)}.$$
+The special case (\ref{gamma_alternative_pi_half}) is identical to
+\begin{equation}\label{gamma_alt2_pi_half}
+\gamma(\beta^g_1, c, 1/2) = \frac{(4)(1/2)g(\beta^g_1, c, 1/2)}{4 h(\beta^g_1, c, 1/2)} = \frac{2 g(\beta^g_1, c, 1/2)}{4h(\beta^g_1, c, 1/2)},
+\end{equation}
+i.e., the numerator and denominator of  (\ref{gamma_alt2_pi_half}) coincide with those of (\ref{gamma_alternative_pi_half}).
 
 \subsubsection{Derivatives of  $g$ and $h$ in $c$}
-
 We compute the derivatives of $g$ and $h$ in $c$, which we will need to prove subsequent results. First, by FTC and the evenness of $f$, we have that
 \begin{multline}\label{dg_dc}
 D_2 g(\beta^g_1, c, \pi) = -(1-\pi)f( \beta^g_0 + \beta^g_1 - c ) + (1-\pi) f(\beta^g_0 - c) \\ = (1-\pi) f(c - \beta^g_0) - (1-\pi)f(c - \beta^g_0 - \beta^g_1).
@@ -293,38 +297,79 @@ Next, we have by (\ref{dh_dc}) that
 4 \cdot D_2 h(\beta^g_1, c_\textrm{bayes}, \pi) = [f( \beta^g_1/2) + f( -\beta^g_1/2)] \cdot \\ \left[  \int_{-\infty}^{-\beta^g_1/2} f + \int_{-\infty}^{\beta^g_1/2} f - \int_{-\infty}^{\beta^g_1/2} f - \int_{-\infty}^{-\beta^g_1/2} f \right] = 0.
 \end{multline}
 Plugging in (\ref{dh_dc_bayes}) and (\ref{dg_dc_bayes}) to (\ref{quotient_rule}), we find that 
-$$D_2(\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$
+$$D_2(\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ It follows that $c_\textrm{bayes}$ is a critical value of the bias function $b$.
 
-% $$g'(\cdot, c) = - f( \beta^g_0 + \beta^g_1 - c ) + f(\beta^g_0 - c).$$ Second, 
-% \begin{multline*}
-% h'(\cdot, c) = -[f(\beta^g_0 - c)  + f( \beta^g_0 + \beta^g_1 - c )]  \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right] \\ +[ f(c - \beta^g_0) + f(c - \beta^g_0 - \beta^g_1) ] \left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right].
-% \end{multline*}
-% Evaluating $g'(\cdot, c)$ and $h'(\cdot, c)$ at $c = c_\textrm{bayes} $, we find that
-% $$g'(\beta^g_0 + (1/2) \beta^g_1) = -f(\beta^g_1/2) + f(- \beta^g_1/2) = -f(\beta^g_1/2) + f(\beta^g_1/2) = 0,$$ where the second equality follows from the evenness of $f$. Similarly, 
-% \begin{multline*}
-% h'(\beta^g_0 + (1/2) \beta^g_1) = - \left[ f( -\beta^g_1/2) + f( \beta^g_1/2 ) \right] \left[ \int_{-\infty}^{ \beta^g_1/2} f + \int_{-\infty}^{ -\beta^g_1/2} f \right] + \\ \left[ f( \beta^g_1/2) + f( -\beta^g_1/2 ) \right] \left[ \int_{-\infty}^{ -\beta^g_1/2} f + \int_{-\infty}^{ \beta^g_1/2 f} \right] = 0.
-% \end{multline*}
-% We conclude that
-% $$ \frac{\partial \gamma(\beta^g_0, \beta^g_1, c, 1/2)}{ \partial c} \vline_{[c = c_\textrm{bayes}]} = \frac{0\cdot h(\cdot, c_\textrm{bayes}) - g(\cdot, c_\textrm{bayes}) \cdot 0}{ h(\cdot, c_\textrm{bayes})^2} = 0.$$ Finally, because asymptotic bias $b$ can be expressed in terms of $\gamma$ as $$b(\beta^g_0. \beta^g_1, c, \pi) = \beta^m_1 \left[ 1 - \gamma(\beta^g_0, \beta^g_1, c, \pi) \right],$$ it follows that $c = c_\textrm{bayes}$ is a critical value of $b$ for $\pi = 1/2$ and fixed $(\beta^g_0, \beta^g_1)$.
+\subsubsection{Limit in $\beta^g_1$}
 
-% \subsubsection{Limit in $\beta^g_1$}
+We compute the limit of $\gamma$ in $\beta^g_1$ given $\pi = 1/2$.  First,
+\begin{multline*}
+ \lim_{\beta^g_1 \to \infty} \gamma(\beta^g_1, c, 1/2) = \frac{ 1 - \int_{-\infty}^{\beta^g_0 - c} f}{\left[ 1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} \\ = \frac{\int_{-\infty}^{c - \beta^g_0} f }{ \left[1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} = \frac{1}{1 + \int_{-\infty}^{\beta^g_0 - c} f} < 1.
+\end{multline*}
+Similarly,
+\begin{multline*}
+\lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_1, c, 1/2) = \frac{ -\int_{-\infty}^{\beta^g_0 - c} f }{\left[ \int_{-\infty}^{\beta^g_0 - c} f \right] \left[ \int_{-\infty}^{c - \beta^g_0} f + 1 \right]} = \frac{-1}{1 + \int_{-\infty}^{c - \beta^g_0} f} > -1.
+\end{multline*}
 
-% We compute the limit of $\gamma(\beta^g_0, \beta^g_1, c, 1/2)$ in $\beta^g_1.$ We have that
+\subsubsection{Monotonicity in $\beta^g_1$}
 
-% \begin{multline*}
- %\lim_{\beta^g_1 \to \infty } \gamma(\beta^g_0, \beta^g_1, c, 1/2) = \frac{ 1 - \int_{-\infty}^{\beta^g_0 - c } f}{\left[ 1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} \\ = \frac{\int_{-\infty}^{c - \beta^g_0} f }{ \left[1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} = \frac{1}{1 + \int_{-\infty}^{\beta^g_0 - c} f} < 1.
-% \end{multline*}
- 
-% Similarly,
-% \begin{multline*}
-% \lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_0, \beta^g_1, c, 1/2) = \frac{ -\int_{-\infty}^{\beta^g_0 - c} f }{\left[ \int_{-\infty}^{\beta^g_0 - c} f \right] \left[ \int_{-\infty}^{c - \beta^g_0} f + 1 \right]} = \frac{-1}{1 + \int_{-\infty}^{c - \beta^g_0} f} > -1.
-% \end{multline*}
+We show that $\gamma$ is monotonically increasing in $\beta_1^g$ for $\pi = 1/2$. First, we compute the derivative of (\ref{gamma_alt2_pi_half}) with respect to $\beta^g_1$. The quotient rule implies that
+\begin{multline}\label{d_gamma_d_beta}
+D_1 \gamma(\beta^g_1, c, 1/2) \\ = \frac{D_1[2g(\beta^g_1, c, 1/2)] 4h(\beta^g_1, c, 1/2) - 2g(\beta^g_1, c, 1/2)D_1[4h(\beta^g_1, c, 1/2)]}{[4h(\beta^g_1, c, 1/2)]^2}.
+\end{multline}
+First,
+$$\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c)}.$$
+Next,
+\begin{multline*}
+\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ \textcolor{teal}{- f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}.\end{multline*}
+Recall that
+$$\textcolor{blue}{2g(\beta^g_1,c,1/2) = \Phi(\beta^g_0 + \beta^g_1 - c) - \Phi(\beta^g_0 - c)}.$$
+and
+$$\textcolor{red}{4h(\beta^g_1, c, 1/2) = \left[ \Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \left[\Phi(c - \beta^g_0) + \Phi( c - \beta^g_0 - \beta^g_1) \right]}.$$
+To show that $\gamma$ is monotonically increasing in $\beta^g_1$, it is sufficient to show that (\ref{d_gamma_d_beta}) is nonnegative, i.e.
+\begin{equation}\label{thm:gamma_monotonic_1}
+\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} \geq \textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]}.
+\end{equation}
+The product $\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)}$ is
+\begin{multline}\label{g_prime_times_h}
+\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} \\ = \textcolor{violet}{f(\beta^g_0 + \beta^g_1 - c)}\textcolor{red}{\left[ \Phi(\beta_0^g - c ) + \Phi(\beta^g_0 + \beta^g_1 - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]}.
+\end{multline} 
+Next, the product $\textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]}$ is
+\begin{multline}\label{g_times_h_prime}
+\textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]} \\ = \textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c)}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}\textcolor{teal}{\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ - \textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c)}\textcolor{teal}{\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]} \textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}.
+\end{multline}
+Divide both sides by $f(\beta^g_0 - \beta^g_1 - c) > 0$. Then, add
+$$\textcolor{teal}{\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}.$$ The left-hand side becomes
+\begin{multline*}
+\textcolor{red}{\left[ \Phi(\beta_0^g - c ) + \Phi(\beta^g_0 + \beta^g_1 - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ +\textcolor{teal}{\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]} \\ = \left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ \cdot \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) + \Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) \right].
+\end{multline*}
+Meanwhile, the right-hand side becomes
+$$\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right].$$
+Therefore, we want to demonstrate that
+\begin{multline}\label{basic_ineq}
+\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ \cdot \left[\textcolor{brown}{\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)} + \textcolor{olive}{\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)} \right] \\ \geq \left[\textcolor{brown}{\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)}\right]\left[\textcolor{olive}{\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)}\right].
+\end{multline}
+(We changed the color scheme to highlight like terms.)
+We take cases on the sign on $\beta^g_1$ to prove this inequality.
+\\ \\ \noindent
+\textbf{Case 1}: $\beta^1_g < 0$. Then $ \beta^g_1 + (\beta^g - c) < (\beta^g_0 - c),$ implying $\Phi(\beta^g_0 + \beta^g_1 - c) < \Phi(\beta^g_0 - c),$ or $[\Phi(\beta^g_0 + \beta^g_1 - c) - \Phi(\beta^g_0 - c)] < 0.$ Moreover, the quantity $[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)]$ is positive. Thus, the right-hand side of (\ref{basic_ineq}) is negative.
 
-% \subsubsection{Monotonicity in $\beta^g_1$}
-% We prove that $\gamma$ is monotonic in $\beta_1^g$ for given $(\beta^g_0, c)$ and $\pi = 1/2$. Recall that
-% $$\gamma(\beta^g_0, \beta^g_1, c, 1/2) = \frac{ g(\beta^g_1, c) }{ h(\beta^g_1, c)}.$$ By the quotient rule,
-% $$D_2 \gamma (\beta^g_0, \beta^g_1, c, 1/2) = \frac{D_1 g( \beta^g_1, c) h(\beta^g_1, c) - g(\beta^1_g, c) D_1 h(\beta^g_1, c) }{ [ h(\beta^g_1, c)^2]}.$$ The derivative $D_1 g(\beta^g_1, c)$ of $g$ is 
-% $$D_1 g(\beta^g_1, c) = f( \beta^g_0 + \beta^g_1 - c ).$$
+Turning our attention of the left-hand side, we have that
+\begin{multline*}
+\Phi(\beta^g_0 + \beta^g_1 - c) + \Phi( c - \beta^g_0 - \beta^g_1) = \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f + \int_{-\infty}^{c - \beta^g_0 - \beta^g_1} f \\ = \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f  + \int_{\beta^g_0 + \beta^g_1 - c}^\infty f = 1.
+\end{multline*}
+Additionally, $\Phi(\beta^g_0 - c) < 1,$ and $ \Phi(c - \beta^g_0) > 0$. Combining these expressions, we find that
+$$ \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right] > 0. $$ Because $\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] > 0,$ it follows that the entire left-hand side of (\ref{basic_ineq}) is positive.
+\\ \\ \noindent
+\textbf{Case 2}: $\beta^1_g \geq 0.$  We show that the first term on the LHS of (\ref{basic_ineq}) is greater than the first term on the RHS, and likewise that the second term on the LHS is greater than the second term on the RHS. First,
+$$ \Phi(\beta^g_0 - c) \geq - \Phi(\beta^g_0 - c),$$ implying
+$$ \Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \geq \Phi(\beta^g_0 - \beta^g_1 - c) - \Phi(\beta^g_0 - c).$$
+Second, $\beta^g_1 \geq 0$ implies that $\beta^g_1 + \beta^g_0 - c \geq \beta^g_0 - c,$ and so $$\Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) \geq 0.$$ Finally, 
+$$ \Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \geq \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1).$$
+Therefore, the inequality (\ref{basic_ineq}) holds.
+
+\subsubsection{Attenuation bias}
+
+For given $(\beta^g_0, \beta^g_1)$, 
  
 \subsection{Derivation of EM algorithm}
 
