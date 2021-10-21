@@ -3,6 +3,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
 \usepackage{float}
 \usepackage[caption = false]{subfig}
@@ -13,7 +15,7 @@
 \noindent
 Tim, Gene, Kathryn
 \begin{center}
-\textbf{CRISPR genome editing, single-cell sequencing, and exponential family measurement error models}
+\textbf{CRISPR genome engineering, single-cell sequencing, and exponential family measurement error models}
 \end{center}
 
 \begin{abstract}
@@ -27,7 +29,7 @@ Despite their promise, single-cell CRISPR screens present substantial statistica
 
 We study estimation and inference in single-cell CRISPR screens from a statistical perspective, formulating the data generating mechanism using a new class of errors-in-variables (or measurement error) models. We assume that the response variable $y$ is a GLM of an underlying predictor variable $x^*$. We do not observe $x^*$ directly; rather, we observe a noisy version $x$ of $x^*$ that itself is a GLM of $x^*$. The goal of the analysis is to estimate the effect of $x^*$ on $y$ using the observed data $(x , y)$ only. In the context of the biological application, $x^*$, $y$, and $x$ are CRISPR perturbations, gene expressions, and barcode counts, respectively.
 
-Our work makes two main contributions. First, we study the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian model. Second, we introduce a new method for estimation and inference in single-cell CRISPR screens that accounts for the measurement error inherent in the experiment. The method, called \textit{GLM-EIV} (generalized linear model with errors-in-variables), implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
+Our work makes two main contributions. First, we conduct an in-depth study of the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian model. Second, we introduce a new method for estimation and inference in single-cell CRISPR screens that accounts for the measurement error inherent in the experiment. The method, called \textit{GLM-EIV} (generalized linear model with errors-in-variables), implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
 
 We implement several statistical accelerations (that likely are of independent utility) to bring the cost of GLM-EIV down to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights. 
 
@@ -101,7 +103,10 @@ p_i \sim \textrm{Bern}(\pi) \\
 p_i \indep \tau_i \indep \ep_i.
 \end{cases}
 \end{equation}
-For a given threshold $c \in \R$, let $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is given by $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ The limit in probability (as $n \to \infty$) of $\hat{\beta}^m_0$ is
+For a given threshold $c \in \R$, let $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is given by $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$
+
+\begin{proposition}
+ The limit in probability (as $n \to \infty$) of $\hat{\beta}^m_0$ is
 \begin{equation}\label{thresh_est_intercepts}
 \hat{\beta}^m_1 \xrightarrow{P} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),
 \end{equation}
@@ -109,8 +114,9 @@ where
 $$\begin{cases}
 \omega = 1 - \Phi\left(c - \beta_1^g - \beta_0^g \right) ,\\ \zeta = 1 - \Phi\left( c - \beta^g_0 \right), \\ \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi. 
 \end{cases}$$
+\end{proposition}
 Let $\gamma: \R^4 \to \R$ be defined by
-$$ \gamma( \beta^g_0, \beta^g_1, c, \pi ) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i] (1 - \E[\hat{p}_i]) }.$$ We call $\gamma$ the \textit{attenuation function}. Observe that \begin{itemize}
+$$ \gamma( \beta^g_0, \beta^g_1, c, \pi ) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i] (1 - \E[\hat{p}_i]) }.$$ We call $\gamma$ the ``attenuation function.'' Observe that \begin{itemize}
 \item[i.] $\gamma$ does not depend on $\beta^m_1$ or $\beta^m_0$, and
 \item[ii.] $\hat{\beta}^m_1 \xrightarrow{P} [\gamma(\beta_0^g, \beta_1^g, c, \pi)] \beta^m_1.$
 \end{itemize}
@@ -123,14 +129,28 @@ Let $b: \R^4 \to \R$ be the asymptotic bias of $\hat{\beta}^m_1$. We can express
 To investigate the basic question of ``What is a good threshold selection strategy?'', we study the relationship between the asymptotic bias $b$ of $\hat{\beta}^m_1$ and the selected threshold $c$. For simplicity, we begin by setting the perturbation probability $\pi$ to $1/2$. Additionally, without loss of generality, we set the target of inference $\beta^m_1$ to $1$. Let $c_\textrm{bayes} \in \R$ be the Bayes-optimal decision boundary for classifying cells as perturbed or unperturbed, i.e. $$c_\textrm{bayes} = \argmin_{c \in \R} \P(\hat{p}_i \neq p_i).$$ Simple algebra shows that $c_\textrm{bayes} = \beta_0^g + (1/2) \beta^g_1.$ Below, we state several results relating the limiting bias $b$ of $\hat{\beta}^m_1$ to $c_\textrm{bayes}$ and $\beta^g_1$. We defer proofs to the appendix.
 
 \begin{itemize}
-\item[1.] The Bayes-optimal threshold $c_\textrm{bayes}$ is a critical value of the bias function $b$ (Figure \ref{thresholding_theoretical}a, all panels), i.e. 
-$$ \frac{\partial b( \beta^g_0, \beta^g_1, c, 1/2)}{\partial c} \vline_{c = c_\textrm{bayes}} = 0.$$
-\item[2.] For certain values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a maximizer of the bias (Figure \ref{thresholding_theoretical}a, left); for other values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a minimizer of the bias (Figure \ref{thresholding_theoretical}a, right).
-\item[3.] The limit of the bias in $c$ is $1/2$, i.e. 
-$$\lim_{c \to \infty} b(\beta^g_0, \beta^g_1, c, 1/2) = 1/2.$$ In other words, we always can set the threshold to a large number and achieve a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, all panels). This fact establishes an upper bound on the bias of thresholded regression (under optimal threshold selection).
-\item[4.] For $\beta^g_1 < 2 \Phi(3/4) \approx 1.35$, $c = c_\textrm{bayes}$ yields a \textit{larger} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, left); for $\beta^g_1 > 2 \Phi(3/4)$, $c_\textrm{bayes}$ yields a \textit{smaller} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, right); finally, for $\beta^g_1 = 2 \Phi(3/4)$, $c = c_\textrm{bayes}$ and $c = \infty$ both yield a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, middle).
-\item[5.] The bias decreases monotonically as $\beta_1^g$ increases (Figure \ref{thresholding_theoretical}a; fix threshold and scan panels from left to right). This is consistent with the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated.
-\item[6.] For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the bias is strictly greater than $0$ and less than $2$ (Figure \ref{thresholding_theoretical}a, all panels). Therefore, the thresholding method suffers from attenuation bias.% a common phenomenon in errors-in-variables models.
+\item \begin{proposition}
+The Bayes-optimal threshold $c_\textrm{bayes}$ is a critical value of the limiting bias $b$ (holding other parameters fixed; Figure \ref{thresholding_theoretical}a, all panels).
+\end{proposition}
+For certain values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a maximizer of the bias (Figure \ref{thresholding_theoretical}a, left); for other values of $\beta^g_0$ and $\beta^g_1$, $c_\textrm{bayes}$ is a minimizer of the bias (Figure \ref{thresholding_theoretical}a, right).
+\item
+\begin{proposition}
+The limit of the bias in $c$ is $1/2$, i.e. 
+$$\lim_{c \to \infty} b(\beta^g_0, \beta^g_1, c, 1/2) = 1/2.$$
+\end{proposition}
+ In other words, we always can set the threshold to a large number and achieve a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, all panels). This fact establishes an upper bound on the bias of thresholded regression (under optimal threshold selection).
+ \item
+ \begin{proposition}
+ For $\beta^g_1 < 2 \Phi(3/4) \approx 1.35$, $c = c_\textrm{bayes}$ yields a \textit{larger} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, left); for $\beta^g_1 > 2 \Phi(3/4)$, $c_\textrm{bayes}$ yields a \textit{smaller} bias than $c = \infty$ (Figure \ref{thresholding_theoretical}a, right); finally, for $\beta^g_1 = 2 \Phi(3/4)$, $c = c_\textrm{bayes}$ and $c = \infty$ both yield a bias of $1/2$ (Figure \ref{thresholding_theoretical}a, middle).
+ \end{proposition}
+\item \begin{proposition}
+Limiting bias decreases monotonically as $\beta_1^g$ increases (Figure \ref{thresholding_theoretical}a; fix threshold and scan panels from left to right).
+\end{proposition}
+This is consistent with the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated.
+\item 
+\begin{proposition} For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the bias is strictly greater than $0$ and less than $2$ (Figure \ref{thresholding_theoretical}a, all panels). 
+\end{proposition}
+Therefore, the thresholding method suffers from attenuation bias.
 \end{itemize}
 
 These results are subtle, but we can summarize them as follows. First, selecting a threshold that minimizes the bias is deceptively challenging, as there is no rule of thumb that we can apply universally (e.g., ``always choose the Bayes-optimal decision boundary'' or ``always choose a large number''). Second, even if we \textit{have} selected a good threshold, the thresholding method incurs a strict attenuation bias.
@@ -139,8 +159,12 @@ These results are subtle, but we can summarize them as follows. First, selecting
 \textbf{Generalizing to $\pi \in [0,1/2]$ (Panel b)}
 \end{center}
 
-Next, we generalize the expression for bias when the threshold is large to arbitrary $\pi \in [0,1/2]$. The following simple relationship holds:
-$$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$ In other words, when the perturbation probability is equal to $\pi$, setting the threshold to a large number yields a bias of $\pi$ (Figure \ref{thresholding_theoretical}b). We can build intuition for this result by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, one correctly classifies nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that one misclassifies as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
+Next, we generalize the expression for bias when the threshold is large to arbitrary $\pi \in [0,1/2]$:
+\begin{proposition}
+The following relationship holds:
+$$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$
+\end{proposition}
+In other words, when the perturbation probability is equal to $\pi$ and the threshold large, the bias is $\pi$. We can understand this result intuitively by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, if we select a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
 
 \begin{figure}[h!]
 	\centering
@@ -153,12 +177,19 @@ $$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$ In other words
 	\textbf{Bias-variance tradeoff (Panel c)}
 \end{center}
 
-Finally, to shed light on limitations of the large threshold selection strategy, we study the variance of the thresholding estimator. Let $v$ denote the limiting variance of scaled estimator $\sqrt{n} \hat{\beta}^m_1$, i.e.,
-$$v(\beta^g_0, \beta^g_1, c, \pi) = \lim_{n \to \infty} \V(\sqrt{n} \hat{\beta}^m_1).$$ The limiting variance of $\sqrt{n} \hat{\beta}^m_1$ grows without bound as the threshold $c$ tends to infinity: 
-$$ \lim_{c \to \infty} v(\beta^g_0, \beta^g_1, c, \pi) = \infty.$$ Thus, while selecting a large threshold is effective from a bias reduction standpoint when $\pi$ is small, it causes the variance to explode.
+% Finally, to shed light on limitations of the large threshold selection strategy, we study the variance of the thresholding estimator. Let $v$ denote the limiting variance of scaled estimator $\sqrt{n} \hat{\beta}^m_1$, i.e.,
+% $$v(\beta^g_0, \beta^g_1, c, \pi) = \lim_{n \to \infty} \V(\sqrt{n} \hat{\beta}^m_1).$$ The limiting variance of $\sqrt{n} \hat{\beta}^m_1$ grows without bound as the threshold $c$ tends to infinity: 
+% $$ \lim_{c \to \infty} v(\beta^g_0, \beta^g_1, c, \pi) = \infty.$$ Thus, while selecting a large threshold is effective from a bias reduction standpoint when $\pi$ is small, it causes the variance to explode.
 
 To more precisely characterize the bias-variance tradeoff of the thresholding method, we consider a slightly simpler model: we set $\beta^m_0$ and $\beta^g_0$ to zero in (\ref{theoretical_model}) and study the no-intercept least squares estimator
-$$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_i^2}.$$ We uncover an exact bias-variance tradeoff as a function of the selected threshold (Figure \ref{thresholding_theoretical}c). The bias-variance analysis reveals that the best strategy for minimizing mean-squared error is to select a threshold that induces moderate bias. (A downside of this approach, of course, is that constructing valid confidence intervals becomes more challenging.)
+$$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_i^2}.$$ We uncover an exact bias-variance tradeoff as a function of the selected threshold (Figure \ref{thresholding_theoretical}c). 
+
+\begin{proposition}
+The limiting distribution is:
+$$\sqrt{n}(\hat{\beta}^m - \beta^m) \xrightarrow{d} N(0, v).$$
+\end{proposition}
+
+The bias-variance analysis reveals that the best strategy for minimizing mean-squared error is to select a threshold that induces moderate bias. (A downside of this approach, of course, is that constructing valid confidence intervals becomes more challenging.)
 
 
 % These difficulties motivate our core research question: does bypassing thresholding altogether lead to better estimation and inference in single-cell CRISPR screens? To answer this question, we propose GLM-EIV, method for single-cell CRISPR screen analysis that models gRNA counts directly.
@@ -299,8 +330,18 @@ Next, we have by (\ref{dh_dc}) that
 Plugging in (\ref{dh_dc_bayes}) and (\ref{dg_dc_bayes}) to (\ref{quotient_rule}), we find that 
 $$D_2(\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ It follows that $c_\textrm{bayes}$ is a critical value of the bias function $b$.
 
-\subsubsection{Limit in $\beta^g_1$}
+\subsubsection{Comparison of Bayes-optimal decision boundary to large threshold}
 
+We study the bias produced by setting the threshold to a large number versus setting the threshold to the Bayes-optimal decision boundary. Let $r: \R \to \R$ be the value of attenuation function evaluated at the Bayes-optimal decision boundary $c_\textrm{bayes} = \beta^g_0 + (1/2) \beta^g_1$:
+\begin{multline*}
+r(\beta^g_1) = \gamma(\beta^g_1, \beta^g_0 + (1/2)\beta^g_1, 1/2) = \frac{\Phi(\beta^g_1/2) - \Phi(-\beta^g_1/2)}{\left[\Phi(-\beta^g_1/2) + \Phi( \beta^g_1/2) \right] \left[\Phi(\beta^g_1/2) + \Phi( -\beta^g_1/2)\right]} \\ = \frac{\int_{-\beta^g_1/2}^{\beta^g_1/2} f}{\left[ 1 - \Phi(\beta^g_1/2) + \Phi(\beta^g_1/2) \right]\left[ \Phi(\beta^g_1/2) + 1 - \Phi(\beta^g_1/2) \right]} = 2 \int_{0}^{\beta^g_1/2} f = 2 \Phi(\beta^g_1/2) - 1.
+\end{multline*}
+We set $r$ to $1/2$ and solve for $\beta^g_1$:
+$$ 2\Phi(\beta^g_1/2) -1 = 1/2 \iff \Phi(\beta^g_1/2) = 3/4 \iff \beta^g_1 = 2 \Phi^{-1}(3/4) \approx 1.35.$$ The bias induced selecting a large threshold is $1/2$, i.e.
+$$\gamma(\beta^g_1, \infty, 1/2) = 1/2.$$
+Additionally, $r$ is a strictly increasing function. Therefore, $\gamma(\beta^g_1, c_\textrm{bayes},1/2) < \gamma(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$; $\gamma(\beta^g_1, c_\textrm{bayes},1/2) = \gamma(\beta^g_1, \infty, 1/2)$ for $\beta^g_1 = 2\Phi^{-1}(3/4)$; and $\gamma(\beta^g_1, c_\textrm{bayes},1/2) > \gamma(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$. Because $b(\beta^g_1, c, 1/2) = \beta^m_1(1 - \gamma(\beta^g_1, c, 1/2))$ similar results hold for the bias (but with the inequalities flipped).
+
+\subsubsection{Limit in $\beta^g_1$}
 We compute the limit of $\gamma$ in $\beta^g_1$ given $\pi = 1/2$.  First,
 \begin{multline*}
  \lim_{\beta^g_1 \to \infty} \gamma(\beta^g_1, c, 1/2) = \frac{ 1 - \int_{-\infty}^{\beta^g_0 - c} f}{\left[ 1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} \\ = \frac{\int_{-\infty}^{c - \beta^g_0} f }{ \left[1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} = \frac{1}{1 + \int_{-\infty}^{\beta^g_0 - c} f} < 1.
@@ -311,65 +352,87 @@ Similarly,
 \end{multline*}
 
 \subsubsection{Monotonicity in $\beta^g_1$}
+We show that $\gamma$ is monotonically increasing in $\beta^g_1$ for $\pi = 1/2$ and given $(\beta^g_1, \beta^g_0)$. We begin by stating and proving two lemmas. The first lemma establishes an inequality that will serve as the basis for the proof.
 
-We show that $\gamma$ is monotonically increasing in $\beta_1^g$ for $\pi = 1/2$. First, we compute the derivative of (\ref{gamma_alt2_pi_half}) with respect to $\beta^g_1$. The quotient rule implies that
-\begin{multline}\label{d_gamma_d_beta}
-D_1 \gamma(\beta^g_1, c, 1/2) \\ = \frac{D_1[2g(\beta^g_1, c, 1/2)] 4h(\beta^g_1, c, 1/2) - 2g(\beta^g_1, c, 1/2)D_1[4h(\beta^g_1, c, 1/2)]}{[4h(\beta^g_1, c, 1/2)]^2}.
+\begin{lemma}
+The following inequality holds: 
+\begin{multline}\label{basic_ineq_cp}
+\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ \cdot \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right] \\ \geq \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)\right].
 \end{multline}
-First,
-$$\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c)}.$$
-Next,
-\begin{multline*}
-\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ \textcolor{teal}{- f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}.\end{multline*}
-Recall that
-$$\textcolor{blue}{2g(\beta^g_1,c,1/2) = \Phi(\beta^g_0 + \beta^g_1 - c) - \Phi(\beta^g_0 - c)}.$$
-and
-$$\textcolor{red}{4h(\beta^g_1, c, 1/2) = \left[ \Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \left[\Phi(c - \beta^g_0) + \Phi( c - \beta^g_0 - \beta^g_1) \right]}.$$
-To show that $\gamma$ is monotonically increasing in $\beta^g_1$, it is sufficient to show that (\ref{d_gamma_d_beta}) is nonnegative, i.e.
-\begin{equation}\label{thm:gamma_monotonic_1}
-\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} \geq \textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]}.
+\end{lemma}
+\textbf{Proof}: We take cases on the sign on $\beta^g_1$.
+
+\noindent
+\underline{Case 1}: $\beta^1_g < 0$. Then $ \beta^g_1 + (\beta^g - c) < (\beta^g_0 - c),$ implying $\Phi(\beta^g_0 + \beta^g_1 - c) < \Phi(\beta^g_0 - c),$ or $[\Phi(\beta^g_0 + \beta^g_1 - c) - \Phi(\beta^g_0 - c)] < 0.$ Moreover, $[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)]$ is positive. Therefore, the right-hand side of (\ref{basic_ineq_cp}) is negative.
+
+Turning our attention of the left-hand side of (\ref{basic_ineq_cp}), we see that
+\begin{equation}\label{basic_ineq_cp_2}
+\Phi(\beta^g_0 + \beta^g_1 - c) + \Phi( c - \beta^g_0 - \beta^g_1) = 1 -\Phi(\beta^g_0 + \beta^g_1 - c) + \Phi( c - \beta^g_0 - \beta^g_1) = 1.
 \end{equation}
-The product $\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)}$ is
-\begin{multline}\label{g_prime_times_h}
-\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} \\ = \textcolor{violet}{f(\beta^g_0 + \beta^g_1 - c)}\textcolor{red}{\left[ \Phi(\beta_0^g - c ) + \Phi(\beta^g_0 + \beta^g_1 - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]}.
-\end{multline} 
-Next, the product $\textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]}$ is
-\begin{multline}\label{g_times_h_prime}
-\textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]} \\ = \textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c)}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}\textcolor{teal}{\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ - \textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c)}\textcolor{teal}{\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]} \textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}.
-\end{multline}
-Divide both sides by $f(\beta^g_0 - \beta^g_1 - c) > 0$. Then, add
-$$\textcolor{teal}{\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}.$$ The left-hand side becomes
-\begin{multline*}
-\textcolor{red}{\left[ \Phi(\beta_0^g - c ) + \Phi(\beta^g_0 + \beta^g_1 - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ +\textcolor{teal}{\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]} \\ = \left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ \cdot \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) + \Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) \right].
-\end{multline*}
-Meanwhile, the right-hand side becomes
-$$\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]\left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right].$$
-Therefore, we want to demonstrate that
-\begin{multline}\label{basic_ineq}
-\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ \cdot \left[\textcolor{brown}{\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)} + \textcolor{olive}{\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)} \right] \\ \geq \left[\textcolor{brown}{\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)}\right]\left[\textcolor{olive}{\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)}\right].
-\end{multline}
-(We changed the color scheme to highlight like terms.)
-We take cases on the sign on $\beta^g_1$ to prove this inequality.
-\\ \\ \noindent
-\textbf{Case 1}: $\beta^1_g < 0$. Then $ \beta^g_1 + (\beta^g - c) < (\beta^g_0 - c),$ implying $\Phi(\beta^g_0 + \beta^g_1 - c) < \Phi(\beta^g_0 - c),$ or $[\Phi(\beta^g_0 + \beta^g_1 - c) - \Phi(\beta^g_0 - c)] < 0.$ Moreover, the quantity $[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)]$ is positive. Thus, the right-hand side of (\ref{basic_ineq}) is negative.
+Additionally, $\Phi(\beta^g_0 - c) < 1$ and $ \Phi(c - \beta^g_0) > 0$. Combining these facts with (\ref{basic_ineq_cp_2}), we find that
+$$ \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right] > 0. $$ Finally, because $\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] > 0,$ the entire left-hand side of (\ref{basic_ineq_cp}) is positive.
 
-Turning our attention of the left-hand side, we have that
-\begin{multline*}
-\Phi(\beta^g_0 + \beta^g_1 - c) + \Phi( c - \beta^g_0 - \beta^g_1) = \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f + \int_{-\infty}^{c - \beta^g_0 - \beta^g_1} f \\ = \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f  + \int_{\beta^g_0 + \beta^g_1 - c}^\infty f = 1.
-\end{multline*}
-Additionally, $\Phi(\beta^g_0 - c) < 1,$ and $ \Phi(c - \beta^g_0) > 0$. Combining these expressions, we find that
-$$ \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right] > 0. $$ Because $\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] > 0,$ it follows that the entire left-hand side of (\ref{basic_ineq}) is positive.
-\\ \\ \noindent
-\textbf{Case 2}: $\beta^1_g \geq 0.$  We show that the first term on the LHS of (\ref{basic_ineq}) is greater than the first term on the RHS, and likewise that the second term on the LHS is greater than the second term on the RHS. First,
-$$ \Phi(\beta^g_0 - c) \geq - \Phi(\beta^g_0 - c),$$ implying
+\noindent
+\underline{Case 2}: $\beta^1_g \geq 0.$  We will show that the first term on the LHS of (\ref{basic_ineq_cp}) is greater than the first term on the RHS of (\ref{basic_ineq_cp}), and likewise that the second term on the LHS is greater than the second term on the RHS, implying the truth of the inequality. Focusing on the first term, the positivity of $\Phi(\beta^g_0 -c)$ implies that
+$$ \Phi(\beta^g_0 - c) \geq - \Phi(\beta^g_0 - c),$$ and so
 $$ \Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \geq \Phi(\beta^g_0 - \beta^g_1 - c) - \Phi(\beta^g_0 - c).$$
-Second, $\beta^g_1 \geq 0$ implies that $\beta^g_1 + \beta^g_0 - c \geq \beta^g_0 - c,$ and so $$\Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) \geq 0.$$ Finally, 
-$$ \Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \geq \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1).$$
-Therefore, the inequality (\ref{basic_ineq}) holds.
+Next, focusing on the second term, $\beta^g_1 \geq 0$ implies that 
+\begin{equation}\label{basic_ineq_cp_3}
+\beta^g_1 + \beta^g_0 - c \geq \beta^g_0 - c \implies \Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) \geq 0.
+\end{equation}
+Adding $\Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1)$ to both sides of (\ref{basic_ineq_cp_3}) yields
+\begin{multline*}
+\Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \\ \geq \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1). \textrm{ } \square
+\end{multline*}
+The second lemma establishes the derivatives of the functions $2\cdot g$ and $4 \cdot h$.
+\begin{lemma}
+The derivatives in $\beta^g_1$ of $2\cdot g$ and $4\cdot h$ are
+\begin{equation}\label{dg_dbeta}
+\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c)}
+\end{equation}
+and
+\begin{multline}\label{dh_dbeta}
+\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ \textcolor{teal}{- f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}.\end{multline}
+\end{lemma}
+\textbf{Proof}: Apply the FTC and product rule. $\square$
 
-\subsubsection{Attenuation bias}
+We move onto the proof of the monotonicity of $\gamma$ in $\beta^g_1$. Subtracting $$\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]$$ from both sides of (\ref{basic_ineq_cp}) and multiplying by $f(\beta^g_0 + \beta^g_1 - c) > 0$ yields
+\begin{multline}\label{basic_ineq_cp_4}
+\textcolor{violet}{f(\beta^g_0 + \beta^g_1 - c)} \textcolor{red}{ \left[\Phi(\beta^g_0 - c) + \Phi\left(\beta^g_0 + \beta^g_1 - c \right) \right] \left[ \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \right]}  \\ \geq \textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)\right]}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]} \\ -\textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c)   \left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]} \textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}.
+\end{multline}
+Next, recall that
+\begin{equation}\label{def_2g}
+\textcolor{blue}{2g(\beta^g_1,c,1/2) = \Phi(\beta^g_0 + \beta^g_1 - c) - \Phi(\beta^g_0 - c)}.
+\end{equation}
+and
+\begin{equation}\label{def_4h}
+\textcolor{red}{4h(\beta^g_1, c, 1/2) = \left[ \Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] \left[\Phi(c - \beta^g_0) + \Phi( c - \beta^g_0 - \beta^g_1) \right]}.
+\end{equation}
+Substituting (\ref{dg_dbeta}, \ref{dh_dbeta}, \ref{def_2g}, \ref{def_4h}) into (\ref{basic_ineq_cp_4}) produces
+\begin{equation*}
+\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} \geq \textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]},
+\end{equation*}
+or 
+\begin{equation}\label{basic_ineq_cp_5}
+\textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} - \textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]} \geq 0.
+\end{equation}
+The quotient rule implies that
+\begin{multline}\label{d_gamma_d_beta}
+D_1 \gamma(\beta^g_1, c, 1/2) \\ = \frac{ \textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} - \textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]} }{[4h(\beta^g_1, c, 1/2)]^2}.
+\end{multline}
+We conclude by (\ref{basic_ineq_cp_5}) and (\ref{d_gamma_d_beta}) that $\gamma(\cdot, c, 1/2)$ is monotonically increasing in its first argument.
 
-For given $(\beta^g_0, \beta^g_1)$, 
+\subsubsection{Strict attenuation bias}
+
+For given $(\beta^g_0, c)$, we have that
+$$ \lim_{\beta^g_1 \to \infty} \gamma(\beta^g_1, c, 1/2, \beta^g_0) = \frac{1}{1 + \Phi(\beta^g_0 - c)},$$ and $$\lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_1, c, 1/2, \beta^g_0) = -\frac{1}{1 + \Phi(c - \beta^g_0)}.$$
+Moreover, $\gamma(\beta^g_1, c, 1/2, \beta^g_0)$ is monotonically increasing in $\beta^g_1$. It follows that 
+$$-1 < -\frac{1}{1 + \Phi(c - \beta^g_0)} \leq \gamma(\beta^g_1, c, 1/2, \beta^g_0) \leq \frac{1}{1 - \Phi(\beta^g_0 - c)} < 1$$ for all $\beta^g_1 \in \R$. But $\beta^g_0$ and $c$ were chosen arbitrarily, and so
+$$-1 < \gamma(\beta^g_1, c, 1/2, \beta^g_0) < 1$$ for all $(\beta^g_1, c, \beta^g_0) \in \R^3$.
+  
+\subsubsection{Bias-variance decomposition in no-intercept model} 
+ 
+ 
  
 \subsection{Derivation of EM algorithm}
 
