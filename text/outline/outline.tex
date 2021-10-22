@@ -148,9 +148,8 @@ Limiting bias decreases monotonically as $\beta_1^g$ increases (Figure \ref{thre
 \end{proposition}
 This is consistent with the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated.
 \item 
-\begin{proposition} For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the bias is strictly greater than $0$ and less than $2$ (Figure \ref{thresholding_theoretical}a, all panels). 
+\begin{proposition} For all $\beta^g_0, \beta^g_1,$ and $c \in \R,$ the incurs strict attenuation bias (Figure \ref{thresholding_theoretical}a, all panels).
 \end{proposition}
-Therefore, the thresholding method suffers from attenuation bias.
 \end{itemize}
 
 These results are subtle, but we can summarize them as follows. First, selecting a threshold that minimizes the bias is deceptively challenging, as there is no rule of thumb that we can apply universally (e.g., ``always choose the Bayes-optimal decision boundary'' or ``always choose a large number''). Second, even if we \textit{have} selected a good threshold, the thresholding method incurs a strict attenuation bias.
@@ -159,12 +158,12 @@ These results are subtle, but we can summarize them as follows. First, selecting
 \textbf{Generalizing to $\pi \in [0,1/2]$ (Panel b)}
 \end{center}
 
-Next, we generalize the expression for bias when the threshold is large to arbitrary $\pi \in [0,1/2]$:
+Next, we generalize the expression for bias to arbitrary $\pi \in [0,1/2]$:
 \begin{proposition}
 The following relationship holds:
 $$ \lim_{ c \to \infty } b(\beta^g_0, \beta^g_1, c, \pi) = \pi.$$
 \end{proposition}
-In other words, when the perturbation probability is equal to $\pi$ and the threshold large, the bias is $\pi$. We can understand this result intuitively by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, if we select a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
+In other words, if the perturbation probability is $\pi$, and if we set the threshold to a large number, then the bias also is $\pi$. We can understand this result intuitively by considering an extreme example. When $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
 
 \begin{figure}[h!]
 	\centering
@@ -177,19 +176,25 @@ In other words, when the perturbation probability is equal to $\pi$ and the thre
 	\textbf{Bias-variance tradeoff (Panel c)}
 \end{center}
 
-% Finally, to shed light on limitations of the large threshold selection strategy, we study the variance of the thresholding estimator. Let $v$ denote the limiting variance of scaled estimator $\sqrt{n} \hat{\beta}^m_1$, i.e.,
-% $$v(\beta^g_0, \beta^g_1, c, \pi) = \lim_{n \to \infty} \V(\sqrt{n} \hat{\beta}^m_1).$$ The limiting variance of $\sqrt{n} \hat{\beta}^m_1$ grows without bound as the threshold $c$ tends to infinity: 
-% $$ \lim_{c \to \infty} v(\beta^g_0, \beta^g_1, c, \pi) = \infty.$$ Thus, while selecting a large threshold is effective from a bias reduction standpoint when $\pi$ is small, it causes the variance to explode.
-
-To more precisely characterize the bias-variance tradeoff of the thresholding method, we consider a slightly simpler model: we set $\beta^m_0$ and $\beta^g_0$ to zero in (\ref{theoretical_model}) and study the no-intercept least squares estimator
-$$ \hat{\beta}^m_1 =  \frac{ \sum_{i=1}^n \hat{p}_i m_i }{ \sum_{i=1}^n \hat{p}_i^2}.$$ We uncover an exact bias-variance tradeoff as a function of the selected threshold (Figure \ref{thresholding_theoretical}c). 
-
+To shed light on possible limitations of the large threshold selection strategy, we derive an exact bias-variance decomposition for the thresholding estimator. We consider a slightly simpler, no-intercept version of (\ref{theoretical_model}):
+\begin{equation}\label{theoretical_model_no_int}
+\begin{cases}
+m_i = \beta_m p_i + \ep_i \\
+g_i = \beta_g p_i + \tau_i \\
+p_i \sim \textrm{Bern}(\pi) \\
+\ep_i, \tau_i \sim N(0,1) \\
+p_i \indep \tau_i \indep \ep_i,
+\end{cases}
+\end{equation}
+The thresholding estimator $\hat{\beta}_m$ is given by
+\begin{equation}\label{thresh_estimator_no_int}
+ \hat{\beta}_m = \frac{ \sum_{i=1}^n \hat{p}_i m_i }{\sum_{i=1}^n \hat{p}_i^2}. 
+\end{equation}
 \begin{proposition}
-The limiting distribution is:
-$$\sqrt{n}(\hat{\beta}^m - \beta^m) \xrightarrow{d} N(0, v).$$
+The limiting distribution of $\hat{\beta}_m$ is
+$$\sqrt{n}\left(\hat{\beta}_m - l \right) \xrightarrow{d} N\left(0, v\right).$$
 \end{proposition}
-
-The bias-variance analysis reveals that the best strategy for minimizing mean-squared error is to select a threshold that induces moderate bias. (A downside of this approach, of course, is that constructing valid confidence intervals becomes more challenging.)
+The bias decreases and the variance increases as the threshold tends to infinity, consistent with the intuition that a large threshold yields a low misclassification rate at the cost of a small ``effective sample size.'' The best strategy for maximizing estimation accuracy (as quantified by mean squared error) is to select a threshold that induces moderate bias. A downside of this approach, however, is that constructing valid confidence intervals becomes more challenging.
 
 
 % These difficulties motivate our core research question: does bypassing thresholding altogether lead to better estimation and inference in single-cell CRISPR screens? To answer this question, we propose GLM-EIV, method for single-cell CRISPR screen analysis that models gRNA counts directly.
@@ -231,10 +236,10 @@ $$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\textrm{Cov}(\hat{p}_i, m_i)}{\V\left(\
 \begin{itemize}
 \item[1.] Expectation of $m_i$: $\E[m_i] = \beta^m_0 + \beta^m_1\pi.$
 \item[2.] Expectation of $\hat{p}_i$: Let $f$ denote the $N(0,1)$ density. Then \begin{multline*}
-\E[\hat{p}_i] = \P\left[\hat{p}_i = 1\right] = \P\left[\beta^g_0 + \beta^g_1 + \tau_i \geq c \right] = \\ \textrm{(By LOTP) } \P\left[ \beta^g_0 + \tau_i \geq c \right]\P\left[p_i = 0\right] + \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \P[p_i = 1] \\ = \P\left[ \tau_i \geq c - \beta^g_0\right](1- \pi) + \P\left[ \tau_i \geq c - \beta^g_1 - \beta^g_0 \right](\pi) \\ = \left(\int_{c - \beta^g_0}^\infty f\right) (1 - \pi) + \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right)(\pi) = \zeta(1-\pi) + \omega \pi.
+\E[\hat{p}_i] = \P\left[\hat{p}_i = 1\right] = \P\left[\beta^g_0 + \beta^g_1 p_i + \tau_i \geq c \right] = \\ \textrm{(By LOTP) } \P\left[ \beta^g_0 + \tau_i \geq c \right]\P\left[p_i = 0\right] + \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \P[p_i = 1] \\ = \P\left[ \tau_i \geq c - \beta^g_0\right](1- \pi) + \P\left[ \tau_i \geq c - \beta^g_1 - \beta^g_0 \right](\pi) \\ = \left(\int_{c - \beta^g_0}^\infty f\right) (1 - \pi) + \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right)(\pi) = \zeta(1-\pi) + \omega \pi.
 \end{multline*}
 \item[3.] Expectation of $\hat{p}_i p_i$: 
-$$\E\left[ \hat{p}_i p_i \right] = \E\left[ \hat{p}_i | p_i = 1 \right] \P\left[ p_i =1 \right] = \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \pi = \omega \pi.$$
+$$\E\left[ \hat{p}_i p_i \right] = \E\left[\hat{p}_i | p_i = 1 \right] \P\left[ p_i =1 \right] = \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \pi = \omega \pi.$$
 \item[4.] Expectation of $\hat{p}_i m_i$:
 \begin{multline*}
 \E\left[\hat{p}_i m_i\right] = \E[\hat{p}_i (\beta^m_0 + \beta^m_1 p_i + \ep_i)] = \beta^m_0 \E\left[\hat{p}_i\right] + \beta^m_1 \E\left[\hat{p}_i p_i\right] + \E[\hat{p}_i \ep_i] \\ = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi + \E[\hat{p}_i] \E[\ep_i] = \beta^m_0 \E[\hat{p}_i] + \beta^m_1 \omega \pi.
@@ -432,8 +437,62 @@ $$-1 < \gamma(\beta^g_1, c, 1/2, \beta^g_0) < 1$$ for all $(\beta^g_1, c, \beta^
   
 \subsubsection{Bias-variance decomposition in no-intercept model} 
  
- 
- 
+We prove the bias-variance decomposition for the no-intercept model (\ref{theoretical_model_no_int}). Define $l$ (for ``limit'') by
+$$l = \beta_m \left(\frac{\omega \pi}{\zeta(1-\pi) + \omega \pi}\right),$$ where
+$$
+\begin{cases}
+\omega = \int_{c - \beta_g}^\infty f = 1 - \Phi(\beta_g - c) \\
+\zeta = \int_{c}^\infty f = 1 - \Phi(-c).
+\end{cases}
+$$
+We have that
+\begin{equation*}
+\hat{\beta}_m - l = \frac{\sum_{i=1}^n \hat{p}_i m_i}{ \sum_{i=1}^n \hat{p}^2_i} - l = \frac{\sum_{i=1}^n \hat{p}_i m_i}{ \sum_{i=1}^n \hat{p}^2_i} - \frac{l \sum_{i=1}^n \hat{p}_i^2 }{ \sum_{i=1}^n \hat{p}_i^2} \\ = \frac{\sum_{i=1}^n \hat{p}_i(m_i - l \hat{p}_i)}{ \sum_{i=1}^n \hat{p}_i^2}.
+\end{equation*}
+Therefore,
+\begin{equation}\label{bc_decomp_1}
+\sqrt{n}(\hat{\beta}_m - l) = \frac{(1/\sqrt{n})\sum_{i=1}^n \hat{p}_i(m_i - l \hat{p}_i)}{(1/n)\sum_{i=1}^n \hat{p}_i^2}.
+\end{equation}
+Next, we compute the expectation and variance of $\hat{p}_i(m_i - l\hat{p}_i)$. To do so, we first compute several simpler quantities:
+\begin{enumerate}
+\item Expectation of $\hat{p}_i$: 
+\begin{multline*}
+\E[\hat{p}_i] = \P(p_i\beta_g + \tau_i \geq c) =  \P(\beta_g + \tau_i \geq c)\pi + \P(\tau_i \geq c)(1-\pi) \\ = \pi \omega + (1-\pi)\zeta.
+\end{multline*}
+\item Expectation of $\hat{p}_i p_i$: $$\E\left[\hat{p}_i p_i\right] = \E\left[\hat{p}_i | p_i = 1 \right]\P\left[p_i = 1\right] = \omega \pi.$$
+\item Expectation of $\hat{p}_i m_i$:
+\begin{multline*}
+\E[\hat{p}_i m_i] = \E\left[\hat{p}_i(\beta_m p_i + \ep_i)\right] = \E\left[\beta_m \hat{p}_i p_i + \hat{p}_i \ep_i \right] \\ = \beta_m \E\left[ \hat{p}_i p_i \right] + \E[\hat{p}_i]\E[\ep_i] = \beta_m \omega \pi + 0 = \beta_m \omega \pi.
+\end{multline*}
+\item Expectation of $\hat{p}_i m_i^2$: \begin{multline*}
+\E\left[\hat{p}_i m_i^2\right] = \E \left[ \hat{p}_i( \beta_m p_i + \ep_i )^2 \right] = \E\left[ \hat{p}_i \left( \beta_m^2 p_i^2 + 2 \beta_m p_i \ep_i + \ep_i^2 \right)  \right] \\ = \E\left[ \hat{p}_i p_i \beta^2_m + 2 \beta_m p_i \hat{p}_i \ep_i + \hat{p}_i \ep_i^2 \right] = \beta^2_m \E[ \hat{p}_i p_i] + 2 \beta_m \E[p_i\hat{p}_i] \E[\ep_i] + \E[\hat{p}_i] \E[ \ep^2_i ] \\ = \beta^2_m \E[ \hat{p}_i p_i] + \E[\hat{p}_i] = \beta^2_m \omega \pi + \E[ \hat{p}_i]. 
+\end{multline*}
+\end{enumerate}
+
+Now, we can compute the expectation and variance of $\hat{p}_i(m_i - l\hat{p}_i)$. First,
+\begin{multline}\label{bv_decomp_2}
+\E\left[\hat{p}_i(m_i - l\hat{p}_i) \right] = \E[\hat{p}_i m_i] - l \E[\hat{p}_i] \\ = \beta_m \omega \pi - \left(\frac{\beta_m \omega \pi}{\zeta (1-\pi) + \omega \pi}\right)[\zeta (1-\pi) + \omega \pi] = 0.
+\end{multline}
+Additionally,
+\begin{multline}\label{bv_decomp_3}
+\V\left[\hat{p}_i(m_i - l\hat{p}_i)\right] = \E\left[\hat{p}_i^2(m_i - l\hat{p}_i)^2\right] - (\E\left[ \hat{p}_i(m_i - l\hat{p}_i)\right])^2 \\ = \E\left[ \hat{p}_i m_i^2\right] - 2l \E[m_i\hat{p}_i] +l^2 \E[\hat{p}_i]= \beta^2_m \omega \pi + \E[ \hat{p}_i] -2l \beta_m \omega \pi + l^2 \E[\hat{p}_i] \\ = \beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2).
+\end{multline}
+Therefore, by CLT, (\ref{bv_decomp_2}), and (\ref{bv_decomp_3}),
+\begin{equation}\label{bv_decomp_4}
+(1/\sqrt{n})\sum_{i=1}^n \hat{p}_i(m_i - l \hat{p}_i) \xrightarrow{d} N\left(0, \beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2) \right).
+\end{equation}
+Next, by weak LLN,
+\begin{equation}\label{bv_decomp_5}
+(1/n) \sum_{i=1}^n \hat{p}_i^2 = (1/n) \sum_{i=1}^n \hat{p}_i \xrightarrow{P} \E[\hat{p}_i].
+\end{equation}
+Finally, by (\ref{bc_decomp_1}), (\ref{bv_decomp_4}), (\ref{bv_decomp_5}), and Slutsky's Theorem,
+$$ \sqrt{n}(\hat{\beta}_m - l) \xrightarrow{d} N\left(0, \frac{ \beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2) }{\left(\E[\hat{p}_i]\right)^2} \right).$$ Thus, for large $n \in \N$, we find that 
+$$ \begin{cases}
+\E [\hat{\beta}_m] \approx l, \\
+\V[\hat{\beta}_m] \approx \left[\beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2)\right]/[n\E^2[\hat{p}_i]],
+\end{cases}$$
+completing the bias-variance decomposition.
+
 \subsection{Derivation of EM algorithm}
 
 \subsection{Derivation of observed information matrix}
