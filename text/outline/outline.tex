@@ -19,7 +19,7 @@ Tim, Gene, Kathryn
 \end{center}
 
 \begin{abstract}
-CRISPR genome editing single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. First, we demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
+CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. First, we demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
 
 \section{Introduction}
@@ -103,7 +103,7 @@ p_i \sim \textrm{Bern}(\pi) \\
 p_i \indep \tau_i \indep \ep_i.
 \end{cases}
 \end{equation}
-For a given threshold $c \in \R$, the imputed perturbation assignment $\hat{p}_i$ is $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is given by $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$
+For a given threshold $c \in \R$, the imputed perturbation assignment $\hat{p}_i$ is $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is given by $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})^2 }.$$
 
 \begin{proposition}
  The almost sure limit (as $n \to \infty$) of $\hat{\beta}^m_1$ is
@@ -138,7 +138,7 @@ To investigate the basic question of ``What is a good threshold selection strate
 \begin{proposition}\label{prop:att_bias} Assume without loss of generality that $\beta^m_1 > 0.$ Fix $\pi = 1/2$. For all $(\beta^g_1, c, \beta^g_0) \in \R^3$,
 	$$b(\beta^g_1, 1/2, c, \beta^g_0, \beta^m_1) > 0.$$
 \end{proposition}
-The thresholding method suffers strict attenuation bias for all choices of the threshold and over all possible model parameters (Figure \ref{thresholding_theoretical}a). Attenuation bias is a common attribute of estimators that ignore measurement in errors-in-variables models \cite{Stefanski2000a}.	
+The thresholding method incurs strict attenuation bias (i.e., the true effect size is \textit{under}estimated) for all choices of the threshold and over all possible model parameters (Figure \ref{thresholding_theoretical}a). Attenuation bias is a common attribute of estimators that ignore measurement in errors-in-variables models \cite{Stefanski2000a}.	
 	
 \item \begin{proposition}
 For $\pi = 1/2$ and given $(\beta^g_1, \beta^g_0, \beta^m_1) \in \R^3$, the Bayes-optimal decision boundary $c_\textrm{bayes}$ is a critical value of the limiting bias function $b$, i.e.
@@ -150,13 +150,13 @@ The Bayes-optimal decision boundary is an optimum (or possibly a saddle point) o
 Fix $\pi = 1/2$. As the threshold $c$ tends to infinity, the asymptotic bias $b$ tends to $\beta_1^m/2$, i.e.
 $$\lim_{c \to \infty} b(\beta^g_1, 1/2, c, \beta^g_0, \beta^m_1) = \beta_1^m/2.$$
 \end{proposition}
-We always can set the threshold to a large number and attain a bias of $\beta_1^m/2$ (Figure \ref{thresholding_theoretical}a, all panels). This result establishes an upper bound on the bias of thresholded regression (under optimal threshold selection strategy).
+In other words, we always can set the threshold to a large number and attain a bias of $\beta_1^m/2$ (Figure \ref{thresholding_theoretical}a, all panels). This result establishes an upper bound on the bias of thresholded regression (under optimal threshold selection strategy).
 
  \item The following proposition compares the two threshold selection strategies introduced above (i.e., large number versus Bayes-optimal decision boundary) head-to-head.
  \begin{proposition} Let $\beta^m_1 > 0$. For $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$, we have that $$b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1) > b(\beta^g_1, 1/2, \infty, \beta^g_0, \beta^m_1).$$ For $\beta^g_1 = 2\Phi^{-1}(3/4)$, we have that $$ b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1) = b(\beta^g_1, 1/2, \infty, \beta^g_0, \beta^m_1).$$ Finally, for $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$, we have that
  $$b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1) < b(\beta^g_1, 1/2, \infty, \beta^g_0, \beta^m_1).$$
  \end{proposition}
-In other words, setting the threshold to a large number yields a smaller bias when $\beta^g_1$ is small (i.e., $\beta^g_1 < 2\Phi^{-1}(3/4) \approx 1.35$; Figure \ref{thresholding_theoretical}a, left); setting the threshold to the Bayes-optimal decision boundary yields a smaller bias when $\beta^g_1$ is big (i.e., $\beta^g_1 > 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, right); and the two approaches coincide when $\beta^g_1$ is intermediate (i.e., $\beta^g_1 = 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, middle).
+That is, setting the threshold to a large number yields a smaller bias when $\beta^g_1$ is small (i.e., $\beta^g_1 < 2\Phi^{-1}(3/4) \approx 1.35$; Figure \ref{thresholding_theoretical}a, left); setting the threshold to the Bayes-optimal decision boundary yields a smaller bias when $\beta^g_1$ is big (i.e., $\beta^g_1 > 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, right); and the two approaches coincide when $\beta^g_1$ is intermediate (i.e., $\beta^g_1 = 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, middle).
 
 \item
  \begin{proposition}\label{prop_monotonic} Fix $\pi = 1/2$. The limiting bias $b$ decreases monotonically in $\beta_1^g$, i.e.
@@ -175,12 +175,12 @@ We generalize the expression for bias to arbitrary $\pi \in [0,1/2]$:
 As the threshold $c$ tends to infinity, the limiting bias $b$ tends to $\beta^m_1 \pi,$ i.e.
 $$ \lim_{ c \to \infty } b(\beta^g_1, \pi, c, \beta^g_0, \beta^m_1) = \beta^m_1 \pi.$$
 \end{proposition}
-That is, if the perturbation probability is $\pi$, and if we set the threshold to a large number, then the asymptotic bias is $\beta^m_1 \pi$ (Figure \ref{thresholding_theoretical}b; $\beta^m_1$ fixed at $1$). We can understand this result intuitively by considering an extreme example: when $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
+Thus, if the perturbation probability is $\pi$, and if we set the threshold to a large number, then the asymptotic bias is $\beta^m_1 \pi$ (Figure \ref{thresholding_theoretical}b; $\beta^m_1$ fixed at $1$ in plot). We can understand this result intuitively by considering an extreme example: when $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1\linewidth]{../../figures/thresholding_theoretical/plot}
-	\caption{\textbf{Theoretical challenges of thresholded regression.} \textbf{a,} (Asymptotic) bias versus threshold for different values of $\beta^g_1$. The bias function is highly nonconvex and strictly nonzero. Across all panels, $\beta^g_0 = 0, \beta^m_1 = 1$, and $\pi = 1/2$. \textbf{b,} Bias versus $\pi$ when the threshold is set to a large number. Bias is directly proportional to $\pi$ in this setting. \textbf{c,} Bias-variance decomposition of thresholding estimator in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta^m_1 = 1, \beta^g_1 = 1,$ and $\pi = 0.1$.}
+	\caption{\textbf{Theoretical challenges of thresholded regression.} \textbf{a,} (Asymptotic) bias versus threshold for different values of $\beta^g_1$. The bias function is highly nonconvex and strictly nonzero. Across all panels, $\beta^g_0 = 0, \beta^m_1 = 1$, and $\pi = 1/2$. \textbf{b,} Bias versus $\pi$ when the threshold is set to a large number. Bias is directly proportional to $\pi$ in this setting. $\beta^m_1 = 1$. \textbf{c,} Bias-variance decomposition in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta^m_1 = 1, \beta^g_1 = 1,$ and $\pi = 0.1$.}
 	\label{thresholding_theoretical}
 \end{figure}
 

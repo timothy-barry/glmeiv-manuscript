@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  22 OCT 2021 23:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  23 OCT 2021 17:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -316,13 +316,13 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
  [9] [10]
-<../../figures/thresholding_theoretical/plot.jpeg, id=49, 2258.4375pt x 1505.62
-5pt>
+<../../figures/thresholding_theoretical/plot.jpeg, id=49, 2023.56pt x 1349.04pt
+>
 File: ../../figures/thresholding_theoretical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_theoretical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_theoretical/plot.jpeg  used
  on input line 182.
-(pdftex.def)             Requested size: 390.0pt x 259.99628pt.
+(pdftex.def)             Requested size: 390.0pt x 259.98433pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -424,11 +424,11 @@ ML/cmm/m/it/12 ^^O[]\OT1/cmr/m/n/12 ]$
 Here is how much of TeX's memory you used:
  3524 strings out of 492649
  50784 string characters out of 6129622
- 128107 words of memory out of 5000000
+ 128108 words of memory out of 5000000
  7345 multiletter control sequences out of 15000+600000
  11459 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,38p,1399b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,12n,38p,1407b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2
 018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/20
 18/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/201
@@ -446,7 +446,7 @@ type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2018/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2018/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on outline.pdf (29 pages, 3040817 bytes).
+Output written on outline.pdf (29 pages, 3015523 bytes).
 PDF statistics:
  165 PDF objects out of 1000 (max. 8388607)
  113 compressed objects within 2 object streams
