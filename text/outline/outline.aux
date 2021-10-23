@@ -26,67 +26,71 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Theoretical analysis}{7}}
 \newlabel{theoretical_model}{{1}{8}}
 \newlabel{thresh_est_intercepts}{{2}{8}}
-\newlabel{theoretical_model_no_int}{{3}{10}}
-\newlabel{thresh_estimator_no_int}{{4}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Theoretical challenges of thresholded regression.}}}{11}}
-\newlabel{thresholding_theoretical}{{3}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}GLM-EIV}{12}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Simulation studies}{12}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Real data analysis}{12}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{12}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Theoretical details for thresholding estimator}{12}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.1}Notation}{12}}
-\newlabel{def_g}{{5}{12}}
+\citation{Stefanski2000a}
+\newlabel{prop:att_bias}{{2}{9}}
+\newlabel{prop:limit}{{4}{9}}
+\newlabel{prop_monotonic}{{6}{10}}
+\newlabel{theoretical_model_no_int}{{3}{11}}
+\newlabel{thresh_estimator_no_int}{{4}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Theoretical challenges of thresholded regression.} \textbf  {a,} (Asymptotic) bias versus threshold for different values of $\beta ^g_1$. The bias function is highly nonconvex and strictly nonzero. Across all panels, $\beta ^g_0 = 0, \beta ^m_1 = 1$, and $\pi = 1/2$. \textbf  {b,} Bias versus $\pi $ when the threshold is set to a large number. Bias is directly proportional to $\pi $ in this setting. \textbf  {c,} Bias-variance decomposition of thresholding estimator in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta ^m_1 = 1, \beta ^g_1 = 1,$ and $\pi = 0.1$.}}{12}}
+\newlabel{thresholding_theoretical}{{3}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}GLM-EIV}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Simulation studies}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Real data analysis}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Theoretical details for thresholding estimator}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.1}Notation}{13}}
 \citation{fitzpatrick2009}
-\newlabel{def_h}{{6}{13}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.2}Limit of $\mathaccentV {hat}05E{\beta }^m_1$}{13}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.3}Re-expressing $\gamma $ in a simpler form}{14}}
-\newlabel{thm:gamma_expression_1}{{7}{14}}
-\newlabel{thm:gamma_expression_2}{{8}{15}}
-\newlabel{thm:gamma_expression_3}{{9}{15}}
-\newlabel{thm:gamma_expression_4}{{10}{15}}
-\newlabel{gamma_alternative}{{11}{15}}
-\newlabel{gamma_alternative_pi_half}{{12}{15}}
-\newlabel{gamma_alt2_pi_half}{{13}{16}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.4}Derivatives of $g$ and $h$ in $c$}{16}}
-\newlabel{dg_dc}{{14}{16}}
-\newlabel{dh_dc}{{15}{16}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.5}Limit of $\gamma $ in $c$}{16}}
-\newlabel{c_limit_product}{{16}{17}}
-\newlabel{c_limit_product_2}{{17}{17}}
-\newlabel{c_limit_product_3}{{18}{17}}
-\newlabel{c_limit_product_4}{{19}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{18}}
-\newlabel{quotient_rule}{{20}{18}}
-\newlabel{dg_dc_bayes}{{21}{18}}
-\newlabel{dh_dc_bayes}{{22}{19}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.7}Comparison of Bayes-optimal decision boundary to large threshold}{19}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.8}Limit in $\beta ^g_1$}{20}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.9}Monotonicity in $\beta ^g_1$}{20}}
-\newlabel{basic_ineq_cp}{{23}{20}}
-\newlabel{basic_ineq_cp_2}{{24}{20}}
-\newlabel{basic_ineq_cp_3}{{25}{21}}
-\newlabel{dg_dbeta}{{26}{21}}
-\newlabel{dh_dbeta}{{27}{21}}
-\newlabel{basic_ineq_cp_4}{{28}{21}}
-\newlabel{def_2g}{{29}{22}}
-\newlabel{def_4h}{{30}{22}}
-\newlabel{basic_ineq_cp_5}{{31}{22}}
-\newlabel{d_gamma_d_beta}{{32}{22}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.10}Strict attenuation bias}{22}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.11}Bias-variance decomposition in no-intercept model}{23}}
-\newlabel{bc_decomp_1}{{33}{23}}
+\newlabel{def_g}{{5}{14}}
+\newlabel{def_h}{{6}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.2}Limit of $\mathaccentV {hat}05E{\beta }^m_1$}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.3}Re-expressing $\gamma $ in a simpler form}{16}}
+\newlabel{thm:gamma_expression_1}{{7}{16}}
+\newlabel{thm:gamma_expression_2}{{8}{16}}
+\newlabel{thm:gamma_expression_3}{{9}{16}}
+\newlabel{thm:gamma_expression_4}{{10}{16}}
+\newlabel{gamma_alternative}{{11}{17}}
+\newlabel{gamma_alternative_pi_half}{{12}{17}}
+\newlabel{gamma_alt2_pi_half}{{13}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.4}Derivatives of $g$ and $h$ in $c$}{17}}
+\newlabel{dg_dc}{{14}{17}}
+\newlabel{dh_dc}{{15}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.5}Limit of $\gamma $ in $c$}{18}}
+\newlabel{c_limit_product}{{16}{18}}
+\newlabel{c_limit_product_2}{{17}{18}}
+\newlabel{c_limit_product_3}{{18}{19}}
+\newlabel{c_limit_product_4}{{19}{19}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{20}}
+\newlabel{quotient_rule}{{20}{20}}
+\newlabel{dg_dc_bayes}{{21}{20}}
+\newlabel{dh_dc_bayes}{{22}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.7}Comparison of Bayes-optimal decision boundary to large threshold}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.8}Limit in $\beta ^g_1$}{21}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.9}Monotonicity in $\beta ^g_1$}{22}}
+\newlabel{basic_ineq_cp}{{23}{22}}
+\newlabel{basic_ineq_cp_2}{{24}{22}}
+\newlabel{basic_ineq_cp_3}{{25}{22}}
+\newlabel{dg_dbeta}{{26}{23}}
+\newlabel{dh_dbeta}{{27}{23}}
+\newlabel{basic_ineq_cp_4}{{28}{23}}
+\newlabel{def_2g}{{29}{23}}
+\newlabel{def_4h}{{30}{23}}
+\newlabel{basic_ineq_cp_5}{{31}{24}}
+\newlabel{d_gamma_d_beta}{{32}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.10}Strict attenuation bias}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.11}Bias-variance decomposition in no-intercept model}{24}}
+\newlabel{bc_decomp_1}{{33}{25}}
+\newlabel{bv_decomp_2}{{34}{25}}
 \bibstyle{unsrt}
-\newlabel{bv_decomp_2}{{34}{24}}
-\newlabel{bv_decomp_3}{{35}{24}}
-\newlabel{bv_decomp_4}{{36}{24}}
-\newlabel{bv_decomp_5}{{37}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Derivation of EM algorithm}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Derivation of observed information matrix}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Implementation using R family objects}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Statistical accelerations to GLM-EIV}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Additional simulation results}{24}}
+\newlabel{bv_decomp_3}{{35}{26}}
+\newlabel{bv_decomp_4}{{36}{26}}
+\newlabel{bv_decomp_5}{{37}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Derivation of EM algorithm}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Derivation of observed information matrix}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Implementation using R family objects}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Statistical accelerations to GLM-EIV}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Additional simulation results}{26}}
 \bibdata{/Users/timbarry/optionFiles/glmeiv.bib}
 \bibcite{Rothgangl2021}{1}
 \bibcite{Musunuru2021}{2}
@@ -102,4 +106,5 @@
 \bibcite{Barry2020}{12}
 \bibcite{Yang2019}{13}
 \bibcite{Sarkar2021}{14}
-\bibcite{fitzpatrick2009}{15}
+\bibcite{Stefanski2000a}{15}
+\bibcite{fitzpatrick2009}{16}
