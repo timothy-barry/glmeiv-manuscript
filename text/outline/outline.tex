@@ -2,6 +2,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\setcounter{tocdepth}{2}
 \usepackage{xcolor}
 \newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
@@ -21,6 +22,8 @@ Tim, Gene, Kathryn
 \begin{abstract}
 CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. First, we demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction}
 CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new medical therapies \cite{Rothgangl2021,Musunuru2021} and transforming basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resulting assays, known as a ``single-cell CRISPR screens,'' link genetic perturbations in individual cells to changes in gene expression, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
@@ -90,7 +93,7 @@ $$ m_i | \left(\hat{p}_i, z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ w
 \end{figure}
 \newpage
 
-\subsection{Theoretical analysis}
+\subsection{Theoretical analysis}\label{sec:thresholding_theory}
 
 We study the thresholding method from a theoretical perspective in an idealized Gaussian setting. Suppose that we observe data $(g_1, m_1), \dots, (g_n, m_n)$ from the following model:
 
@@ -103,9 +106,9 @@ p_i \sim \textrm{Bern}(\pi) \\
 p_i \indep \tau_i \indep \ep_i.
 \end{cases}
 \end{equation}
-For a given threshold $c \in \R$, the imputed perturbation assignment $\hat{p}_i$ is $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is given by $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})^2 }.$$
+For a given threshold $c \in \R$, the imputed perturbation assignment $\hat{p}_i$ is given by $\hat{p}_i = \mathbb{I}(g_i \geq c).$ The thresholding estimator $\hat{\beta}^m_1$ for $\beta^m_1$ is $$\hat{\beta}^m_1 = \frac{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}}) (m_i - \overline{m})}{\sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})^2 }.$$
 
-\begin{proposition}
+\begin{proposition}\label{prop:convergence}
  The almost sure limit (as $n \to \infty$) of $\hat{\beta}^m_1$ is
 \begin{equation}\label{thresh_est_intercepts}
 \hat{\beta}^m_1 \xrightarrow{a.s.} \beta^m_1 \left(\frac{ \pi( \omega - \E[ \hat{p}_i ])}{ \E[\hat{p}_i] (1 - \E[\hat{p}_i])}\right),
@@ -121,48 +124,46 @@ $$ \gamma(\beta^g_1, \pi, c, \beta^g_0) = \frac{\pi (\omega - \E[\hat{p}_i])}{\E
 \item[i.] $\gamma$ does not depend on $\beta^m_1$ or $\beta^m_0$, and
 \item[ii.] $\hat{\beta}^m_1 \xrightarrow{a.s.} [\gamma(\beta_0^g, \beta_1^g, c, \pi)] \beta^m_1.$
 \end{itemize}
-Let $b: \R^5 \to \R$ be the asymptotic bias of $\hat{\beta}^m_1$, i.e.
-$$
-b(\beta^g_1, \pi, c, \beta^g_0, \beta^m_1) = \lim_{n\to\infty} \left(\beta^m_1 - \E[\hat{\beta}^m_1]\right) = \beta^m_1 - \E \left( \lim_{a.s.} \hat{\beta}^m_1 \right) = \beta^m_1 - \lim_{a.s.} \hat{\beta}^m_1,
-$$
-where the $\lim_{a.s.}$ denotes a.s.\ convergence. \textcolor{red}{(HOW TO MAKE THE ABOVE RIGOROUS?)} We can express $b$ in terms of $\gamma$ as $$b(\beta^g_1, \pi, c, \beta^g_0, \beta^m_1) = \beta^m_1 - \gamma(\beta^g_1, \pi, c, \beta^g_0)  \beta^m_1 = \beta^m_1 \left[1 - \gamma(\beta^g_1, \pi, c, \beta^g_0)  \right].$$ The asymptotic bias vanishes when the attenuation function equals $1$.
+Let $b: \R^4 \to \R$ be the asymptotic \textit{relative} bias of $\hat{\beta}^m_1$:
+\begin{multline*}
+b(\beta^g_1, \pi, c, \beta^g_0) = \left(\frac{1}{\beta^m_1}\right) \lim_{n\to\infty} \left(\beta^m_1 - \E[\hat{\beta}^m_1]\right) = \left( \frac{1}{\beta^m_1}\right)\left(\beta^m_1 - \E \left(\lim_{a.s.} \hat{\beta}^m_1 \right)\right) \\ = \frac{1}{\beta^m_1} \left(\beta^m_1 - \gamma(\beta^g_1, \pi, c, \beta^g_0)\beta^m_1\right) = 1 - \gamma(\beta^g_1, \pi, c, \beta^g_0),
+\end{multline*}
+where $\lim_{a.s.}$ denotes a.s.\ convergence. The asymptotic relative bias vanishes when the attenuation function equals $1$. \textcolor{red}{(HOW TO MAKE THE ABOVE RIGOROUS?)}
 
 \begin{center}
 \textbf{Bias as a function of threshold (Panel a)}
 \end{center}
 
-To investigate the basic question of ``What is a good threshold selection strategy?'', we study the relationship between the asymptotic bias $b$ of $\hat{\beta}^m_1$ and the selected threshold $c$. For simplicity, we set the perturbation probability $\pi$ to $1/2$. Let $c_\textrm{bayes} \in \R$ be the Bayes-optimal decision boundary for classifying cells as perturbed or unperturbed, i.e. $$c_\textrm{bayes} = \argmin_{c \in \R} \P(\hat{p}_i \neq p_i).$$ Simple algebra shows that $c_\textrm{bayes} = \beta_0^g + (1/2) \beta^g_1.$ Below, we state several results on the limiting bias $b$ of $\hat{\beta}^m_1$. We refer throughout to Figure \ref{thresholding_theoretical}a, which displays plots of asymptotic bias versus threshold for different values of $\beta^g_1$; the target of inference, $\beta^m_1$, is fixed to $1$ in these plots.
+To investigate the basic question of ``What is a good threshold selection strategy?'', we study the relationship between the asymptotic relative bias $b$ of $\hat{\beta}^m_1$ and the selected threshold $c$. For simplicity, we set the perturbation probability $\pi$ to $1/2$. Let $c_\textrm{bayes} \in \R$ be the Bayes-optimal decision boundary for classifying cells as perturbed or unperturbed, i.e. $$c_\textrm{bayes} = \argmin_{c \in \R} \P(\hat{p}_i \neq p_i).$$ Simple algebra shows that $c_\textrm{bayes} = \beta_0^g + (1/2) \beta^g_1.$ Below, we give several results for the asymptotic relative bias $b$ of $\hat{\beta}^m_1$. We refer throughout to Figure \ref{thresholding_theoretical}a, which displays plots of asymptotic relative bias versus threshold for different values of $\beta^g_1$. We sometimes refer to ``asymptotic relative bias'' using the shortened term ``bias'' for succinctness.
 
 \begin{itemize}
 \item 
-\begin{proposition}\label{prop:att_bias} Assume without loss of generality that $\beta^m_1 > 0.$ Fix $\pi = 1/2$. For all $(\beta^g_1, c, \beta^g_0) \in \R^3$,
-	$$b(\beta^g_1, 1/2, c, \beta^g_0, \beta^m_1) > 0.$$
+\begin{proposition}\label{prop:att_bias} Fix $\pi = 1/2$. For all $(\beta^g_1, c, \beta^g_0) \in \R^3$, the asymptotic relative bias is positive, i.e. 
+$$b(\beta^g_1, 1/2, c, \beta^g_0) > 0.$$
 \end{proposition}
-The thresholding method incurs strict attenuation bias (i.e., the true effect size is \textit{under}estimated) for all choices of the threshold and over all possible model parameters (Figure \ref{thresholding_theoretical}a). Attenuation bias is a common attribute of estimators that ignore measurement in errors-in-variables models \cite{Stefanski2000a}.	
-	
-\item \begin{proposition}
-For $\pi = 1/2$ and given $(\beta^g_1, \beta^g_0, \beta^m_1) \in \R^3$, the Bayes-optimal decision boundary $c_\textrm{bayes}$ is a critical value of the limiting bias function $b$, i.e.
-$$ \frac{\partial b}{\partial c}\left(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1\right) = 0.$$
-\end{proposition}
-The Bayes-optimal decision boundary is an optimum (or possibly a saddle point) of the limiting bias function (Figure \ref{thresholding_theoretical}a, vertical blue lines). Interestingly, $c_\textrm{bayes}$ is in some cases a maximizer of the bias (Figure \ref{thresholding_theoretical}a, left) and in other cases a minimizer of the bias (Figure \ref{thresholding_theoretical}a, right).
+The thresholding method incurs strict attenuation bias (i.e., it \textit{under}estimates the true effect size) for all choices of the threshold and over all possible values of the model parameters (Figure \ref{thresholding_theoretical}a). Attenuation bias is a common attribute of estimators that ignore measurement in errors-in-variables models \cite{Stefanski2000a}.
 \item
-\begin{proposition}\label{prop:limit}
-Fix $\pi = 1/2$. As the threshold $c$ tends to infinity, the asymptotic bias $b$ tends to $\beta_1^m/2$, i.e.
-$$\lim_{c \to \infty} b(\beta^g_1, 1/2, c, \beta^g_0, \beta^m_1) = \beta_1^m/2.$$
+\begin{proposition}\label{prop:monotonic} Fix $\pi = 1/2$. The asymptotic relative bias $b$ decreases monotonically in $\beta_1^g$, i.e.
+	$$\frac{\partial b}{\partial(\beta^g_1)}\left(\beta^g_1, 1/2, c, \beta^g_0\right) \leq 0.$$
 \end{proposition}
-In other words, we always can set the threshold to a large number and attain a bias of $\beta_1^m/2$ (Figure \ref{thresholding_theoretical}a, all panels). This result establishes an upper bound on the bias of thresholded regression (under optimal threshold selection strategy).
+This result formalizes the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated. To visualize Proposition (\ref{prop:monotonic}), one can fix a threshold (e.g., $c = 0$) and scan for bias across the panels.	
+\item \begin{proposition}\label{prop:bayes_opt}
+For $\pi = 1/2$ and given $(\beta^g_1, \beta^g_0) \in \R^2$, the Bayes-optimal decision boundary $c_\textrm{bayes}$ is a critical value of the bias function $b$, i.e.
+$$ \frac{\partial b}{\partial c}\left(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0\right) = 0.$$
+\end{proposition}
+The Bayes-optimal decision boundary is an optimum (or possibly a saddle point) of the asymptotic relative bias function (Figure \ref{thresholding_theoretical}a, vertical blue lines). Interestingly, $c_\textrm{bayes}$ is in some cases a maximizer of the bias (Figure \ref{thresholding_theoretical}a, left) and in other cases a minimizer of the bias (Figure \ref{thresholding_theoretical}a, right).
+\item
+\begin{proposition}\label{prop:c_limit_half}
+Assume without loss of generality that $\beta^g_1 > 0$, and fix $\pi = 1/2$. As the threshold $c$ tends to infinity, the asymptotic relative bias $b$ tends to $1/2$, i.e.
+$$\lim_{c \to \infty} b(\beta^g_1, 1/2, c, \beta^g_0) = 1/2.$$
+\end{proposition}
+In other words, we always can set the threshold to a large number and attain a relative bias of $1/2$ (Figure \ref{thresholding_theoretical}a, all panels). This result establishes an upper bound on the bias of thresholded regression (under optimal threshold selection strategy).
 
  \item The following proposition compares the two threshold selection strategies introduced above (i.e., large number versus Bayes-optimal decision boundary) head-to-head.
- \begin{proposition} Let $\beta^m_1 > 0$. For $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$, we have that $$b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1) > b(\beta^g_1, 1/2, \infty, \beta^g_0, \beta^m_1).$$ For $\beta^g_1 = 2\Phi^{-1}(3/4)$, we have that $$ b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1) = b(\beta^g_1, 1/2, \infty, \beta^g_0, \beta^m_1).$$ Finally, for $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$, we have that
- $$b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0, \beta^m_1) < b(\beta^g_1, 1/2, \infty, \beta^g_0, \beta^m_1).$$
+ \begin{proposition}\label{prop:comparison} Assume without loss of generality that $\beta^g_1 > 0$. For $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$, we have that $$b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0) > b(\beta^g_1, 1/2, \infty, \beta^g_0).$$ For $\beta^g_1 = 2\Phi^{-1}(3/4)$, we have that $$ b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0) = b(\beta^g_1, 1/2, \infty, \beta^g_0).$$ Finally, for $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$, we have that
+ $$b(\beta^g_1, 1/2, c_\textrm{bayes}, \beta^g_0) < b(\beta^g_1, 1/2, \infty, \beta^g_0).$$
  \end{proposition}
-That is, setting the threshold to a large number yields a smaller bias when $\beta^g_1$ is small (i.e., $\beta^g_1 < 2\Phi^{-1}(3/4) \approx 1.35$; Figure \ref{thresholding_theoretical}a, left); setting the threshold to the Bayes-optimal decision boundary yields a smaller bias when $\beta^g_1$ is big (i.e., $\beta^g_1 > 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, right); and the two approaches coincide when $\beta^g_1$ is intermediate (i.e., $\beta^g_1 = 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, middle).
-
-\item
- \begin{proposition}\label{prop_monotonic} Fix $\pi = 1/2$. The limiting bias $b$ decreases monotonically in $\beta_1^g$, i.e.
-$$\frac{\partial b}{\partial(\beta^g_1)}\left(\beta^g_1, 1/2, c, \beta^g_0, \beta^m_1\right) \leq 0.$$
-\end{proposition}
-This result formalizes the intuition that the problem becomes easier as the gRNA mixture distribution becomes increasingly well-separated. To visualize Proposition (\ref{prop_monotonic}), one can fix a threshold (e.g., $c = 0$) and scan for bias across the panels.
+Setting the threshold to a large number yields a smaller bias when $\beta^g_1$ is small (i.e., $\beta^g_1 < 2\Phi^{-1}(3/4) \approx 1.35$; Figure \ref{thresholding_theoretical}a, left); setting the threshold to the Bayes-optimal decision boundary yields a smaller bias when $\beta^g_1$ is large (i.e., $\beta^g_1 > 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, right); and the two approaches coincide when $\beta^g_1$ is intermediate (i.e., $\beta^g_1 = 2\Phi^{-1}(3/4)$; Figure \ref{thresholding_theoretical}a, middle).
 \end{itemize}
 
 These results are subtle, but we can summarize them as follows. First, selecting a threshold that minimizes the bias is challenging, as there is no rule of thumb that we can apply universally (e.g., ``always choose the Bayes-optimal decision boundary'' or ``always choose a large number'') due to the complexity of the bias function. Second, even if we \textit{have} selected a good threshold, we incur nonzero attenuation bias.
@@ -170,17 +171,17 @@ These results are subtle, but we can summarize them as follows. First, selecting
 \begin{center}
 \textbf{Generalizing to $\pi \in [0,1/2]$ (Panel b)}
 \end{center}
-We generalize the expression for bias to arbitrary $\pi \in [0,1/2]$:
-\begin{proposition}
-As the threshold $c$ tends to infinity, the limiting bias $b$ tends to $\beta^m_1 \pi,$ i.e.
-$$ \lim_{ c \to \infty } b(\beta^g_1, \pi, c, \beta^g_0, \beta^m_1) = \beta^m_1 \pi.$$
+We generalize the expression for bias when the threshold is large to arbitrary $\pi \in [0,1/2]$:
+\begin{proposition}\label{prop:c_limit}
+Assume without loss of generality that $\beta^g_1 > 0$. As the threshold $c$ tends to infinity, the asymptotic relative bias $b$ tends to $\pi,$ i.e.
+$$ \lim_{ c \to \infty } b(\beta^g_1, \pi, c, \beta^g_0) = \pi.$$
 \end{proposition}
-Thus, if the perturbation probability is $\pi$, and if we set the threshold to a large number, then the asymptotic bias is $\beta^m_1 \pi$ (Figure \ref{thresholding_theoretical}b; $\beta^m_1$ fixed at $1$ in plot). We can understand this result intuitively by considering an extreme example: when $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
+In other words, if the perturbation probability is $\pi$, and if we set the threshold to a large number, then the asymptotic relative bias is $\pi$ (Figure \ref{thresholding_theoretical}b). We can understand this result intuitively by considering an extreme example: when $\pi$ is very small (e.g., $\pi = 0.01$), almost all cells are unperturbed. Therefore, in selecting a large threshold, we correctly classify nearly all unperturbed cells as unperturbed; on the other hand, the \textit{perturbed} cells that we misclassify as \textit{unperturbed} are swamped in number by the truly unperturbed cells, resulting in a small bias.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1\linewidth]{../../figures/thresholding_theoretical/plot}
-	\caption{\textbf{Theoretical challenges of thresholded regression.} \textbf{a,} (Asymptotic) bias versus threshold for different values of $\beta^g_1$. The bias function is highly nonconvex and strictly nonzero. Across all panels, $\beta^g_0 = 0, \beta^m_1 = 1$, and $\pi = 1/2$. \textbf{b,} Bias versus $\pi$ when the threshold is set to a large number. Bias is directly proportional to $\pi$ in this setting. $\beta^m_1 = 1$. \textbf{c,} Bias-variance decomposition in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta^m_1 = 1, \beta^g_1 = 1,$ and $\pi = 0.1$.}
+	\caption{\textbf{Theoretical challenges of thresholded regression.} \textbf{a,} Asymptotic relative bias versus threshold for different values of $\beta^g_1$. The bias function is highly nonconvex and strictly nonzero. Vertical blue lines, Bayes-optimal decision boundaries. Across all panels, $\beta^g_0 = 0$ and $\pi = 1/2$. \textbf{b,} Asymptotic relative bias versus $\pi$ when the threshold is set to a large number. The two quantities coincide exactly. \textbf{c,} Bias-variance decomposition for thresholding method in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta^g_1 = 1, \beta^m_1 = 1,$ and $\pi = 0.1$.}
 	\label{thresholding_theoretical}
 \end{figure}
 
@@ -202,7 +203,7 @@ The thresholding estimator $\hat{\beta}_m$ in the no-intercept case is
 \begin{equation}\label{thresh_estimator_no_int}
  \hat{\beta}_m = \frac{ \sum_{i=1}^n \hat{p}_i m_i }{\sum_{i=1}^n \hat{p}_i^2}. 
 \end{equation}
-\begin{proposition}
+\begin{proposition}\label{prop:bv_decomp}
 The limiting distribution of $\hat{\beta}_m$ is
 $$\sqrt{n}(\hat{\beta}_m - l) \xrightarrow{d} N\left(0, \frac{ \beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2) }{\left(\E[\hat{p}_i]\right)^2} \right),$$ where
 $$\begin{cases}
@@ -228,33 +229,58 @@ This result yields an exact bias-variance decomposition for $\hat{\beta}_m$ for 
 \section{Appendix}
 
 \subsection{Theoretical details for thresholding estimator}
+This section contains proofs of the propositions presented Section \ref{sec:thresholding_theory}, ``Theoretical analysis of thresholding estimator.'' The subsections are organized as follows. Section (\ref{sec:notation}) introduces some notation. Section (\ref{sec:convergence}) establishes almost sure convergence of the thresholding estimator in the model (\ref{theoretical_model}), proving Proposition \ref{prop:convergence}. Section (\ref{sec:simplication}) simplifies the expression for the attenuation function $\gamma$, and section (\ref{sec:derivatives})  computes derivatives of $\gamma$ to be used throughout the proofs. Section (\ref{sec:c_limit}) establishes the limit in $c$ of $\gamma$, proving Proposition \ref{prop:c_limit} and as a corollary Proposition \ref{prop:c_limit_half}. Section (\ref{sec:bayes_opt}) establishes that the Bayes-optimal decision boundary is a critical value of $\gamma$, proving Proposition \ref{prop:bayes_opt}, and section (\ref{sec:comparison}) compares the competing threshold selection strategies head-to-head, proving Proposition \ref{prop:comparison}. Section (\ref{sec:monotone}) demonstrates that $\gamma$ is monotone in $\beta^g_1$, proving Proposition \ref{prop:monotonic}, and Section (\ref{sec:att_bias}) establishes attenuation bias of the thresholding estimator, proving Proposition \ref{prop:att_bias}. Finally, Section (\ref{sec:bv_decomp}) derives the bias-variance decomposition of the thresholding estimator in the model (\ref{theoretical_model_no_int}), proving Proposition \ref{prop:bv_decomp}.
 
-This section contains proofs for results presented the section ``Theoretical analysis of thresholding estimator.'' The subsections are arranged as follows: FILL IN...
+% Labels of propositions and theorems
+% propositions:
+% prop:convergence
+% prop:att_bias
+% prop:bayes_opt
+% prop:c_limit_half
+% prop:comparison
+% prop:monotonic
+% prop:c_limit
+% prop:bv_decomp
 
-\subsubsection{Notation}
- All notation introduced here pertains to the Gaussian model with intercepts (\ref{theoretical_model}). Recall that the attenuation function $\gamma: \R^4 \to \R$ is defined by
-$$ \gamma(\beta^g_1, c, \pi, \beta^g_0) = \frac{\pi(\omega - \E[\hat{p}_i])}{ \E[\hat{p}_i](1 -\E[\hat{p}_i])},$$ where $$\begin{cases}
-\omega = \Phi\left(c - \beta_1^g - \beta_0^g \right) ,\\ \zeta = \Phi\left( c - \beta^g_0 \right), \\ \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi. 
-\end{cases}$$ Additionally, recall that the bias function $b: \R^5 \to \R$ is defined by
-$$ b(\beta^g_1, c, \pi, \beta^g_0, \beta^m_1) = \beta^m_1 (1 - \gamma(\beta^g_1, c, \pi, \beta^g_0)).$$ The parameters $\beta^g_0$ and $\beta^m_1$ are given, fixed constants throughout the proofs. Therefore, to minimize notation, we typically use $\gamma(\beta^g_1, c, \pi)$ (resp., $b(\beta^g_1, c, \pi)$) to refer to the function $\gamma$ (resp., $b$) evaluated at $(\beta^g_1, c, \pi, \beta^g_0)$ (resp., $(\beta^g_1, c, \pi, \beta^g_0, \beta^m_1)$). Next, we define the functions $g$ and $h: \R^4 \to \R$ by
+% sections
+% sec:notation
+% sec:convergence
+% sec:simplication
+% sec:derivatives
+% sec:c_limit
+% sec:bayes_opt
+% sec:comparison
+% sec:beta_lim
+% sec:monotone
+% sec:att_bias
+% sec:bv_decomp
+
+\subsubsection{Notation}\label{sec:notation}
+ All notation introduced in this subsection (i.e., \ref{sec:notation}) pertains to the Gaussian model with intercepts (\ref{theoretical_model}). Recall that the attenuation function $\gamma: \R^4 \to \R$ is defined by
+$$ \gamma(\beta^g_1, c, \pi, \beta^g_0) = \frac{\pi(\omega - \E[\hat{p}_i])}{ \E[\hat{p}_i](1 -\E[\hat{p}_i])},$$ where $$\begin{cases} \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi, \\
+\omega = \Phi\left(\beta_1^g + \beta_0^g - c \right) ,\\ \zeta = \Phi\left( \beta^g_0 - c \right).
+\end{cases}$$ Additionally, recall that the asymptotic relative bias function $b: \R^4 \to \R$ is
+$$ b(\beta^g_1, c, \pi, \beta^g_0) = 1 - \gamma(\beta^g_1, c, \pi, \beta^g_0).$$ Next, we define the functions $g$ and $h: \R^4 \to \R$ by
 \begin{equation}\label{def_g}
-g(\beta^g_1, c, \pi, \beta^g_0) = (1-\pi)\left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - (1-\pi)\left( \int_{-\infty}^{ \beta_0^g - c} f \right)\end{equation}
+g(\beta^g_1, c, \pi, \beta^g_0) = (1-\pi)\left( \Phi(\beta_0^g + \beta_1^g - c)\right) - (1-\pi)\left(\Phi(\beta_0^g - c)\right)\end{equation}
  and
 \begin{multline}\label{def_h}
-h(\beta^g_1, c, \pi, \beta^g_0) = \left[(1-\pi)\left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \pi\left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \cdot \\ \left[(1-\pi)\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \pi\left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right],
-\end{multline} where $f: \R \to [0,\infty)$ is the $N(0,1)$ density. We will refer to $g$ and $h$ repeatedly throughout the proofs. Similarly to above, we typically use the notation $g(\beta^g_1, c, \pi)$ (resp.\ $h(\beta^g_1, c, \pi)$) to refer to $g$ (resp.\ $h$) evaluated at $(\beta^g_1, c, \pi, \beta^g_0)$.
+h(\beta^g_1, c, \pi, \beta^g_0) = \left[(1-\pi)\left( \Phi(\beta_0^g - c)\right) + \pi\left(\Phi(\beta^g_0 + \beta^g_1 - c) \right) \right] \cdot \\ \left[(1-\pi)\left( \Phi(c - \beta^g_0) \right) + \pi\left(\Phi(c - \beta_0^g - \beta_1^g) \right) \right].
+\end{multline}
+We use $f:\R \to \R$ to denote the $N(0,1)$ density, and we denote the right-tail probability probability of $f$ by $\bar{\Phi}$, i.e., 
+$$\bar{\Phi}(x) = \int_{x}^{\infty} f = \Phi(-x).$$
 
-Finally, for a given function $r: \R^{p} \to \R$, point $x \in \R^p$, and index $i \in \{1, \dots, p\}$, we use the symbol $D_i r(x)$ to refer to the derivative of the $i$th component of $r$ evaluated at $x$ (\textit{sensu} \cite{fitzpatrick2009}). For example, $D_1 \gamma(\beta^g_1, c, 1/2)$ is the derivative of the first component of $\gamma$ (the component corresponding to $\beta^g_1$) evaluated at $(\beta^g_1, c, 1/2)$. Likewise,  $D_2g(\beta^g_1, c, \pi)$ is the derivative of the second component of $g$ (the component corresponding to $c$) evaluated at $(\beta^g_1, c, \pi).$
+The parameter $\beta^g_0$ is a given, fixed constant throughout the proofs. Therefore, to minimize notation, we typically use $\gamma(\beta^g_1, c, \pi)$ (resp., $b(\beta^g_1, c, \pi),$ $g(\beta^g_1, c, \pi),$ $h(\beta^g_1, c, \pi)$) to refer to the function $\gamma$ (resp., $b, g, h$) evaluated at $(\beta^g_1, c, \pi, \beta^g_0)$. Finally, for a given function $r: \R^{p} \to \R$, point $x \in \R^p$, and index $i \in \{1, \dots, p\}$, we use the symbol $D_i r(x)$ to refer to the derivative of the $i$th component of $r$ evaluated at $x$ (\textit{sensu} \cite{fitzpatrick2009}). For example, $D_1 \gamma(\beta^g_1, c, 1/2)$ is the derivative of the first component of $\gamma$ (the component corresponding to $\beta^g_1$) evaluated at $(\beta^g_1, c, 1/2)$. Likewise,  $D_2g(\beta^g_1, c, \pi)$ is the derivative of the second component of $g$ (the component corresponding to $c$) evaluated at $(\beta^g_1, c, \pi).$
 
-\subsubsection{Limit of $\hat{\beta}^m_1$}
+\subsubsection{Almost sure limit of $\hat{\beta}^m_1$}\label{sec:convergence}
 
 We derive the limit in probability of $\hat{\beta}^m_1$ for the Gaussian model with intercepts (\ref{theoretical_model}). Dividing by $n$ in (\ref{thresh_est_intercepts}), we can express $\hat{\beta}^m_1$ as
 $$ \hat{\beta}^m_1 = \frac{ \frac{1}{n} \sum_{i=1}^n ( \hat{p}_i - \overline{\hat{p}_i})(m_i - \overline{m})}{ \frac{1}{n} \sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ By weak LLN,
 $$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\textrm{Cov}(\hat{p}_i, m_i)}{\V\left(\hat{p}_i\right)}.$$ To compute this quantity, we first compute several simpler quantities:
 \begin{itemize}
 \item[1.] Expectation of $m_i$: $\E[m_i] = \beta^m_0 + \beta^m_1\pi.$
-\item[2.] Expectation of $\hat{p}_i$: Let $f$ denote the $N(0,1)$ density. Then \begin{multline*}
-\E[\hat{p}_i] = \P\left[\hat{p}_i = 1\right] = \P\left[\beta^g_0 + \beta^g_1 p_i + \tau_i \geq c \right] = \\ \textrm{(By LOTP) } \P\left[ \beta^g_0 + \tau_i \geq c \right]\P\left[p_i = 0\right] + \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \P[p_i = 1] \\ = \P\left[ \tau_i \geq c - \beta^g_0\right](1- \pi) + \P\left[ \tau_i \geq c - \beta^g_1 - \beta^g_0 \right](\pi) \\ = \left(\int_{c - \beta^g_0}^\infty f\right) (1 - \pi) + \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right)(\pi) = \zeta(1-\pi) + \omega \pi.
+\item[2.] Expectation of $\hat{p}_i$: \begin{multline*}
+\E[\hat{p}_i] = \P\left[\hat{p}_i = 1\right] = \P\left[\beta^g_0 + \beta^g_1 p_i + \tau_i \geq c \right] = \\ \textrm{(By LOTP) } \P\left[ \beta^g_0 + \tau_i \geq c \right]\P\left[p_i = 0\right] + \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \P[p_i = 1] \\ = \P\left[ \tau_i \geq c - \beta^g_0\right](1- \pi) + \P\left[ \tau_i \geq c - \beta^g_1 - \beta^g_0 \right](\pi) \\ =  \left(\bar{\Phi}(c - \beta^g_0) \right) (1 - \pi) + \left( \bar{\Phi}(c - \beta^g_1 - \beta^g_0) \right)(\pi) = \\  \Phi(\beta^g_0 - c) (1-\pi) + \Phi(\beta^g_1 + \beta^g_0 - c) \pi = \zeta(1-\pi) + \omega \pi.
 \end{multline*}
 \item[3.] Expectation of $\hat{p}_i p_i$: 
 $$\E\left[ \hat{p}_i p_i \right] = \E\left[\hat{p}_i | p_i = 1 \right] \P\left[ p_i =1 \right] = \P\left[ \beta^g_0 + \beta^g_1 + \tau_i \geq c \right] \pi = \omega \pi.$$
@@ -271,25 +297,25 @@ Combining these expressions, we have that
 $$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\beta^m_1 \pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i](1 - \E[\hat{p}_i])} = \beta^m_1 \gamma(\beta^g_1, c, \pi).$$
 \end{itemize}
 
-\subsubsection{Re-expressing $\gamma$ in a simpler form}
-We rewrite the attenuation fraction $\gamma$ in a way that makes it more amenable to theoretical analysis. We leverage the fact that $f$ integrates to unity and is even.
-First,
-\begin{multline}\label{thm:gamma_expression_1} \E\left[\hat{p}_i\right] = (1 - \pi) \left( \int_{c - \beta^g_0}^\infty f \right) + \pi \left(\int_{c - \beta_0^g - \beta_1^g}^\infty f \right) \\ = (1 - \pi) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \pi \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right), \end{multline}
- and so \begin{multline}\label{thm:gamma_expression_2} 1 - \E\left[\hat{p}_i\right] = (1 - \pi) + \pi - \E[\hat{p}_i]  = (1-\pi) \left(1 - \int_{c - \beta_0^g}^\infty f \right)  + \pi \left(1 - \int_{c - \beta^g_0 - \beta^g_1}^\infty f \right) \\ = (1 - \pi) \left( \int_{-\infty}^{c - \beta^g_0} f \right) + \pi \left( \int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right).
+\subsubsection{Re-expressing $\gamma$ in a simpler form}\label{sec:simplication}
+We rewrite the attenuation fraction $\gamma$ in a way that makes it more amenable to theoretical analysis. We leverage the fact that $f$ integrates to unity and is even. We have that
+\begin{multline}\label{thm:gamma_expression_1} \E\left[\hat{p}_i\right] = (1 - \pi) \bar{\Phi}(c - \beta_0^g) + \pi \bar{\Phi}(c - \beta^g_0 - \beta^g_1) \\ = (1 - \pi) \Phi(\beta_0^g - c) + \pi\Phi(\beta^g_0 + \beta^g_1 - c), \end{multline}
+ and so \begin{multline}\label{thm:gamma_expression_2} 1 - \E\left[\hat{p}_i\right] = (1 - \pi) + \pi - \E[\hat{p}_i]  = (1-\pi) \left(1 - \bar{\Phi}(c - \beta_0^g)\right)  + \pi \left(1 - \bar{\Phi}(c - \beta^g_0 - \beta^g_1) \right) \\ = (1 - \pi)\Phi(c - \beta^g_0) + \pi \Phi(c - \beta_0^g - \beta_1^g).
 \end{multline}
 Next,
 \begin{equation}\label{thm:gamma_expression_3}
-\omega = \int_{c - \beta^g_1 - \beta^g_0}^\infty f,\end{equation} and so
+\omega = \Phi(\beta^g_1 + \beta^g_0 - c),\end{equation} and so
 \begin{multline}\label{thm:gamma_expression_4}
-\omega - \E[\hat{p}_i]  = \left( \int_{c - \beta^g_1 - \beta^g_0}^\infty f \right) - (1 - \pi) \left( \int_{c - \beta^g_0}^\infty f \right) - \pi \left( \int_{c - \beta_0^g - \beta_1^g}^\infty f \right) \\ = (1 - \pi) \left(\int_{c - \beta^g_0 - \beta^g_1 }^\infty f \right) - (1- \pi) \left(\int_{c - \beta^g_0}^\infty f \right) \\ =  (1 - \pi)\left(\int_{-\infty}^{\beta_0^g + \beta_1^g - c} f \right) - (1 - \pi) \left( \int_{-\infty}^{ \beta_0^g - c} f \right).
+\omega - \E[\hat{p}_i] = \Phi(\beta^g_1 + \beta^g_0 - c) - (1-\pi)\Phi(\beta^g_0 - c) - \pi \Phi(\beta^g_0 + \beta^g_1 - c)  \\ (1-\pi)\Phi(\beta^g_1 + \beta^g_0 - c)  - (1-\pi)\Phi(\beta^g_0 - c).
 \end{multline}
+
 Combining (\ref{thm:gamma_expression_1}, \ref{thm:gamma_expression_2}, \ref{thm:gamma_expression_3}, \ref{thm:gamma_expression_4}), we find that
 \begin{multline}\label{gamma_alternative}
-\gamma(\beta^g_1, c, \pi) = \frac{\pi(\omega - \E[\hat{p}_i])}{\E[\hat{p}_i](1 - \E[\hat{p}_i])} \\ = \frac{\pi \left[ (1 - \pi) \left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - (1 - \pi) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) \right]}{\left[(1-\pi) \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \pi \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[(1 - \pi) \left( \int_{-\infty}^{c - \beta^g_0} f \right) + \pi \left( \int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
+\gamma(\beta^g_1, c, \pi) = \frac{\pi(\omega - \E[\hat{p}_i])}{\E[\hat{p}_i](1 - \E[\hat{p}_i])} \\ = \frac{\pi \left[(1 - \pi) \Phi(\beta_0^g + \beta_1^g - c) - (1 - \pi) \Phi(\beta_0^g - c)\right]}{\left[(1-\pi)\Phi(\beta_0^g - c) + \pi \Phi(\beta^g_0 + \beta^g_1 - c) \right] \left[(1 - \pi) \Phi(c - \beta^g_0) + \pi\Phi(c - \beta_0^g - \beta_1^g) \right]}.
 \end{multline}
 As a corollary, when $\pi = 1/2$,
 \begin{multline}\label{gamma_alternative_pi_half}
-\gamma(\beta^g_1, c, 1/2)  \\ = \frac{\left( \int_{ -\infty}^{\beta_0^g + \beta_1^g - c} f \right) - \left( \int_{-\infty}^{ \beta_0^g - c} f \right)}{\left[ \left( \int_{-\infty}^{ \beta_0^g - c} f \right) + \left( \int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \left[\left( \int_{-\infty}^{c - \beta^g_0} f \right) + \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right]}.
+\gamma(\beta^g_1, c, 1/2)  \\ = \frac{\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) }{\left[\Phi(\beta_0^g - c) +\Phi(\beta^g_0 + \beta^g_1 - c)\right] \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]}.
 \end{multline}
 Recalling the definitions of $g$ (\ref{def_g}) and $h$ (\ref{def_h}), we can write $\gamma$ as
 $$ \gamma(\beta^g_1, c, \pi) = \frac{\pi g(\beta^g_1, c, \pi)}{h(\beta^g_1, c,\pi)}.$$
@@ -297,84 +323,77 @@ The special case (\ref{gamma_alternative_pi_half}) is identical to
 \begin{equation}\label{gamma_alt2_pi_half}
 \gamma(\beta^g_1, c, 1/2) = \frac{(4)(1/2)g(\beta^g_1, c, 1/2)}{4 h(\beta^g_1, c, 1/2)} = \frac{2 g(\beta^g_1, c, 1/2)}{4h(\beta^g_1, c, 1/2)},
 \end{equation}
-i.e., the numerator and denominator of  (\ref{gamma_alt2_pi_half}) coincide with those of (\ref{gamma_alternative_pi_half}).
+i.e., the numerator and denominator of  (\ref{gamma_alt2_pi_half}) coincide with those of (\ref{gamma_alternative_pi_half}). We sometimes will use the notation $2\cdot g$ and $4\cdot h$ to refer to the numerator and denominator of (\ref{gamma_alternative_pi_half}), respectively.
 
-\subsubsection{Derivatives of  $g$ and $h$ in $c$}
+\subsubsection{Derivatives of  $g$ and $h$ in $c$}\label{sec:derivatives}
 We compute the derivatives of $g$ and $h$ in $c$, which we will need to prove subsequent results. First, by FTC and the evenness of $f$, we have that
 \begin{multline}\label{dg_dc}
 D_2 g(\beta^g_1, c, \pi) = -(1-\pi)f( \beta^g_0 + \beta^g_1 - c ) + (1-\pi) f(\beta^g_0 - c) \\ = (1-\pi) f(c - \beta^g_0) - (1-\pi)f(c - \beta^g_0 - \beta^g_1).
 \end{multline}
 Second, we have that
 \begin{multline}\label{dh_dc}
-D_2 h(\beta^g_1, c, \pi) \\ = -[(1-\pi)f(\beta^g_0 - c) + \pi f( \beta^g_0 + \beta^g_1 - c )]\left[(1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) + \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \right] \\ + [(1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1)] \left[(1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \right] \\ = \left[ (1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1) \right] \cdot \\ \bigg[ (1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \\ - (1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) - \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \bigg].
+D_2 h(\beta^g_1, c, \pi) \\ = -[(1-\pi)f(\beta^g_0 - c) + \pi f( \beta^g_0 + \beta^g_1 - c )]\left[(1-\pi)\Phi(c - \beta^g_0) + \pi \Phi(c - \beta_0^g - \beta_1^g)  \right] \\ + [(1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1)] \left[(1-\pi) \Phi(\beta_0^g - c) + \pi \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ = \left[ (1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1) \right] \cdot \\ \bigg[ (1-\pi) \Phi(\beta_0^g - c) + \pi\Phi(\beta^g_0 + \beta^g_1 - c) \\ - (1-\pi) \Phi(c - \beta^g_0) - \pi \Phi(c - \beta_0^g - \beta_1^g) \bigg].
 \end{multline}
 
-\subsubsection{Limit of $\gamma$ in $c$}
+\subsubsection{Limit of $\gamma$ in $c$}\label{sec:c_limit}
 
 Assume (without loss of generality) that $\beta^g_1 > 0$. We compute $\lim_{c \to \infty} \gamma(\beta^g_1, c, \pi)$. Observe that $$\lim_{c \to \infty} g(\beta^g_1, c, \pi) = \lim_{c \to \infty} h(\beta^g_1, c, \pi)  = 0.$$ Therefore, we can apply L'H\^{o}pital's rule. We have by (\ref{dg_dc}) and (\ref{dh_dc}) that \begin{multline}\label{c_limit_product}
-\lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \lim_{c \to \infty} \frac{\pi D_2 g(\beta^g_1, c, \pi)}{D_2h(\beta^g_1, c, \pi)} \\ = \lim_{c \to \infty} \bigg\{ \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} \\ \cdot \bigg[ (1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \\ - (1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) - \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \bigg] \bigg\}^{-1}.
+\lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \lim_{c \to \infty} \frac{\pi D_2 g(\beta^g_1, c, \pi)}{D_2h(\beta^g_1, c, \pi)} \\ = \lim_{c \to \infty} \bigg\{ \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} \\ \cdot \bigg[ (1-\pi) \Phi(\beta_0^g - c) + \pi \Phi(\beta^g_0 + \beta^g_1 - c) \\ - (1-\pi) \Phi(c - \beta^g_0) - \pi \Phi(c - \beta_0^g - \beta_1^g) \bigg] \bigg\}^{-1}.
  \end{multline}
- We evaluate the two terms in the product (\ref{c_limit_product}) separately. First, observe that
+ We evaluate the two terms in the product (\ref{c_limit_product}) separately. Dividing by $f(c - \beta^g_0 - \beta^g_1) > 0$, we see that
  \begin{equation}\label{c_limit_product_2}
  \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} = \frac{\frac{(1-\pi) f(c - \beta^g_0)}{ f(c - \beta^g_0 - \beta^g_1)} + \pi}{\frac{ \pi(1-\pi) f(c - \beta^g_0)}{ f(c - \beta^g_0 - \beta^g_1)} - \pi(1-\pi)}.
  \end{equation}
- To evaluate the limit of (\ref{c_limit_product_2}), must evaluate the limit of
+ To evaluate the limit of (\ref{c_limit_product_2}), we first evaluate the limit of
  \begin{multline}\label{c_limit_product_3}
  \frac{f(c - \beta^g_0)}{f(c - \beta^g_0 - \beta^g_1)} = \frac{\exp{[-(1/2)(c - \beta_0^g)^2]}}{\exp{[-(1/2)( c - \beta^g_0 - \beta^g_1)^2]}} \\ = \frac{\exp[ -(1/2)(c^2 - 2 c \beta^g_0 + (\beta^g_0)^2)]}{\exp\left[-(1/2)( c^2 - 2c \beta^g_0 - 2 c \beta^g_1 + (\beta^g_0)^2 + 2( \beta^g_0 \beta^g_1) + (\beta^g_1)^2)\right]} \\ = \exp\big[-c^2/2 + c \beta^g_0 - (\beta^g_0)^2/2 \\ + c^2/2 - c \beta^g_0 - c \beta^g_1 + (\beta^g_0)^2/2 + \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2 \big] \\ = \exp[ -c \beta^g_1 + \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2] = \exp[ \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2]\exp[ -c \beta^g_1]. 
 \end{multline}
-Computing the limit of (\ref{c_limit_product_3}), we obtain
+Taking the limit in (\ref{c_limit_product_3}), we obtain
 $$
 \lim_{c \to \infty} \frac{f(c - \beta^g_0)}{f(c - \beta^g_0 - \beta^g_1)} = \exp[ \beta^g_0 \beta^g_1 + (\beta^g_1)^2/2] \lim_{c \to \infty} \exp[ -c \beta^g_1] = 0
-$$ for $\beta^g_1 > 0$. We now can evaluate the limit of (\ref{c_limit_product_2}) (for $\beta^g_1 > 0$):
+$$ for $\beta^g_1 > 0$. We now can evaluate the limit of (\ref{c_limit_product_2}):
 $$ \lim_{c \to \infty} \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} = \frac{-\pi}{\pi(1-\pi)} = -\frac{1}{1 -\pi}.$$ Next, we compute the limit of the other term in the product (\ref{c_limit_product}):
 \begin{multline}\label{c_limit_product_4}
-\lim_{c \to \infty} \bigg[ (1-\pi)\left( \int_{-\infty}^{\beta_0^g - c} f \right) + \pi \left(\int_{-\infty}^{ \beta^g_0 + \beta^g_1 - c} f \right) \\ - (1-\pi)\left(\int_{-\infty}^{c - \beta^g_0} f \right) - \pi \left(\int_{-\infty}^{c - \beta_0^g - \beta_1^g} f \right) \bigg] = -(1-\pi) - \pi = -1.
+\lim_{c \to \infty} \bigg[ (1-\pi)\Phi(\beta_0^g - c) + \pi \Phi(\beta^g_0 + \beta^g_1 - c) \\ - (1-\pi)\Phi(c - \beta^g_0) - \pi \Phi(c - \beta_0^g - \beta_1^g) \bigg] = -(1-\pi) - \pi = -1.
 \end{multline}
 Combining (\ref{c_limit_product_2}) and (\ref{c_limit_product_4}), the limit (\ref{c_limit_product}) evaluates to
-$$ \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \left(  \frac{ 1 }{ 1 - \pi }\right)^{-1} = 1 - \pi.$$ It follows that the limit in $c$ of the bias $b$ is
-$$\lim_{c \to \infty} b(\beta^g_1, c, \pi) = \beta_1^m(1 - \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi)) = \beta^m_1 \pi.$$
+$$ \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \left(  \frac{ 1 }{ 1 - \pi }\right)^{-1} = 1 - \pi.$$ It follows that the limit in $c$ of the asymptotic relative bias $b$ is
+$$\lim_{c \to \infty} b(\beta^g_1, c, \pi) = 1 - \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \pi.$$
 A corollary is that
-$$\lim_{c \to \infty} b(\beta^g_1, c, 1/2) = (1/2)\beta^m_1.$$
+$$\lim_{c \to \infty} b(\beta^g_1, c, 1/2) = 1/2.$$
 
-\subsubsection{Bayes-optimal decision boundary as a critical value of $\gamma$}
-Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and given $\beta^g_1$, i.e, $$D_2 \gamma (\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ By the quotient rule,
-\begin{multline}\label{quotient_rule}
-D_2\gamma(\beta^g_1, c, 1/2) \\ = \frac{(1/2) D_2g(\beta^g_1, c, 1/2) h(\beta^g_1, c, 1/2) - (1/2) g(\beta^g_1, c, 1/2) D_2 h(\beta^g_1, c, 1/2)}{[h(\beta^g_1, c, \pi)]^2} \\ = \frac{\left[4(1/2) D_2g(\beta^g_1, c, 1/2)\right] h(\beta^g_1, c, 1/2) - (1/2) g(\beta^g_1, c, 1/2) \left[4 D_2 h(\beta^g_1, c, 1/2)\right]}{[2h(\beta^g_1, c, \pi)]^2},
-\end{multline}
-where the second equality multiplies both numerator and denominator by $4$. We have by (\ref{dg_dc}) that
-\begin{multline}\label{dg_dc_bayes}
-4 \cdot (1/2) \cdot D_2 g(\beta^g_1, c_\textrm{bayes}, 1/2)  = f( \beta^g_1/2) - f( -\beta^g_1/2) \\ = f(\beta^g_1/2) - f(\beta^g_1/2) = 0.
-\end{multline}
-Next, we have by (\ref{dh_dc}) that
+\subsubsection{Bayes-optimal decision boundary as a critical value of $\gamma$}\label{sec:bayes_opt}
+Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and given $\beta^g_1$, i.e, $$D_2 \gamma (\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ Differentiating (\ref{gamma_alt2_pi_half}), the quotient rule implies that
+\begin{equation}\label{quotient_rule}
+D_2\gamma(\beta^g_1, c, 1/2) \\ = \frac{D_2[2g(\beta^g_1, c, 1/2)] 4h(\beta^g_1, c, 1/2) - 2g(\beta^g_1, c, 1/2) D_2[4h(\beta^g_1, c, 1/2)]}{[4h(\beta^g_1, c, \pi)]^2}.
+\end{equation}
+We have by (\ref{dg_dc}) that
+\begin{equation}\label{dg_dc_bayes}
+D_2[2g(\beta^g_1, c_\textrm{bayes}, 1/2)] = f( \beta^g_1/2) - f( -\beta^g_1/2) = f(\beta^g_1/2) - f(\beta^g_1/2) = 0.
+\end{equation}
+Similarly, we have by (\ref{dh_dc}) that
 \begin{multline}\label{dh_dc_bayes}
-4 \cdot D_2 h(\beta^g_1, c_\textrm{bayes}, \pi) = [f( \beta^g_1/2) + f( -\beta^g_1/2)] \cdot \\ \left[  \int_{-\infty}^{-\beta^g_1/2} f + \int_{-\infty}^{\beta^g_1/2} f - \int_{-\infty}^{\beta^g_1/2} f - \int_{-\infty}^{-\beta^g_1/2} f \right] = 0.
+D_2[4 h(\beta^g_1, c_\textrm{bayes}, \pi)] = [f( \beta^g_1/2) + f( -\beta^g_1/2)] \cdot \\ \left[  \Phi(-\beta^g_1/2) + \Phi(\beta^g_1/2) -  \Phi(\beta^g_1/2) - \Phi(-\beta^g_1/2) \right] = 0.
 \end{multline}
 Plugging in (\ref{dh_dc_bayes}) and (\ref{dg_dc_bayes}) to (\ref{quotient_rule}), we find that 
-$$D_2(\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ It follows that $c_\textrm{bayes}$ is a critical value of the bias function $b$.
+$$D_2[\gamma(\beta^g_1, c_\textrm{bayes}, 1/2)] = 0.$$ Finally, because
+$$b(\beta^g_1, c, 1/2) = 1 - \gamma(\beta^g_1, c, 1/2),$$ it follows that
+$$D_2[b(\beta^g_1, c_\textrm{bayes}, 1/2)] = -D_2[\gamma(\beta^g_1, c_\textrm{bayes}, 1/2)] = 0.$$
 
-\subsubsection{Comparison of Bayes-optimal decision boundary to large threshold}
+\subsubsection{Comparing Bayes-optimal decision boundary and large threshold}\label{sec:comparison}
 
-We study the bias produced by setting the threshold to a large number versus setting the threshold to the Bayes-optimal decision boundary. Let $r: \R \to \R$ be the value of attenuation function evaluated at the Bayes-optimal decision boundary $c_\textrm{bayes} = \beta^g_0 + (1/2) \beta^g_1$:
+We compare the bias produced by setting the threshold to a large number to the bias produced by setting the threshold to the Bayes-optimal decision boundary. Let $r: \R^{\geq 0} \to \R$ be the value of attenuation function evaluated at the Bayes-optimal decision boundary $c_\textrm{bayes} = \beta^g_0 + (1/2) \beta^g_1$, i.e.
 \begin{multline*}
 r(\beta^g_1) = \gamma(\beta^g_1, \beta^g_0 + (1/2)\beta^g_1, 1/2) = \frac{\Phi(\beta^g_1/2) - \Phi(-\beta^g_1/2)}{\left[\Phi(-\beta^g_1/2) + \Phi( \beta^g_1/2) \right] \left[\Phi(\beta^g_1/2) + \Phi( -\beta^g_1/2)\right]} \\ = \frac{\int_{-\beta^g_1/2}^{\beta^g_1/2} f}{\left[ 1 - \Phi(\beta^g_1/2) + \Phi(\beta^g_1/2) \right]\left[ \Phi(\beta^g_1/2) + 1 - \Phi(\beta^g_1/2) \right]} = 2 \int_{0}^{\beta^g_1/2} f = 2 \Phi(\beta^g_1/2) - 1.
 \end{multline*}
 We set $r$ to $1/2$ and solve for $\beta^g_1$:
-$$ 2\Phi(\beta^g_1/2) -1 = 1/2 \iff \Phi(\beta^g_1/2) = 3/4 \iff \beta^g_1 = 2 \Phi^{-1}(3/4) \approx 1.35.$$ The bias induced selecting a large threshold is $1/2$, i.e.
-$$\gamma(\beta^g_1, \infty, 1/2) = 1/2.$$
-Additionally, $r$ is a strictly increasing function. Therefore, $\gamma(\beta^g_1, c_\textrm{bayes},1/2) < \gamma(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$; $\gamma(\beta^g_1, c_\textrm{bayes},1/2) = \gamma(\beta^g_1, \infty, 1/2)$ for $\beta^g_1 = 2\Phi^{-1}(3/4)$; and $\gamma(\beta^g_1, c_\textrm{bayes},1/2) > \gamma(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$. Because $b(\beta^g_1, c, 1/2) = \beta^m_1(1 - \gamma(\beta^g_1, c, 1/2))$ similar results hold for the bias (but with the inequalities flipped).
-
-\subsubsection{Limit in $\beta^g_1$}
-We compute the limit of $\gamma$ in $\beta^g_1$ given $\pi = 1/2$.  First,
 \begin{multline*}
- \lim_{\beta^g_1 \to \infty} \gamma(\beta^g_1, c, 1/2) = \frac{ 1 - \int_{-\infty}^{\beta^g_0 - c} f}{\left[ 1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} \\ = \frac{\int_{-\infty}^{c - \beta^g_0} f }{ \left[1 + \int_{-\infty}^{ \beta^g_0 - c} f \right] \left[\int_{-\infty}^{ c - \beta^g_0} f \right]} = \frac{1}{1 + \int_{-\infty}^{\beta^g_0 - c} f} < 1.
+r(\beta^g_1) = 1/2 \iff 2\Phi(\beta^g_1/2) -1 = 1/2 \\ \iff \Phi(\beta^g_1/2) = 3/4 \iff \beta^g_1 = 2 \Phi^{-1}(3/4) \approx 1.35.
 \end{multline*}
-Similarly,
-\begin{multline*}
-\lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_1, c, 1/2) = \frac{ -\int_{-\infty}^{\beta^g_0 - c} f }{\left[ \int_{-\infty}^{\beta^g_0 - c} f \right] \left[ \int_{-\infty}^{c - \beta^g_0} f + 1 \right]} = \frac{-1}{1 + \int_{-\infty}^{c - \beta^g_0} f} > -1.
-\end{multline*}
+Because $r$ is a strictly increasing function, it follows that $r(\beta^g_1) < 1/2$ for $\beta^g_1 < 2\Phi^{-1}(3/4)$ and $r(\beta^g_1) > 1/2$ for $\beta^g_1 > 2\Phi^{-1}(3/4).$ Next, because $$b(\beta^g_1, c_\textrm{bayes}, 1/2) = 1 - \gamma(\beta^g_1, c_\textrm{bayes}, 1/2) = 1 - r(\beta^g_1),$$ we have that $b(\beta^g_1, c_\textrm{bayes}, 1/2) > 1/2$ for $\beta^g_1 < 2 \Phi^{-1}(3/4)$ and $b(\beta^g_1, c_\textrm{bayes}, 1/2) < 1/2$ for $\beta^g_1 > 2 \Phi^{-1}(3/4)$. Recall that the bias induced by sending the threshold to infinity (as stated in Proposition \ref{prop:c_limit_half} and proven in Section \ref{sec:c_limit}) is $1/2$, i.e. $$b(\beta^g_1, \infty, 1/2) = 1/2.$$ We conclude that $b(\beta^g_1, c_\textrm{bayes},1/2) > b(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$; $b(\beta^g_1, c_\textrm{bayes},1/2) = b(\beta^g_1, \infty, 1/2)$ for $\beta^g_1 = 2\Phi^{-1}(3/4)$; and $b(\beta^g_1, c_\textrm{bayes},1/2) < b(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$.
 
-\subsubsection{Monotonicity in $\beta^g_1$}
-We show that $\gamma$ is monotonically increasing in $\beta^g_1$ for $\pi = 1/2$ and given $(\beta^g_1, \beta^g_0)$. We begin by stating and proving two lemmas. The first lemma establishes an inequality that will serve as the basis for the proof.
+\subsubsection{Monotonicity in $\beta^g_1$}\label{sec:monotone}
+We show that $\gamma$ is monotonically increasing in $\beta^g_1$ for $\pi = 1/2$ and given threshold $c$. We begin by stating and proving two lemmas. The first lemma establishes an inequality that will serve as the basis for the proof.
 
 \begin{lemma}
 The following inequality holds: 
@@ -392,7 +411,7 @@ Turning our attention of the left-hand side of (\ref{basic_ineq_cp}), we see tha
 \Phi(\beta^g_0 + \beta^g_1 - c) + \Phi( c - \beta^g_0 - \beta^g_1) = 1 -\Phi(\beta^g_0 + \beta^g_1 - c) + \Phi( c - \beta^g_0 - \beta^g_1) = 1.
 \end{equation}
 Additionally, $\Phi(\beta^g_0 - c) < 1$ and $ \Phi(c - \beta^g_0) > 0$. Combining these facts with (\ref{basic_ineq_cp_2}), we find that
-$$ \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right] > 0. $$ Finally, because $\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] > 0,$ the entire left-hand side of (\ref{basic_ineq_cp}) is positive.
+$$ \left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right] > 0. $$ Finally, because $\left[\Phi(\beta^g_0 - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right] > 0,$ the entire left-hand side of (\ref{basic_ineq_cp}) is positive. The inequality holds for $\beta^g_1 < 0$.
 
 \noindent
 \underline{Case 2}: $\beta^1_g \geq 0.$  We will show that the first term on the LHS of (\ref{basic_ineq_cp}) is greater than the first term on the RHS of (\ref{basic_ineq_cp}), and likewise that the second term on the LHS is greater than the second term on the RHS, implying the truth of the inequality. Focusing on the first term, the positivity of $\Phi(\beta^g_0 -c)$ implies that
@@ -404,9 +423,11 @@ Next, focusing on the second term, $\beta^g_1 \geq 0$ implies that
 \end{equation}
 Adding $\Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1)$ to both sides of (\ref{basic_ineq_cp_3}) yields
 \begin{multline*}
-\Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \\ \geq \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1). \textrm{ } \square
+\Phi(\beta^g_1 + \beta^g_0 - c) - \Phi(\beta^g_0 - c) + \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \\ \geq \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1). \textrm{ }
 \end{multline*}
-The second lemma establishes the derivatives of the functions $2\cdot g$ and $4 \cdot h$.
+The inequality holds for $\beta^g_1 \geq 0$. Combining the cases, the inequality holds for all $\beta^g_1 \in \R$. $\square$
+
+The second lemma establishes the derivatives of the functions $2\cdot g$ and $4 \cdot h$ in $\beta^g_1$.
 \begin{lemma}
 The derivatives in $\beta^g_1$ of $2\cdot g$ and $4\cdot h$ are
 \begin{equation}\label{dg_dbeta}
@@ -416,9 +437,9 @@ and
 \begin{multline}\label{dh_dbeta}
 \textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)] = f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g) \right]} \\ \textcolor{teal}{- f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]}.\end{multline}
 \end{lemma}
-\textbf{Proof}: Apply the FTC and product rule. $\square$
+\textbf{Proof}: Apply FTC and product rule. $\square$
 
-We move onto the proof of the monotonicity of $\gamma$ in $\beta^g_1$. Subtracting $$\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]$$ from both sides of (\ref{basic_ineq_cp}) and multiplying by $f(\beta^g_0 + \beta^g_1 - c) > 0$ yields
+We are ready to prove the monotonicity of $\gamma$ in $\beta^g_1$. Subtracting $$\left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]$$ from both sides of (\ref{basic_ineq_cp}) and multiplying by $f(\beta^g_0 + \beta^g_1 - c) > 0$ yields
 \begin{multline}\label{basic_ineq_cp_4}
 \textcolor{violet}{f(\beta^g_0 + \beta^g_1 - c)} \textcolor{red}{ \left[\Phi(\beta^g_0 - c) + \Phi\left(\beta^g_0 + \beta^g_1 - c \right) \right] \left[ \Phi(c - \beta^g_0) + \Phi(c - \beta^g_0 - \beta^g_1) \right]}  \\ \geq \textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c) \left[\Phi(c - \beta^g_0) + \Phi(c - \beta_0^g - \beta_1^g)\right]}\textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]} \\ -\textcolor{teal}{f(\beta^g_0 + \beta^g_1 - c)   \left[\Phi(\beta_0^g - c) + \Phi(\beta^g_0 + \beta^g_1 - c) \right]} \textcolor{blue}{\left[\Phi(\beta_0^g + \beta_1^g - c) - \Phi(\beta_0^g - c)\right]}.
 \end{multline}
@@ -442,26 +463,31 @@ The quotient rule implies that
 \begin{multline}\label{d_gamma_d_beta}
 D_1 \gamma(\beta^g_1, c, 1/2) \\ = \frac{ \textcolor{violet}{D_1[2g(\beta^g_1, c, 1/2)]}\textcolor{red}{4h(\beta^g_1, c, 1/2)} - \textcolor{blue}{2g(\beta^g_1, c, 1/2)}\textcolor{teal}{D_1[4h(\beta^g_1, c, 1/2)]} }{[4h(\beta^g_1, c, 1/2)]^2}.
 \end{multline}
-We conclude by (\ref{basic_ineq_cp_5}) and (\ref{d_gamma_d_beta}) that $\gamma(\cdot, c, 1/2)$ is monotonically increasing in its first argument.
+We conclude by (\ref{basic_ineq_cp_5}) and (\ref{d_gamma_d_beta}) that $\gamma$ is monotonically increasing in $\beta^g_1$. Finally, $b(\beta^g_1, c, \pi) = 1 - \gamma(\beta^g_1, c, \pi)$ is monotonically decreasing in $\beta^g_1$.
 
-\subsubsection{Strict attenuation bias}
+\subsubsection{Strict attenuation bias}\label{sec:att_bias}
 
-For given $(\beta^g_0, c)$, we have that
-$$ \lim_{\beta^g_1 \to \infty} \gamma(\beta^g_1, c, 1/2, \beta^g_0) = \frac{1}{1 + \Phi(\beta^g_0 - c)},$$ and $$\lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_1, c, 1/2, \beta^g_0) = -\frac{1}{1 + \Phi(c - \beta^g_0)}.$$
-Moreover, $\gamma(\beta^g_1, c, 1/2, \beta^g_0)$ is monotonically increasing in $\beta^g_1$. It follows that 
+We begin by computing the limit of $\gamma$ in $\beta^g_1$ given $\pi = 1/2$.  First,
+\begin{multline*}
+\lim_{\beta^g_1 \to \infty} \gamma(\beta^g_1, c, 1/2) = \frac{1 - \Phi(\beta^g_0 - c)}{\left[1 + \Phi(\beta^g_0 - c) \right] \left[\Phi(c - \beta^g_0) \right]} \\ = \frac{\Phi(c - \beta^g_0)}{ \left[1 + \Phi(\beta^g_0 - c) \right] \left[\Phi(c - \beta^g_0) \right]} = \frac{1}{1 + \Phi(\beta^g_0 - c)} < 1.
+\end{multline*}
+Similarly,
+\begin{multline*}
+\lim_{\beta^g_1 \to -\infty} \gamma(\beta^g_1, c, 1/2) = \frac{ - \Phi(\beta^g_0 - c)}{\left[\Phi(\beta^g_0 - c)\right] \left[\Phi(c - \beta^g_0) + 1 \right]} = \frac{-1}{1 + \Phi(c - \beta^g_0)} > -1.
+\end{multline*}
+The function $\gamma(\beta^g_1, c, 1/2, \beta^g_0)$ is monotonically increasing in $\beta^g_1$ (as stated in Proposition \ref{prop:monotonic} and proven in section \ref{sec:monotone}). It follows that 
 $$-1 < -\frac{1}{1 + \Phi(c - \beta^g_0)} \leq \gamma(\beta^g_1, c, 1/2, \beta^g_0) \leq \frac{1}{1 - \Phi(\beta^g_0 - c)} < 1$$ for all $\beta^g_1 \in \R$. But $\beta^g_0$ and $c$ were chosen arbitrarily, and so
-$$-1 < \gamma(\beta^g_1, c, 1/2, \beta^g_0) < 1$$ for all $(\beta^g_1, c, \beta^g_0) \in \R^3$.
+$$-1 < \gamma(\beta^g_1, c, 1/2, \beta^g_0) < 1$$ for all $(\beta^g_1, c, \beta^g_0) \in \R^3$. Finally, because $b(\beta^g_1, c, 1/2, \beta^g_0) = 1 - \gamma(\beta^g_1, c, 1/2, \beta^g_0)$, it follows that
+$$ 0 < b(\beta^g_1, c, 1/2, \beta^g_0) < 2$$ for all $(\beta^g_1, c, \beta^g_0) \in \R^3$
 
-\textcolor{red}{DOES STRICT ATTENUATION BIAS HOLD UNIFORMLY OVER THE PARAMETER SPACE?}
-  
-\subsubsection{Bias-variance decomposition in no-intercept model} 
+\subsubsection{Bias-variance decomposition in no-intercept model}\label{sec:bv_decomp}
  
 We prove the bias-variance decomposition for the no-intercept model (\ref{theoretical_model_no_int}). Define $l$ (for ``limit'') by
 $$l = \beta_m \left(\frac{\omega \pi}{\zeta(1-\pi) + \omega \pi}\right),$$ where
 $$
 \begin{cases}
-\omega = \int_{c - \beta_g}^\infty f = 1 - \Phi(\beta_g - c) \\
-\zeta = \int_{c}^\infty f = 1 - \Phi(-c).
+\omega = \bar{\Phi}(c - \beta_g) = \Phi(\beta_g - c) \\
+\zeta = \bar{\Phi}(c) = \Phi(-c).
 \end{cases}
 $$
 We have that
@@ -505,7 +531,7 @@ Next, by weak LLN,
 (1/n) \sum_{i=1}^n \hat{p}_i^2 = (1/n) \sum_{i=1}^n \hat{p}_i \xrightarrow{P} \E[\hat{p}_i].
 \end{equation}
 Finally, by (\ref{bc_decomp_1}), (\ref{bv_decomp_4}), (\ref{bv_decomp_5}), and Slutsky's Theorem,
-$$ \sqrt{n}(\hat{\beta}_m - l) \xrightarrow{d} N\left(0, \frac{ \beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2) }{\left(\E[\hat{p}_i]\right)^2} \right).$$ Thus, for large $n \in \N$, we find that 
+$$ \sqrt{n}(\hat{\beta}_m - l) \xrightarrow{d} N\left(0, \frac{ \beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2) }{\left(\E[\hat{p}_i]\right)^2} \right).$$ Thus, for large $n \in \N$, we have that 
 $$ \begin{cases}
 \E [\hat{\beta}_m] \approx l, \\
 \V[\hat{\beta}_m] \approx \left[\beta_m\omega\pi(\beta_m - 2l) + \E[\hat{p}_i](1 + l^2)\right]/[n\E^2[\hat{p}_i]],
