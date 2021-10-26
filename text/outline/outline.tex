@@ -64,16 +64,22 @@ The genomics literature has produced several applied methods for linking perturb
 
 \section{Thresholding method}
 
-In this section we study the thresholding method from empirical and theoretical perspectives. First, we define some notation.
-
-\blue{Let $n \approx 100,000 - 250,000$ be the number of cells in the experiment. Consider a single perturbation-gene pair. For cell $i \in \{ 1, \dots, n \},$ let $p_i \in \{ 0,1 \}$ indicate whether the cell was perturbed, $m_i \in \N$ be the number of observed gene UMIs, $g_i \in \N$ be the number of observed gRNA UMIs, $l^m_i \in \N$ be the gene library size, and $z_i \in \R^{d-1}$ be a vector of technical factors (e.g., batch, percent mitochondrial reads, etc.). The thresholding method is defined as follows:}
-\blue{
+In this section we study thresholded regression from empirical and theoretical perspectives, highlighting several limitations to the method. Let $n \in \N$ (typically, $n \approx 100,000 - 250,000$) be the number of cells assayed in the experiment. Consider a single perturbation and a single gene. For cell $i \in \{1, \dots, n\}$, let $m_i \in \N$ be the number of gene transcripts sequenced; $g_i \in \N$ be the number of gRNA transcripts sequenced; $l^m_i \in \N$ be the number of gene transcripts sequenced across \textit{all} genes (sometimes called the ``library size''); and $z_i \in \R^{d-1}$ be the vector of technical factors (e.g., sequencing batch, percent mitochondrial reads, etc.). The thresholding method is defined as follows:
 \begin{itemize}
-\item[1.] For given threshold $c \in \N$, calculate the imputed value $\hat{p}_i$ of $p_i$ by $$\begin{cases} \hat{p}_i = 0 \textrm{ if } g_i \geq c, \\ \hat{p}_i = 1 \textrm{ if } g_i < c. \end{cases}$$
-\item[2.] Fit the regression model \cite{Sarkar2021}
-$$ m_i | \left(\hat{p}_i, z_i, l^m_i \right) \sim \textrm{NB}_\theta(\mu_i),$$ where $\theta >0$ is the NB size parameter, and $$\log\left(\mu_i\right) = \beta_m^0 + \beta_m \hat{p}_i + \gamma^T_m z_i + \log\left( l_i^m\right).$$
-\item[3.] Fit a GLM to obtain an estimate $\hat{\beta}_m$ of $\beta_m$. Compute a confidence interval and $p$-value for $\beta_m$.
-\end{itemize}}
+\item[1.] For a given threshold $c \in \N$, let the imputed perturbation assignment $\hat{p}_i \in \{0, 1\}$ be $$\begin{cases} \hat{p}_i = 0 \textrm{ if } g_i \geq c, \\ \hat{p}_i = 1 \textrm{ if } g_i < c. \end{cases}$$
+\item[2.] Assume that $m_i$ is related to $\hat{p}_i, l_i,$ and $z_i$ through the following GLM:
+\begin{equation*}
+\begin{cases}
+m_i | (\hat{p}_i, z_i, l_i) \sim \textrm{NB}_\theta(\mu_i) \\
+\log(\mu_i) = \beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i + \log\left( l_i^m\right),
+\end{cases}
+\end{equation*}
+where (i) $NB_\theta(\mu_i)$ is a negative binomial distribution with mean $\mu_i$ and known size parameter $\theta$; (ii) $\beta^m_0 \in \R, \beta^m_1 \in \R,$ and $\gamma \in  \R^{d-1}$ are unknown constants; and (iii) $\log(l_i^m)$ is an offset term. Fit a GLM to obtain estimates of the parameters.
+
+\item[3.] Construct a $p$-value and confidence interval for the target of inference $\beta^m_1$ using, e.g., its $z$-score.
+\end{itemize}
+
+The biological interpretation of the target of inference $\beta^m_1$ as follows: \textit{$\beta^m_1$ is the log-transformed fold change in mean gene expression in response to the perturbation, removing the effect of the technical factors}. The exponentiated parameter $\exp(\beta^m_1)$, which represents raw fold change, is more interpretable: it is the ratio of mean expression in perturbed cells to unperturbed cells. For example, for a given gene, suppose that we observe an average of $20$ transcripts in perturbed cells and an average of $40$ transcripts in unperturbed cells. Discounting the effect of the technical factors, the fold change in expression (i.e., $\exp(\beta^m_1)$) is $0.5$. The equality $\exp(\beta^m_1) = 1$ indicates that no change in expression has occurred, while $\exp(\beta^m_1) > 1$ and $\exp(\beta^m_1) < 1$ indicate an increase and decrease in expression, respectively.
 
 \subsection{Empirical analysis}
 
