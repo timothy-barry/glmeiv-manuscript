@@ -29,14 +29,14 @@ p1 <- ggplot(data = to_plot, mapping = aes(x = x, y = y, col = Status)) +
   theme(legend.position="bottom") + theme(legend.position="bottom", legend.title=element_blank()) +
   geom_vline(data = dplyr::filter(to_plot, modality == "gene"), mapping = aes(xintercept = -0.4), col = "darkred") +
   geom_vline(data = dplyr::filter(to_plot, modality == "gene"), mapping = aes(xintercept = 0.0), col = "darkred") +
-  geom_hline(yintercept = 0) + scale_y_continuous(expand = c(0, 0.05)) + 
-  scale_color_manual(values = c(my_cols[2], my_cols[3])) + geom_line(lwd = 1.1) +
+  geom_hline(yintercept = 0) + scale_y_continuous(expand = c(0, 0.05)) + scale_x_continuous(expand = c(0, 0)) + 
+  scale_color_manual(values = c(my_cols[2], "black")) + geom_line(lwd = 1.1) +
   theme(legend.position = c(0.77, 0.85), legend.title = element_blank(),
         panel.border = element_blank(), panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), axis.line.y = element_line(colour = "black"))
 
 # set up cowplot
 p_out <- plot_grid(NULL, p1, NULL, NULL, labels = c("a", "c", "b", "d"), nrow = 2, rel_heights = c(0.5, 0.5))
-f_name <- paste0(fig_dir, "/ggplot.jpg")
+f_name <- paste0(fig_dir, "/ggplot.pdf")
 
-ggsave(filename = f_name, plot = p_out, device = "jpg", scale = 1, width = 7, height = 6, dpi = 320)
+ggsave(filename = f_name, plot = p_out, device = "pdf", scale = 1, width = 7, height = 6, dpi = 320)

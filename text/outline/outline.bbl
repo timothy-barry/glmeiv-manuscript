@@ -96,18 +96,25 @@ Timothy Barry, Xuran Wang, John~A. Morris, Kathryn Roeder, and Eugene
   single-cell CRISPR screen analysis}.
 \newblock {\em bioRxiv}, page 2020.08.13.250092, 2020.
 
+\bibitem{Candes2018}
+Emmanuel Cand{\`{e}}s, Yingying Fan, Lucas Janson, and Jinchi Lv.
+\newblock {Panning for gold: ‘model-X' knockoffs for high dimensional
+  controlled variable selection}.
+\newblock {\em Journal of the Royal Statistical Society. Series B: Statistical
+  Methodology}, 80(3):551--577, 2018.
+
+\bibitem{Liu2021}
+Molei Liu, Eugene Katsevich, Lucas Janson, and Aaditya Ramdas.
+\newblock {Fast and Powerful Conditional Randomization Testing via
+  Distillation}.
+\newblock {\em Biometrika}, pages 1--25, 2021.
+
 \bibitem{Yang2019}
 Lin Yang, Yuqing Zhu, Hua Yu, Sitong Chen, Yulan Chu, He~Huang, Jin Zhang, and
   Wei Li.
 \newblock {Linking genotypes with multiple phenotypes in single-cell CRISPR
   screens}.
 \newblock {\em bioRxiv}, page 658146, 2019.
-
-\bibitem{Sarkar2021}
-Abhishek Sarkar and Matthew Stephens.
-\newblock {Separating measurement and expression models clarifies confusion in
-  single-cell RNA sequencing analysis}.
-\newblock {\em Nature Genetics}, 53(6):770--777, 2021.
 
 \bibitem{Stefanski2000a}
 L.~A. Stefanski.
