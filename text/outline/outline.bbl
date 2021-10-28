@@ -116,6 +116,41 @@ Lin Yang, Yuqing Zhu, Hua Yu, Sitong Chen, Yulan Chu, He~Huang, Jin Zhang, and
   screens}.
 \newblock {\em bioRxiv}, page 658146, 2019.
 
+\bibitem{Gasperini2019}
+Molly Gasperini, Andrew~J. Hill, Jos{\'{e}}~L. McFaline-Figueroa, Beth Martin,
+  Seungsoo Kim, Melissa~D. Zhang, Dana Jackson, Anh Leith, Jacob Schreiber,
+  William~S. Noble, Cole Trapnell, Nadav Ahituv, and Jay Shendure.
+\newblock {A Genome-wide Framework for Mapping Gene Regulation via Cellular
+  Genetic Screens}.
+\newblock {\em Cell}, 176(1-2):377--390.e19, 2019.
+
+\bibitem{Datlinger2021}
+Paul Datlinger, Andr{\'{e}}~F. Rendeiro, Thorina Boenke, Martin Senekowitsch,
+  Thomas Krausgruber, Daniele Barreca, and Christoph Bock.
+\newblock {Ultra-high-throughput single-cell RNA sequencing and perturbation
+  screening with combinatorial fluidic indexing}.
+\newblock {\em Nature Methods}, 18(6):635--642, 2021.
+
+\bibitem{Mimitou2019}
+Eleni~P. Mimitou, Anthony Cheng, Antonino Montalbano, Stephanie Hao, Marlon
+  Stoeckius, Mateusz Legut, Timothy Roush, Alberto Herrera, Efthymia Papalexi,
+  Zhengqing Ouyang, Rahul Satija, Neville~E. Sanjana, Sergei~B. Koralov, and
+  Peter Smibert.
+\newblock {Multiplexed detection of proteins, transcriptomes, clonotypes and
+  CRISPR perturbations in single cells}.
+\newblock {\em Nature Methods}, 16(5):409--412, 2019.
+
+\bibitem{Gallagher2018}
+Michael~D. Gallagher and Alice~S. Chen-Plotkin.
+\newblock {The Post-GWAS Era: From Association to Function}.
+\newblock {\em American Journal of Human Genetics}, 102(5):717--730, 2018.
+
+\bibitem{Gasperini2020}
+Molly Gasperini, Jacob~M. Tome, and Jay Shendure.
+\newblock {Towards a comprehensive catalogue of validated and target-linked
+  human enhancers}.
+\newblock {\em Nature Reviews Genetics}, 21(5):292--310, 2020.
+
 \bibitem{Stefanski2000a}
 L.~A. Stefanski.
 \newblock {Measurement Error Models}.
