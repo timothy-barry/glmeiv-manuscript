@@ -9,8 +9,6 @@
 \citation{Lin2021}
 \citation{Lause2021}
 \citation{Townes2019}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background and analysis challenges}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Related work}{3}}
 \citation{Grun2008}
 \citation{Ibrahim1990}
 \citation{Barry2020}
@@ -18,101 +16,107 @@
 \citation{Liu2021}
 \citation{Dixit2016}
 \citation{Yang2019}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background and analysis challenges}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Related work}{4}}
 \citation{Gasperini2019}
 \citation{Datlinger2021}
 \citation{Mimitou2019}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Assay overview and analysis challenges}{4}}
 \citation{Gallagher2018}
 \citation{Gasperini2020}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Thresholding method}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Experimental design and analysis challenges}: \textbf  {a,} Experimental design. For a given perturbation (e.g., the perturbation represented in yellow), we partition the cells into two groups: those that received the perturbation, and those that did not receive the perturbation. For a given gene, we conduct a differential expression analysis across the two groups of cells, yielding an estimate of the impact of the given perturbation on the given gene. \textbf  {b,} DAG representing the variables in the analysis. The perturbation (unobserved) affects both gene expression and gRNA expression; technical factors (e.g., batch, sequencing depth, etc.) act as nuisance variables. The target of inference is the effect of the perturbation on gene expression (denoted with question mark). \textbf  {c,} Schematic illustrating ``background reads.'' The gRNA modality has a nonzero, ``background read'' distribution even in the absence of a perturbation, complicating the assignment of perturbations to cells. \textbf  {d}, Example data for a given perturbation-gene pair. Notice that (i) the perturbations are unobserved, and (ii) the gene and gRNA expression data take the form of discrete counts.}}{7}}
-\newlabel{analysis_challenges}{{1}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Empirical analysis}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Empirical challenges of thresholded regression.} \textbf  {a-b,} Fold change estimates produced by threshold = 1 versus threshold = 5 (a) and threshold = 20 versus threshold = 5 (b). The selected threshold substantially impacts the results. \textbf  {c-d,} $p$-values (c) and CI widths (d) produced by threshold = 20 versus threshold = 5. The latter threshold yields more confident estimates. \textbf  {e-f}, Empirical distribution of randomly-selected gRNA from Gasperini (e) and Xie (f) data. The gRNA data do not appear to imply an obvious threshold selection strategy.}}{10}}
-\newlabel{thresholding_empirical}{{2}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Theoretical analysis}{11}}
-\newlabel{sec:thresholding_theory}{{3.2}{11}}
-\newlabel{theoretical_model}{{1}{11}}
-\newlabel{prop:convergence}{{1}{11}}
-\newlabel{thresh_est_intercepts}{{2}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Assay overview}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Experimental design and analysis challenges}: \textbf  {a,} Experimental design. For a given perturbation (e.g., the perturbation indicated in blue), we partition the cells into two groups: perturbed and unperturbed. Next, for a given gene, we conduct a differential expression analysis across the two groups, yielding an estimate of the impact of the given perturbation on the given gene. \textbf  {b,} DAG representing all variables in the system. The perturbation (latent) impacts both gene expression and gRNA expression; technical factors act as nuisance variables, also impacting gene and gRNA expression. The target of estimation is the effect of the perturbation on gene expression. \textbf  {c,} Schematic illustrating the ``background read'' phenomenon. Due to errors in the sequencing process, unperturbed cells exhibit a nonzero gRNA count distribution (bottom). The target of estimation is the change in mean gene expression in response to the perturbation (top). \textbf  {d}, Example data on four cells for a given perturbation-gene pair. Note that (i) the perturbation is unobserved, and (ii) the gene and gRNA data are discrete counts.}}{6}}
+\newlabel{analysis_challenges}{{1}{6}}
+\citation{Replogle2020}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Analysis challenges and data}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Thresholding method}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{9}}
+\newlabel{sec:thresholding_empirical}{{3.1}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Empirical challenges of thresholded regression.} \textbf  {a-b,} Fold change estimates produced by threshold = 1 versus threshold = 5 (a) and threshold = 20 versus threshold = 5 (b). The selected threshold substantially impacts the results. \textbf  {c-d,} $p$-values (c) and CI widths (d) produced by threshold = 20 versus threshold = 5. The latter threshold yields more confident estimates. \textbf  {e-f}, Empirical distribution of randomly-selected gRNA from Gasperini (e) and Xie (f) data. The gRNA data do not appear to imply an obvious threshold selection strategy.}}{11}}
+\newlabel{thresholding_empirical}{{2}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Theoretical challenges of thresholding method}{12}}
+\newlabel{sec:thresholding_theory}{{3.2}{12}}
+\newlabel{theoretical_model}{{1}{12}}
+\newlabel{prop:convergence}{{1}{12}}
+\newlabel{thresh_est_intercepts}{{2}{12}}
 \citation{Stefanski2000a}
-\newlabel{prop:att_bias}{{2}{12}}
-\newlabel{prop:monotonic}{{3}{13}}
-\newlabel{prop:bayes_opt}{{4}{13}}
-\newlabel{prop:c_limit_half}{{5}{13}}
-\newlabel{prop:comparison}{{6}{13}}
-\newlabel{prop:c_limit}{{7}{14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Theoretical challenges of thresholded regression.} \textbf  {a,} Asymptotic relative bias versus threshold for different values of $\beta ^g_1$. The bias function is highly nonconvex and strictly nonzero. Vertical blue lines, Bayes-optimal decision boundaries. Across all panels, $\beta ^g_0 = 0$ and $\pi = 1/2$. \textbf  {b,} Asymptotic relative bias versus $\pi $ when the threshold is set to a large number. The two quantities coincide exactly. \textbf  {c,} Bias-variance decomposition for thresholding method in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta ^g_1 = 1, \beta ^m_1 = 1,$ and $\pi = 0.1$.}}{15}}
-\newlabel{thresholding_theoretical}{{3}{15}}
-\newlabel{theoretical_model_no_int}{{3}{16}}
-\newlabel{thresh_estimator_no_int}{{4}{16}}
-\newlabel{prop:bv_decomp}{{8}{16}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}GLM-EIV}{17}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Simulation studies}{17}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Real data analysis}{17}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{17}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Appendix}{17}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Theoretical details for thresholding estimator}{17}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.1}Notation}{17}}
-\newlabel{sec:notation}{{8.1.1}{17}}
+\newlabel{prop:att_bias}{{2}{13}}
+\newlabel{prop:monotonic}{{3}{14}}
+\newlabel{prop:bayes_opt}{{4}{14}}
+\newlabel{prop:c_limit_half}{{5}{14}}
+\newlabel{prop:comparison}{{6}{14}}
+\newlabel{prop:c_limit}{{7}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Theoretical challenges of thresholded regression.} \textbf  {a,} Asymptotic relative bias versus threshold for different values of $\beta ^g_1$. The bias function is highly nonconvex and strictly nonzero. Vertical blue lines, Bayes-optimal decision boundaries. Across all panels, $\beta ^g_0 = 0$ and $\pi = 1/2$. \textbf  {b,} Asymptotic relative bias versus $\pi $ when the threshold is set to a large number. The two quantities coincide exactly. \textbf  {c,} Bias-variance decomposition for thresholding method in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta ^g_1 = 1, \beta ^m_1 = 1,$ and $\pi = 0.1$.}}{16}}
+\newlabel{thresholding_theoretical}{{3}{16}}
+\newlabel{theoretical_model_no_int}{{3}{17}}
+\newlabel{thresh_estimator_no_int}{{4}{17}}
+\newlabel{prop:bv_decomp}{{8}{17}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Thresholding method summary}{17}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}GLM-EIV}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Simulation studies}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Real data analysis}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Appendix}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Theoretical details for thresholding estimator}{18}}
 \citation{fitzpatrick2009}
-\newlabel{def_g}{{5}{18}}
-\newlabel{def_h}{{6}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{18}}
-\newlabel{sec:convergence}{{8.1.2}{18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.3}Re-expressing $\gamma $ in a simpler form}{20}}
-\newlabel{sec:simplication}{{8.1.3}{20}}
-\newlabel{thm:gamma_expression_1}{{7}{20}}
-\newlabel{thm:gamma_expression_2}{{8}{20}}
-\newlabel{thm:gamma_expression_3}{{9}{20}}
-\newlabel{thm:gamma_expression_4}{{10}{20}}
-\newlabel{gamma_alternative}{{11}{20}}
-\newlabel{gamma_alternative_pi_half}{{12}{20}}
-\newlabel{gamma_alt2_pi_half}{{13}{21}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.4}Derivatives of $g$ and $h$ in $c$}{21}}
-\newlabel{sec:derivatives}{{8.1.4}{21}}
-\newlabel{dg_dc}{{14}{21}}
-\newlabel{dh_dc}{{15}{21}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.5}Limit of $\gamma $ in $c$}{21}}
-\newlabel{sec:c_limit}{{8.1.5}{21}}
-\newlabel{c_limit_product}{{16}{22}}
-\newlabel{c_limit_product_2}{{17}{22}}
-\newlabel{c_limit_product_3}{{18}{22}}
-\newlabel{c_limit_product_4}{{19}{23}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{23}}
-\newlabel{sec:bayes_opt}{{8.1.6}{23}}
-\newlabel{quotient_rule}{{20}{23}}
-\newlabel{dg_dc_bayes}{{21}{23}}
-\newlabel{dh_dc_bayes}{{22}{23}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.7}Comparing Bayes-optimal decision boundary and large threshold}{24}}
-\newlabel{sec:comparison}{{8.1.7}{24}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.8}Monotonicity in $\beta ^g_1$}{25}}
-\newlabel{sec:monotone}{{8.1.8}{25}}
-\newlabel{basic_ineq_cp}{{23}{25}}
-\newlabel{basic_ineq_cp_2}{{24}{25}}
-\newlabel{basic_ineq_cp_3}{{25}{25}}
-\newlabel{dg_dbeta}{{26}{26}}
-\newlabel{dh_dbeta}{{27}{26}}
-\newlabel{basic_ineq_cp_4}{{28}{26}}
-\newlabel{def_2g}{{29}{26}}
-\newlabel{def_4h}{{30}{26}}
-\newlabel{basic_ineq_cp_5}{{31}{27}}
-\newlabel{d_gamma_d_beta}{{32}{27}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.9}Strict attenuation bias}{27}}
-\newlabel{sec:att_bias}{{8.1.9}{27}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.10}Bias-variance decomposition in no-intercept model}{28}}
-\newlabel{sec:bv_decomp}{{8.1.10}{28}}
-\newlabel{bc_decomp_1}{{33}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.1}Notation}{19}}
+\newlabel{sec:notation}{{8.1.1}{19}}
+\newlabel{def_g}{{5}{19}}
+\newlabel{def_h}{{6}{19}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{20}}
+\newlabel{sec:convergence}{{8.1.2}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.3}Re-expressing $\gamma $ in a simpler form}{21}}
+\newlabel{sec:simplication}{{8.1.3}{21}}
+\newlabel{thm:gamma_expression_1}{{7}{21}}
+\newlabel{thm:gamma_expression_2}{{8}{21}}
+\newlabel{thm:gamma_expression_3}{{9}{21}}
+\newlabel{thm:gamma_expression_4}{{10}{21}}
+\newlabel{gamma_alternative}{{11}{21}}
+\newlabel{gamma_alternative_pi_half}{{12}{22}}
+\newlabel{gamma_alt2_pi_half}{{13}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.4}Derivatives of $g$ and $h$ in $c$}{22}}
+\newlabel{sec:derivatives}{{8.1.4}{22}}
+\newlabel{dg_dc}{{14}{22}}
+\newlabel{dh_dc}{{15}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.5}Limit of $\gamma $ in $c$}{23}}
+\newlabel{sec:c_limit}{{8.1.5}{23}}
+\newlabel{c_limit_product}{{16}{23}}
+\newlabel{c_limit_product_2}{{17}{23}}
+\newlabel{c_limit_product_3}{{18}{23}}
+\newlabel{c_limit_product_4}{{19}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{24}}
+\newlabel{sec:bayes_opt}{{8.1.6}{24}}
+\newlabel{quotient_rule}{{20}{24}}
+\newlabel{dg_dc_bayes}{{21}{24}}
+\newlabel{dh_dc_bayes}{{22}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.7}Comparing Bayes-optimal decision boundary and large threshold}{25}}
+\newlabel{sec:comparison}{{8.1.7}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.8}Monotonicity in $\beta ^g_1$}{26}}
+\newlabel{sec:monotone}{{8.1.8}{26}}
+\newlabel{basic_ineq_cp}{{23}{26}}
+\newlabel{basic_ineq_cp_2}{{24}{26}}
+\newlabel{basic_ineq_cp_3}{{25}{27}}
+\newlabel{dg_dbeta}{{26}{27}}
+\newlabel{dh_dbeta}{{27}{27}}
+\newlabel{basic_ineq_cp_4}{{28}{27}}
+\newlabel{def_2g}{{29}{28}}
+\newlabel{def_4h}{{30}{28}}
+\newlabel{basic_ineq_cp_5}{{31}{28}}
+\newlabel{d_gamma_d_beta}{{32}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.9}Strict attenuation bias}{28}}
+\newlabel{sec:att_bias}{{8.1.9}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.10}Bias-variance decomposition in no-intercept model}{29}}
+\newlabel{sec:bv_decomp}{{8.1.10}{29}}
+\newlabel{bc_decomp_1}{{33}{29}}
+\newlabel{bv_decomp_2}{{34}{30}}
+\newlabel{bv_decomp_3}{{35}{30}}
+\newlabel{bv_decomp_4}{{36}{30}}
+\newlabel{bv_decomp_5}{{37}{30}}
 \bibstyle{unsrt}
-\newlabel{bv_decomp_2}{{34}{29}}
-\newlabel{bv_decomp_3}{{35}{29}}
-\newlabel{bv_decomp_4}{{36}{29}}
-\newlabel{bv_decomp_5}{{37}{29}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Derivation of EM algorithm}{29}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Derivation of observed information matrix}{29}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Implementation using R family objects}{29}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Statistical accelerations to GLM-EIV}{29}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Additional simulation results}{29}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Derivation of EM algorithm}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Derivation of observed information matrix}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Implementation using R family objects}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Statistical accelerations to GLM-EIV}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Additional simulation results}{31}}
 \bibdata{/Users/timbarry/optionFiles/glmeiv.bib}
 \bibcite{Rothgangl2021}{1}
 \bibcite{Musunuru2021}{2}
@@ -134,5 +138,6 @@
 \bibcite{Mimitou2019}{18}
 \bibcite{Gallagher2018}{19}
 \bibcite{Gasperini2020}{20}
-\bibcite{Stefanski2000a}{21}
-\bibcite{fitzpatrick2009}{22}
+\bibcite{Replogle2020}{21}
+\bibcite{Stefanski2000a}{22}
+\bibcite{fitzpatrick2009}{23}
