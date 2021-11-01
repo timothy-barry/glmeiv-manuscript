@@ -70,18 +70,18 @@ p5 <- ggplot(data = xie_gRNA %>% tibble::tibble(count = .) %>%
                dplyr::filter(count >= 1, count <= 40),
              mapping = aes(x = count)) +
   geom_histogram(binwidth = 2, col = "black", fill = my_cols[4], alpha = 0.7) +
-  scale_y_continuous(trans='log10', expand = c(0, NA)) + xlab("gRNA count") + ylab("") +
+  scale_y_continuous(trans='log10', expand = c(0, NA)) + xlab("gRNA count (Xie)") + ylab("") +
   theme_bw(base_size = 10) + my_theme
   
 p6 <- ggplot(data = gasp_gRNA %>% tibble::tibble(count = .) %>%
                dplyr::filter(count >= 1, count <= 40),
              mapping = aes(x = count)) +
   geom_histogram(binwidth = 2, col = "black", fill = my_cols[4], alpha = 0.7) +
-  scale_y_continuous(trans='log10', expand = c(0, NA)) + xlab("gRNA count") +
+  scale_y_continuous(trans='log10', expand = c(0, NA)) + xlab("gRNA count (Gasperini)") +
   ylab("") + theme_bw(base_size = 10) + my_theme
   # geom_vline(xintercept = xie_thresh, col = my_cols[1], lwd = 0.8)
 
 # combine plots
-p_out <- plot_grid(p1, p2, p3, p4, p5, p6, labels = c("a", "b", "c", "d", "e", "f"), ncol = 2, rel_heights = c(1,1,0.8), align = "vh")
+p_out <- plot_grid(p1, p2, p3, p4, p6, p5, labels = c("a", "b", "c", "d", "e", "f"), ncol = 2, rel_heights = c(1,1,0.8), align = "vh")
 
 ggsave(filename = paste0(fig_dir, "/plot.jpeg"), plot = p_out, device = "jpeg", scale = 1, width = 6, height = 6)

@@ -33,7 +33,12 @@ p1 <- ggplot(data = to_plot, mapping = aes(x = x, y = y, col = Status)) +
   scale_color_manual(values = c(my_cols[2], "black")) + geom_line(lwd = 1.1) +
   theme(legend.position = c(0.77, 0.85), legend.title = element_blank(),
         panel.border = element_blank(), panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), axis.line.y = element_line(colour = "black"))
+        panel.grid.minor = element_blank(),
+        axis.line.y = element_line(colour = "black"),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
 
 # set up cowplot
 p_out <- plot_grid(NULL, p1, NULL, NULL, labels = c("a", "c", "b", "d"), nrow = 2, rel_heights = c(0.5, 0.5))
