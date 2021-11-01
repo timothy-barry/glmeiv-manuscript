@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  31 OCT 2021 21:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  1 NOV 2021 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -292,7 +292,7 @@ Overfull \hbox (7.8204pt too wide) in paragraph at lines 68--69
 File: ../../figures/thresholding_empirical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_empirical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_empirical/plot.jpeg  used o
-n input line 111.
+n input line 106.
 (pdftex.def)             Requested size: 390.0pt x 389.98753pt.
 
 
@@ -303,35 +303,35 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: Text page 11 contains only floats.
 
 [11 <../../figures/thresholding_empirical/plot.jpeg>] [12]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 162.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 157.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 162.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 157.
  [13] [14]
 <../../figures/thresholding_theoretical/plot.jpeg, id=87, 2023.56pt x 1349.04pt
 >
 File: ../../figures/thresholding_theoretical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_theoretical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_theoretical/plot.jpeg  used
- on input line 204.
+ on input line 199.
 (pdftex.def)             Requested size: 390.0pt x 259.98433pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [15] [16 <../../figures/thresholding_theoretical/plot.jpeg>] [17] [18] [19]
-Overfull \hbox (10.54257pt too wide) in paragraph at lines 316--317
+Overfull \hbox (10.54257pt too wide) in paragraph at lines 311--312
 []\OT1/cmr/m/n/12 Variance of $[]$: Be-cause $[]$ is bi-nary, we have that $\U/
 msb/m/n/12 V\OT1/cmr/m/n/12 [[]] = \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]] [] \OML/
 cmm/m/it/12 :$ 
  []
 
 
-Overfull \hbox (9.02336pt too wide) detected at line 320
+Overfull \hbox (9.02336pt too wide) detected at line 315
  []$[]  [] [] \OT1/cmr/m/n/12 = \U/msb/m/n/12 E [] \OMS/cmsy/m/n/12 ^^@ \U/msb/
 m/n/12 E\OT1/cmr/m/n/12 [[]]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 m[
 ]\OT1/cmr/m/n/12 ] = \OML/cmm/m/it/12 ^^L[]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]] 
@@ -341,7 +341,7 @@ mr/m/n/12 )$
  []
 
 [20]
-Overfull \hbox (13.98291pt too wide) detected at line 329
+Overfull \hbox (13.98291pt too wide) detected at line 324
  []$[]  \OT1/cmr/m/n/12 1 \OMS/cmsy/m/n/12 ^^@ \U/msb/m/n/12 E [] \OT1/cmr/m/n/
 12 = (1 \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 ) + \OML/cmm/m
 /it/12 ^^Y \OMS/cmsy/m/n/12 ^^@ \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]] = (1 \OMS/c
@@ -350,31 +350,31 @@ msy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 ) [] + \OML/cmm/m/it/12 ^^Y
  []
 
 
-Overfull \hbox (24.52757pt too wide) detected at line 340
+Overfull \hbox (24.52757pt too wide) detected at line 335
  []$[] \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 :$ []  
  []
 
 [21]
-Overfull \hbox (14.51805pt too wide) in paragraph at lines 365--365
+Overfull \hbox (14.51805pt too wide) in paragraph at lines 360--360
 \OT1/cmr/m/n/12 Assume (with-out loss of gen-er-al-ity) that $\OML/cmm/m/it/12 
 ^^L[] > \OT1/cmr/m/n/12 0$. We com-pute $[][] \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/
 12 (\OML/cmm/m/it/12 ^^L[]; c; ^^Y\OT1/cmr/m/n/12 )$.
  []
 
 [22] [23]
-Overfull \hbox (30.99063pt too wide) detected at line 394
+Overfull \hbox (30.99063pt too wide) detected at line 389
 \OML/cmm/m/it/12 D[]^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; c; \OT1/cmr/m/n
 /12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2)[]  = []\OML/cmm/m/it/12 :
  []
 
 [24]
-Overfull \hbox (13.01672pt too wide) in paragraph at lines 408--408
+Overfull \hbox (13.01672pt too wide) in paragraph at lines 403--403
 []\OT1/cmr/bx/n/12 Comparing Bayes-optimal de-ci-sion bound-ary and large thres
 h-
  []
 
 
-Overfull \hbox (25.92137pt too wide) detected at line 413
+Overfull \hbox (25.92137pt too wide) detected at line 408
  []$[]  \OML/cmm/m/it/12 r\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]\OT1/cmr/m/n/1
 2 ) = \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; ^^L[] \OT1/c
 mr/m/n/12 + (1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2)\OML/cmm/m/it/12 ^^L[]; \OT1/
@@ -382,14 +382,14 @@ cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) = []$
  []
 
 
-Overfull \hbox (34.26216pt too wide) detected at line 413
+Overfull \hbox (34.26216pt too wide) detected at line 408
  []$[] \OT1/cmr/m/n/12 = [] = 2 [][] \OML/cmm/m/it/12 f \OT1/cmr/m/n/12 = 2^^H(
 \OML/cmm/m/it/12 ^^L[]=\OT1/cmr/m/n/12 2) \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 
 1\OML/cmm/m/it/12 :  $ 
  []
 
 
-Overfull \hbox (5.8459pt too wide) in paragraph at lines 418--418
+Overfull \hbox (5.8459pt too wide) in paragraph at lines 413--413
 \OT1/cmr/m/n/12 we have that $\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 (\OML/cmm/m/it/
 12 ^^L[]; c[]; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) \OML/cmm/m
 /it/12 > \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2$ for $\OML/cmm/m/
@@ -399,19 +399,19 @@ it/12 ^^L[] < \OT1/cmr/m/n/12 2^^H[](3\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 4)$ and
  []
 
 [25] [26]
-Overfull \hbox (2.58003pt too wide) detected at line 470
+Overfull \hbox (2.58003pt too wide) detected at line 465
  []$[] \OMS/cmsy/m/n/12 ^^@ [][][][]\OML/cmm/m/it/12 :$ []  
  []
 
 [27]
-Overfull \hbox (3.25394pt too wide) detected at line 502
+Overfull \hbox (3.25394pt too wide) detected at line 497
  []$[]   [] \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; c; \OT
 1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) = [] = [] \OML/cmm/m/it/12 >
  \OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 :  $ 
  []
 
 [28] [29]
-Overfull \hbox (9.38pt too wide) detected at line 539
+Overfull \hbox (9.38pt too wide) detected at line 534
  []$[] \OT1/cmr/m/n/12 = \U/msb/m/n/12 E [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 
 ^^L[]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 ] + 
 2\OML/cmm/m/it/12 ^^L[]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 p[][]\O
@@ -452,7 +452,7 @@ pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pf
 b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam1
 0.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sbm10.pfb>
-Output written on draft.pdf (35 pages, 896262 bytes).
+Output written on draft.pdf (35 pages, 896753 bytes).
 PDF statistics:
  209 PDF objects out of 1000 (max. 8388607)
  142 compressed objects within 2 object streams
