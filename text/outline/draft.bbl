@@ -167,6 +167,38 @@ L.~A. Stefanski.
 \newblock {\em Journal of the American Statistical Association},
   95(452):1353--1358, 2000.
 
+\bibitem{Svensson2020}
+Valentine Svensson.
+\newblock {Droplet scRNA-seq is not zero-inflated}.
+\newblock {\em Nature Biotechnology}, 38:142--150, 2020.
+
+\bibitem{Hafemeister2019}
+Christoph Hafemeister and Rahul Satija.
+\newblock {Normalization and variance stabilization of single-cell RNA-seq data
+  using regularized negative binomial regression}.
+\newblock {\em Genome Biology}, 20(1):1--15, 2019.
+
+\bibitem{Sarkar2021}
+Abhishek Sarkar and Matthew Stephens.
+\newblock {Separating measurement and expression models clarifies confusion in
+  single-cell RNA sequencing analysis}.
+\newblock {\em Nature Genetics}, 53(6):770--777, 2021.
+
+\bibitem{Hill2018}
+Andrew~J. Hill, Jos{\'{e}}~L. McFaline-Figueroa, Lea~M. Starita, Molly~J.
+  Gasperini, Kenneth~A. Matreyek, Jonathan Packer, Dana Jackson, Jay Shendure,
+  and Cole Trapnell.
+\newblock {On the design of CRISPR-based single-cell molecular screens}.
+\newblock {\em Nature Methods}, 15(4):271--274, 2018.
+
+\bibitem{Louis2012}
+By~Thomas~A Louis.
+\newblock {Finding the Observed Information Matrix when Using the EM Algorithm
+  Author ( s ): Thomas A . Louis Reviewed work ( s ): Source : Journal of the
+  Royal Statistical Society . Series B ( Methodological ), Vol . 44 , No . 2
+  Published by : Blackwell Publishing}.
+\newblock {\em Society}, 44(2):226--233, 2012.
+
 \bibitem{fitzpatrick2009}
 Patrick Fitzpatrick.
 \newblock {\em {Advanced calculus}}, volume~5.

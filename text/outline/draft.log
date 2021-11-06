@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  1 NOV 2021 00:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  6 NOV 2021 16:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -31,6 +31,10 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+(/usr/local/texlive/2018/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip43
@@ -113,7 +117,50 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
 )
-(/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count100
+\float@exts=\toks21
+\float@box=\box28
+\@float@everytoks=\toks22
+\@floatcapt=\box29
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks23
+\c@algorithm=\count101
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2009/09/02 v1.2b extra appendix facilities
+\c@@pps=\count102
+\c@@ppsavesec=\count103
+\c@@ppsaveapp=\count104
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count105
+\c@ALG@rem=\count106
+\c@ALG@nested=\count107
+\ALG@tlm=\skip46
+\ALG@thistlm=\skip47
+\c@ALG@Lnr=\count108
+\c@ALG@blocknr=\count109
+\c@ALG@storecount=\count110
+\c@ALG@tmpcounter=\count111
+\ALG@tmplength=\skip48
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -130,17 +177,9 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-\c@proposition=\count100
-\c@lemma=\count101
+\c@proposition=\count112
+\c@lemma=\count113
 
-(/usr/local/texlive/2018/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count102
-\float@exts=\toks21
-\float@box=\box28
-\@float@everytoks=\toks22
-\@floatcapt=\box29
-)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
@@ -155,49 +194,49 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 \caption@parindent=\dimen119
 \caption@hangindent=\dimen120
 )
-\c@KVtest=\count103
-\sf@farskip=\skip46
+\c@KVtest=\count114
+\sf@farskip=\skip49
 \sf@captopadj=\dimen121
-\sf@capskip=\skip47
-\sf@nearskip=\skip48
-\c@subfigure=\count104
-\c@subfigure@save=\count105
-\c@lofdepth=\count106
-\c@subtable=\count107
-\c@subtable@save=\count108
-\c@lotdepth=\count109
-\sf@top=\skip49
-\sf@bottom=\skip50
+\sf@capskip=\skip50
+\sf@nearskip=\skip51
+\c@subfigure=\count115
+\c@subfigure@save=\count116
+\c@lofdepth=\count117
+\c@subtable=\count118
+\c@subtable@save=\count119
+\c@lotdepth=\count120
+\sf@top=\skip52
+\sf@bottom=\skip53
 )
 (/Users/timbarry/optionFiles/mymacros.sty) (./draft.aux)
 \openout1 = `draft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
 
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count110
+\scratchcounter=\count121
 \scratchdimen=\dimen122
 \scratchbox=\box30
-\nofMPsegments=\count111
-\nofMParguments=\count112
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count113
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count124
 \MPscratchDim=\dimen123
-\MPnumerator=\count114
-\makeMPintoPDFobject=\count115
-\everyMPtoPDFconversion=\toks24
+\MPnumerator=\count125
+\makeMPintoPDFobject=\count126
+\everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -270,68 +309,94 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
-\tf@toc=\write3
-\openout3 = `draft.toc'.
+\tf@toc=\write4
+\openout4 = `draft.toc'.
 
  [2] [3] [4]
-<../../figures/analysis_challenges/plot.pdf, id=22, 1250.27098pt x 879.285pt>
+<../../figures/analysis_challenges/plot.pdf, id=24, 1250.27098pt x 879.285pt>
 File: ../../figures/analysis_challenges/plot.pdf Graphic file (type pdf)
 <use ../../figures/analysis_challenges/plot.pdf>
 Package pdftex.def Info: ../../figures/analysis_challenges/plot.pdf  used on in
-put line 54.
+put line 57.
 (pdftex.def)             Requested size: 390.0pt x 274.27946pt.
 
 [5] [6 <../../figures/analysis_challenges/plot.pdf>]
-Overfull \hbox (7.8204pt too wide) in paragraph at lines 68--69
+Overfull \hbox (7.8204pt too wide) in paragraph at lines 71--72
 \OT1/cmr/m/n/12 four of which we high-light here.[] Through-out, we con-sider a
  sin-gle perturbation-
  []
 
-[7] [8] [9]
-<../../figures/thresholding_empirical/plot.jpeg, id=69, 1806.75pt x 1806.75pt>
+[7] [8] [9] [10]
+<../../figures/thresholding_empirical/plot.jpeg, id=73, 1806.75pt x 1806.75pt>
 File: ../../figures/thresholding_empirical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_empirical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_empirical/plot.jpeg  used o
-n input line 106.
+n input line 109.
 (pdftex.def)             Requested size: 390.0pt x 389.98753pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[10]
+[11]
 
-LaTeX Warning: Text page 11 contains only floats.
+LaTeX Warning: Text page 12 contains only floats.
 
-[11 <../../figures/thresholding_empirical/plot.jpeg>] [12]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 157.
+[12 <../../figures/thresholding_empirical/plot.jpeg>] [13]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 160.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 157.
- [13] [14]
-<../../figures/thresholding_theoretical/plot.jpeg, id=87, 2023.56pt x 1349.04pt
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
+ [14] [15]
+<../../figures/thresholding_theoretical/plot.jpeg, id=91, 2023.56pt x 1349.04pt
 >
 File: ../../figures/thresholding_theoretical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_theoretical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_theoretical/plot.jpeg  used
- on input line 199.
+ on input line 202.
 (pdftex.def)             Requested size: 390.0pt x 259.98433pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[15] [16 <../../figures/thresholding_theoretical/plot.jpeg>] [17] [18] [19]
-Overfull \hbox (10.54257pt too wide) in paragraph at lines 311--312
+[16] [17 <../../figures/thresholding_theoretical/plot.jpeg>] [18]
+Overfull \hbox (7.31781pt too wide) in paragraph at lines 242--242
+[]\OT1/cmr/bx/n/17.28 Generalized lin-ear model with er-rors in vari-
+ []
+
+[19] [20] [21]
+Overfull \hbox (0.85706pt too wide) detected at line 310
+\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 m[]; g[]; p[]\OT1/cmr/m/n/1
+2 ; \OML/cmm/m/it/12 ^^R\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12
+ (\OML/cmm/m/it/12 m[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 )\O
+ML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 g[]\OMS/cmsy/m/n/12 j\OML/c
+mm/m/it/12 p[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/
+it/12 p[]\OT1/cmr/m/n/12 )[]  = \OML/cmm/m/it/12 ^^Y[]\OT1/cmr/m/n/12 (1 \OMS/c
+msy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 )[]\OML/cmm/m/it/12 f[]\OT1/
+cmr/m/n/12 (\OML/cmm/m/it/12 m[]\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12 ^^Q[]\OT1/cm
+r/m/n/12 )\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 g[]\OT1/cmr/m/n
+/12 ; \OML/cmm/m/it/12 ^^Q[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 :
+ []
+
+[22]
+Underfull \hbox (badness 5563) in paragraph at lines 335--336
+[]\OT1/cmr/m/n/12 Pilot es-ti-mates $\OML/cmm/m/it/12 ^^L[]; ^^L[];$ \OT1/cmr/m
+/n/12 and $\OML/cmm/m/it/12 ^^Y[]$\OT1/cmr/m/n/12 ; data $[\OML/cmm/m/it/12 m[]
+; [] ; m[]\OT1/cmr/m/n/12 ]$,
+ []
+
+[23] [24] [25] [26]
+Overfull \hbox (10.54257pt too wide) in paragraph at lines 426--427
 []\OT1/cmr/m/n/12 Variance of $[]$: Be-cause $[]$ is bi-nary, we have that $\U/
 msb/m/n/12 V\OT1/cmr/m/n/12 [[]] = \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]] [] \OML/
 cmm/m/it/12 :$ 
  []
 
 
-Overfull \hbox (9.02336pt too wide) detected at line 315
+Overfull \hbox (9.02336pt too wide) detected at line 430
  []$[]  [] [] \OT1/cmr/m/n/12 = \U/msb/m/n/12 E [] \OMS/cmsy/m/n/12 ^^@ \U/msb/
 m/n/12 E\OT1/cmr/m/n/12 [[]]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 m[
 ]\OT1/cmr/m/n/12 ] = \OML/cmm/m/it/12 ^^L[]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]] 
@@ -340,8 +405,8 @@ m/n/12 E\OT1/cmr/m/n/12 [[]]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 m[
 mr/m/n/12 )$ 
  []
 
-[20]
-Overfull \hbox (13.98291pt too wide) detected at line 324
+[27]
+Overfull \hbox (13.98291pt too wide) detected at line 439
  []$[]  \OT1/cmr/m/n/12 1 \OMS/cmsy/m/n/12 ^^@ \U/msb/m/n/12 E [] \OT1/cmr/m/n/
 12 = (1 \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 ) + \OML/cmm/m
 /it/12 ^^Y \OMS/cmsy/m/n/12 ^^@ \U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]] = (1 \OMS/c
@@ -350,31 +415,30 @@ msy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^Y\OT1/cmr/m/n/12 ) [] + \OML/cmm/m/it/12 ^^Y
  []
 
 
-Overfull \hbox (24.52757pt too wide) detected at line 335
+Overfull \hbox (24.52757pt too wide) detected at line 450
  []$[] \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 :$ []  
  []
 
-[21]
-Overfull \hbox (14.51805pt too wide) in paragraph at lines 360--360
+[28]
+Overfull \hbox (14.51805pt too wide) in paragraph at lines 475--475
 \OT1/cmr/m/n/12 Assume (with-out loss of gen-er-al-ity) that $\OML/cmm/m/it/12 
 ^^L[] > \OT1/cmr/m/n/12 0$. We com-pute $[][] \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/
 12 (\OML/cmm/m/it/12 ^^L[]; c; ^^Y\OT1/cmr/m/n/12 )$.
  []
 
-[22] [23]
-Overfull \hbox (30.99063pt too wide) detected at line 389
+[29] [30]
+Overfull \hbox (3.55286pt too wide) in paragraph at lines 500--500
+[]\OT1/cmr/bx/n/14.4 Bayes-optimal de-ci-sion bound-ary as a crit-i-cal value
+ []
+
+
+Overfull \hbox (30.99063pt too wide) detected at line 504
 \OML/cmm/m/it/12 D[]^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; c; \OT1/cmr/m/n
 /12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2)[]  = []\OML/cmm/m/it/12 :
  []
 
-[24]
-Overfull \hbox (13.01672pt too wide) in paragraph at lines 403--403
-[]\OT1/cmr/bx/n/12 Comparing Bayes-optimal de-ci-sion bound-ary and large thres
-h-
- []
-
-
-Overfull \hbox (25.92137pt too wide) detected at line 408
+[31]
+Overfull \hbox (25.92137pt too wide) detected at line 523
  []$[]  \OML/cmm/m/it/12 r\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]\OT1/cmr/m/n/1
 2 ) = \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; ^^L[] \OT1/c
 mr/m/n/12 + (1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2)\OML/cmm/m/it/12 ^^L[]; \OT1/
@@ -382,14 +446,14 @@ cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) = []$
  []
 
 
-Overfull \hbox (34.26216pt too wide) detected at line 408
+Overfull \hbox (34.26216pt too wide) detected at line 523
  []$[] \OT1/cmr/m/n/12 = [] = 2 [][] \OML/cmm/m/it/12 f \OT1/cmr/m/n/12 = 2^^H(
 \OML/cmm/m/it/12 ^^L[]=\OT1/cmr/m/n/12 2) \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 
 1\OML/cmm/m/it/12 :  $ 
  []
 
 
-Overfull \hbox (5.8459pt too wide) in paragraph at lines 413--413
+Overfull \hbox (5.8459pt too wide) in paragraph at lines 528--528
 \OT1/cmr/m/n/12 we have that $\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 (\OML/cmm/m/it/
 12 ^^L[]; c[]; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) \OML/cmm/m
 /it/12 > \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2$ for $\OML/cmm/m/
@@ -398,20 +462,25 @@ it/12 ^^L[] < \OT1/cmr/m/n/12 2^^H[](3\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 4)$ and
 12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) \OML/cmm/m/it/12 <
  []
 
-[25] [26]
-Overfull \hbox (2.58003pt too wide) detected at line 465
+[32] [33]
+Overfull \hbox (2.58003pt too wide) detected at line 580
  []$[] \OMS/cmsy/m/n/12 ^^@ [][][][]\OML/cmm/m/it/12 :$ []  
  []
 
-[27]
-Overfull \hbox (3.25394pt too wide) detected at line 497
+[34]
+Overfull \hbox (3.25394pt too wide) detected at line 612
  []$[]   [] \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; c; \OT
 1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) = [] = [] \OML/cmm/m/it/12 >
  \OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 :  $ 
  []
 
-[28] [29]
-Overfull \hbox (9.38pt too wide) detected at line 534
+
+Overfull \hbox (11.04619pt too wide) in paragraph at lines 618--618
+[]\OT1/cmr/bx/n/14.4 Bias-variance de-com-po-si-tion in no-intercept model 
+ []
+
+[35]
+Overfull \hbox (9.38pt too wide) detected at line 649
  []$[] \OT1/cmr/m/n/12 = \U/msb/m/n/12 E [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 
 ^^L[]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [[]\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 ] + 
 2\OML/cmm/m/it/12 ^^L[]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 p[][]\O
@@ -420,42 +489,43 @@ T1/cmr/m/n/12 ]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 ^^O[]\OT1/cmr/m
 ML/cmm/m/it/12 ^^O[]\OT1/cmr/m/n/12 ]$ 
  []
 
-[30] [31] (./draft.bbl [32] [33]
+[36] [37] [38] (./draft.bbl [39] [40]
 Underfull \hbox (badness 2103) in paragraph at lines 128--133
 \OT1/cmr/m/n/12 screen-ing with com-bi-na-to-rial flu-idic in-dex-ing.  \OT1/cm
 r/m/it/12 Na-ture Meth-ods\OT1/cmr/m/n/12 ,
  []
 
-[34]) [35] (./draft.aux) ) 
+[41]) [42] (./draft.aux) ) 
 Here is how much of TeX's memory you used:
- 3554 strings out of 492649
- 51317 string characters out of 6129622
- 128346 words of memory out of 5000000
- 7372 multiletter control sequences out of 15000+600000
- 11459 words of font info for 42 fonts, out of 8000000 for 9000
+ 4281 strings out of 492649
+ 61946 string characters out of 6129622
+ 139208 words of memory out of 5000000
+ 8076 multiletter control sequences out of 15000+600000
+ 15011 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,38p,2021b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,12n,38p,2021b,333s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
-.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
-pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam1
-0.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/m
-sbm10.pfb>
-Output written on draft.pdf (35 pages, 896753 bytes).
+msfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.p
+fb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10
+.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
+bm10.pfb>
+Output written on draft.pdf (42 pages, 930281 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
- 142 compressed objects within 2 object streams
+ 237 PDF objects out of 1000 (max. 8388607)
+ 162 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

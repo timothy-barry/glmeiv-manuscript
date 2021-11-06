@@ -1,7 +1,11 @@
 \documentclass[12pt]{article}
 \usepackage{amsfonts}
+\usepackage{comment}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage[toc,page]{appendix}
+\usepackage{algpseudocode}
 \setcounter{tocdepth}{2}
 \usepackage{xcolor}
 \newtheorem{proposition}{Proposition}
@@ -20,8 +24,7 @@ Tim, Gene, Kathryn
 \end{center}
 
 \begin{abstract}
-CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression. Single-cell CRISPR screens promise to shed light on the genetic architecture underlying diseases but present substantial statistical challenges. %  In this work we study single-cell CRISPR screens from a statistical perspective.
-We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
+CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression. Single-cell CRISPR screens promise to illuminate regulatory networks underlying diseases but present substantial statistical challenges. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
 \tableofcontents
 \noindent \blue{All edits in blue.}
@@ -70,22 +73,22 @@ After waiting several days for CRISPRi to take effect, the scientist profiles ea
 In this work we analyze two large-scale, high MOI, single-cell CRISPR screen datasets published by Gasperini et al.\ and Xie et al. Gasperini (resp., Xie) targeted approximately 6,000 (resp., 500) candidate enhancers in a population of approximately 200,000 (resp., 100,000) cells. Gasperini additionally designed 381 positive control, gene-targeting perturbations and 50 non-targeting, negative control perturbations to assess method sensitivity and specificity.
 
 \section{Thresholding method}
-\blue{In this section we study the thresholding method from empirical and theoretical perspectives, uncovering several limitations of the approach. Gasperini and Xie both imputed perturbation identities onto cells via thresholding, but they carried out subsequent differential expression analyses in different ways: Gasperini ran negative binomial regressions, while Xie conducted nonparametric tests of independence. These two approaches pose similar challenges, but we investigate the regression-based version of the thresholding method here, as it relates most closely to GLM-EIV.}
+\blue{In this section we study thresholded regression from empirical and theoretical perspectives, uncovering several limitations of the method. Gasperini and Xie both imputed perturbation identities onto the cells via thresholding, but they carried out the subsequent differential expression analysis in different ways: Gasperini used negative binomial regression, whereas Xie used nonparametric independence testing. These two strategies pose similar challenges, but we investigate Gasperini's variant of the thresholding method, as it relates most closely to GLM-EIV.}
 
-Let $n \in \N$ be the number of cells assayed in the experiment. Consider a single perturbation and a single gene. For cell $i \in \{1, \dots, n\}$, let $m_i \in \N$ be the number of gene transcripts sequenced; let $g_i \in \N$ be the number of gRNA transcripts sequenced; let $l^m_i \in \N$ be the number of gene transcripts sequenced across \textit{all} genes (the library size); and finally, let $z_i \in \R^{d-1}$ be the cell-specific technical factors (e.g., sequencing batch, percent mitochondrial reads, etc.) The letters ``m,'' ``g'', and ``l'' stand for ``mRNA,'' ``gRNA,'' and ``library,'' respectively. The thresholding method is defined as follows:
+Let $n \in \N$ be the number of cellxs assayed in the experiment. Consider a single perturbation and a single gene. For cell $i \in \{1, \dots, n\}$, let $m_i \in \N$ be the number of gene transcripts sequenced; let $g_i \in \N$ be the number of gRNA transcripts sequenced; let $l^m_i \in \N$ be the number of gene transcripts sequenced across \textit{all} genes (the library size); and finally, let $z_i \in \R^{d-1}$ be the cell-specific technical factors (e.g., sequencing batch, percent mitochondrial reads, etc.) The letters ``m,'' ``g'', and ``l'' stand for ``mRNA,'' ``gRNA,'' and ``library,'' respectively. The thresholding method is defined as follows:
 \begin{itemize}
 \item[1.] For a given threshold $c \in \N$, let the imputed perturbation assignment $\hat{p}_i \in \{0, 1\}$ be $$\begin{cases} \hat{p}_i = 0 \textrm{ if } g_i < c, \\ \hat{p}_i = 1 \textrm{ if } g_i \geq c. \end{cases}$$
-\item[2.] Assume that $m_i$ is related to $\hat{p}_i, l_i,$ and $z_i$ through the following GLM:
-$$m_i | (\hat{p}_i, z_i, l_i) \sim \textrm{NB}_\theta(\mu_i),$$
+\item[2.] Assume that $m_i$ is related to $\hat{p}_i, l^m_i,$ and $z_i$ through the following GLM:
+$$m_i | (\hat{p}_i, z_i, l^m_i) \sim \textrm{NB}_{\theta^m}(\mu_i),$$
 \begin{equation}\label{thresh_glm}
 \log(\mu_i) = \beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i + \log\left( l_i^m\right),
 \end{equation}
-where (i) $NB_\theta(\mu_i)$ is a negative binomial distribution with mean $\mu_i$ and known size parameter $\theta$; (ii) $\beta^m_0 \in \R, \beta^m_1 \in \R,$ and $\gamma \in  \R^{d-1}$ are unknown parameters; and (iii) $\log(l_i^m)$ is an offset term. Fit a GLM to obtain estimates of the parameters.
+where (i) $NB_\theta(\mu_i)$ is a negative binomial distribution with mean $\mu_i$ and known size parameter $\theta^m$; (ii) $\beta^m_0 \in \R, \beta^m_1 \in \R,$ and $\gamma_m \in  \R^{d-1}$ are unknown parameters; and (iii) $\log(l_i^m)$ is an offset term. Fit a GLM to obtain estimates of the parameters.
 
 \item[3.] Compute a $p$-value and confidence interval for the target of inference $\beta^m_1$.
 \end{itemize}
 \blue{We include the library size $l^m_i$ as an offset term in (\ref{thresh_glm}) so that $\beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i$ can be interpreted as a relative expression: exponentiating both sides of (\ref{thresh_glm}), we obtain
-$$\mu_i = \exp \left( \beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i \right) l_i^m.$$ We see that $\exp \left( \beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i \right)$ is the \textit{fraction} of transcripts in the cell produced by the gene under consideration.}
+$$\mu_i = \exp \left( \beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i \right) l_i^m.$$ We see that $\exp \left( \beta^m_0 + \beta^m_1 \hat{p}_i + \gamma^T_m z_i \right)$ is the \textit{fraction} of all transcripts sequenced in the cell produced by the gene under consideration.}
 
 The biological interpretation for the target of inference $\beta^m_1$ as follows:  $\beta^m_1$ is the log-transformed fold change in gene expression in response to the perturbation, \blue{controlling for} the technical factors. Fold change (obtained by exponentiating $\beta^m_1$) is the ratio of the mean gene expression in cells that were perturbed to the mean gene expression in cells that were not perturbed. $\exp(\beta^m_1) = 1$ indicates no change in mean expression, while $\exp(\beta^m_1) > 1$ and $\exp(\beta^m_1) < 1$ indicate an increase and decrease in expression in response to the perturbation, respectively (accounting for technical factors).
 
@@ -144,7 +147,7 @@ Let $b: \R^4 \to \R$ be the asymptotic relative bias of $\hat{\beta}^m_1$:
 \begin{multline*}
 b(\beta^g_1, \pi, c, \beta^g_0) = \left(\frac{1}{\beta^m_1}\right) \lim_{n\to\infty} \left(\beta^m_1 - \E[\hat{\beta}^m_1]\right) = \left( \frac{1}{\beta^m_1}\right)\left(\beta^m_1 - \E \left(\lim_{a.s.} \hat{\beta}^m_1 \right)\right) \\ = \frac{1}{\beta^m_1} \left(\beta^m_1 - \gamma(\beta^g_1, \pi, c, \beta^g_0)\beta^m_1\right) = 1 - \gamma(\beta^g_1, \pi, c, \beta^g_0),
 \end{multline*}
-where $\lim_{a.s.}$ denotes a.s.\ convergence. The asymptotic relative bias vanishes when the attenuation function equals $1$. \textcolor{red}{HOW TO MAKE THE ABOVE RIGOROUS?}
+where $\lim_{a.s.}$ denotes a.s.\ convergence. The asymptotic relative bias vanishes when the attenuation function equals $1$.
 
 \begin{center}
 \textbf{Bias as a function of threshold (Panel a)}
@@ -236,19 +239,131 @@ This result yields an exact bias-variance decomposition for $\hat{\beta}_m$ for 
 
 Empirical and theoretical analyses reveal that the thresholding method poses several challenges: the threshold is a tuning parameter that substantially impacts the results; strict attenuation bias obtains uniformly over the parameter space and for all choices of the threshold; and there does not exist and obvious threshold selection strategy due to (i) the unimodality of the empirical gRNA count distributions and (ii) the existence of a bias-variance tradeoff mediated by the threshold. These difficulties motivate our core research question: \textit{Does modeling the gRNA count distribution directly, thereby circumventing the need to threshold altogether, lead to simpler, more accurate estimation and inference in single-cell CRISPR screen analysis?} To answer this question, we generalize the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed.
 
-\section{GLM-EIV}
+\section{Generalized linear model with errors in variables}
 
+In this section we introduce generalized linear model with errors-in-variables (GLM-EIV), derive estimation and inference procedures for the model, and propose several statistical accelerations to reduce the cost of fitting the model.
 
+\subsection{Model}
+\subsubsection*{Negative binomial model}
+Building on the work of several previous authors \cite{Townes2019,Svensson2020,Hafemeister2019}, Sarkar and Stephens \cite{Sarkar2021} proposed a simple strategy for modeling for single-cell gene expression data, which, in the framework of the negative binomial GLM, is equivalent to using the log-transformed library size as an offset term (as in (\ref{thresh_glm})). We generalize Sarkar and Stephens' approach to model \textit{both} gene and gRNA modalities. To this end, let the latent variable $p_i \in \{0,1\}$ indicate whether cell $i \in \{1, \dots, n\}$ was perturbed. We model the gene expression counts according to
+\begin{equation}\label{glmeiv_model_1}
+m_i |(p_i, z_i, l^m_i) \sim \textrm{NB}(\mu_i^m),
+\end{equation}
+\begin{equation}\label{glmeiv_model_2}
+\log(\mu^m_i) = \beta^m_0 + \beta^m_1 p_i + \gamma_m^T z_i + \log(l^m_i),
+\end{equation}
+where $\theta^m > 0$ is a known negative binomial size parameter, and $\beta^m_0 \in \R, \beta^m_1 \in \R,$ and $\gamma_m \in \R^{d - 2}$ are unknown constants. The model (\ref{glmeiv_model_1}) is identical to the thresholding model (\ref{thresh_glm}), but the imputed perturbation indicator $\hat{p}_i$ is replaced by the latent perturbation indicator $p_i$. Next, let $l^g_i \in \N$ be the number of gRNA transcripts sequenced across \textit{all} gRNAs in cell $i$ (i.e., the gRNA library size). The model for the gRNA counts is 
+\begin{equation}\label{glmeiv_model_3}
+g_i | (p_i, z_i, l^g_i) \sim \textrm{NB}_{\theta^g}\left(\mu_i^g\right),
+\end{equation}
+\begin{equation}\label{glmeiv_model_4}
+\log(\mu_i^g) = \beta^g_0 + \beta^g_1p_i + \gamma^T_g z_i + \log(l^g_i),
+\end{equation}
+where, similar to above, $\theta^g > 0$ is a known negative binomial size parameter, and $\beta^g_0 \in \R, \beta^g_1 \in \R, \gamma_g \in \R^{d - 2}$ are unknown constants. We use a negative binomial GLM to model the gRNA counts because gRNA molecules are transcribed in the cell in the same way that gene transcripts are \cite{Datlinger2017,Hill2018}. Finally, we model the marginal perturbation probability as
+\begin{equation}\label{glmeiv_model_5}
+p_i \sim \textrm{Bern}(\pi),
+\end{equation} where $\pi \in (0,1/2]$. 
+ Together, (\ref{glmeiv_model_1}, \ref{glmeiv_model_2}, \ref{glmeiv_model_3}, \ref{glmeiv_model_4}, \ref{glmeiv_model_5}) define the standard GLM-EIV model. The terms $(\beta^m_0 + \beta^m_1p_i + \gamma^T_m z_i)$ and $(\beta^g_0 + \beta^g_1 p_i + \gamma^T_g z_i)$ can be interpreted as relative gene and gRNA expressions, similar to the analogous term in the thresholding model. Likewise, the target of inference $\beta^m_1$ is the log fold change in gene expression in response to the perturbation, accounting for technical factors.
+ 
+\subsubsection*{Full GLM-EIV model}
+To provide greater modeling flexibility, we generalize the GLM-EIV model to arbitrary exponential family response distributions and link functions. To increase notational compactness, let $\tilde{x_i} = [1, p_i, z_i]^T \in \R^d$ be the vector of covariates (including an intercept term) for the $i$th cell. (We use the tilde as a reminder that the vector is partially unobserved.) Let $\beta_m = [\beta^m_0, \beta^m_1, \gamma_m]^T \in \R^d$ and $\beta_g = [\beta^g_0, \beta^g_1, \gamma_g]^T \in \R^d$ be the unknown coefficient vectors corresponding to the gene and gRNA expression models, respectively. Finally, let $o^m_i$ and $o^g_i$ be the (possibly zero) offset terms for the gene and gRNA models; in practice, we typically set $o^m_i$ and $o^g_i$ to $\log(l^m_i)$ and $\log(l^g_i)$, respectively.
 
+We use a GLM approach to model the gene and gRNA expressions. Considering first the gene expression model, let the $i$th linear component $l^m_i$ of the model be $$l^m_i = \langle \tilde{x}_i, \beta_m \rangle + o^m_i.$$ Let the mean $\mu^m_i$ of the $i$th observation be
+$$r_m(\mu^m_i) = l^m_i,$$ where $r_m:\R \to \R$ is a strictly increasing, differentiable link function. Let $\psi_m: \R \to \R$ be the differentiable, cumulant-generating function of the selected exponential family distribution. We can express the canonical parameter $\eta^m_i$ in terms of $\psi_m$ and $r_m$ by
+$$\eta^m_i = \left([\psi'_m]^{-1} \circ r^{-1}_m\right)(l_i^m) := h_m(l_i^m).$$ Finally, let $c_m: \R \to \R$ be the carrying density of the selected exponential family distribution. The density $f_m$ of $m_i$ conditional on the the canonical parameter $\eta_i$ is
+$$f_m(m_i; \eta^m_i) = \exp\left\{ m_i \eta^m_i - \psi_m(\eta^m_i) + c_m(m_i) \right\}.$$ The function $c_m$ does not appear in the log-likelihood of $m_i$; therefore, the only functions relevant to inference are $\psi_m$ and $r_m$.
+
+Let the terms $l^g_i, o^g_i, \mu^g_i, \eta^g_i, \psi_g, r_g, h_g$ and $c_g$ be defined in an analogous way for the gRNA model:
+$$
+\begin{cases}
+l^g_i = \langle \tilde{x}_i, \beta_g \rangle + o^g_i,\\
+r_g(\mu^g_i) = l^g_i,\\
+\eta^g_i = \left([\psi'_g]^{-1} \circ r^{-1}_g\right)(l_i^g) := h_g(l_i^g).
+\end{cases}
+$$
+The density $f_g$ of $g_i$ given the canonical parameter is
+$$f_g(m_i; \eta^g_i) = \exp\left\{g_i \eta^g_i - \psi_g(\eta^g_i) + c_g(g_i)\right\}.$$
+Finally, the unobserved variable $p_i$ is assumed to follow a Bernoulli distribution with mean $\pi \in (0, 1/2]$. Its marginal density $f_p$ is given by
+$$f_p(p_i) = \pi^{p_i}(1-\pi)^{1 - p_i}.$$
+The unknown parameters in the model are
+$\theta = [\beta_m, \beta_g, \pi]^{T}  \in \R^{2d + 1}.$
+
+\subsubsection*{Notation}
+We briefly introduce notation that we will use throughout. For $k \in \{0,1\}$, let $\tilde{x}_i(k) := [1, k, z_i]^T$ denote the value of $\tilde{x}_i$ that results from setting $p_i$ to $k$. Next, let $l^m_i(k) := \langle \tilde{x}_i(k), \beta_m \rangle + o^m_i$ and $\eta^m_i(k) := h_m(l^m_i(k))$, and let the corresponding gRNA quantities $l^g_i(k)$ and $\eta_i^g(k)$ be defined analogously. Also, let the design matrix $\tilde{X} \in \R^{n \times d}$ be defined by
+$$ \tilde{X} := \begin{bmatrix}
+\tilde{x}_1^T \\ \tilde{x}_2^T \\ \vdots \\ \tilde{x}_n^T
+\end{bmatrix} = 
+\begin{bmatrix}
+1 & p_1 & z_1 \\
+1 & p_2 & z_2 \\ 
+\vdots & \vdots & \vdots \\
+1 & p_n & z_n
+\end{bmatrix}.$$ For $k \in \{0,1\}$, let $\tilde{X}(k) \in \R^{n \times d}$ be the matrix that results from setting $p_i$ to $k$ for all $i \in \{1, \dots, n\}$ in $\tilde{X}$.
+
+Next, let $[m,m]^T \in \R^{2n}$ denote the vector that results from concatenating $m := [m_1, \dots, m_n]^T \in \R^n$ to itself, i.e.
+$$ [m,m]^T := [\underbrace{m_1, m_2 \dots, m_{n-1}, m_n}_\textrm{first copy of $m$}, \underbrace{m_1, m_2, \dots, m_{n-1}, m_n}_\textrm{second copy of $m$}].$$ Define $[g,g]^T$, $[o^g,o^g]^T$, and $[o^m,o^m]^T$ similarly. Finally, let $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$ denote the $\R^{2n \times d}$ matrix that results from vertically concatenating $\tilde{X}(0)$ and $\tilde{X}(1)$.
+
+\subsubsection*{Log likelihood and model properties}
+We derive the log-likelihood of the GLM-EIV model. We conduct estimation and inference \textit{conditional} on the library sizes and technical factors $l^m_i, l^g_i,$ and $z_i$; therefore, we treat these quantities as fixed constants. We assume that the gene expression $m_i$ and gRNA expression $g_i$ are \textit{conditionally independent} given the perturbation $p_i$. The joint density $f$ of $(m_i, g_i, p_i)$ given $\theta$ is
+\begin{equation}\label{full_density}
+f(m_i,g_i,p_i; \theta) = f_m(m_i | p_i) f_g(g_i | p_i) f_p(p_i) \\ = \pi^{p_i}(1-\pi)^{1-p_i} f_m(m_i; \eta^m_i) f_g(g_i; \eta^g).
+\end{equation}
+The log-likelihood is
+\begin{multline}\label{full_log_lik}
+\mathcal{L}(\theta; m_i, g_i, p_i) = \sum_{i=1}^n \log\left( \pi^{p_i}(1-\pi)^{1-p_i} \right) \\ + \sum_{i=1}^n \log\left( f_m(m_i; \eta^m_i)\right) + \sum_{i=1}^n \log\left( f_g(g_i; \eta_i^g) \right). \end{multline}
+Integrating over the unobserved variable $p_i$, we can write the marginal density $f$ of $(m_i, g_i)$ as
+\begin{equation}\label{marginal_density}
+f(m_i, g_i; \theta) = (1-\pi) f(m_i; \eta^m_i(0)) f(g_i; \eta^g_i(0)) + \pi f(m_i; \eta^m_i(1)) f(g_i; \eta^g_i(1)).
+\end{equation}
+We see from (\ref{marginal_density}) that the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Additionally, the GLM-EIV model is a generalization of the classical errors-in-variables model (when the predictor is binary). Suppose that we observe data $(x_1, y_1), \dots, (x_n, y_n)$ from the following model:
+\begin{equation}\label{classical_eiv}
+\begin{cases}
+y_i = \beta_0 + \beta_1 x^*_i + \ep_i \\
+x_i = x^*_i + \tau_i,
+\end{cases}
+\end{equation}
+where $x^*_i \sim \textrm{Bern}(\pi), \ep_i \sim N(0,1), \tau_i \sim N(0,1),$ and $\ep_i$,$\tau_i$, and $x^*_i$ are independent. The model (\ref{classical_eiv}) is a special case of the GLM-EIV model. More generally, GLM-EIV allows the use of entire regression functions (that optionally include covariates and use nonlinear links) to model $y_i$ and $x_i$. Moreover, $x_i$ and $y_i$ need not be Gaussian in the GLM-EIV case.
+
+\subsection{Estimation and inference}
+
+We derive an EM algorithm (Algorithm \ref{algo:em_full}) to estimate the parameters of the GLM-EIV model. The E step entails computing the membership probability (i.e., the probability of perturbation) of each cell. The membership probability $T_i(1)$ of cell $i \in \{1, \dots, n\}$ given the current parameter estimates $(\beta_m^\textrm{(t)}, \beta_g^\textrm{(t)}, \pi^\textrm{(t)})$ and observed data $(m_i, g_i)$ is
+$$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm{(t)}_g, \pi^\textrm{(t)}).$$ We can calculate this quantity by applying (i) Bayes rule, (ii) the conditional independence property of $M_i$ and $G_i$, (iii) the density of $M_i$ and $G_i$, and (iv) a log-sum-exp-type trick to ensure numerical stability. Next, we produce updated estimates $\pi^{(t +1)}$, $\beta_g^{(t+1)}$, and $\beta_m^{(t+1)}$ of the parameters by maximizing the M step objective function. It turns out that maximizing the objective function is equivalent to setting $\pi^{\textrm{(t+1)}}$ to the mean of the current membership probabilities and setting $\beta_g^{(t+1)}$ and $\beta_m^{(t+1)}$ to the fitted coefficients of a GLM weighted by the current membership probabilities (Algorithm \ref{algo:em_full}). We iterate through the E and M steps until the marginal likelihood ($\ref{marginal_density}$) converges (see appendix for full details). Our EM algorithm is reminiscent of (but distinct from) that of Ibrahim \cite{Ibrahim1990}, who also leveraged weighted GLM solvers to carry out an M step.
+
+\begin{algorithm}
+	\caption{EM algorithm for GLM-EIV model.}\label{algo:em_full}
+	\begin{algorithmic}
+		\Require Pilot estimates $\beta^\textrm{curr}_m, \beta^\textrm{curr}_g,$ and $\pi^\textrm{curr}$; data $[m_1, \dots, m_n]$, $[g_1, \dots, g_n]$, $[o^m_1, \dots, o^m_n]$, $[o^g_1, \dots, o^g_n]$, and $[z_1, \dots, z_n]$.
+		\While{Not converged}
+			\For{$i \in \{1, \dots, n\}$} \Comment{E step}
+			\State $T_i(1) \gets \P\left(p_i = 1 |M_i = m_i, G_i = g_i, \beta_m^\textrm{curr}, \beta_g^\textrm{curr}, \pi^\textrm{curr} \right)$
+			\State $T_i(0) \gets 1 - T_i(1)$
+		 \EndFor
+		 \State $\pi^{\textrm{curr}} \gets (1/n) \sum_{i=1}^n T_i(1)$ \Comment{M step}
+		 \State $w \gets [T_1(0), T_2(0), \dots, T_n(0), T_1(1), T_2(1), \dots, T_n(1)]^T$
+		 \State Fit GLM with responses $[m,m]^T$, offsets $[o^m, o^m]^T$, weights $w$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$; set $\beta_m^\textrm{curr}$ to estimated coefficient vector.
+		\State Fit GLM with responses  $[g,g]^T$, offsets $[o^g, o^g]^T$, weights $w$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$; set $\beta_g^\textrm{curr}$ to estimated coefficient vector.
+		\State Compute marginal likelihood given $\beta_m^\textrm{curr}$, $\beta_g^\textrm{curr}$, and $\pi^\textrm{curr}$.
+		\EndWhile
+		\State $\hat{\beta}_m \gets \beta_m^\textrm{curr}$; $\hat{\beta}_g \gets \beta_g^\textrm{curr}$; $\hat{\pi} \gets \pi^\textrm{curr}$.
+		\State \textbf{return} $(\hat{\beta}_m, \hat{\beta}_g, \hat{\pi})$
+	\end{algorithmic}
+\end{algorithm}
+
+After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm (that, in practice, requires multiple starts) to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis2012} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data.
+
+\subsection{Statistical accelerations}
+
+% We expect some of these tricks to be of independent utility, especially for designing single-cell methods.
+
+% \subsection{Computational implementation}
 \section{Simulation studies}
 
 \section{Real data analysis}
 
 \section{Discussion}
 
-\section{Appendix}
-
-\subsection{Theoretical details for thresholding estimator}
+\begin{appendices}
+\section{Theoretical details for thresholding estimator}
 This section contains proofs of the propositions presented Section \ref{sec:thresholding_theory}, ``Theoretical analysis of thresholding estimator.'' The subsections are organized as follows. Section (\ref{sec:notation}) introduces some notation. Section (\ref{sec:convergence}) establishes almost sure convergence of the thresholding estimator in the model (\ref{theoretical_model}), proving Proposition \ref{prop:convergence}. Section (\ref{sec:simplication}) simplifies the expression for the attenuation function $\gamma$, and section (\ref{sec:derivatives})  computes derivatives of $\gamma$ to be used throughout the proofs. Section (\ref{sec:c_limit}) establishes the limit in $c$ of $\gamma$, proving Proposition \ref{prop:c_limit} and as a corollary Proposition \ref{prop:c_limit_half}. Section (\ref{sec:bayes_opt}) establishes that the Bayes-optimal decision boundary is a critical value of $\gamma$, proving Proposition \ref{prop:bayes_opt}, and section (\ref{sec:comparison}) compares the competing threshold selection strategies head-to-head, proving Proposition \ref{prop:comparison}. Section (\ref{sec:monotone}) demonstrates that $\gamma$ is monotone in $\beta^g_1$, proving Proposition \ref{prop:monotonic}, and Section (\ref{sec:att_bias}) establishes attenuation bias of the thresholding estimator, proving Proposition \ref{prop:att_bias}. Finally, Section (\ref{sec:bv_decomp}) derives the bias-variance decomposition of the thresholding estimator in the model (\ref{theoretical_model_no_int}), proving Proposition \ref{prop:bv_decomp}.
 
 % Labels of propositions and theorems
@@ -275,7 +390,7 @@ This section contains proofs of the propositions presented Section \ref{sec:thre
 % sec:att_bias
 % sec:bv_decomp
 
-\subsubsection{Notation}\label{sec:notation}
+\subsection{Notation}\label{sec:notation}
  All notation introduced in this subsection (i.e., \ref{sec:notation}) pertains to the Gaussian model with intercepts (\ref{theoretical_model}). Recall that the attenuation function $\gamma: \R^4 \to \R$ is defined by
 $$ \gamma(\beta^g_1, c, \pi, \beta^g_0) = \frac{\pi(\omega - \E[\hat{p}_i])}{ \E[\hat{p}_i](1 -\E[\hat{p}_i])},$$ where $$\begin{cases} \E[\hat{p}_i] = \zeta(1-\pi) + \omega\pi, \\
 \omega = \Phi\left(\beta_1^g + \beta_0^g - c \right) ,\\ \zeta = \Phi\left( \beta^g_0 - c \right).
@@ -292,7 +407,7 @@ $$\bar{\Phi}(x) = \int_{x}^{\infty} f = \Phi(-x).$$
 
 The parameter $\beta^g_0$ is a given, fixed constant throughout the proofs. Therefore, to minimize notation, we typically use $\gamma(\beta^g_1, c, \pi)$ (resp., $b(\beta^g_1, c, \pi),$ $g(\beta^g_1, c, \pi),$ $h(\beta^g_1, c, \pi)$) to refer to the function $\gamma$ (resp., $b, g, h$) evaluated at $(\beta^g_1, c, \pi, \beta^g_0)$. Finally, for a given function $r: \R^{p} \to \R$, point $x \in \R^p$, and index $i \in \{1, \dots, p\}$, we use the symbol $D_i r(x)$ to refer to the derivative of the $i$th component of $r$ evaluated at $x$ (\textit{sensu} \cite{fitzpatrick2009}). For example, $D_1 \gamma(\beta^g_1, c, 1/2)$ is the derivative of the first component of $\gamma$ (the component corresponding to $\beta^g_1$) evaluated at $(\beta^g_1, c, 1/2)$. Likewise,  $D_2g(\beta^g_1, c, \pi)$ is the derivative of the second component of $g$ (the component corresponding to $c$) evaluated at $(\beta^g_1, c, \pi).$
 
-\subsubsection{Almost sure limit of $\hat{\beta}^m_1$}\label{sec:convergence}
+\subsection{Almost sure limit of $\hat{\beta}^m_1$}\label{sec:convergence}
 
 We derive the limit in probability of $\hat{\beta}^m_1$ for the Gaussian model with intercepts (\ref{theoretical_model}). Dividing by $n$ in (\ref{thresh_est_intercepts}), we can express $\hat{\beta}^m_1$ as
 $$ \hat{\beta}^m_1 = \frac{ \frac{1}{n} \sum_{i=1}^n ( \hat{p}_i - \overline{\hat{p}_i})(m_i - \overline{m})}{ \frac{1}{n} \sum_{i=1}^n (\hat{p}_i - \overline{\hat{p}})}.$$ By weak LLN,
@@ -317,7 +432,7 @@ Combining these expressions, we have that
 $$ \hat{\beta}^m_1 \xrightarrow{P} \frac{\beta^m_1 \pi (\omega - \E[\hat{p}_i])}{\E[\hat{p}_i](1 - \E[\hat{p}_i])} = \beta^m_1 \gamma(\beta^g_1, c, \pi).$$
 \end{itemize}
 
-\subsubsection{Re-expressing $\gamma$ in a simpler form}\label{sec:simplication}
+\subsection{Re-expressing $\gamma$ in a simpler form}\label{sec:simplication}
 We rewrite the attenuation fraction $\gamma$ in a way that makes it more amenable to theoretical analysis. We leverage the fact that $f$ integrates to unity and is even. We have that
 \begin{multline}\label{thm:gamma_expression_1} \E\left[\hat{p}_i\right] = (1 - \pi) \bar{\Phi}(c - \beta_0^g) + \pi \bar{\Phi}(c - \beta^g_0 - \beta^g_1) \\ = (1 - \pi) \Phi(\beta_0^g - c) + \pi\Phi(\beta^g_0 + \beta^g_1 - c), \end{multline}
  and so \begin{multline}\label{thm:gamma_expression_2} 1 - \E\left[\hat{p}_i\right] = (1 - \pi) + \pi - \E[\hat{p}_i]  = (1-\pi) \left(1 - \bar{\Phi}(c - \beta_0^g)\right)  + \pi \left(1 - \bar{\Phi}(c - \beta^g_0 - \beta^g_1) \right) \\ = (1 - \pi)\Phi(c - \beta^g_0) + \pi \Phi(c - \beta_0^g - \beta_1^g).
@@ -345,7 +460,7 @@ The special case (\ref{gamma_alternative_pi_half}) is identical to
 \end{equation}
 i.e., the numerator and denominator of  (\ref{gamma_alt2_pi_half}) coincide with those of (\ref{gamma_alternative_pi_half}). We sometimes will use the notation $2\cdot g$ and $4\cdot h$ to refer to the numerator and denominator of (\ref{gamma_alternative_pi_half}), respectively.
 
-\subsubsection{Derivatives of  $g$ and $h$ in $c$}\label{sec:derivatives}
+\subsection{Derivatives of  $g$ and $h$ in $c$}\label{sec:derivatives}
 We compute the derivatives of $g$ and $h$ in $c$, which we will need to prove subsequent results. First, by FTC and the evenness of $f$, we have that
 \begin{multline}\label{dg_dc}
 D_2 g(\beta^g_1, c, \pi) = -(1-\pi)f( \beta^g_0 + \beta^g_1 - c ) + (1-\pi) f(\beta^g_0 - c) \\ = (1-\pi) f(c - \beta^g_0) - (1-\pi)f(c - \beta^g_0 - \beta^g_1).
@@ -355,7 +470,7 @@ Second, we have that
 D_2 h(\beta^g_1, c, \pi) \\ = -[(1-\pi)f(\beta^g_0 - c) + \pi f( \beta^g_0 + \beta^g_1 - c )]\left[(1-\pi)\Phi(c - \beta^g_0) + \pi \Phi(c - \beta_0^g - \beta_1^g)  \right] \\ + [(1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1)] \left[(1-\pi) \Phi(\beta_0^g - c) + \pi \Phi(\beta^g_0 + \beta^g_1 - c) \right] \\ = \left[ (1-\pi) f(c - \beta^g_0) +  \pi f(c - \beta^g_0 - \beta^g_1) \right] \cdot \\ \bigg[ (1-\pi) \Phi(\beta_0^g - c) + \pi\Phi(\beta^g_0 + \beta^g_1 - c) \\ - (1-\pi) \Phi(c - \beta^g_0) - \pi \Phi(c - \beta_0^g - \beta_1^g) \bigg].
 \end{multline}
 
-\subsubsection{Limit of $\gamma$ in $c$}\label{sec:c_limit}
+\subsection{Limit of $\gamma$ in $c$}\label{sec:c_limit}
 
 Assume (without loss of generality) that $\beta^g_1 > 0$. We compute $\lim_{c \to \infty} \gamma(\beta^g_1, c, \pi)$. Observe that $$\lim_{c \to \infty} g(\beta^g_1, c, \pi) = \lim_{c \to \infty} h(\beta^g_1, c, \pi)  = 0.$$ Therefore, we can apply L'H\^{o}pital's rule. We have by (\ref{dg_dc}) and (\ref{dh_dc}) that \begin{multline}\label{c_limit_product}
 \lim_{c \to \infty} \gamma(\beta^g_1, c, \pi) = \lim_{c \to \infty} \frac{\pi D_2 g(\beta^g_1, c, \pi)}{D_2h(\beta^g_1, c, \pi)} \\ = \lim_{c \to \infty} \bigg\{ \frac{(1-\pi) f(c - \beta^g_0) + \pi f(c - \beta^g_0 - \beta^g_1)}{\pi (1-\pi) f(c - \beta^g_0) - \pi (1-\pi)f(c - \beta^g_0 - \beta^g_1)} \\ \cdot \bigg[ (1-\pi) \Phi(\beta_0^g - c) + \pi \Phi(\beta^g_0 + \beta^g_1 - c) \\ - (1-\pi) \Phi(c - \beta^g_0) - \pi \Phi(c - \beta_0^g - \beta_1^g) \bigg] \bigg\}^{-1}.
@@ -382,7 +497,7 @@ $$\lim_{c \to \infty} b(\beta^g_1, c, \pi) = 1 - \lim_{c \to \infty} \gamma(\bet
 A corollary is that
 $$\lim_{c \to \infty} b(\beta^g_1, c, 1/2) = 1/2.$$
 
-\subsubsection{Bayes-optimal decision boundary as a critical value of $\gamma$}\label{sec:bayes_opt}
+\subsection{Bayes-optimal decision boundary as a critical value of $\gamma$}\label{sec:bayes_opt}
 Let $c_\textrm{bayes} = \beta^g_0 + (1/2)\beta^g_1.$ We show that $c = c_\textrm{bayes}$ is a critical value of $\gamma$ for $\pi = 1/2$ and given $\beta^g_1$, i.e, $$D_2 \gamma (\beta^g_1, c_\textrm{bayes}, 1/2) = 0.$$ Differentiating (\ref{gamma_alt2_pi_half}), the quotient rule implies that
 \begin{equation}\label{quotient_rule}
 D_2\gamma(\beta^g_1, c, 1/2) \\ = \frac{D_2[2g(\beta^g_1, c, 1/2)] 4h(\beta^g_1, c, 1/2) - 2g(\beta^g_1, c, 1/2) D_2[4h(\beta^g_1, c, 1/2)]}{[4h(\beta^g_1, c, \pi)]^2}.
@@ -400,7 +515,7 @@ $$D_2[\gamma(\beta^g_1, c_\textrm{bayes}, 1/2)] = 0.$$ Finally, because
 $$b(\beta^g_1, c, 1/2) = 1 - \gamma(\beta^g_1, c, 1/2),$$ it follows that
 $$D_2[b(\beta^g_1, c_\textrm{bayes}, 1/2)] = -D_2[\gamma(\beta^g_1, c_\textrm{bayes}, 1/2)] = 0.$$
 
-\subsubsection{Comparing Bayes-optimal decision boundary and large threshold}\label{sec:comparison}
+\subsection{Comparing Bayes-optimal decision boundary and large threshold}\label{sec:comparison}
 
 We compare the bias produced by setting the threshold to a large number to the bias produced by setting the threshold to the Bayes-optimal decision boundary. Let $r: \R^{\geq 0} \to \R$ be the value of attenuation function evaluated at the Bayes-optimal decision boundary $c_\textrm{bayes} = \beta^g_0 + (1/2) \beta^g_1$, i.e.
 \begin{multline*}
@@ -412,7 +527,7 @@ r(\beta^g_1) = 1/2 \iff 2\Phi(\beta^g_1/2) -1 = 1/2 \\ \iff \Phi(\beta^g_1/2) = 
 \end{multline*}
 Because $r$ is a strictly increasing function, it follows that $r(\beta^g_1) < 1/2$ for $\beta^g_1 < 2\Phi^{-1}(3/4)$ and $r(\beta^g_1) > 1/2$ for $\beta^g_1 > 2\Phi^{-1}(3/4).$ Next, because $$b(\beta^g_1, c_\textrm{bayes}, 1/2) = 1 - \gamma(\beta^g_1, c_\textrm{bayes}, 1/2) = 1 - r(\beta^g_1),$$ we have that $b(\beta^g_1, c_\textrm{bayes}, 1/2) > 1/2$ for $\beta^g_1 < 2 \Phi^{-1}(3/4)$ and $b(\beta^g_1, c_\textrm{bayes}, 1/2) < 1/2$ for $\beta^g_1 > 2 \Phi^{-1}(3/4)$. Recall that the bias induced by sending the threshold to infinity (as stated in Proposition \ref{prop:c_limit_half} and proven in Section \ref{sec:c_limit}) is $1/2$, i.e. $$b(\beta^g_1, \infty, 1/2) = 1/2.$$ We conclude that $b(\beta^g_1, c_\textrm{bayes},1/2) > b(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in [0, 2\Phi^{-1}(3/4))$; $b(\beta^g_1, c_\textrm{bayes},1/2) = b(\beta^g_1, \infty, 1/2)$ for $\beta^g_1 = 2\Phi^{-1}(3/4)$; and $b(\beta^g_1, c_\textrm{bayes},1/2) < b(\beta^g_1, \infty, 1/2)$ on $\beta^g_1 \in (2\Phi^{-1}(3/4), \infty)$.
 
-\subsubsection{Monotonicity in $\beta^g_1$}\label{sec:monotone}
+\subsection{Monotonicity in $\beta^g_1$}\label{sec:monotone}
 We show that $\gamma$ is monotonically increasing in $\beta^g_1$ for $\pi = 1/2$ and given threshold $c$. We begin by stating and proving two lemmas. The first lemma establishes an inequality that will serve as the basis for the proof.
 
 \begin{lemma}
@@ -485,7 +600,7 @@ D_1 \gamma(\beta^g_1, c, 1/2) \\ = \frac{ \textcolor{violet}{D_1[2g(\beta^g_1, c
 \end{multline}
 We conclude by (\ref{basic_ineq_cp_5}) and (\ref{d_gamma_d_beta}) that $\gamma$ is monotonically increasing in $\beta^g_1$. Finally, $b(\beta^g_1, c, \pi) = 1 - \gamma(\beta^g_1, c, \pi)$ is monotonically decreasing in $\beta^g_1$.
 
-\subsubsection{Strict attenuation bias}\label{sec:att_bias}
+\subsection{Strict attenuation bias}\label{sec:att_bias}
 
 We begin by computing the limit of $\gamma$ in $\beta^g_1$ given $\pi = 1/2$.  First,
 \begin{multline*}
@@ -500,7 +615,7 @@ $$-1 < -\frac{1}{1 + \Phi(c - \beta^g_0)} \leq \gamma(\beta^g_1, c, 1/2, \beta^g
 $$-1 < \gamma(\beta^g_1, c, 1/2, \beta^g_0) < 1$$ for all $(\beta^g_1, c, \beta^g_0) \in \R^3$. Finally, because $b(\beta^g_1, c, 1/2, \beta^g_0) = 1 - \gamma(\beta^g_1, c, 1/2, \beta^g_0)$, it follows that
 $$ 0 < b(\beta^g_1, c, 1/2, \beta^g_0) < 2$$ for all $(\beta^g_1, c, \beta^g_0) \in \R^3$
 
-\subsubsection{Bias-variance decomposition in no-intercept model}\label{sec:bv_decomp}
+\subsection{Bias-variance decomposition in no-intercept model}\label{sec:bv_decomp}
  
 We prove the bias-variance decomposition for the no-intercept model (\ref{theoretical_model_no_int}). Define $l$ (for ``limit'') by
 $$l = \beta_m \left(\frac{\omega \pi}{\zeta(1-\pi) + \omega \pi}\right),$$ where
@@ -558,20 +673,19 @@ $$ \begin{cases}
 \end{cases}$$
 completing the bias-variance decomposition.
 
-\subsection{Derivation of EM algorithm}
+\section{Estimation and inference in the GLM-EIV model}
+\subsection{Estimation}
 
-\subsection{Derivation of observed information matrix}
+\subsection{Inference}
 
-\subsection{Implementation using R family objects}
+\section{Statistical accelerations}
 
-\subsection{Statistical accelerations to GLM-EIV}
+\section{Additional simulation results}
 
-\subsection{Additional simulation results}
-
+\end{appendices}
 
 \bibliographystyle{unsrt}
 \newpage
 \bibliography{/Users/timbarry/optionFiles/glmeiv.bib}
-
 
 \end{document}
