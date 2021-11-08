@@ -6,7 +6,7 @@
 \usepackage{algorithm}
 \usepackage[toc,page]{appendix}
 \usepackage{algpseudocode}
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 \usepackage{xcolor}
 \newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
@@ -28,7 +28,7 @@ Tim, Gene, Kathryn
 CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and potentially illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
 \tableofcontents
-\noindent \blue{All edits in blue.}
+
 \section{Introduction}
 CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new medical therapies \cite{Rothgangl2021,Musunuru2021} and transforming basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resulting assays, known as a ``single-cell CRISPR screens,'' link genetic perturbations in individual cells to changes in gene expression, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
 
@@ -272,7 +272,7 @@ To provide greater modeling flexibility, we generalize the GLM-EIV model to arbi
 We use a GLM approach to model the gene and gRNA expressions. Considering first the gene expression model, let the $i$th linear component $l^m_i$ of the model be $$l^m_i = \langle \tilde{x}_i, \beta_m \rangle + o^m_i.$$ Let the mean $\mu^m_i$ of the $i$th observation be
 $$r_m(\mu^m_i) = l^m_i,$$ where $r_m:\R \to \R$ is a strictly increasing, differentiable link function. Let $\psi_m: \R \to \R$ be the differentiable, cumulant-generating function of the selected exponential family distribution. We can express the canonical parameter $\eta^m_i$ in terms of $\psi_m$ and $r_m$ by
 $$\eta^m_i = \left([\psi'_m]^{-1} \circ r^{-1}_m\right)(l_i^m) := h_m(l_i^m).$$ Finally, let $c_m: \R \to \R$ be the carrying density of the selected exponential family distribution. The density $f_m$ of $m_i$ conditional on the the canonical parameter $\eta_i$ is
-$$f_m(m_i; \eta^m_i) = \exp\left\{ m_i \eta^m_i - \psi_m(\eta^m_i) + c_m(m_i) \right\}.$$ The function $c_m$ does not appear in the log-likelihood of $m_i$; therefore, the only functions relevant to inference are $\psi_m$ and $r_m$.
+$$f_m(m_i; \eta^m_i) = \exp\left\{ m_i \eta^m_i - \psi_m(\eta^m_i) + c_m(m_i) \right\}.$$ The function $c_m$ does not appear in the log likelihood of $m_i$; therefore, the only functions relevant to inference are $\psi_m$ and $r_m$.
 
 Let the terms $l^g_i, o^g_i, \mu^g_i, \eta^g_i, \psi_g, r_g, h_g$ and $c_g$ be defined in an analogous way for the gRNA model:
 $$
@@ -770,7 +770,7 @@ $$J(\theta; m, g) = - \nabla^2\mathcal{L}(\theta; m, g) .$$ This quantity, unfor
 \begin{multline}\label{zero_inf_info_mat}
 J(\theta; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | G = g, M = m \right] \\ + \E\left[\nabla \mathcal{L}(\theta; m, g, p) | G = g, M = m \right] \E\left[\nabla \mathcal{L}(\theta; m, g, p) | G = g, M = m \right]^T \\ - \E\left[ \nabla\mathcal{L}(\theta; m, g, p) \nabla \mathcal{L}(\theta; m, g, p)^T | G = g, M = m \right].
 \end{multline}
-The observed information matrix $J(\theta; m, g)$ has dimension $(2d+1) \times (2d + 1).$ Recall that the log-likelihood (\ref{full_log_lik}) is the sum of three terms. The first term depends only on $\pi$, the second on $\beta_m$, and the third on $\beta_g$. Therefore, the observed information matrix can be viewed as block matrix consisting of nine submatrices (Figure \ref{infomatrixbackground}; only six submatrices labelled). Submatrix I depends on $\pi$, submatrix II on $\beta_m$, submatrix III on $\beta_g$, submatrix IV on $\beta_m$ and $\beta_g$, submatrix V on $\pi$ and $\beta_g$, and submatrix VI on $\pi$ and $\beta_m$. We only need to compute these six submatrices to compute the entire matrix, as the matrix is symmetric. The following sections derive formulas for submatrices I-VI. All expectations are understood to be \textit{conditional} on $m$ and $g$. The notation $\nabla_v$  and $\nabla^2_v$  represent the gradient and Hessian, respectively, with respect to the vector $v$.
+The observed information matrix $J(\theta; m, g)$ has dimension $(2d+1) \times (2d + 1).$ Recall that the log-likelihood (\ref{full_log_lik}) is the sum of three terms. The first term depends only on $\pi$, the second on $\beta_m$, and the third on $\beta_g$. Therefore, the observed information matrix can be viewed as block matrix consisting of nine submatrices (Figure \ref{infomatrixbackground}; only six submatrices labelled). Submatrix I depends on $\pi$, submatrix II on $\beta_m$, submatrix III on $\beta_g$, submatrix IV on $\beta_m$ and $\beta_g$, submatrix V on $\pi$ and $\beta_m$, and submatrix VI on $\pi$ and $\beta_g$. We only need to compute these six submatrices to compute the entire matrix, as the matrix is symmetric. The following sections derive formulas for submatrices I-VI. All expectations are understood to be \textit{conditional} on $m$ and $g$. The notation $\nabla_v$  and $\nabla^2_v$  represent the gradient and Hessian, respectively, with respect to the vector $v$.
 
 \begin{figure}
 	\centering
@@ -786,9 +786,9 @@ J_{\pi}(\theta; m, g) = -\E\left[\nabla^2_\pi \mathcal{L}(\theta; m, g, p) \righ
 \end{multline}
 
 We begin by calculating the first and second derivatives of the log-likelihood $\mathcal{L}$ with respect to $\pi$. The first derivative is
-\begin{multline*}
+\begin{multline}\label{d_L_d_pi}
 \nabla_\pi \mathcal{L}(\theta; m, g, p) = \frac{\partial }{\partial \pi } \left( \sum_{i=1}^n p_i \log(\pi) + \sum_{i=1}^n (1 - p_i) \log(1 - \pi) \right) \\ = \frac{ \sum_{i=1}^n p_i }{\pi} - \frac{ \sum_{i=1}^n (1 - p_i) }{ 1 - \pi } = \frac{\sum_{i=1}^n p_i}{\pi} - \frac{n - \sum_{i=1}^n p_i}{1 - \pi} \\ = \left( \frac{1}{\pi} + \frac{1}{1 - \pi} \right) \sum_{i=1}^n p_i - \frac{n}{1-\pi}.
-\end{multline*}
+\end{multline}
 The second derivative is
 \begin{multline*}
 \nabla^2_\pi \mathcal{L}(\theta; m, g, p)  = \frac{\partial^2}{\partial^2\pi} \left( \frac{ \sum_{i=1}^n p_i }{ \pi } - \frac{ n - \sum_{i=1}^n p_i }{1 - \pi}  \right) = \frac{\left( \sum_{i=1}^n p_i \right) - n}{(1 - \pi)^2} - \frac{\sum_{i=1}^n p_i }{ \pi^2 }.
@@ -799,11 +799,11 @@ We compute the expectation of the first term of (\ref{sub_mat_pi}):
 \end{multline}
 Next, we compute the difference of the second two pieces of (\ref{sub_mat_pi}). To this end, define $$a := \frac{1}{(1-\pi)} + \frac{1}{\pi}$$ and $$b := \frac{n}{(1-\pi)}.$$ We have that
 \begin{multline*}
-\E \left[ \nabla_\pi \mathcal{L}(\theta; m, g, p)^2 \right] = \E \left[ \left( a \sum_{i=1}^n p_i - b\right)^2 \right] =  \E \left[ a^2 \left( \sum_{i=1}^n p_i \right)^2 - 2ab \sum_{i=1}^n p_i + b^2 \right] \\ = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i p_j] -2ab \sum_{i=1}^n \E [p_i] + b^2.
+\E \left[\nabla_\pi \mathcal{L}(\theta; m, g, p)^2 \right] \\ = \E \left[ \left( a \sum_{i=1}^n p_i - b\right)^2 \right]  =  \E \left[ a^2 \left( \sum_{i=1}^n p_i \right)^2 - 2ab \sum_{i=1}^n p_i + b^2 \right] \\ = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i p_j] -2ab \sum_{i=1}^n \E [p_i] + b^2.
 \end{multline*}
 Next,
 \begin{multline*}
-\left( \E \left[\nabla_\pi \mathcal{L}(\theta; m, g, x) \right] \right)^2 = \left( a \sum_{i=1}^n \E [p_i] - b \right)^2 = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i]  E[p_j] - 2ab \sum_{i=1}^n \E[p_i] + b^2.
+\left( \E \left[\nabla_\pi \mathcal{L}(\theta; m, g, x) \right] \right)^2 = \left( a \sum_{i=1}^n \E [p_i] - b \right)^2 \\ = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i]  E[p_j] - 2ab \sum_{i=1}^n \E[p_i] + b^2.
 \end{multline*}
 Therefore,
 \begin{multline}\label{submat_pi_2}
@@ -856,30 +856,78 @@ J_{\beta^g}(\theta; m, g) = \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) \left[{\De
 \end{multline}
 
 \subsubsection*{Submatrix IV}
-Denote sub-matrix IV by $J_b^{(\beta^g, \beta^m)}(\theta; m, g)$. The formula for $J_b^{(\beta^g, \beta^m)}(\theta; m, g)$ is 
-\begin{multline}\label{sub_mat_4_background}
-J_b^{(\beta^g, \beta^m)}(\theta; m,g) = \E \left[-\nabla_{\beta^{(g,b)}} \nabla_{\beta^m} \mathcal{L}_b(\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta^{(g,b)}}\mathcal{L}_b(\theta ; m,g,p) \right] \E \left[\nabla_{\beta^m}\mathcal{L}_b (\theta ; m,g,p)  \right]^T \\ - \E \left[ \nabla_{\beta^{(g,b)}}\mathcal{L}_b (\theta; m,g,p) \nabla_{\beta^m}\mathcal{L}_b(\theta; m,g,p)^T  \right].
-\end{multline} The first term on the right-hand-side of (\ref{sub_mat_4_background}) is $0$. Recall that $$\nabla_{\beta^{(g,b)}} \mathcal{L}_b(\theta; m, g, p) =   \tilde{X}^T\Delta^{(g,b)} s^{(g,b)}, \textrm{		} \nabla_{\beta^m} \mathcal{L}_b(\theta; m, g, p) = \tilde{X}^T \Delta^m s^m.$$ The $(k,l)$th entry of the difference of the last two terms of (\ref{sub_mat_4_background}) is
-\begin{multline*}
-\left[ \E \left[\nabla_{\beta^{(g,b)}} \mathcal{L}(\theta; m, g, p) \right] \E \left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right]^T - \E \left[ \nabla_{\beta^{(g,b)}} \mathcal{L}(\theta; m, g, p) \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)^T \right] \right][k,l] \\ 
-= \left[ \E \left[ \tilde{X}^T \Delta^{(g,b)} s^{(g,b)} \right]\E \left[ \tilde{X}^T \Delta^m s^m \right]^T\right][k,l] - \E \left[ \tilde{X}^T \Delta^{(g,b)} s^{(g,b)} (s^m)^T \Delta^m \tilde{X} \right][k,l] \\ 
-= \E\left[\tilde{X}[,k]^T \Delta^{(g,b)} s^{(g,b)} \right] \E \left[\tilde{X}[,l]^T \Delta^m s^m \right] - \E \left[\tilde{X}[,k]^T \Delta^{(g,b)} s^{(g,b)} (s^m)^T \Delta^m \tilde{X}[,l ] \right] \\
-=\E\left( \sum_{i=1}^n \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i \right) \E \left( \sum_{j=1}^n \tilde{x}_{jl} \Delta^m_j s^m_j \right) - \E \left( \sum_{i=1}^n \sum_{j=1}^n \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i s^m_j \Delta^m_j \tilde{x}_{jl} \right) \\ 
-= \sum_{i=1}^n \sum_{j=1}^n \E[\tilde{x}_{ik} \Delta^{(g,b)}_is^{(g,b)}_i] \E[ \tilde{x}_{jl} \Delta^m_j s^m_j ] - \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i s^m_j \Delta^m_j \tilde{x}_{jl}]  \\
-= \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i] \E \left[\tilde{x}_{jl} \Delta^m_j s^m_j \right]  - \sum_{i \neq j} \E[\tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i] \E[\tilde{x}_{jl}\Delta^m_j  s^m_j ] \\ - \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i s^m_i \Delta^m_i \tilde{x}_{il}] \\
-= \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^{(g,b)}_i H^{(g,b)}_i] \E[\tilde{x}_{il} \Delta_i^m H^m_i] - \sum_{i=1}^n \E[\tilde{x}_{ik} H_i^{(g,b)} \Delta_i^{(g,b)} \Delta_i^m H_i^m \tilde{x}_{il}] \\ 
-= \sum_{i=1}^n \left[\tilde{x}_{ik}(0) {\Delta}^{(g,b)}_i(0) T_i(0) {H}^{(g,b)}_i(0) + \tilde{x}_{ik}(1) {\Delta}^{(g,b)}_i(1) T_i(1) {H}^{(g,b)}_i(1)\right] \\ 
-\cdot \left[\tilde{x}_{il}(0) {\Delta}^m_i(0) T_i(0) {H}^m_i(0) + \tilde{x}_{il}(1) {\Delta}^m_i(1) T_i(1) {H}^m_i(1)\right] 
-\\ - \sum_{i=1}^n [\tilde{x}_{ik}(0) T_i(0) {\Delta}^{(g,b)}_i(0) {H}^{(g,b)}_i(0) {\Delta}^m_i(0) {H}^m_i(0) \tilde{x}_{il}(0) \\ + \tilde{x}_{ik}(1) T_i(1) {\Delta}^{(g,b)}_i(1) {H}^{(g,b)}_i(1) {\Delta}^m_i(1) {H}^m_i(1) \tilde{x}_{il}(1) ] 
-\\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T_i(s) {\Delta}^{(g,b)}_i(s) {H}^{(g,b)}_i(s) T_i(t){\Delta}^m_i(t) {H}^m_i(t) \tilde{x}_{il}(t) \right]
-\\ - \sum_{s=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T_i(s) {\Delta}^{(g,b)}_i(s) {H}^{(g,b)}_i(s) {\Delta}^m_i(s) {H}^m_i(s) \tilde{x}_{il}(s)\right] 
-\\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[ \tilde{X}(s)[,k]^T {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {T}(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t)[,l] \right]\\ - \sum_{s=0}^1 \left[ \tilde{X}[,k]^T {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {\Delta}^m(s) {H}^m(s) \tilde{X}[,l](s)\right].
-\end{multline*}
-We conclude that
-\begin{multline}\label{sub_mat_4_formula_background}
-J^{(\beta^g, \beta^m)}_b(\theta; m, g) = \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T  {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {T}(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {\Delta}^m(s) {H}^m(s) \tilde{X}(s).
+Denote sub-matrix IV by $J_{(\beta^g, \beta^m)}(\theta; m, g)$. The formula for $J_{(\beta^g, \beta^m)}(\theta; m, g)$ is 
+\begin{multline}\label{sub_mat_4}
+J_{(\beta^g, \beta^m)}(\theta; m,g) = \E \left[-\nabla_{\beta^g} \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta^{g}}\mathcal{L}(\theta ; m,g,p) \right] \E \left[\nabla_{\beta^m}\mathcal{L} (\theta ; m,g,p)  \right]^T \\ - \E \left[ \nabla_{\beta^{g}}\mathcal{L} (\theta; m,g,p) \nabla_{\beta^m}\mathcal{L}(\theta; m,g,p)^T  \right].
+\end{multline}
+First, we have that
+\begin{equation}\label{sub_mat_4_1}
+\E\left[-\nabla_{\beta^g} \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right] = 0,
+\end{equation}
+as differentiating $\mathcal{L}$ with with respect to $\beta^g$ yields a vector that is a function of $\beta^g$, and differentiating this vector with respect to $\beta^m$ yields $0$. Next, recall from GLM theory that $$\nabla_{\beta^g} \mathcal{L}(\theta; m, g, p) =   \tilde{X}^T\Delta^g s^g$$ and $$\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) = \tilde{X}^T \Delta^m s^m.$$ The $(k,l)$th entry of the last two terms of (\ref{sub_mat_4}) is
+\begin{multline}\label{sub_mat_4_2}
+\bigg[ \E \left[\nabla_{\beta^g} \mathcal{L}(\theta; m, g, p) \right] \E \left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right]^T \\ - \E \left[ \nabla_{\beta^g} \mathcal{L}(\theta; m, g, p) \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)^T \right] \bigg][k,l] \\ 
+= \left[ \E \left[ \tilde{X}^T \Delta^g s^g \right]\E \left[ \tilde{X}^T \Delta^m s^m \right]^T\right][k,l] - \E \left[ \tilde{X}^T \Delta^g s^g (s^m)^T \Delta^m \tilde{X} \right][k,l] \\ 
+= \E\left[\tilde{X}[,k]^T \Delta^g s^g \right] \E \left[\tilde{X}[,l]^T \Delta^m s^m \right] - \E \left[\tilde{X}[,k]^T \Delta^g s^g (s^m)^T \Delta^m \tilde{X}[,l ] \right] \\
+=\E\left( \sum_{i=1}^n \tilde{x}_{ik} \Delta^g_i s^g_i \right) \E \left( \sum_{j=1}^n \tilde{x}_{jl} \Delta^m_j s^m_j \right) - \E \left( \sum_{i=1}^n \sum_{j=1}^n \tilde{x}_{ik} \Delta^g_i s^g_i s^m_j \Delta^m_j \tilde{x}_{jl} \right) \\ 
+= \sum_{i=1}^n \sum_{j=1}^n \E[\tilde{x}_{ik} \Delta^g_is^g_i] \E[ \tilde{x}_{jl} \Delta^m_j s^m_j ] - \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^g_i s^g_i s^m_j \Delta^m_j \tilde{x}_{jl}]  \\
+= \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^g_i s^g_i] \E \left[\tilde{x}_{jl} \Delta^m_j s^m_j \right]  - \sum_{i \neq j} \E[\tilde{x}_{ik} \Delta^g_i s^g_i] \E[\tilde{x}_{jl}\Delta^m_j  s^m_j ] \\ - \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^g_i s^g_i s^m_i \Delta^m_i \tilde{x}_{il}] \\
+= \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^g_i H^g_i] \E[\tilde{x}_{il} \Delta_i^m H^m_i] - \sum_{i=1}^n \E[\tilde{x}_{ik} H_i^g \Delta_i^g \Delta_i^m H_i^m \tilde{x}_{il}] \\ 
+= \sum_{i=1}^n \left[\tilde{x}_{ik}(0) {\Delta}^g_i(0) T^\theta_i(0) {H}^g_i(0) + \tilde{x}_{ik}(1) {\Delta}^g_i(1) T^\theta_i(1) {H}^g_i(1)\right] \\ 
+\cdot \left[\tilde{x}_{il}(0) {\Delta}^m_i(0) T^\theta_i(0) {H}^m_i(0) + \tilde{x}_{il}(1) {\Delta}^m_i(1) T^\theta_i(1) {H}^m_i(1)\right] 
+\\ - \sum_{i=1}^n [\tilde{x}_{ik}(0) T^\theta_i(0) {\Delta}^g_i(0) {H}^g_i(0) {\Delta}^m_i(0) {H}^m_i(0) \tilde{x}_{il}(0) \\ + \tilde{x}_{ik}(1) T^\theta_i(1) {\Delta}^g_i(1) {H}^g_i(1) {\Delta}^m_i(1) {H}^m_i(1) \tilde{x}_{il}(1) ] 
+\\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T^\theta_i(s) {\Delta}^g_i(s) {H}^g_i(s) T^\theta_i(t){\Delta}^m_i(t) {H}^m_i(t) \tilde{x}_{il}(t) \right]
+\\ - \sum_{s=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T^\theta_i(s) {\Delta}^g_i(s) {H}^g_i(s) {\Delta}^m_i(s) {H}^m_i(s) \tilde{x}_{il}(s)\right] 
+\\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[ \tilde{X}(s)[,k]^T T^\theta(s) {\Delta}^g(s) {H}^g(s) T^\theta(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t)[,l] \right]\\ - \sum_{s=0}^1 \left[ \tilde{X}[,k]^T T^\theta(s) {\Delta}^g(s) {H}^g(s) {\Delta}^m(s) {H}^m(s) \tilde{X}[,l](s)\right].
+\end{multline}
+Combining (\ref{sub_mat_4}), (\ref{sub_mat_4_1}), and (\ref{sub_mat_4_2}) produces
+\begin{multline}\label{sub_mat_4_formula}
+J_{(\beta^g, \beta^m)}(\theta; m, g) = \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T  T^\theta(s) {\Delta}^g(s) {H}^g(s) T^\theta(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T T^\theta(s) {\Delta}^g(s) {H}^g(s) {\Delta}^m(s) {H}^m(s) \tilde{X}(s).
 \end{multline}
 \\ \noindent
+\subsubsection*{Submatrix V}
+Denote submatrix V by $J_{(\beta^m,\pi)}(\theta; m, g).$ The formula for $J_{(\beta^m,\pi)}(\theta; m, g)$ is
+\begin{multline}\label{sub_mat_5}
+J_{(\beta^m,\pi)}(\theta; m, g) = \E \left[ - \nabla_{\beta^m} \nabla_{ \pi } \mathcal{L}(\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta^m}\mathcal{L}(\theta ; m,g,p) \right] \E \left[ \nabla_{\pi}\mathcal{L}(\theta ; m,g,p) \right]^T  - \E \left[ \nabla_{\beta^m}\mathcal{L}(\theta; m,g,p) \nabla_{\pi}\mathcal{L}(\theta; m,g,p)^T \right].
+\end{multline}
+We have that
+\begin{equation}\label{sub_mat_5_1}
+\E \left[ - \nabla_{\beta^m} \nabla_{ \pi } \mathcal{L}(\theta; m, g, p) \right] = 0,
+\end{equation}
+as $\beta^m$ and $\pi$ separate in the log likelihood. Next, set $a := 1/\pi + 1/(1 - \pi)$ and $b := n/(1 - \pi).$ Recall from GLM theory that
+$$\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) = \tilde{X}^T \Delta^m s^m$$ and from (\ref{d_L_d_pi}) that
+$$ a \sum_{i=1}^n p_i - b.$$
+The $k$th entry of the last two terms of (\ref{sub_mat_5}) is
+\begin{multline}\label{sub_mat_5_2}
+\E \left[\nabla_\pi \mathcal{L}(\theta; m, g, p) \right] \E\left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)[k] \right] - \E \left[\nabla_{\pi}\mathcal{L}(\theta; m,g,p) \nabla_{\beta^m}\mathcal{L}(\theta; m,g,p)[k] \right] \\= \left(\E \left[ a \sum_{i=1}^n p_i - b \right] \right) \left(\E\left[ \tilde{X}[,k]^T \Delta^m s^m \right] \right) - \E \left[ \left( a \sum_{i=1}^n p_i - b \right) \tilde{X}[,k]^T \Delta^m s^m \right] \\ = \left( a \sum_{i=1}^n \E[p_i] - b \right) \left( \sum_{j=1}^n \E [ \tilde{x}_{jk}\Delta^m_js^m_j] \right) - \E \left[ \left( a \sum_{i=1}^n p_i - b \right) \left( \sum_{j=1}^n \tilde{x}_{jk} \Delta^m_j s^m_j \right) \right] \\ = a \sum_{i=1}^n \sum_{j=1}^n \E [p_i] \E[ \tilde{x}_{jk} \Delta^m_j s^m_j] - b \sum_{j=1}^n \E[\tilde{x}_{jk} \Delta^m_j s^m_j] \\ - \left[ a \sum_{i=1}^n \sum_{j=1}^n \E [ p_i \tilde{x}_{jk} \Delta^m_j s^m_j] - b \sum_{j=1}^n \E[\tilde{x}_{jk} \Delta^m_j s^m_j] \right] \\ =  a \sum_{i=1}^n \sum_{j=1}^n \E[p_i] \E[\tilde{x}_{jk} \Delta^m_j s^m_j] - a\sum_{i \neq j} \E[p_i] \E[\tilde{x}_{jk} \Delta^m_j s^m_j] - a\sum_{i=1}^n \E[ p_i \tilde{x}_{ik} \Delta^m_i s^m_i ] \\ = a \sum_{i=1}^n \E[p_i] \E[ \tilde{x}_{ik} \Delta^m_i s^m_i] - a \sum_{i=1}^n \E[p_i \tilde{x}_{ik} \Delta^m_i s^m_i] \\ = a \sum_{i=1}^n T^\theta_i(1) [T^\theta_i(0) \Delta^m_i(0) s^m_i(0) \tilde{x}_{ik}(0) + T^\theta_i(1) \Delta^m_i(1) s^m_i(1) \tilde{x}_{ik}(1)] \\ - a \sum_{i=1}^n T^\theta_i(1)\Delta^m_i(1)s^m_i(1)\tilde{x}_{ik}(1) \\ = a \sum_{i=1}^n T^\theta_i(0)T^\theta_i(1) \Delta_i^m(0)H^m_i(0)\tilde{x}_{ik}(0) \\ + a \sum_{i=1}^n \left( [T^\theta_i(1)]^2 \Delta^m_i(1)H^m_i(1) - T^\theta_i(1)\Delta^m_i(1)H^m_i(1) \right) \tilde{x}_{ik}(1)  \\ =a \left[ \sum_{i=1}^n T^\theta_i(0) T^\theta_i(1) \Delta^m_i(0) H^m_i(0) \tilde{x}_{ik}(0) + \sum_{i=1}^n T^\theta_i(1)\Delta^m_i(1)H^m_i(1)[T^\theta_i(1) - 1] \tilde{x}_{ik}(1) \right] \\ = a \left[ \sum_{i=1}^n T^\theta_i(0) T^\theta_i(1) \Delta^m_i(0) H^m_i(0) \tilde{x}_{ik}(0) - \sum_{i=1}^n T^\theta_i(0) T^\theta_i(1) \Delta^m_i(1) H^m_i(1) \tilde{x}_{ik}(1) \right] \\ = a\left(\tilde{X}(0)[,k]^T w^m(0) - \tilde{X}(1)[,k]^T w^m(1)  \right).
+\end{multline}
+Combining (\ref{sub_mat_5}), (\ref{sub_mat_5_1}), and (\ref{sub_mat_5_2}), we conclude that
+\begin{equation}\label{sub_mat_5_formula} J_{(\beta^m, \pi)}(\theta; m, g, p) = \left( \frac{1}{\pi} + \frac{1}{1 - \pi} \right) \left( \tilde{X}(0)^T w^m(0) - \tilde{X}(1)^T w^m(1)\right). \end{equation}
+
+\subsubsection*{Submatrix VI}
+Denote submatrix VI by $J_{(\beta^g,\pi)}(\theta; m, g).$ Calculations similar to those for submatrix V show that
+\begin{equation}\label{sub_mat_6_formula} J_{(\beta^g, \pi)}(\theta; m, g, p) = \left(\frac{1}{\pi} + \frac{1}{1 - \pi} \right) \left( \tilde{X}(0)^T w^g(0) - \tilde{X}(1)^T w^g(1)\right). \end{equation}
+
+\subsubsection*{Combining submatrices}
+To summarize, the formulas for submatrices I-VI are as follows:
+\begin{itemize}
+\item[I]\begin{multline*}
+J_\pi(\theta; m, g) = 
+\left[ \frac{1}{\pi^2} - \frac{1}{(1 - \pi )^2} \right] \sum_{i=1}^n T^\theta_i(1) + \frac{n}{(1-\pi )^2} \\ + \left( \frac{1}{(1 - \pi )} + \frac{1}{\pi} \right)^2 \left( \sum_{i=1}^n [T^\theta_i(1)]^2 - T^\theta_i(1) \right).
+\end{multline*}
+\item[II] \begin{multline*}
+J_{\beta^m}(\theta; m, g) = \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) \left[ {\Delta}^m(s) {V}^m(s) {\Delta}^m(s) - [{\Delta}']^m(s) {H}^m(s) \right] \tilde{X}(s) \\ + \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T {T}^\theta(s) {\Delta}^m(s) {H}^m(s) {T}^\theta(t) {\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) ({\Delta}^m(s))^2 ({H}^m(s))^2 \tilde{X}(s).
+\end{multline*}
+\item[III] \begin{multline*}
+J_{\beta^g}(\theta; m, g) = \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) \left[{\Delta}^g(s) {V}^g(s) {\Delta}^g(s) - [{\Delta}']^g(s) {H}^g(s) \right] \tilde{X}(s) \\ + \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T {T}^\theta(s) {\Delta}^g(s) {H}^g(s) {T}^\theta(t) {\Delta}^g(t) {H}^g(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) ({\Delta}^g(s))^2 ({H}^g(s))^2 \tilde{X}(s).
+\end{multline*}
+\item[IV] \begin{multline*}
+J_{(\beta^g, \beta^m)}(\theta; m, g) = \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T  T^\theta(s) {\Delta}^g(s) {H}^g(s) T^\theta(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T T^\theta(s) {\Delta}^g(s) {H}^g(s) {\Delta}^m(s) {H}^m(s) \tilde{X}(s).
+\end{multline*}
+\item[V] $$ J_{(\beta^m, \pi)}(\theta; m, g, p) = \left( \frac{1}{\pi} + \frac{1}{1 - \pi} \right) \left( \tilde{X}(0)^T w^m(0) - \tilde{X}(1)^T w^m(1)\right).  $$
+\item[VI] $$ J_{(\beta^g, \pi)}(\theta; m, g, p) = \left(\frac{1}{\pi} + \frac{1}{1 - \pi} \right) \left( \tilde{X}(0)^T w^g(0) - \tilde{X}(1)^T w^g(1)\right).$$
+\end{itemize}
+We stitch these pieces together and transpose submatrices IV, V, and VI to produce the whole information matrix $J(\theta; m, g)$. Evaluating this matrix at the EM estimate $\theta^\textrm{EM}$ and inverting yields the asymptotic covariance matrix, which we can use to compute standard errors.
 
 \subsection{Implementation}
 

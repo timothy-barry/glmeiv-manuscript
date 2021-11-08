@@ -1,34 +1,34 @@
-\contentsline {section}{\numberline {1}Introduction}{3}
-\contentsline {section}{\numberline {2}Background and analysis challenges}{4}
-\contentsline {subsection}{\numberline {2.1}Related work}{4}
-\contentsline {subsection}{\numberline {2.2}Assay overview}{5}
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Background and analysis challenges}{3}
+\contentsline {subsection}{\numberline {2.1}Related work}{3}
+\contentsline {subsection}{\numberline {2.2}Assay overview}{6}
 \contentsline {subsection}{\numberline {2.3}Analysis challenges}{7}
 \contentsline {section}{\numberline {3}Thresholding method}{8}
-\contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{10}
-\contentsline {subsection}{\numberline {3.2}Theoretical challenges of thresholding method}{13}
-\contentsline {subsection}{\numberline {3.3}Thresholding method summary}{18}
-\contentsline {section}{\numberline {4}Generalized linear model with errors in variables}{19}
-\contentsline {subsection}{\numberline {4.1}Model}{19}
-\contentsline {subsection}{\numberline {4.2}Estimation and inference}{23}
-\contentsline {subsection}{\numberline {4.3}Statistical accelerations}{25}
-\contentsline {section}{\numberline {5}Simulation studies}{25}
-\contentsline {section}{\numberline {6}Real data analysis}{25}
-\contentsline {section}{\numberline {7}Discussion}{25}
-\contentsline {section}{Appendices}{25}
-\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{25}
-\contentsline {subsection}{\numberline {A.1}Notation}{26}
-\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{27}
-\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{28}
-\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{29}
-\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{29}
-\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{31}
-\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{32}
-\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{32}
-\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{35}
-\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{36}
-\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{37}
-\contentsline {subsection}{\numberline {B.1}Estimation}{37}
-\contentsline {subsection}{\numberline {B.2}Inference}{40}
-\contentsline {subsection}{\numberline {B.3}Implementation}{49}
-\contentsline {section}{\numberline {C}Statistical accelerations}{49}
-\contentsline {section}{\numberline {D}Additional simulation results}{49}
+\contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{9}
+\contentsline {subsection}{\numberline {3.2}Theoretical challenges of thresholding method}{12}
+\contentsline {subsection}{\numberline {3.3}Thresholding method summary}{17}
+\contentsline {section}{\numberline {4}Generalized linear model with errors in variables}{18}
+\contentsline {subsection}{\numberline {4.1}Model}{18}
+\contentsline {subsection}{\numberline {4.2}Estimation and inference}{22}
+\contentsline {subsection}{\numberline {4.3}Statistical accelerations}{24}
+\contentsline {section}{\numberline {5}Simulation studies}{24}
+\contentsline {section}{\numberline {6}Real data analysis}{24}
+\contentsline {section}{\numberline {7}Discussion}{24}
+\contentsline {section}{Appendices}{24}
+\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{24}
+\contentsline {subsection}{\numberline {A.1}Notation}{25}
+\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{26}
+\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{27}
+\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{28}
+\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{28}
+\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{30}
+\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{31}
+\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{31}
+\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{34}
+\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{35}
+\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{36}
+\contentsline {subsection}{\numberline {B.1}Estimation}{36}
+\contentsline {subsection}{\numberline {B.2}Inference}{39}
+\contentsline {subsection}{\numberline {B.3}Implementation}{52}
+\contentsline {section}{\numberline {C}Statistical accelerations}{52}
+\contentsline {section}{\numberline {D}Additional simulation results}{52}
