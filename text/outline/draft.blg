@@ -3,9 +3,10 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: draft.aux
 The style file: unsrt.bst
 Database file #1: /Users/timbarry/optionFiles/glmeiv.bib
+Warning--I didn't find a database entry for "Louis2012"
 You've used 28 entries,
             1791 wiz_defined-function locations,
-            642 strings with 11848 characters,
+            644 strings with 11679 characters,
 and the built_in function-call counts, 9359 in all, are:
 = -- 738
 > -- 717
@@ -44,3 +45,4 @@ warning$ -- 0
 while$ -- 77
 width$ -- 30
 write$ -- 310
+(There was 1 warning)

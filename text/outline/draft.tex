@@ -12,6 +12,7 @@
 \newtheorem{lemma}{Lemma}
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
 \usepackage{float}
+\allowdisplaybreaks
 \usepackage[caption = false]{subfig}
 \usepackage{/Users/timbarry/optionFiles/mymacros}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -24,7 +25,7 @@ Tim, Gene, Kathryn
 \end{center}
 
 \begin{abstract}
-CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression. Single-cell CRISPR screens promise to illuminate regulatory networks underlying diseases but present substantial statistical challenges. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
+CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and potentially illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
 \tableofcontents
 \noindent \blue{All edits in blue.}
@@ -289,7 +290,14 @@ The unknown parameters in the model are
 $\theta = [\beta_m, \beta_g, \pi]^{T}  \in \R^{2d + 1}.$
 
 \subsubsection*{Notation}
-We briefly introduce notation that we will use throughout. For $k \in \{0,1\}$, let $\tilde{x}_i(k) := [1, k, z_i]^T$ denote the value of $\tilde{x}_i$ that results from setting $p_i$ to $k$. Next, let $l^m_i(k) := \langle \tilde{x}_i(k), \beta_m \rangle + o^m_i$ and $\eta^m_i(k) := h_m(l^m_i(k))$, and let the corresponding gRNA quantities $l^g_i(k)$ and $\eta_i^g(k)$ be defined analogously. Also, let the design matrix $\tilde{X} \in \R^{n \times d}$ be defined by
+We briefly introduce notation that we will use throughout. For $j \in \{0,1\}$, let $\tilde{x}_i(j) := [1, j, z_i]^T$ denote the value of $\tilde{x}_i$ that results from setting $p_i$ to $j$. Next, let  $l^m_i(j)$, $\eta^m_i(j),$ and $\mu^m_i(j)$ be the values of $l^m_i$, $\eta^m_i$, and $\mu^m_i$, respectively, that result from setting $p_i$ to $j$, i.e.,
+$$
+\begin{cases}
+l^m_i(j) := \langle \tilde{x}_i(j), \beta_m \rangle + o^m_i \\ \eta^m_i(j) := h_m(l^m_i(j)) \\
+\mu_i^m(j) = r_m^{-1}(l^m_i(j)).
+\end{cases}
+$$
+Let the corresponding gRNA quantities $l^g_i(j)$, $\eta_i^g(j)$, and $\mu^g_i(j)$ be defined analogously. Define the design matrix $\tilde{X} \in \R^{n \times d}$ by
 $$ \tilde{X} := \begin{bmatrix}
 \tilde{x}_1^T \\ \tilde{x}_2^T \\ \vdots \\ \tilde{x}_n^T
 \end{bmatrix} = 
@@ -298,7 +306,7 @@ $$ \tilde{X} := \begin{bmatrix}
 1 & p_2 & z_2 \\ 
 \vdots & \vdots & \vdots \\
 1 & p_n & z_n
-\end{bmatrix}.$$ For $k \in \{0,1\}$, let $\tilde{X}(k) \in \R^{n \times d}$ be the matrix that results from setting $p_i$ to $k$ for all $i \in \{1, \dots, n\}$ in $\tilde{X}$.
+\end{bmatrix}.$$ For $j \in \{0,1\}$, let $\tilde{X}(j) \in \R^{n \times d}$ be the matrix that results from setting $p_i$ to $j$ for all $i \in \{1, \dots, n\}$ in $\tilde{X}$.
 
 Next, let $[m,m]^T \in \R^{2n}$ denote the vector that results from concatenating $m := [m_1, \dots, m_n]^T \in \R^n$ to itself, i.e.
 $$ [m,m]^T := [\underbrace{m_1, m_2 \dots, m_{n-1}, m_n}_\textrm{first copy of $m$}, \underbrace{m_1, m_2, \dots, m_{n-1}, m_n}_\textrm{second copy of $m$}].$$ Define $[g,g]^T$, $[o^g,o^g]^T$, and $[o^m,o^m]^T$ similarly. Finally, let $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$ denote the $\R^{2n \times d}$ matrix that results from vertically concatenating $\tilde{X}(0)$ and $\tilde{X}(1)$.
@@ -310,11 +318,16 @@ f(m_i,g_i,p_i; \theta) = f_m(m_i | p_i) f_g(g_i | p_i) f_p(p_i) \\ = \pi^{p_i}(1
 \end{equation}
 The log-likelihood is
 \begin{multline}\label{full_log_lik}
-\mathcal{L}(\theta; m_i, g_i, p_i) = \sum_{i=1}^n \log\left( \pi^{p_i}(1-\pi)^{1-p_i} \right) \\ + \sum_{i=1}^n \log\left( f_m(m_i; \eta^m_i)\right) + \sum_{i=1}^n \log\left( f_g(g_i; \eta_i^g) \right). \end{multline}
+\mathcal{L}(\theta; m, g, p) = \sum_{i=1}^n \log\left( \pi^{p_i}(1-\pi)^{1-p_i} \right) \\ + \sum_{i=1}^n \log\left( f_m(m_i; \eta^m_i)\right) + \sum_{i=1}^n \log\left( f_g(g_i; \eta_i^g) \right). \end{multline}
 Integrating over the unobserved variable $p_i$, we can write the marginal density $f$ of $(m_i, g_i)$ as
 \begin{equation}\label{marginal_density}
 f(m_i, g_i; \theta) = (1-\pi) f(m_i; \eta^m_i(0)) f(g_i; \eta^g_i(0)) + \pi f(m_i; \eta^m_i(1)) f(g_i; \eta^g_i(1)).
 \end{equation}
+Finally, the marginal log-likelihood is
+\begin{multline}\label{marginal_log_lik}
+\mathcal{L}(\theta; m, g) \\ = \sum_{i=1}^n \log\left[ (1-\pi) f(m_i; \eta^m_i(0)) f(g_i; \eta^g_i(0)) + \pi f(m_i; \eta^m_i(1)) f(g_i; \eta^g_i(1)) \right]
+\end{multline}
+
 We see from (\ref{marginal_density}) that the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Additionally, the GLM-EIV model is a generalization of the classical errors-in-variables model (when the predictor is binary). Suppose that we observe data $(x_1, y_1), \dots, (x_n, y_n)$ from the following model:
 \begin{equation}\label{classical_eiv}
 \begin{cases}
@@ -322,12 +335,12 @@ y_i = \beta_0 + \beta_1 x^*_i + \ep_i \\
 x_i = x^*_i + \tau_i,
 \end{cases}
 \end{equation}
-where $x^*_i \sim \textrm{Bern}(\pi), \ep_i \sim N(0,1), \tau_i \sim N(0,1),$ and $\ep_i$,$\tau_i$, and $x^*_i$ are independent. The model (\ref{classical_eiv}) is a special case of the GLM-EIV model. More generally, GLM-EIV allows the use of entire regression functions (that optionally include covariates and use nonlinear links) to model $y_i$ and $x_i$. Moreover, $x_i$ and $y_i$ need not be Gaussian in the GLM-EIV case.
+where $x^*_i \sim \textrm{Bern}(\pi), \ep_i \sim N(0,1), \tau_i \sim N(0,1),$ and $\ep_i$,$\tau_i$, and $x^*_i$ are independent. The model (\ref{classical_eiv}) is a special case of the GLM-EIV model. More generally, GLM-EIV allows the use of regression functions (that optionally include covariates and use nonlinear links) to model $y_i$ and $x_i$; $y_i$ and $x_i$ need not be Gaussian.
 
 \subsection{Estimation and inference}
 
 We derive an EM algorithm (Algorithm \ref{algo:em_full}) to estimate the parameters of the GLM-EIV model. The E step entails computing the membership probability (i.e., the probability of perturbation) of each cell. The membership probability $T_i(1)$ of cell $i \in \{1, \dots, n\}$ given the current parameter estimates $(\beta_m^\textrm{(t)}, \beta_g^\textrm{(t)}, \pi^\textrm{(t)})$ and observed data $(m_i, g_i)$ is
-$$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm{(t)}_g, \pi^\textrm{(t)}).$$ We can calculate this quantity by applying (i) Bayes rule, (ii) the conditional independence property of $M_i$ and $G_i$, (iii) the density of $M_i$ and $G_i$, and (iv) a log-sum-exp-type trick to ensure numerical stability. Next, we produce updated estimates $\pi^{(t +1)}$, $\beta_g^{(t+1)}$, and $\beta_m^{(t+1)}$ of the parameters by maximizing the M step objective function. It turns out that maximizing the objective function is equivalent to setting $\pi^{\textrm{(t+1)}}$ to the mean of the current membership probabilities and setting $\beta_g^{(t+1)}$ and $\beta_m^{(t+1)}$ to the fitted coefficients of a GLM weighted by the current membership probabilities (Algorithm \ref{algo:em_full}). We iterate through the E and M steps until the marginal likelihood ($\ref{marginal_density}$) converges (see appendix for full details). Our EM algorithm is reminiscent of (but distinct from) that of Ibrahim \cite{Ibrahim1990}, who also leveraged weighted GLM solvers to carry out an M step.
+$$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm{(t)}_g, \pi^\textrm{(t)}).$$ We can calculate this quantity by applying (i) Bayes rule, (ii) the conditional independence property of $M_i$ and $G_i$, (iii) the density of $M_i$ and $G_i$, and (iv) a log-sum-exp-type trick to ensure numerical stability. Next, we produce updated estimates $\pi^{(t +1)}$, $\beta_g^{(t+1)}$, and $\beta_m^{(t+1)}$ of the parameters by maximizing the M step objective function. It turns out that maximizing the objective function is equivalent to setting $\pi^{\textrm{(t+1)}}$ to the mean of the current membership probabilities and setting $\beta_g^{(t+1)}$ and $\beta_m^{(t+1)}$ to the fitted coefficients of a GLM weighted by the current membership probabilities (Algorithm \ref{algo:em_full}). We iterate through the E and M steps until the marginal log likelihood (\ref{marginal_log_lik}) converges (see appendix for full details). Our EM algorithm is reminiscent of (but distinct from) that of Ibrahim \cite{Ibrahim1990}, who also applied weighted GLM solvers to carry out the M step.
 
 \begin{algorithm}
 	\caption{EM algorithm for GLM-EIV model.}\label{algo:em_full}
@@ -675,8 +688,200 @@ completing the bias-variance decomposition.
 
 \section{Estimation and inference in the GLM-EIV model}
 \subsection{Estimation}
+We estimate the parameters of the GLM-EIV model using an EM algorithm.
+
+\subsubsection*{E step}
+The E step entails computing the membership probability of each cell. Let $\theta^{(t)} = (\beta_m^{(t)}, \beta_g^{(t)}, \pi^{(t)})$ be the parameter estimate at the $t$-th iteration of the algorithm. For $k \in \{0,1\}$, let $[\eta^m_i(k)]^{(t)}$ be the $i$th canonical parameter at the $t$-th iteration of the algorithm of the gene expression distribution that results from setting $p_i$ to $k$, i.e.
+$$
+[\eta^m_i(k)]^{(t)} := h_m\left( \langle \tilde{x}_i(k) , \beta_m^{(t)} \rangle + o^m_i \right).
+$$ Similarly, let $\left[\eta^g_i(k)\right]^{(t)}$ be defined by
+$$\left[\eta^g_i(k)\right]^{(t)} :=  h_m\left( \langle \tilde{x}_i(k) , \beta_g^{(t)} \rangle + o^g_i \right).$$
+Next, for $k \in \{0,1\},$ define $\alpha^{(t)}_i(k)$ by
+\begin{multline*}
+\alpha^{(t)}_i(k) := \P\left( M_i = m_i, G_i = g_i | P_i = k, \theta^{(t)} \right) \\ = \P\left( M_i = m_i | P_i = k, \theta^{(t)} \right) \P\left(G_i = g_i | P_i = k, \theta^{(t)} \right) \textrm{ (because $G_i \indep M_i | P_i$)} \\ = f_m\left(m_i; \left[ \eta^m_i(k) \right]^{(t)}\right) f_g\left(g_i; \left[ \eta^g_i(k) \right]^{(t)} \right).
+\end{multline*}
+Finally, let 
+$$
+\begin{cases}
+\pi^{(t)}(1) := \pi^{(t)} = \P\left(P_i = 1 | \theta^{(t)} \right) \\
+\pi^{(t)}(0) := 1 - \pi^{(t)} = \P\left(P_i = 0 | \theta^{(t)} \right).
+\end{cases}
+$$
+The $i$th membership probability $T^{(t)}_i(1)$ is
+\begin{multline*}
+T^{(t)}_i(1) = \P(P_i = 1 | M_i = m_i, G_i = g_i, \theta^{(t)}) \\ = \frac{\pi^{(t)}(1) \alpha^{(t)}_i(1)}{ \sum_{k=0}^1 \pi^{(t)}(k) \alpha^{(t)}_i(k)} \textrm{ (by Bayes rule)} = \frac{1}{\frac{ \pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)} + 1} \\ = \frac{1}{ \exp\left(\log\left(\frac{\pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)}\right)\right) + 1} = \frac{ 1 }{ \exp\left(q^{(t)}_i\right) + 1},
+\end{multline*}
+where we set $$q_i^{(t)} := \log\left(\frac{\pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)}\right).$$
+Next, we have that
+\begin{multline*}
+q^{(t)}_i = \log\left[ \pi^{(t)}(0) \right] + \log\left[ f_m\left(m_i; \left[ \eta^m_i(0) \right]^{(t)}\right) \right] + \log\left[ f_g\left(g_i; \left[ \eta^g_i(0) \right]^{(t)}\right) \right] \\ - \log\left[ \pi^{(t)}(1) \right] - \log\left[ f_m\left(m_i; \left[ \eta^m_i(1) \right]^{(t)}\right) \right] - \log\left[ f_g\left(g_i; \left[ \eta^g_i(1) \right]^{(t)}\right) \right],
+\end{multline*}
+which we can compute. We therefore conclude that
+$$ T_i^{(t)} = \frac{1}{\exp\left(q^{(t)}_i\right) + 1}.$$
+\subsection*{M step}
+Recall that the log-likelihood (\ref{full_log_lik}) of the GLM-EIV model  is
+\begin{multline*}
+\mathcal{L}(\theta; m, g, p) = \sum_{i=1}^n \left[ p_i \log(\pi) + (1-p_i) \log(1-\pi) \right] \\ + \sum_{i=1}^n \log\left( f_m(m_i; \eta^m_i)\right) + \sum_{i=1}^n \log\left( f_g(g_i; \eta_i^g) \right).
+\end{multline*}
+Define $Q(\theta | \theta^{(t)}) = \E_{\left(P |M = m, G = g, \theta^{(t)}\right)}\left[ \mathcal{L}(\theta; m, g, p) \right].$ We have that
+\begin{multline}\label{Q_funct}
+Q(\theta |\theta^{(t)}) = \sum_{i=1}^n \left[T^{(t)}_i(1)\log(\pi) + T_i^{(t)}(0) \log(1 - \pi)\right] \\ + \sum_{k=0}^1 \sum_{i=1}^n T^{(t)}_i(k) \log \left[ f_m(m_i; \eta_i^m(k)) \right] + \sum_{k=0}^1 \sum_{i=1}^n T^{(t)}_i(k) \log \left[ f_g( g_i; \eta^{g,b}_i(k)) \right].
+\end{multline}
+The three terms of (\ref{Q_funct}) are functions of different parameters: the first is a function of $\pi,$ the second is a function of $\beta_m,$ and the third is a function of $\beta_g$. Therefore, to find the maximizer $\theta^{(t+1)}$ of (\ref{Q_funct}), we maximize the three terms separately. Differentiating the first term with respect to $\pi$, we find that
+	\begin{multline*}
+\frac{ \partial }{\partial \pi } \sum_{i=1}^n \left[ T^{(t)}_i(1)\log(\pi) + T_i^{(t)}(0) \log(1 - \pi)\right]  \\ = \frac{\sum_{i=1}^n T_i^{(t)}(1)}{\pi} - \frac{ \sum_{i=1}^n T_i^{(t)}(0) }{ 1 - \pi}.
+\end{multline*} Setting the derivative equal to $0$ and solving for $\pi$,
+\begin{multline*}
+\frac{\sum_{i=1}^n T_i^{(t)}(1)}{\pi} - \frac{ \sum_{i=1}^n T_i^{(t)}(0) }{ 1 - \pi} = 0 \iff \sum_{i=1}^n T_i^{(t)}(1) - \pi \sum_{i=1}^n T^{(t)}_i(1) = \pi \sum_{i=1}^n T_i(0) \\ \iff \sum_{i=1}^n T^{(t)}_i(1) - \pi\sum_{i=1}^n T_i^{(t)}(1) = \pi n - \pi\sum_{i=1}^n T_i(1) \iff \pi = \frac{ \sum_{i=1}^n T_i^{(t)} (1) }{n}.\end{multline*}
+Thus, the maximizer $\pi^{(t+1)}$ of (\ref{Q_funct}) in $\pi$ is $\pi^{(t+1)} = (1/n)\sum_{i=1}^n T^{(t)}_i(1)$. Next, define $w^{(t)} = [T^{(t)}_1(0), \dots, T^{(t)}_n(0), T^{(t)}_1(1), \dots, T^{(t)}_n(1)]^T \in \R^{2n}$. We can view the second term of (\ref{Q_funct}) as the log-likelihood of a GLM -- call it $\textrm{GLM}^{(t)}_m$ -- that has exponential family density $f_m$, link function $r_m$, responses $[m,m]^T$, offsets $[o^m, o^m]^T$, weights $w^{(t)}$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}.$ Therefore, the maximizer $\beta^{(t+1)}_m$ of the second term of (\ref{Q_funct}) is the maximizer of $\textrm{GLM}^{(t)}_m$, which we can compute using the iteratively reweighted least squares procedure, as implemented in R's GLM function. Similarly, the maximizer $\beta^{(t+1)}_g$ of the third term of (\ref{Q_funct}) is the maximizer of the GLM with exponential family density $f_g$, link function $r_g$, responses $[g,g]^T$, offsets $[o^g, o^g]^T$, weights $w^{(t)}$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}.$
 
 \subsection{Inference}
+We derive the asymptotic observed information matrix of the GLM-EIV log likelihood, enabling us to perform inference on the parameters. First, we define some notation. For $i \in \{1, \dots, n\}$, $j \in \{0, 1\}$, and $\theta = (\pi, \beta_m, \beta_g),$ let $T^\theta_i(j)$ be defined by
+$$T^\theta_i(j) = \P_\theta\left(P_i = j | M_i = m_i, G_i = g_i\right).$$ Also, define the $\R^n$ vectors $T^\theta(0)$ and $T(1)$ by
+$$T^\theta(0) := [T^\theta_1(0), T^\theta_2(0), \dots, T^\theta_n(0)]$$ and 
+$$T^\theta(1) := [T^\theta_1(1), T^\theta_2(1), \dots, T^\theta_n(1)].$$ Moreover, let $\pi^\theta$ 
+
+Next, define the diagonal $n \times n$ matrices $\Delta^m$, $[\Delta']^m$, $V^m$, and $H^m$ by
+$$
+\begin{cases}
+	\Delta^m = \textrm{diag} \{ h_m'(l_1^m), \dots, h_m'( l_n^m ) \} \\
+	[\Delta']^m = \textrm{diag} \{ h_m''(l_1^m), \dots, h_m''( l_n^m) \} \\
+	V^m = \textrm{diag} \{ \psi_m( \eta^m_1), \dots, \psi_m( \eta^m_n) \} \\
+	H^m = \textrm{diag} \{ m_1 - \mu_1^m, \dots, m_n - \mu_n^m\}.
+\end{cases} 
+$$ Define the $n \times n$ matrices $\Delta^g, [\Delta']^g, V^g,$ and $H^g$ analogously. These matrices are \textit{unobserved}, as they depend on $\{p_1, \dots, p_n\}$.
+
+For $j \in \{0,1\}$, let the diagonal $n \times n$ matrices $\Delta^m(j), [\Delta']^m(j), V^m(j),$ and $H^m(j)$ be given by
+$$\begin{cases}
+\Delta^m(j) = \textrm{diag} \{ h_m'(l_1^m(j)), \dots, h_m'( l_n^m(j) ) \} \\
+[\Delta']^m(j) = \textrm{diag} \{ h_m''(l_1^m(j)), \dots, h_m''( l_n^m(j)) \} \\
+V^m(j) = \textrm{diag} \{ \psi_m( \eta^m_1(j)), \dots, \psi_m( \eta^m_n(j)) \} \\
+H^m(j) = \textrm{diag} \{ m_1 - \mu_1^m(j), \dots, m_n - \mu_n^m(j)\} .
+\end{cases}
+$$
+Define the matrices $\Delta^g(j)$, $[\Delta']^{g}(j)$, $V^g(j),$ and $H^g(j)$ analogously. Finally, define the vectors $s^m(j)$ and $w^m(j)$ in $\R^n$ by 
+$$ \begin{cases}
+s^m(j) = [m_1 - \mu_1^m(j), \dots, m_n - \mu_n^m(j) ]^T \\ w^m(j) = [ T_1(0)T_1(1)\Delta^m_1(j) H^m_1(j), \dots, T_n(0)T_n(1)\Delta_n^m(j) H_n^m(j)]^T,
+\end{cases} $$
+and let the vectors $s^g(j)$ and $w^g(j)$ be defined analogously. The quantities $\Delta^m(j), [\Delta']^m(j), V^m(j),$ $H^m(j),$ $s^m(j),$ $w^m(j),$ $\Delta^g(j), [\Delta']^g(j), V^g(j),$ $H^g(j),$ $s^g(j),$ and $w^g(j)$ are all \textit{observed}. 
+
+The observed information matrix $J(\theta; m, g)$ evaluated at $\theta = (\pi, \beta_m, \beta_g)$ is the negative Hessian of the marginal log likelihood (\ref{marginal_log_lik}) evaluated at $\theta$, i.e.
+$$J(\theta; m, g) = - \nabla^2\mathcal{L}(\theta; m, g) .$$ This quantity, unfortunately, is hard to compute, as the log likelihood (\ref{marginal_log_lik}) is a complicated mixture. Louis \cite{Louis1982} showed that $J(\theta; m, g)$ is equivalent to the following quantity:
+\begin{multline}\label{zero_inf_info_mat}
+J(\theta; m, g) = -\E \left[\nabla^2 \mathcal{L}(\theta; m, g, p) | G = g, M = m \right] \\ + \E\left[\nabla \mathcal{L}(\theta; m, g, p) | G = g, M = m \right] \E\left[\nabla \mathcal{L}(\theta; m, g, p) | G = g, M = m \right]^T \\ - \E\left[ \nabla\mathcal{L}(\theta; m, g, p) \nabla \mathcal{L}(\theta; m, g, p)^T | G = g, M = m \right].
+\end{multline}
+The observed information matrix $J(\theta; m, g)$ has dimension $(2d+1) \times (2d + 1).$ Recall that the log-likelihood (\ref{full_log_lik}) is the sum of three terms. The first term depends only on $\pi$, the second on $\beta_m$, and the third on $\beta_g$. Therefore, the observed information matrix can be viewed as block matrix consisting of nine submatrices (Figure \ref{infomatrixbackground}; only six submatrices labelled). Submatrix I depends on $\pi$, submatrix II on $\beta_m$, submatrix III on $\beta_g$, submatrix IV on $\beta_m$ and $\beta_g$, submatrix V on $\pi$ and $\beta_g$, and submatrix VI on $\pi$ and $\beta_m$. We only need to compute these six submatrices to compute the entire matrix, as the matrix is symmetric. The following sections derive formulas for submatrices I-VI. All expectations are understood to be \textit{conditional} on $m$ and $g$. The notation $\nabla_v$  and $\nabla^2_v$  represent the gradient and Hessian, respectively, with respect to the vector $v$.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.45\linewidth]{../../figures/info_matrix/info_matrix_background}
+	\caption{Block structure of the observed information matrix $J(\theta; m, g) = -\nabla^2 \mathcal{L}(\theta; m, g)$. The matrix is symmetric, and so we only need to compute submatrices I-VI to compute the entire matrix.}
+	\label{infomatrixbackground}
+\end{figure}
+
+\subsubsection*{Submatrix I}
+Denote submatrix I by $J_{\pi}(\theta; m, g).$ The formula for $J_{\pi}(\theta; m, g)$ is 
+\begin{multline}\label{sub_mat_pi}
+J_{\pi}(\theta; m, g) = -\E\left[\nabla^2_\pi \mathcal{L}(\theta; m, g, p) \right] \\ + \left(\E\left[ \nabla_\pi \mathcal{L}(\theta; m, g, p) \right] \right)^2 - \E\left[(\nabla_\pi \mathcal{L}(\theta; m, g, p))^2 \right].
+\end{multline}
+
+We begin by calculating the first and second derivatives of the log-likelihood $\mathcal{L}$ with respect to $\pi$. The first derivative is
+\begin{multline*}
+\nabla_\pi \mathcal{L}(\theta; m, g, p) = \frac{\partial }{\partial \pi } \left( \sum_{i=1}^n p_i \log(\pi) + \sum_{i=1}^n (1 - p_i) \log(1 - \pi) \right) \\ = \frac{ \sum_{i=1}^n p_i }{\pi} - \frac{ \sum_{i=1}^n (1 - p_i) }{ 1 - \pi } = \frac{\sum_{i=1}^n p_i}{\pi} - \frac{n - \sum_{i=1}^n p_i}{1 - \pi} \\ = \left( \frac{1}{\pi} + \frac{1}{1 - \pi} \right) \sum_{i=1}^n p_i - \frac{n}{1-\pi}.
+\end{multline*}
+The second derivative is
+\begin{multline*}
+\nabla^2_\pi \mathcal{L}(\theta; m, g, p)  = \frac{\partial^2}{\partial^2\pi} \left( \frac{ \sum_{i=1}^n p_i }{ \pi } - \frac{ n - \sum_{i=1}^n p_i }{1 - \pi}  \right) = \frac{\left( \sum_{i=1}^n p_i \right) - n}{(1 - \pi)^2} - \frac{\sum_{i=1}^n p_i }{ \pi^2 }.
+\end{multline*}
+We compute the expectation of the first term of (\ref{sub_mat_pi}):
+\begin{multline}\label{submat_pi_1}
+\E \left[ -\nabla^2_{\pi} \mathcal{L}(\theta; m, g, p)\right] = - \E\left[\frac{ ( \sum_{i=1}^n p_i) - n}{(1 - \pi)^2} - \frac{\sum_{i=1}^n p_i}{\pi^2} \right] \\ = - \E\left\{\left[\frac{1}{(1-\pi)^2} - \frac{1}{\pi^2} \right] \sum_{i=1}^n p_i - \frac{n}{ (1 - \pi)^2 } \right\} \\ = - \left\{\left[ \frac{1}{(1-\pi)^2} - \frac{1}{\pi^2} \right] \sum_{i=1}^n T^\theta_i(1) - \frac{n}{ (1 - \pi)^2}  \right\} \\ = \left[ \frac{1}{\pi^2} - \frac{1}{(1 - \pi)^2} \right] \sum_{i=1}^n T^\theta_i(1) + \frac{n}{(1-\pi)^2}.
+\end{multline}
+Next, we compute the difference of the second two pieces of (\ref{sub_mat_pi}). To this end, define $$a := \frac{1}{(1-\pi)} + \frac{1}{\pi}$$ and $$b := \frac{n}{(1-\pi)}.$$ We have that
+\begin{multline*}
+\E \left[ \nabla_\pi \mathcal{L}(\theta; m, g, p)^2 \right] = \E \left[ \left( a \sum_{i=1}^n p_i - b\right)^2 \right] =  \E \left[ a^2 \left( \sum_{i=1}^n p_i \right)^2 - 2ab \sum_{i=1}^n p_i + b^2 \right] \\ = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i p_j] -2ab \sum_{i=1}^n \E [p_i] + b^2.
+\end{multline*}
+Next,
+\begin{multline*}
+\left( \E \left[\nabla_\pi \mathcal{L}(\theta; m, g, x) \right] \right)^2 = \left( a \sum_{i=1}^n \E [p_i] - b \right)^2 = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i]  E[p_j] - 2ab \sum_{i=1}^n \E[p_i] + b^2.
+\end{multline*}
+Therefore,
+\begin{multline}\label{submat_pi_2}
+(\E [\nabla_\pi \mathcal{L}(\theta; m, g, p)])^2 - \E \left[\nabla_\pi \mathcal{L}(\theta; m, g, p)^2 \right] \\ = a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i] \E[p_j] - a^2 \sum_{i=1}^n \sum_{j=1}^n \E[p_i p_j] = a^2 \left( \sum_{i=1}^n \E[p_i]^2 - \E[p_i^2]\right) \\ = a^2 \left( \sum_{i=1}^n [T^\theta_i(1)]^2 - T^\theta_i(1) \right) = \left( \frac{1}{(1 - \pi)} + \frac{1}{\pi} \right)^2 \left(\sum_{i=1}^n [T^\theta_i(1)]^2 - T^\theta_i(1) \right).
+\end{multline}
+Stringing (\ref{sub_mat_pi}), (\ref{submat_pi_1}) and (\ref{submat_pi_2}) together, we obtain
+\begin{multline}\label{sub_mat_1_formula}
+J_\pi(\theta; m, g) = 
+\left[ \frac{1}{\pi^2} - \frac{1}{(1 - \pi )^2} \right] \sum_{i=1}^n T^\theta_i(1) + \frac{n}{(1-\pi )^2} \\ + \left( \frac{1}{(1 - \pi )} + \frac{1}{\pi} \right)^2 \left( \sum_{i=1}^n [T^\theta_i(1)]^2 - T^\theta_i(1) \right).
+\end{multline}
+
+\subsubsection*{Submatrix II}
+Denote submatrix II by $J_{\beta^m}(\theta; m, g).$ The formula for $J_{\beta^m}(\theta; m, g)$ is
+\begin{multline}\label{sub_mat_2}
+J_{\beta^m}(\theta; m, g) = -\E \left[\nabla_{\beta^m}^2 \mathcal{L}(\theta; m, g, p) \right] \\ + \E\left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right] \E\left[ \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right]^T \\ - \E\left[ \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)^T  \right].
+\end{multline}
+Standard GLM results imply that
+$$ -\nabla_{\beta^m}^2 \mathcal{L}(\theta; m, g, p) = \tilde{X}^T ( \Delta^m V^m \Delta^m - [\Delta']^m H^m ) \tilde{X}$$ and $$\nabla_{\beta^m}\mathcal{L}(\theta; m, g, p) = \tilde{X}^T \Delta^m s^m.$$
+We compute the first term of (\ref{sub_mat_2}). The $(k,l)$th entry of this matrix is
+\begin{multline*}
+\left( \E\left[-\nabla_{\beta^m}^2 \mathcal{L}(\theta; m, g, p)\right]\right)[k,l] = \E \left\{\tilde{X}[,k]^T (\Delta^m V^m \Delta^m - [\Delta']^mH^m) \tilde{X}[,l] \right\} \\ = \sum_{i=1}^n \E \left\{ \tilde{x}_{i,k} (\Delta^m_{i} V^m_{i} \Delta^m_{i} - [\Delta']^m_{i} H^m_{i}) \tilde{x}_{i,l} \right\} \\ = \sum_{i=1}^n \tilde{x}_{i,k}(0) T_i^{\theta}(0) [{\Delta}^m_i(0)  {V}^m_i(0) {\Delta}^m_i(0) - [\Delta']^m_i(0) {H}^m_i(0)] \tilde{x}_{i,l}(0) \\ + \sum_{i=1}^n \tilde{x}_{i,k}(1) T_i^{\theta}(1) [ {\Delta}^m_i(1)  {V}^m_i(1) {\Delta}^m_i(1) - [{\Delta}']^m_i(1) {H}^m_i(1)] \tilde{x}_{i,l}(1) \\ = \sum_{s = 0}^1 \tilde{X}(s)[,k]^T {T}^{\theta}(s) \left[ {\Delta}^m(s) {V}^m(s) {\Delta}^m(s) - [{\Delta}']^m(s) {H}^m(s) \right] \tilde{X}(s)[,l].
+\end{multline*}
+We therefore have that
+\begin{multline}\label{sub_mat_2_1}
+\E\left[-\nabla_{\beta^m}^2 \mathcal{L}(\theta; m, g, p)\right] \\ = \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) \left[ {\Delta}^m(s) {V}^m(s) {\Delta}^m(s) - [{\Delta}']^m(s) {H}^m(s) \right] \tilde{X}(s).
+\end{multline}
+Next, we compute the difference of the last two terms of (\ref{sub_mat_2}). The $(k,l)$th entry is
+\begin{multline*}
+\bigg[ \E \left[ \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right] \E \left[ \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right]^T \\ - \E \left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)^T \right] \bigg] [k,l] \\ 
+= \left[ \E \left[\tilde{X}^T \Delta^m s^m \right] \E \left[\tilde{X}^T \Delta^m s^m \right]^T\right][k,l] - \E \left[\tilde{X}^T \Delta^m s^m (s^m)^T \Delta^m \tilde{X} \right][k,l] \\
+= \E\left[ \tilde{X}[,k]^T \Delta^m s^m \right] \E \left[ \tilde{X}[,l]^T \Delta^m s^m \right] - \E \left[ \tilde{X}[,k]^T \Delta^m s^m (s^m)^T \Delta^m \tilde{X}[,l ] \right] \\ 
+=\E\left(\sum_{i=1}^n \tilde{x}_{ik} \Delta^m_i s^m_{i} \right) \E \left( \sum_{j=1}^n \tilde{x}_{jl} \Delta^m_j s^m_j \right) - \E \left( \sum_{i=1}^n \sum_{j=1}^n \tilde{x}_{ik} \Delta^m_i s^m_i s^m_j \Delta^m_j \tilde{x}_{jl} \right) \\
+= \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^m_is^m_i] \E [\tilde{x}_{jl} \Delta^m_j s^m_j]  -  \sum_{i=1}^n \sum_{j=1}^n \E [ \tilde{x}_{ik} \Delta^m_i s^m_i s^m_j \Delta^m_j \tilde{x}_{jl}] \\
+= \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^m_i s^m_i] \E \left[\tilde{x}_{jl} \Delta^m_j s^m_j \right]  - \sum_{i \neq j} \E [ \tilde{x}_{ik} \Delta^m_i s^m_i] \E[s^m_j \Delta^m_j \tilde{x}_{jl}] \\ - \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^m_i s^m_i s^m_i \Delta^m_i \tilde{x}_{il}] \\ 
+= \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^m_i s^m_i ] \E [ \tilde{x}_{il} \Delta^m_i s^m_i] - \sum_{i=1}^n \E[\tilde{x}_{ik} (\Delta_i^m)^2 (H_i^m)^2 \tilde{x}_{il}] \\ = \sum_{i=1}^n \left[\tilde{x}_{ik}(0) {\Delta}^m_i(0) T_i^{\theta}(0) {H}^m_i(0) + \tilde{x}_{ik}(1) {\Delta}^m_i(1) T_i^{\theta}(1) {H}^m_i(1) \right] \\ \cdot \left[ \tilde{x}_{il}(0) {\Delta}^m_i(0) T_i^{\theta}(0) {H}^m_i(0) + \tilde{x}_{il}(1) {\Delta}^m_i(1) T_i^{\theta}(1) {H}^m_i(1) \right] \\ - \sum_{i=1}^n \left[ \tilde{x}_{ik}(0) T_i^{\theta}(0) (\Delta_i^m(0))^2 ({H}_i^m(0))^2 \tilde{x}_{il}(0)  + \tilde{x}_{ik}(1) T_i^{\theta}(1) ({\Delta}^m_i(1))^2 ({H}_i^m(1))^m \tilde{x}_{il}(1) \right] \\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[ \sum_{i=1}^n \tilde{x}_{ik}(s) T^{\theta}_i(s) {\Delta}^m_i(s) {H}^m_i(t) T_i^{\theta}(t){\Delta}^m_i(t) {H}^m_i(t) \tilde{x}_{il}(t) \right] \\ - \sum_{s=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T_i^\theta(s) ({\Delta}^m_i(s))^2 ({H}_i^m(s))^2 \tilde{x}_{il}(s) \right] \\ = \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)[,k]^T {T}^\theta(s) {\Delta}^m(s) {H}^m(s) {T}^\theta(t) {\Delta}^m(t) {H}^m(t) \tilde{X}(k)[,l] \\ - \sum_{s=0}^1{X}(s)[,k]^T {T}^\theta(s) ({\Delta}^m(s))^2 ({H}^m(s))^2 \tilde{X}(s)[,l].
+\end{multline*}
+The sum of the last two terms on the right-hand side of (\ref{sub_mat_2}) is therefore
+\begin{multline}\label{sub_mat_2_2}
+ \E \left[ \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right] \E \left[ \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right]^T \\ - \E \left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)^T \right] \\ =
+\sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T {T}^\theta(s) {\Delta}^m(s) {H}^m(s) T^{\theta}(t) {\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T {T}^\theta(s) ({\Delta}^m(s))^2 ({H}^m(s))^2 \tilde{X}(s). \end{multline}
+Combining (\ref{sub_mat_2}), (\ref{sub_mat_2_1}), (\ref{sub_mat_2_2}), we find that
+\begin{multline}\label{sub_mat_2_formula}
+J_{\beta^m}(\theta; m, g) = \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) \left[ {\Delta}^m(s) {V}^m(s) {\Delta}^m(s) - [{\Delta}']^m(s) {H}^m(s) \right] \tilde{X}(s) \\ + \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T {T}^\theta(s) {\Delta}^m(s) {H}^m(s) {T}^\theta(t) {\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) ({\Delta}^m(s))^2 ({H}^m(s))^2 \tilde{X}(s).
+\end{multline}
+
+\subsubsection*{Submatrix III}
+Denote submatrix III by $J_{\beta^g}(\theta; m, g).$ The formula for sub-matrix III is similar to that of sub-matrix II (\ref{sub_mat_2_formula}). Substituting $g$ for $m$ in this equation yields
+\begin{multline}\label{sub_mat_3_formula}
+J_{\beta^g}(\theta; m, g) = \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) \left[{\Delta}^g(s) {V}^g(s) {\Delta}^g(s) - [{\Delta}']^g(s) {H}^g(s) \right] \tilde{X}(s) \\ + \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T {T}^\theta(s) {\Delta}^g(s) {H}^g(s) {T}^\theta(t) {\Delta}^g(t) {H}^g(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T T^{\theta}(s) ({\Delta}^g(s))^2 ({H}^g(s))^2 \tilde{X}(s).
+\end{multline}
+
+\subsubsection*{Submatrix IV}
+Denote sub-matrix IV by $J_b^{(\beta^g, \beta^m)}(\theta; m, g)$. The formula for $J_b^{(\beta^g, \beta^m)}(\theta; m, g)$ is 
+\begin{multline}\label{sub_mat_4_background}
+J_b^{(\beta^g, \beta^m)}(\theta; m,g) = \E \left[-\nabla_{\beta^{(g,b)}} \nabla_{\beta^m} \mathcal{L}_b(\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta^{(g,b)}}\mathcal{L}_b(\theta ; m,g,p) \right] \E \left[\nabla_{\beta^m}\mathcal{L}_b (\theta ; m,g,p)  \right]^T \\ - \E \left[ \nabla_{\beta^{(g,b)}}\mathcal{L}_b (\theta; m,g,p) \nabla_{\beta^m}\mathcal{L}_b(\theta; m,g,p)^T  \right].
+\end{multline} The first term on the right-hand-side of (\ref{sub_mat_4_background}) is $0$. Recall that $$\nabla_{\beta^{(g,b)}} \mathcal{L}_b(\theta; m, g, p) =   \tilde{X}^T\Delta^{(g,b)} s^{(g,b)}, \textrm{		} \nabla_{\beta^m} \mathcal{L}_b(\theta; m, g, p) = \tilde{X}^T \Delta^m s^m.$$ The $(k,l)$th entry of the difference of the last two terms of (\ref{sub_mat_4_background}) is
+\begin{multline*}
+\left[ \E \left[\nabla_{\beta^{(g,b)}} \mathcal{L}(\theta; m, g, p) \right] \E \left[\nabla_{\beta^m} \mathcal{L}(\theta; m, g, p) \right]^T - \E \left[ \nabla_{\beta^{(g,b)}} \mathcal{L}(\theta; m, g, p) \nabla_{\beta^m} \mathcal{L}(\theta; m, g, p)^T \right] \right][k,l] \\ 
+= \left[ \E \left[ \tilde{X}^T \Delta^{(g,b)} s^{(g,b)} \right]\E \left[ \tilde{X}^T \Delta^m s^m \right]^T\right][k,l] - \E \left[ \tilde{X}^T \Delta^{(g,b)} s^{(g,b)} (s^m)^T \Delta^m \tilde{X} \right][k,l] \\ 
+= \E\left[\tilde{X}[,k]^T \Delta^{(g,b)} s^{(g,b)} \right] \E \left[\tilde{X}[,l]^T \Delta^m s^m \right] - \E \left[\tilde{X}[,k]^T \Delta^{(g,b)} s^{(g,b)} (s^m)^T \Delta^m \tilde{X}[,l ] \right] \\
+=\E\left( \sum_{i=1}^n \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i \right) \E \left( \sum_{j=1}^n \tilde{x}_{jl} \Delta^m_j s^m_j \right) - \E \left( \sum_{i=1}^n \sum_{j=1}^n \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i s^m_j \Delta^m_j \tilde{x}_{jl} \right) \\ 
+= \sum_{i=1}^n \sum_{j=1}^n \E[\tilde{x}_{ik} \Delta^{(g,b)}_is^{(g,b)}_i] \E[ \tilde{x}_{jl} \Delta^m_j s^m_j ] - \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i s^m_j \Delta^m_j \tilde{x}_{jl}]  \\
+= \sum_{i=1}^n \sum_{j=1}^n \E[ \tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i] \E \left[\tilde{x}_{jl} \Delta^m_j s^m_j \right]  - \sum_{i \neq j} \E[\tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i] \E[\tilde{x}_{jl}\Delta^m_j  s^m_j ] \\ - \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^{(g,b)}_i s^{(g,b)}_i s^m_i \Delta^m_i \tilde{x}_{il}] \\
+= \sum_{i=1}^n \E[\tilde{x}_{ik} \Delta^{(g,b)}_i H^{(g,b)}_i] \E[\tilde{x}_{il} \Delta_i^m H^m_i] - \sum_{i=1}^n \E[\tilde{x}_{ik} H_i^{(g,b)} \Delta_i^{(g,b)} \Delta_i^m H_i^m \tilde{x}_{il}] \\ 
+= \sum_{i=1}^n \left[\tilde{x}_{ik}(0) {\Delta}^{(g,b)}_i(0) T_i(0) {H}^{(g,b)}_i(0) + \tilde{x}_{ik}(1) {\Delta}^{(g,b)}_i(1) T_i(1) {H}^{(g,b)}_i(1)\right] \\ 
+\cdot \left[\tilde{x}_{il}(0) {\Delta}^m_i(0) T_i(0) {H}^m_i(0) + \tilde{x}_{il}(1) {\Delta}^m_i(1) T_i(1) {H}^m_i(1)\right] 
+\\ - \sum_{i=1}^n [\tilde{x}_{ik}(0) T_i(0) {\Delta}^{(g,b)}_i(0) {H}^{(g,b)}_i(0) {\Delta}^m_i(0) {H}^m_i(0) \tilde{x}_{il}(0) \\ + \tilde{x}_{ik}(1) T_i(1) {\Delta}^{(g,b)}_i(1) {H}^{(g,b)}_i(1) {\Delta}^m_i(1) {H}^m_i(1) \tilde{x}_{il}(1) ] 
+\\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T_i(s) {\Delta}^{(g,b)}_i(s) {H}^{(g,b)}_i(s) T_i(t){\Delta}^m_i(t) {H}^m_i(t) \tilde{x}_{il}(t) \right]
+\\ - \sum_{s=0}^1 \left[\sum_{i=1}^n \tilde{x}_{ik}(s) T_i(s) {\Delta}^{(g,b)}_i(s) {H}^{(g,b)}_i(s) {\Delta}^m_i(s) {H}^m_i(s) \tilde{x}_{il}(s)\right] 
+\\ = \sum_{s=0}^1 \sum_{t=0}^1 \left[ \tilde{X}(s)[,k]^T {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {T}(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t)[,l] \right]\\ - \sum_{s=0}^1 \left[ \tilde{X}[,k]^T {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {\Delta}^m(s) {H}^m(s) \tilde{X}[,l](s)\right].
+\end{multline*}
+We conclude that
+\begin{multline}\label{sub_mat_4_formula_background}
+J^{(\beta^g, \beta^m)}_b(\theta; m, g) = \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T  {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {T}(t){\Delta}^m(t) {H}^m(t) \tilde{X}(t) \\ - \sum_{s=0}^1 \tilde{X}(s)^T {T}(s) {\Delta}^{(g,b)}(s) {H}^{(g,b)}(s) {\Delta}^m(s) {H}^m(s) \tilde{X}(s).
+\end{multline}
+\\ \noindent
+
+\subsection{Implementation}
 
 \section{Statistical accelerations}
 

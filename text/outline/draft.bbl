@@ -191,17 +191,15 @@ Andrew~J. Hill, Jos{\'{e}}~L. McFaline-Figueroa, Lea~M. Starita, Molly~J.
 \newblock {On the design of CRISPR-based single-cell molecular screens}.
 \newblock {\em Nature Methods}, 15(4):271--274, 2018.
 
-\bibitem{Louis2012}
-By~Thomas~A Louis.
-\newblock {Finding the Observed Information Matrix when Using the EM Algorithm
-  Author ( s ): Thomas A . Louis Reviewed work ( s ): Source : Journal of the
-  Royal Statistical Society . Series B ( Methodological ), Vol . 44 , No . 2
-  Published by : Blackwell Publishing}.
-\newblock {\em Society}, 44(2):226--233, 2012.
-
 \bibitem{fitzpatrick2009}
 Patrick Fitzpatrick.
 \newblock {\em {Advanced calculus}}, volume~5.
 \newblock American Mathematical Soc., 2009.
+
+\bibitem{Louis1982}
+By~Thomas~A Louis.
+\newblock {Finding the Observed Information Matrix when Using the EM
+  Algorithm}.
+\newblock {\em Society}, 44(2):226--233, 1982.
 
 \end{thebibliography}
