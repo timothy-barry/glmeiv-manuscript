@@ -25,7 +25,7 @@ Tim, Gene, Kathryn
 \end{center}
 
 \begin{abstract}
-CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and potentially illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
+CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
 \tableofcontents
 
@@ -345,7 +345,7 @@ $$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm
 \begin{algorithm}
 	\caption{EM algorithm for GLM-EIV model.}\label{algo:em_full}
 	\begin{algorithmic}
-		\Require Pilot estimates $\beta^\textrm{curr}_m, \beta^\textrm{curr}_g,$ and $\pi^\textrm{curr}$; data $[m_1, \dots, m_n]$, $[g_1, \dots, g_n]$, $[o^m_1, \dots, o^m_n]$, $[o^g_1, \dots, o^g_n]$, and $[z_1, \dots, z_n]$.
+		\Require Pilot estimates $\beta^\textrm{curr}_m, \beta^\textrm{curr}_g,$ and $\pi^\textrm{curr}$; data $[m_1, \dots, m_n]$, $[g_1, \dots, g_n]$, $[o^m_1, \dots, o^m_n]$, $[o^g_1, \dots, o^g_n]$, and $[z_1, \dots, z_n]$; gene expression distribution $f_m$ and link function $r^{-1}_m$; gRNA expression distribution $f_g$ and link function $r^{-1}_g$.  
 		\While{Not converged}
 			\For{$i \in \{1, \dots, n\}$} \Comment{E step}
 			\State $T_i(1) \gets \P\left(p_i = 1 |M_i = m_i, G_i = g_i, \beta_m^\textrm{curr}, \beta_g^\textrm{curr}, \pi^\textrm{curr} \right)$
@@ -353,8 +353,8 @@ $$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm
 		 \EndFor
 		 \State $\pi^{\textrm{curr}} \gets (1/n) \sum_{i=1}^n T_i(1)$ \Comment{M step}
 		 \State $w \gets [T_1(0), T_2(0), \dots, T_n(0), T_1(1), T_2(1), \dots, T_n(1)]^T$
-		 \State Fit GLM with responses $[m,m]^T$, offsets $[o^m, o^m]^T$, weights $w$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$; set $\beta_m^\textrm{curr}$ to estimated coefficient vector.
-		\State Fit GLM with responses  $[g,g]^T$, offsets $[o^g, o^g]^T$, weights $w$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$; set $\beta_g^\textrm{curr}$ to estimated coefficient vector.
+		 \State Fit GLM with responses $[m,m]^T$, offsets $[o^m, o^m]^T$, weights $w$, and design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$, distribution $f_m$, and link function $r^{-1}_g$; set $\beta_m^\textrm{curr}$ to estimated coefficient vector.
+		\State Fit GLM with responses  $[g,g]^T$, offsets $[o^g, o^g]^T$, weights $w$, design matrix $\begin{bmatrix} \tilde{X}(0) \\ \tilde{X}(1) \end{bmatrix}$, distribution $f_g$, and link function $r^{-1}_g$; set $\beta_g^\textrm{curr}$ to estimated coefficient vector.
 		\State Compute marginal likelihood given $\beta_m^\textrm{curr}$, $\beta_g^\textrm{curr}$, and $\pi^\textrm{curr}$.
 		\EndWhile
 		\State $\hat{\beta}_m \gets \beta_m^\textrm{curr}$; $\hat{\beta}_g \gets \beta_g^\textrm{curr}$; $\hat{\pi} \gets \pi^\textrm{curr}$.
@@ -362,7 +362,7 @@ $$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm
 	\end{algorithmic}
 \end{algorithm}
 
-After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm (that, in practice, requires multiple starts) to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis2012} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data.
+After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm (that, in practice, requires multiple starts) to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis1982} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data.
 
 \subsection{Statistical accelerations}
 
@@ -739,14 +739,14 @@ Thus, the maximizer $\pi^{(t+1)}$ of (\ref{Q_funct}) in $\pi$ is $\pi^{(t+1)} =
 We derive the asymptotic observed information matrix of the GLM-EIV log likelihood, enabling us to perform inference on the parameters. First, we define some notation. For $i \in \{1, \dots, n\}$, $j \in \{0, 1\}$, and $\theta = (\pi, \beta_m, \beta_g),$ let $T^\theta_i(j)$ be defined by
 $$T^\theta_i(j) = \P_\theta\left(P_i = j | M_i = m_i, G_i = g_i\right).$$ Also, define the $\R^n$ vectors $T^\theta(0)$ and $T(1)$ by
 $$T^\theta(0) := [T^\theta_1(0), T^\theta_2(0), \dots, T^\theta_n(0)]$$ and 
-$$T^\theta(1) := [T^\theta_1(1), T^\theta_2(1), \dots, T^\theta_n(1)].$$ Moreover, let $\pi^\theta$ 
+$$T^\theta(1) := [T^\theta_1(1), T^\theta_2(1), \dots, T^\theta_n(1)].$$
 
 Next, define the diagonal $n \times n$ matrices $\Delta^m$, $[\Delta']^m$, $V^m$, and $H^m$ by
 $$
 \begin{cases}
 	\Delta^m = \textrm{diag} \{ h_m'(l_1^m), \dots, h_m'( l_n^m ) \} \\
 	[\Delta']^m = \textrm{diag} \{ h_m''(l_1^m), \dots, h_m''( l_n^m) \} \\
-	V^m = \textrm{diag} \{ \psi_m( \eta^m_1), \dots, \psi_m( \eta^m_n) \} \\
+	V^m = \textrm{diag} \{ \psi''_m( \eta^m_1), \dots, \psi''_m( \eta^m_n) \} \\
 	H^m = \textrm{diag} \{ m_1 - \mu_1^m, \dots, m_n - \mu_n^m\}.
 \end{cases} 
 $$ Define the $n \times n$ matrices $\Delta^g, [\Delta']^g, V^g,$ and $H^g$ analogously. These matrices are \textit{unobserved}, as they depend on $\{p_1, \dots, p_n\}$.
@@ -755,8 +755,8 @@ For $j \in \{0,1\}$, let the diagonal $n \times n$ matrices $\Delta^m(j), [\Delt
 $$\begin{cases}
 \Delta^m(j) = \textrm{diag} \{ h_m'(l_1^m(j)), \dots, h_m'( l_n^m(j) ) \} \\
 [\Delta']^m(j) = \textrm{diag} \{ h_m''(l_1^m(j)), \dots, h_m''( l_n^m(j)) \} \\
-V^m(j) = \textrm{diag} \{ \psi_m( \eta^m_1(j)), \dots, \psi_m( \eta^m_n(j)) \} \\
-H^m(j) = \textrm{diag} \{ m_1 - \mu_1^m(j), \dots, m_n - \mu_n^m(j)\} .
+V^m(j) = \textrm{diag} \{\psi''_m( \eta^m_1(j)), \dots, \psi''_m( \eta^m_n(j))\} \\
+H^m(j) = \textrm{diag} \{m_1 - \mu_1^m(j), \dots, m_n - \mu_n^m(j)\} .
 \end{cases}
 $$
 Define the matrices $\Delta^g(j)$, $[\Delta']^{g}(j)$, $V^g(j),$ and $H^g(j)$ analogously. Finally, define the vectors $s^m(j)$ and $w^m(j)$ in $\R^n$ by 
@@ -930,6 +930,65 @@ J_{(\beta^g, \beta^m)}(\theta; m, g) = \sum_{s=0}^1 \sum_{t=0}^1 \tilde{X}(s)^T 
 We stitch these pieces together and transpose submatrices IV, V, and VI to produce the whole information matrix $J(\theta; m, g)$. Evaluating this matrix at the EM estimate $\theta^\textrm{EM}$ and inverting yields the asymptotic covariance matrix, which we can use to compute standard errors.
 
 \subsection{Implementation}
+To evaluate the observed information matrix, we need to compute the matrices $\Delta^m(j),$ $[\Delta']^m(j),$ $V^m(j),$ and $H^m(j)$ and the vectors $s^m(j)$ and $w^m(j)$ for $j \in \{0,1\}$. We likewise need to compute the analogous gRNA quantities. We describe how to compute these quantities in R by extending base family objects. We implicitly condition on $p_i$, $z^m_i$, and $o^m_i$.
+
+An \texttt{R} family object contains several functions, including \texttt{linkinv}, \texttt{variance}, and \texttt{mu.eta}. \texttt{linkinv} is the inverse link function $r_m^{-1}$. \texttt{variance} takes as an argument the mean $\mu^m_i$ and returns the variance $[\sigma_i^m]^2$. \texttt{mu.eta} is the derivative of the inverse link function $[r^{-1}_m]^{'}$. We extend the \texttt{R} family object by adding two additional functions: \texttt{skewness} and \texttt{mu.eta.prime}. \texttt{skewness} returns the skewness $\gamma^m_i$ of the distribution as a function of the mean $\mu_i$, i.e. $$\texttt{skewness}\left(\mu_i\right) = \E \left[\left(\frac{m_i - \mu_i^m}{ \sigma_i^m}\right)^3\right] := \gamma_i^m.$$ Finally, the \texttt{mu.eta.prime} is the second derivative of the inverse link function $[r^{-1}_m]''.$ Algorithm \ref{algo:computing_info_matrices} computes the matrices $\Delta^m(j)$, $[\Delta']^m(j)$, $V^m(j)$, $H^m(j)$, and vector $s^m(j)$ for given $\beta_m$ and given family object. (The vector $w^m(j)$ can be computed in terms of $\Delta^m(j)$ and $H^m(j)$.) We use $\sigma^m_i(j)$ (resp. $\gamma^m_i(j)$) to refer to the standard deviation (resp. skewness) of the gene expression distribution the $i$th cell when the perturbation $p_i$ is set to $j$.
+
+\begin{algorithm}
+	\caption{Computing the matrices $\Delta^m(j)$, $[\Delta']^m(j)$, $V^m(j)$, $H^m(j)$, and $s^m(j)$ for given $\beta_m$.}\label{algo:computing_info_matrices}
+	\begin{algorithmic}[3]
+		\Require A coefficient vector $\beta_m$; data $[m_1, \dots, m_n]$, $[o^m_1, \dots, o^m_n]$, and $[z_1, \dots, z_n]$; and a family object containing functions \texttt{linkinv}, \texttt{variance}, \texttt{mu.eta}, \texttt{mu.eta.prime}, and \texttt{skewness}.
+		\For{$j \in \{0, 1\}$}
+			\For{$i \in \{1, \dots, n\}$}
+			\State $l^m_i(j) \gets \langle \beta_m, \tilde{x}_i(j) \rangle + o^m_i$
+			\State $\mu^m_i(j) \gets \texttt{linkinv}(l^m_i(j))$
+			\State $[\sigma_i^m(j)]^2 \gets \texttt{variance}(\mu_i^m(j))$
+			\State $h_m'(l_i^m(j)) \gets \texttt{mu.eta}(l_i^m(j))/[\sigma_i^m(j)]^2$
+			\State $\gamma^m_i(j) \gets \texttt{skewness}(\mu^m_i(j))$
+			\State $[r_m^{-1}]''(l_i^m(j)) \gets \texttt{mu.eta.prime}(l^m_i(j))$
+			\State $$h_m''(l_i^m(j)) \gets \frac{[r^{-1}]''(l_i^m(j)) - [([\sigma_i^m(j)]^2)^{3/2}][\gamma^m_i(j)] [h_m'(l_i^m(j))]^2}{[\sigma_i^m(j)]^2}$$
+			\Comment Assign quantities to matrices
+			\State $\Delta_{i}^m(j) \gets h_m'( l_i^m(j))$
+			\State $[\Delta']^m_{i}(j) \gets h''(l^m_i(j))$
+			\State $V^m_{i}(j) \gets [\sigma^m_i(j)]^2$
+			\State $H^m_{i}(j) \gets s^m_i(j) \gets m_i - \mu^m_i(j)$
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+All steps of the algorithm are obvious except the calculation of $h'_m(l^m_i(j))$ (line 6), $h''(l^m_i(j))$ (line 9), and $V^m_i(j)$ (line 12). We omit the $(j)$ notation for compactness. First, we prove the correctness of the expression for $h'_m(l^m_i)$. Recall the basic GLM identities
+\begin{equation}\label{computing_info_matrix_1}
+\psi_m''(\eta_i^m) =  [\sigma^m_i]^2
+\end{equation}
+ and, for all $t \in \R$, 
+\begin{equation}\label{computing_info_matrix_2}
+ r_m^{-1}(t) = \psi_m'(h_m(t)).
+\end{equation}
+ Differentiating (\ref{computing_info_matrix_2}) in $t$, we find that
+\begin{equation}\label{computing_info_matrix_3}
+ (r_m^{-1})'(t) = \psi_m''(h_m(t))h_m'(t), 
+\end{equation}
+or  $$h_m'(t) = \frac{(r_m^{-1})'(t) }{\psi_m''(h_m(t))}.$$ Finally, plugging in $l^m_i$ for $t$,
+$$ h_m'(l_i) = \frac{(r_m^{-1})'(l^m_i)}{\psi''(h_m(l^m_i))} = \frac{(r_m^{-1})'(l^m_i)}{\psi_m''(\eta^m_i)} = \textrm{ by (\ref{computing_info_matrix_1}) } \frac{(r_m^{-1})'(l_i^m)}{[\sigma_i^m]^2}.$$
+
+Next, we prove the correctness for the expression for $h_m''(l_i^m)$. Recall the exponential family identity 
+\begin{equation}\label{computing_info_matrix_4}
+\psi'''_m(\eta^m_i) = \gamma^m_i  ([\sigma^m_i]^2)^{3/2}.
+\end{equation}
+Differentiating (\ref{computing_info_matrix_3}) in $t$, we obtain
+$$ (r_m^{-1})''(t) = \psi_m'''(h_m(t)) [h_m'(t)]^2 + \psi_m''(h_m(t)) h_m''(t),$$ or $$h_m''(t) =\frac{(r_m^{-1})''(t) - \psi'''(h_m(t))[h_m'(t)]^2}{\psi_m''(h_m(t))}.$$ Plugging in $l^m_i$ for $t$, we find that
+\begin{multline*}
+h_m''(l^m_i) = \frac{(r_m^{-1})''(l^m_i) - \psi_m'''(\eta^m_i) [h_m'(l_i^m)]^2}{[\sigma_i^m]^2} \\ = \textrm{ (by \ref{computing_info_matrix_4}) }  \frac{(r_m^{-1})''(l^m_i) - ([\sigma_i^m]^2)^{3/2} (\gamma_i^m) [h_m'(l^m_i)]^2 }{[\sigma_i^m]^2}.
+\end{multline*}
+Finally, the expression for $V^m_i$ follows from (\ref{computing_info_matrix_1}). We can apply a similar algorithm to compute the analogous matrices for the gRNA modality.
+
+% Table of family object functions vs distribution and link.
+
+\section{Zero-inflated model}
+\subsection{Relationship to background real model}
+\subsection{Estimation}
+\subsection{Inference}
 
 \section{Statistical accelerations}
 

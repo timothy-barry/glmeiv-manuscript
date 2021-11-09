@@ -1,7 +1,7 @@
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Background and analysis challenges}{3}
 \contentsline {subsection}{\numberline {2.1}Related work}{3}
-\contentsline {subsection}{\numberline {2.2}Assay overview}{6}
+\contentsline {subsection}{\numberline {2.2}Assay overview}{5}
 \contentsline {subsection}{\numberline {2.3}Analysis challenges}{7}
 \contentsline {section}{\numberline {3}Thresholding method}{8}
 \contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{9}
@@ -20,15 +20,19 @@
 \contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{26}
 \contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{27}
 \contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{28}
-\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{28}
+\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{29}
 \contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{30}
 \contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{31}
-\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{31}
+\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{32}
 \contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{34}
 \contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{35}
-\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{36}
-\contentsline {subsection}{\numberline {B.1}Estimation}{36}
-\contentsline {subsection}{\numberline {B.2}Inference}{39}
+\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{37}
+\contentsline {subsection}{\numberline {B.1}Estimation}{37}
+\contentsline {subsection}{\numberline {B.2}Inference}{40}
 \contentsline {subsection}{\numberline {B.3}Implementation}{52}
-\contentsline {section}{\numberline {C}Statistical accelerations}{52}
-\contentsline {section}{\numberline {D}Additional simulation results}{52}
+\contentsline {section}{\numberline {C}Zero-inflated model}{55}
+\contentsline {subsection}{\numberline {C.1}Relationship to background real model}{55}
+\contentsline {subsection}{\numberline {C.2}Estimation}{55}
+\contentsline {subsection}{\numberline {C.3}Inference}{55}
+\contentsline {section}{\numberline {D}Statistical accelerations}{55}
+\contentsline {section}{\numberline {E}Additional simulation results}{55}
