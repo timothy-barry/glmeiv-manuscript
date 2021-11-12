@@ -191,15 +191,21 @@ Andrew~J. Hill, Jos{\'{e}}~L. McFaline-Figueroa, Lea~M. Starita, Molly~J.
 \newblock {On the design of CRISPR-based single-cell molecular screens}.
 \newblock {\em Nature Methods}, 15(4):271--274, 2018.
 
-\bibitem{fitzpatrick2009}
-Patrick Fitzpatrick.
-\newblock {\em {Advanced calculus}}, volume~5.
-\newblock American Mathematical Soc., 2009.
-
 \bibitem{Louis1982}
 By~Thomas~A Louis.
 \newblock {Finding the Observed Information Matrix when Using the EM
   Algorithm}.
 \newblock {\em Society}, 44(2):226--233, 1982.
+
+\bibitem{DITommaso2017}
+Paolo {DI Tommaso}, Maria Chatzou, Evan~W. Floden, Pablo~Prieto Barja, Emilio
+  Palumbo, and Cedric Notredame.
+\newblock {Nextflow enables reproducible computational workflows}.
+\newblock {\em Nature Biotechnology}, 35(4):316--319, 2017.
+
+\bibitem{fitzpatrick2009}
+Patrick Fitzpatrick.
+\newblock {\em {Advanced calculus}}, volume~5.
+\newblock American Mathematical Soc., 2009.
 
 \end{thebibliography}

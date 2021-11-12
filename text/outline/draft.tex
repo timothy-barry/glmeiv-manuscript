@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+ \usepackage[vmargin=1.18in,hmargin=1.1in]{geometry}
 \usepackage{amsfonts}
 \usepackage{comment}
 \usepackage{amsmath}
@@ -62,7 +63,7 @@ Similarly, Townes et al.\ \cite{Townes2019} proposed GLM-PCA, a generalization o
 
 The closest parallels to our work in the statistical methodology literature are Gr\"{u}n \& Leisch \cite{Grun2008} and Ibrahim \cite{Ibrahim1990}. Gr\"{u}n \& Leisch derived a method for estimation and inference in a $k$-component mixture of GLMs. While we prefer to view GLM-EIV as a generalized errors-in-variables method,  the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Ibrahim proposed a procedure for fitting GLMs in the presence of missing-at-random covariates. Our method, by contrast, involves fitting two conditionally independent GLMs in the presence of a totally latent covariate. Thus, while Ibrahim and Gr\"{u}n \& Leisch are helpful references, our estimation and inference tasks are more complex than theirs.
 
-The genomics literature has produced several applied methods for single-cell CRISPR screen analysis. In a prior work we developed SCEPTRE \cite{Barry2020}, a custom implementation of the conditional randomization test \cite{Candes2018, Liu2021} tailored to single-cell CRISPR screen data. SCEPTRE tests whether a given perturbation is associated with the change in expression of a given gene, adjusting for sources of confounding and ensuring robustness to expression model misspecification. Other applied methods for single-cell CRISPR screen analysis include MIMOSCA \cite{Dixit2016} and scMAGeCK \cite{Yang2019}. These methods, like SCEPTRE, focus on hypothesis testing (rather than estimation), but unlike SCEPTRE, they ignore the countedness of the data and are unable to handle confounders. In this work we tackle a set of analysis challenges that are complimentary to the challenges addressed by SCEPTRE. Most importantly, we seek to \textit{estimate} (with confidence) the effect size of a perturbation on gene expression change, \blue{a statistical objective unattainable within the nonparameteric hypothesis testing framework of SCEPTRE.}
+The genomics literature has produced several applied methods for single-cell CRISPR screen analysis. In a prior work we developed SCEPTRE \cite{Barry2020}, a custom implementation of the conditional randomization test \cite{Candes2018, Liu2021} tailored to single-cell CRISPR screen data. SCEPTRE tests whether a given perturbation is associated with the change in expression of a given gene, adjusting for sources of confounding and ensuring robustness to expression model misspecification. Other applied methods for single-cell CRISPR screen analysis include MIMOSCA \cite{Dixit2016} and scMAGeCK \cite{Yang2019}. These methods, like SCEPTRE, focus on hypothesis testing (rather than estimation), but unlike SCEPTRE, they ignore the countedness of the data and are unable to handle confounders. In this work we tackle a set of analysis challenges that are complimentary to the challenges addressed by SCEPTRE. Most importantly, we seek to \textit{estimate} (with confidence) the effect size of a perturbation on gene expression change, \blue{an unattainable objective within the nonparameteric hypothesis testing framework of SCEPTRE.}
 
 \subsection{Assay overview}
 
@@ -386,39 +387,23 @@ $$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm
 	\end{algorithmic}
 \end{algorithm}
 
-After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm (that, in practice, requires multiple starts) to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis1982} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data.
+After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis1982} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data.
 
 \subsection{Statistical accelerations}
-A downside of the the EM algorithm (Algorithm \ref{algo:em_full}) is that it requires fitting many GLMs. Assuming that we run the algorithm 15 times using randomly-generated pilot estimates (to ensure convergence to the global maximum), and assuming that the algorithm iterates through E and M steps about 10 times per run, we must fit approximately 300 GLMs. (These numbers are based on an exploratory application of the method to real and simulated data.) We devised a strategy (Algorithm \ref{algo:pilot_estimates}) for producing a highly accurate pilot estimate $(\pi^\textrm{pilot}, \beta_m^\textrm{pilot}, \beta_g^\textrm{pilot})$, thereby enabling us to run the algorithm once and converge upon the MLE within a few iterations. The strategy involves layering four statistical ``tricks'' (some new, some old) on top of one another; some of these tricks could be independently useful for accelerating other single-cell methods (e.g., SCEPTRE \cite{Barry2020}).
-
-The first step (Algorithm \ref{algo:pilot_estimates}, lines 2-4) is to obtain good parameter estimates for $[\beta^m_0, \gamma_m]^T$ and $[\beta^g_0, \gamma_g]^T$. Recall that the underlying gene expression parameter vector $\beta_m$ is $\beta_m = [\beta^m_0, \beta^m_1, \gamma_m]^T \in \R^d$, where $\beta^m_0$ is the intercept, $\beta^m_1$ is the effect of the perturbation, and $\gamma_m^T$ is the effect of the technical factors. To produce estimates $[\beta^m_0]^\textrm{pilot}$ and $[\gamma_m^T]^\textrm{pilot}$ of $\beta^m_0$ and $\gamma_m^T$, we regress the gene expressions $m$ onto the technical factors $X$. The intuition for this is as follows: the probability of perturbation $\pi$ is very small. Therefore, the true log likelihood is approximately equal to the log likelihood that results from omitting $p_i$ from the model:
-\begin{multline*}
-\sum_{i=1}^n f_m(m_i; \eta^m_i) = \sum_{i=1}^n f_m(m_i; h_m(\beta_0 + \beta_1 p_i + \gamma^T z_i + o^m_i)) \\ = \underbrace{\sum_{p_i =1}^n f_m(m_i; h_m(\beta_0 + \beta_1 + \gamma^T z_i + o^m_i))}_\textrm{few terms}  + \underbrace{\sum_{p_i = 0}^n f_m(m_i; h_m(\beta_0 + \gamma^T z_i + o^m_i))}_\textrm{many terms} \\ \approx \sum_{i = 1}^n f_m(m_i; h_m(\beta_0 + \gamma^T z_i + o^m_i)).
-\end{multline*}
-We similarly obtain estimates $[\beta^g_0]^\textrm{pilot}$ and $[\gamma^T_g]^\textrm{pilot}$ for $\beta^g_0$ and $\gamma^T_g$ by regressing the gRNA counts $g$ onto the technical factors $X$.
-
-Next, we obtain estimates $[\beta_1^m]^\textrm{pilot},$ $[\beta_1^g]^\textrm{pilot},$ and $\pi^\textrm{pilot},$ for $\beta^m_1$, $\beta^g_1$, and $\pi$ by fitting a ``reduced'' GLM-EIV model (Algorithm \ref{algo:pilot_estimates}, lines 4 - 29). First, we extract the fitted values (on the scale of the linear component) of the above-fitted GLMs:
-$$ \hat{f}^k_i = [\beta^k_0]^\textrm{pilot} + \langle [\gamma^T_k]^\textrm{pilot}, z_i \rangle + o^k_i,$$ for $k \in \{m,g\}.$ The log likelihood of the no-intercept, univariate GLM with predictor $p_i$ and offset $\hat{f}^m_i$ is approximately equal to the true log likelihood:
-\begin{multline*}
-\sum_{i=1}^n f_m(m_i; h_m(\beta_0 + \beta_1 p_i + \gamma^T z_i + o^m_i)) \approx \sum_{i=1}^n f_m(m_i; h_m( \beta_1 p_i + \hat{f}^m_i)),
-\end{multline*}
-and similarly for the gRNA modality. Therefore, to estimate $\beta^m_1$ $\beta^g_1,$ and $\pi$, we fit a ``reduced'' GLM-EIV, a special case of the full GLM-EIV with gene expressions $m$, gRNA counts $g$, gene offsets $\hat{f}^m := [\hat{f}^m_1, \dots, \hat{f}^m_n]^T$, gRNA offsets $\hat{f}^g := [\hat{f}^g_1, \dots, \hat{f}^g_n]^T$, and \textit{no} intercept term or covariates. Intuitively, we ``encode'' all information about technical factors, library sizes, and baseline expression levels into $\hat{f}^m$ and $\hat{f}^g$.
-
-Finally, the M step of the reduced GLM-EIV algorithm involves fitting two no-intercept, univariate GLMs with offsets (Algorithm \ref{algo:pilot_estimates}, line 20). We derived analytic formulas for the MLEs of these GLMs in the three most important cases: Gaussian response with identity link, Poisson response with log link, and negative binomial response with log link (see appendix; the latter formula is asymptotically exact). Because we do not need to use an iterative procedure (e.g., IRLS) to run the M step of the ``reduced'' GLM-EIV algorithm, this algorithm is fast. Overall, our procedure for obtaining pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}) requires fitting two GLMs (via IRLS).
+A downside of the the EM algorithm (Algorithm \ref{algo:em_full}) is that it requires fitting many GLMs. Assuming that we run the algorithm 15 times using randomly-generated pilot estimates (to ensure convergence to the global maximum), and assuming that the algorithm iterates through E and M steps about 10 times per run, we must fit approximately 300 GLMs. (These numbers are based on an exploratory application of the method to real and simulated data.) We devised a strategy (Algorithm \ref{algo:pilot_estimates}) to produce a highly accurate pilot estimate $(\pi^\textrm{pilot}, \beta_m^\textrm{pilot}, \beta_g^\textrm{pilot})$ of the true parameters, enabling us to run the algorithm once and converge upon the MLE within a few iterations. The strategy involves layering several statistical ``tricks'' (some new, some old) on top of one another. We expect these tricks to be independently useful for accelerating other single-cell methods (e.g., SCEPTRE \cite{Barry2020}).
 
 \begin{algorithm}
 	\caption{Computing pilot parameter estimates.}\label{algo:pilot_estimates}
 	\begin{algorithmic}[2]
 		\Require Data $m$, $g$, $o^m$, $o^g$, and $X$; gene expression distribution $f_m$ and link function $r^{-1}_m$; gRNA expression distribution $f_g$ and link function $r^{-1}_g$; number of EM starts $B$.
 		\For {$k \in \{m,g\}$}
-		\State Fit a GLM $GLM_k$ with responses $k$, offsets $o^k$, design matrix $X$, distribution $f_k$, and link function $r^{-1}_k$.
+		\State \multiline{Fit a GLM $GLM_k$ with responses $k$, offsets $o^k$, design matrix $X$, distribution $f_k$, and link function $r^{-1}_k$.}
 		\State Set $[\beta_0^k]^\textrm{pilot}$ and $[\gamma_k^T]^\textrm{pilot}$ to the fitted coefficients of $GLM_k$.
 		\For{$i \in \{1, \dots, n\}$}
-			\State $\hat{f}^k_i \gets [\beta_0^k]^\textrm{pilot} + \langle [\gamma_k^T]^\textrm{pilot} , z_i \rangle + o_i^k$ \Comment{untransformed fitted values}
+		\State $\hat{f}^k_i \gets [\beta_0^k]^\textrm{pilot} + \langle [\gamma_k^T]^\textrm{pilot} , z_i \rangle + o_i^k$ \Comment{untransformed fitted values}
 		\EndFor
 		\EndFor
 		\State \texttt{bestLik} $\gets -\infty$ \Comment{Reduced GLM-EIV}
-		\State $p \gets [\underbrace{0, \dots, 0}_\textrm{n}, \underbrace{1, \dots, 1}_\textrm{n}]$
 		\For{$i \in \{1,\dots,B\}$}
 		\State Randomly generate starting parameters $\pi^\textrm{curr}, [\beta_1^m]^\textrm{curr}, [\beta^g_1]^\textrm{curr}.$
 		\While{Not converged}
@@ -427,13 +412,13 @@ Finally, the M step of the reduced GLM-EIV algorithm involves fitting two no-int
 		\State $T_i(0) \gets 1 - T_i(1)$
 		\EndFor
 		\State $\pi^{\textrm{curr}} \gets (1/n) \sum_{i=1}^n T_i(1)$ \Comment{M step}
-		 \State $w \gets [T_1(0), T_2(0), \dots, T_n(0), T_1(1), T_2(1), \dots, T_n(1)]^T$
-		 \For{$k \in \{g,m\}$}
-		 \State \multiline{Fit no-intercept, univariate GLM $GLM_k$ with predictors $p$, responses $[k,k]^T$, offsets $[\hat{f}^k, \hat{f}^k]^T,$ and weights $w$.}
-		 \State Set $[\beta^k_1]^\textrm{curr}$ to fitted coefficient of $GLM_k$.
-		 \EndFor
-		 \State \multiline{
-		 Compute log likelihood \texttt{currLik} using $\pi^\textrm{curr}$,$ [\beta^m_1]^\textrm{curr}$, and $[\beta^g_1]^\textrm{curr}.$}
+		\State $w \gets [T_1(0), T_2(0), \dots, T_n(0), T_1(1), T_2(1), \dots, T_n(1)]^T$
+		\For{$k \in \{g,m\}$}
+		\State \multiline{Fit no-intercept, univariate GLM $GLM_k$ with predictors $[\underbrace{0, \dots, 0}_\textrm{n}, \underbrace{1, \dots, 1}_\textrm{n}]$, responses $[k,k]^T$, offsets $[\hat{f}^k, \hat{f}^k]^T,$ and weights $w$.}
+		\State Set $[\beta^k_1]^\textrm{curr}$ to fitted coefficient of $GLM_k$.
+		\EndFor
+		\State \multiline{
+			Compute log likelihood \texttt{currLik} using $\pi^\textrm{curr}$,$ [\beta^m_1]^\textrm{curr}$, and $[\beta^g_1]^\textrm{curr}.$}
 		\EndWhile
 		\If{\texttt{currLik} $>$ \texttt{bestLik}}
 		\State bestLik $\gets$ currLik
@@ -444,15 +429,48 @@ Finally, the M step of the reduced GLM-EIV algorithm involves fitting two no-int
 	\end{algorithmic}
 \end{algorithm}
 
+The first step (Algorithm \ref{algo:pilot_estimates}, lines 2-7) is to obtain good parameter estimates for $[\beta^m_0, \gamma_m]^T$ and $[\beta^g_0, \gamma_g]^T$ using regression. Recall that the underlying gene expression parameter vector $\beta_m$ is $\beta_m = [\beta^m_0, \beta^m_1, \gamma_m]^T \in \R^d$, where $\beta^m_0$ is the intercept, $\beta^m_1$ is the effect of the perturbation, and $\gamma_m^T$ is the effect of the technical factors. To produce estimates $[\beta^m_0]^\textrm{pilot}$ and $[\gamma_m^T]^\textrm{pilot}$, we regress the gene expressions $m$ onto the technical factors $X$. The intuition for why this works is as follows: the probability of perturbation $\pi$ is very small. Therefore, the true log likelihood is approximately equal to the log likelihood that results from omitting $p_i$ from the model:
+\begin{multline*}
+\sum_{i=1}^n f_m(m_i; \eta^m_i) = \sum_{i=1}^n f_m(m_i; h_m(\beta_0 + \beta_1 p_i + \gamma^T z_i + o^m_i)) \\ = \underbrace{\sum_{p_i =1}^n f_m(m_i; h_m(\beta_0 + \beta_1 + \gamma^T z_i + o^m_i))}_\textrm{few terms}  + \underbrace{\sum_{p_i = 0}^n f_m(m_i; h_m(\beta_0 + \gamma^T z_i + o^m_i))}_\textrm{many terms} \\ \approx \sum_{i = 1}^n f_m(m_i; h_m(\beta_0 + \gamma^T z_i + o^m_i)).
+\end{multline*}
+We similarly can obtain pilot estimates $[\beta^g_0]^\textrm{pilot}$ and $[\gamma^T_g]^\textrm{pilot}$ by regressing the gRNA counts $g$ onto the technical factors $X$. We extract the fitted values (on the scale of the linear component) for use in a subsequent step: $$\hat{f}^k_i = [\beta^k_0]^\textrm{pilot} + \langle [\gamma^T_k]^\textrm{pilot}, z_i \rangle + o^k_i,$$
+for $k \in \{m,g\}.$
 
+Next, we obtain estimates $[\beta_1^m]^\textrm{pilot},$ $[\beta_1^g]^\textrm{pilot},$ and $\pi^\textrm{pilot}$ for $\beta^m_1$, $\beta^g_1$, and $\pi$ by fitting a ``reduced'' GLM-EIV (Algorithm \ref{algo:pilot_estimates}, lines 8 onward). The log likelihood of the no-intercept, univariate GLM with predictor $p_i$ and offset $\hat{f}^m_i$ is approximately equal to the true log likelihood:
+$$ \sum_{i=1}^n f_m(m_i; \eta^m_i) =
+\sum_{i=1}^n f_m(m_i; h_m(\beta_0 + \beta_1 p_i + \gamma^T z_i + o^m_i)) \approx \sum_{i=1}^n f_m(m_i; h_m( \beta_1 p_i + \hat{f}^m_i)).
+$$
+Therefore, to estimate $\beta^m_1$, $\beta^g_1$, and $\pi$, we fit a GLM-EIV model with gene expressions $m$, gRNA counts $g$, gene offsets $\hat{f}^m := [\hat{f}^m_1, \dots, \hat{f}^m_n]^T$, gRNA offsets $\hat{f}^g := [\hat{f}^g_1, \dots, \hat{f}^g_n]^T$, and \textit{no} intercept or covariate terms. Intuitively, we ``encode'' all information about technical factors, library sizes, and baseline expression levels into $\hat{f}^m$ and $\hat{f}^g$. We run the algorithm $B \approx 15$ times over randomly-selected starting values for $\beta^m$, $\beta^g$, and $\pi$ and select the solution with greatest the log likelihood.
 
-% The underlying parameter vector is $\beta_0, \beta_1, \gamma,$ where $\beta_0$ is an intercept term, $\beta_1$ is the perturbation effect, and $\gamma$ are the technical factor effects. The first step is to obtain pilot paramter estimates for $\beta_0$ and $\gamma^m$. We present algo X. This works because the marginal perturbation probability $\pi$ is small; therefore, the model for $l_i^m$ is approximately correct, and we can get good estimates.
+The M step of the ``reduced'' GLM-EIV algorithm requires fitting two no-intercept, univariate GLMs with offsets (Algorithm \ref{algo:pilot_estimates}, line 20). We derive analytic formulas for the MLEs of these GLMs in the three most important cases: Gaussian response with identity link, Poisson response with log link, and negative binomial response with log link (see appendix; the latter formula is asymptotically exact, and, to the best of our knowledge, new). Consequently, we do not need to run the relatively slow IRLS procedure to carry out the M step of the ``reduced'' GLM-EIV algorithm. Overall, the proposed algorithm for obtaining the pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}) requires fitting two GLMs (via IRLS).
 
-% Next, we obtain pilot estimates for $\beta_1^m, \pi, \beta_1^g$. To do this, we fit a reduced GLM-EIV. The ``reduced'' GLM-EIV is a special case in which we model gene expressions and gRNA counts using an intercept and offsets only. This is approximately correct, because our pilot estimates for the other parameters are nearly correct.
+\subsection{Computation}
+We develop a computational infrastructure to apply GLM-EIV to large-scale, single-cell CRISPR screen data.\footnote{Pipeline available at \texttt{github.com/timothy-barry/glmeiv-pipeline}.} The infrastructure leverages Nextflow, a programming language that facilitates building data-intensive pipelines \cite{DITommaso2017}, and ondisc\footnote{Package available at \texttt{github.com/timothy-barry/ondisc}; preprint forthcoming.}, an R package that we developed (in a separate project) to facilitate large-scale computing on single-cell data. Nextflow and ondisc together enable the construction of highly portable single-cell pipelines: one can analyze data \textit{out-of-memory} on a laptop or in a \textit{distributed} fashion across tens or hundreds of nodes on a cloud (e.g., Microsoft Azure) or high-performance cluster.
 
-% The final trick is to fit the M step quickly. The GLMs are ``mean + offset'' models; we can fit these mean + offset models using IRLS. However, this iterative procedure is slow. When we use Poisson or NB models with log link (the most common case), we derived analytic formulas that are exactly or asymptotically correct. (Combines two tricks).
+Leveraging these technologies, we develop a scalable and efficient pipeline for deploying GLM-EIV (Algorithm \ref{algo:at_scale}). First, we run a round of ``precomputations'' on all $d_g$ genes and $d_p$ perturbations. The precomputations involve regressing the gene expressions (or gRNA counts) onto the technical factors, thereby ``factoring out'' lines 2-7 from Algorithm \ref{algo:pilot_estimates}. Next, we run differential expression analyses on the full set of gene-perturbation pairs; for a given pair, this amounts to obtaining the set of pilot parameters (Algorithm \ref{algo:pilot_estimates}, lines 8 onward), fitting the GLM-EIV model (Algorithm \ref{algo:em_full}), and performing inference. The three loops in Algorithm \ref{algo:at_scale} are embarassingly parallel and therefore can be massively parallelized. 
 
-% \subsection{Computational implementation}
+\begin{algorithm}
+	\caption{Applying GLM-EIV at scale.}\label{algo:at_scale}
+	\begin{algorithmic}
+		\State $G \gets \{\textrm{gene}_1, \dots, \textrm{gene}_{d_g}\}; P \gets \{\textrm{perturbation}_1, \dots, \textrm{perturbation}_{d_p}\}$
+		
+		\For{gene $\in G$}
+			\State Run precomputation (Algorithm \ref{algo:pilot_estimates}, lines 2-7) on gene. \State Save $\hat{f}^m$, $[\beta^m_0]^\textrm{pilot}$ and $[\gamma^T_m]^\textrm{pilot}$.
+		\EndFor
+		\For{perturbation $\in P$}
+		\State Run precomputation  (Algorithm \ref{algo:pilot_estimates}, lines 2-7) on perturbation.
+		\State Save $\hat{f}^g$, $[\beta^g_0]^\textrm{pilot}$ and $[\gamma^T_g]^\textrm{pilot}$.
+		\EndFor
+		\For{(gene, perturbation) $\in G \times P$}
+		\State Load $\hat{f}^m, \hat{f}^g,$ $[\beta^m_0]^\textrm{pilot}$ $[\gamma^T_m]^\textrm{pilot}$, $[\beta^g_0]^\textrm{pilot}$ and $[\gamma^T_g]^\textrm{pilot}$.
+		\State Compute $[\beta^m_1]^\textrm{pilot}, [\beta^g_1]^\textrm{pilot}, \pi^\textrm{pilot}$ (Algorithm \ref{algo:pilot_estimates}, lines 8 onward).
+		\State Run GLM-EIV using the pilot parameters (Algorithm \ref{algo:em_full}).
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Zero-inflated model}
+
 \section{Simulation studies}
 
 \section{Real data analysis}
@@ -1016,30 +1034,30 @@ We stitch these pieces together and transpose submatrices IV, V, and VI to produ
 \subsection{Implementation}
 To evaluate the observed information matrix, we need to compute the matrices $\Delta^m(j),$ $[\Delta']^m(j),$ $V^m(j),$ and $H^m(j)$ and the vectors $s^m(j)$ and $w^m(j)$ for $j \in \{0,1\}$. We likewise need to compute the analogous gRNA quantities. We describe how to compute these quantities in R by extending base family objects. We implicitly condition on $p_i$, $z^m_i$, and $o^m_i$.
 
-An \texttt{R} family object contains several functions, including \texttt{linkinv}, \texttt{variance}, and \texttt{mu.eta}. \texttt{linkinv} is the inverse link function $r_m^{-1}$. \texttt{variance} takes as an argument the mean $\mu^m_i$ and returns the variance $[\sigma_i^m]^2$. \texttt{mu.eta} is the derivative of the inverse link function $[r^{-1}_m]^{'}$. We extend the \texttt{R} family object by adding two additional functions: \texttt{skewness} and \texttt{mu.eta.prime}. \texttt{skewness} returns the skewness $\gamma^m_i$ of the distribution as a function of the mean $\mu_i$, i.e. $$\texttt{skewness}\left(\mu_i\right) = \E \left[\left(\frac{m_i - \mu_i^m}{ \sigma_i^m}\right)^3\right] := \gamma_i^m.$$ Finally, the \texttt{mu.eta.prime} is the second derivative of the inverse link function $[r^{-1}_m]''.$ Algorithm \ref{algo:computing_info_matrices} computes the matrices $\Delta^m(j)$, $[\Delta']^m(j)$, $V^m(j)$, $H^m(j)$, and vector $s^m(j)$ for given $\beta_m$ and given family object. (The vector $w^m(j)$ can be computed in terms of $\Delta^m(j)$ and $H^m(j)$.) We use $\sigma^m_i(j)$ (resp. $\gamma^m_i(j)$) to refer to the standard deviation (resp. skewness) of the gene expression distribution the $i$th cell when the perturbation $p_i$ is set to $j$.
-
 \begin{algorithm}
-	\caption{Computing the matrices $\Delta^m(j)$, $[\Delta']^m(j)$, $V^m(j)$, $H^m(j)$, and $s^m(j)$ for given $\beta_m$.}\label{algo:computing_info_matrices}
+	\caption{Computing the matrices $\Delta^m(j)$, $[\Delta']^m(j)$, $V^m(j)$, $H^m(j)$, and $s^m(j)$ given given $\beta_m$.}\label{algo:computing_info_matrices}
 	\begin{algorithmic}[3]
 		\Require A coefficient vector $\beta_m$; data $[m_1, \dots, m_n]$, $[o^m_1, \dots, o^m_n]$, and $[z_1, \dots, z_n]$; and a family object containing functions \texttt{linkinv}, \texttt{variance}, \texttt{mu.eta}, \texttt{mu.eta.prime}, and \texttt{skewness}.
 		\For{$j \in \{0, 1\}$}
-			\For{$i \in \{1, \dots, n\}$}
-			\State $l^m_i(j) \gets \langle \beta_m, \tilde{x}_i(j) \rangle + o^m_i$
-			\State $\mu^m_i(j) \gets \texttt{linkinv}(l^m_i(j))$
-			\State $[\sigma_i^m(j)]^2 \gets \texttt{variance}(\mu_i^m(j))$
-			\State $h_m'(l_i^m(j)) \gets \texttt{mu.eta}(l_i^m(j))/[\sigma_i^m(j)]^2$
-			\State $\gamma^m_i(j) \gets \texttt{skewness}(\mu^m_i(j))$
-			\State $[r_m^{-1}]''(l_i^m(j)) \gets \texttt{mu.eta.prime}(l^m_i(j))$
-			\State $$h_m''(l_i^m(j)) \gets \frac{[r^{-1}]''(l_i^m(j)) - [([\sigma_i^m(j)]^2)^{3/2}][\gamma^m_i(j)] [h_m'(l_i^m(j))]^2}{[\sigma_i^m(j)]^2}$$
-			\Comment Assign quantities to matrices
-			\State $\Delta_{i}^m(j) \gets h_m'( l_i^m(j))$
-			\State $[\Delta']^m_{i}(j) \gets h''(l^m_i(j))$
-			\State $V^m_{i}(j) \gets [\sigma^m_i(j)]^2$
-			\State $H^m_{i}(j) \gets s^m_i(j) \gets m_i - \mu^m_i(j)$
-			\EndFor
+		\For{$i \in \{1, \dots, n\}$}
+		\State $l^m_i(j) \gets \langle \beta_m, \tilde{x}_i(j) \rangle + o^m_i$
+		\State $\mu^m_i(j) \gets \texttt{linkinv}(l^m_i(j))$
+		\State $[\sigma_i^m(j)]^2 \gets \texttt{variance}(\mu_i^m(j))$
+		\State $h_m'(l_i^m(j)) \gets \texttt{mu.eta}(l_i^m(j))/[\sigma_i^m(j)]^2$
+		\State $\gamma^m_i(j) \gets \texttt{skewness}(\mu^m_i(j))$
+		\State $[r_m^{-1}]''(l_i^m(j)) \gets \texttt{mu.eta.prime}(l^m_i(j))$
+		\State $$h_m''(l_i^m(j)) \gets \frac{[r^{-1}]''(l_i^m(j)) - [([\sigma_i^m(j)]^2)^{3/2}][\gamma^m_i(j)] [h_m'(l_i^m(j))]^2}{[\sigma_i^m(j)]^2}$$
+		\Comment Assign quantities to matrices
+		\State $\Delta_{i}^m(j) \gets h_m'( l_i^m(j))$
+		\State $[\Delta']^m_{i}(j) \gets h''(l^m_i(j))$
+		\State $V^m_{i}(j) \gets [\sigma^m_i(j)]^2$
+		\State $H^m_{i}(j) \gets s^m_i(j) \gets m_i - \mu^m_i(j)$
+		\EndFor
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}
+
+An \texttt{R} family object contains several functions, including \texttt{linkinv}, \texttt{variance}, and \texttt{mu.eta}. \texttt{linkinv} is the inverse link function $r_m^{-1}$. \texttt{variance} takes as an argument the mean $\mu^m_i$ and returns the variance $[\sigma_i^m]^2$. \texttt{mu.eta} is the derivative of the inverse link function $[r^{-1}_m]^{'}$. We extend the \texttt{R} family object by adding two additional functions: \texttt{skewness} and \texttt{mu.eta.prime}. \texttt{skewness} returns the skewness $\gamma^m_i$ of the distribution as a function of the mean $\mu_i$, i.e. $$\texttt{skewness}\left(\mu_i\right) = \E \left[\left(\frac{m_i - \mu_i^m}{ \sigma_i^m}\right)^3\right] := \gamma_i^m.$$ Finally, the \texttt{mu.eta.prime} is the second derivative of the inverse link function $[r^{-1}_m]''.$ Algorithm \ref{algo:computing_info_matrices} computes the matrices $\Delta^m(j)$, $[\Delta']^m(j)$, $V^m(j)$, $H^m(j)$, and vector $s^m(j)$ for given $\beta_m$ and given family object. (The vector $w^m(j)$ can be computed in terms of $\Delta^m(j)$ and $H^m(j)$.) We use $\sigma^m_i(j)$ (resp. $\gamma^m_i(j)$) to refer to the standard deviation (resp. skewness) of the gene expression distribution the $i$th cell when the perturbation $p_i$ is set to $j$.
 
 All steps of the algorithm are obvious except the calculation of $h'_m(l^m_i(j))$ (line 6), $h''(l^m_i(j))$ (line 9), and $V^m_i(j)$ (line 12). We omit the $(j)$ notation for compactness. First, we prove the correctness of the expression for $h'_m(l^m_i)$. Recall the basic GLM identities
 \begin{equation}\label{computing_info_matrix_1}
@@ -1067,6 +1085,7 @@ h_m''(l^m_i) = \frac{(r_m^{-1})''(l^m_i) - \psi_m'''(\eta^m_i) [h_m'(l_i^m)]^2}{
 \end{multline*}
 Finally, the expression for $V^m_i$ follows from (\ref{computing_info_matrix_1}). We can apply a similar algorithm to compute the analogous matrices for the gRNA modality. Table \ref{family_object_functions} shows the \texttt{linkinv}, \texttt{variance}, \texttt{mu.eta}, \texttt{skewness}, and \texttt{mu.eta.prime} functions for several common family objects (which are defined by a distribution and link function). 
 \begin{table}
+\centering
 \caption{\texttt{linkinv}, \texttt{variance}, \texttt{mu.eta}, \texttt{skewness}, \texttt{mu.eta.prime} for common family objects (i.e., pairs of distributions and link functions).}\label{family_object_functions}
 \begin{tabular}{|C{2.5cm}|C{3.5cm}|C{3.4cm}|C{2.5cm}|}
 	\hline 
@@ -1091,7 +1110,83 @@ Finally, the expression for $V^m_i$ follows from (\ref{computing_info_matrix_1})
 \subsection{Inference}
 
 \section{Statistical accelerations}
+A key step in the algorithm for computing the pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}) is to fit a weighted, no-intercept, univariate GLM with nonzero offset terms and a binary predictor variable (line 20). We derive an analytic formula for the MLE of this GLM for three important pairs of response distributions and link functions: Gaussian response with identity link, Poisson response with log link, and negative binomial response with log link. The GLM that we seek to estimate has responses $[m,m]^T$, predictors $[\underbrace{0, \dots, 0}_\textrm{n}, \underbrace{1, \dots, 1}_\textrm{n}]$, offsets $[\hat{f}^m, \hat{f}^m],$ and weights $w = [T_1(0), \dots, T_n(0), T_1(1), \dots, T_n(1)]^T.$ Throughout, $C$ denotes a universal constant. The log likelihood of this GLM is
+\begin{multline*}
+$$\mathcal{L}(\beta_1; m) = \sum_{i=1}^n T_i(0) f_m(m_i; h_m(\beta_1 + \hat{f}^m_i )) + \sum_{i=1}^n T_i(1) f_m(m_i; h_m(\hat{f}^m_i)) \\ = \sum_{i=1}^n T_i(1) f_m(m_i; h_m(\beta_1 + \hat{f}^m_i )) + C.$$
+\end{multline*}
+Thus, finding the MLE $\hat{\beta_1}$ is equivalent to estimating a GLM with intercept $\beta_1$, offsets $\hat{f}^m$, weights $T_i(1)$, and \textit{no} covariate terms. We term such a GLM a \textit{intercept-plus-offset} model. Below, we study intercept-plus-offset models in generality.
 
+\subsection*{Intercept-plus-offset models}
+Let $\beta \in \R$ be an unknown constant. Let $o_1, \dots, o_n \sim \mathcal{P}_1$, where $\mathcal{P}_1$ is a distribution. Let $Y_i|o_i, \dots, Y_n|o_i$ be exponential family-distributed random variables with identity sufficient statistic. Suppose the mean $\mu_i$ of $Y_i|o_i$ is given by $$r(\mu_i) = \beta + o_i,$$ where $r: \R \to \R$ is a strictly increasing, differentiable link function. We call this model the \textit{intercept-plus-offset} model.
+
+Next, let $w_1, \dots, w_n \sim \mathcal{P}_2$ be weights, where $\mathcal{P}_2$ is a distribution bounded above by $1$ and below by $0$. (A special case is $w_i = 1$ for all $i \in \{1, \dots, n\}$.) Throughout, we assume that $y_iw_i$ and $\exp(o_i)w_i$ have finite first moment.  Suppose the cumulant-generating function and carrying density of the exponential family distribution are $\psi:\R \to \R$ and $c: \R \to \R$, respectively. The canonical parameter $\eta_i$ of the $i$th observation is 
+\begin{equation}\label{can_param}
+\eta_i = ([\psi']^{-1} \circ r^{-1})(\beta + o_i) := h(\beta + o_i),
+\end{equation}
+ and the density $f$ of $Y_i | \eta_i$ is
+$$f(y_i; \eta_i) = \exp\{y_i \eta_i - \psi(\eta_i) + c(y_i)\}.$$ The weighted log likelihood is
+\begin{equation}\label{m_plus_o_mle}
+\mathcal{L}(\beta;y_i) = \sum_{i=1}^n w_i\log\left[f(y_i;\eta_i)\right] = C + \sum_{i=1}^n w_i(y_i \eta _i - \psi(\eta_i)).
+\end{equation}
+Our goal is to find the weighted MLE $\hat{\beta}$ of $\beta$. We consider three important choices for the exponential family distribution and link function, which amounts to maximizing (\ref{m_plus_o_mle}) for three specific choices of $r$ and $\psi$. In the first two cases -- Gaussian distribution with identity link and Poisson distribution with log link -- we find the \textit{finite-sample} maximizer of (\ref{m_plus_o_mle}); by contrast, in the third case -- negative binomial distribution with log link -- we find the \textit{asymptotic} maximizer.
+
+\subsubsection*{Gaussian}
+First, consider a Gaussian response distribution and identity link function $r(\mu) = \mu$. The cumulant-generating function $\psi$ is $\psi(\eta) = \eta^2/2$, and so, by (\ref{can_param}),
+$$h(t) = [\psi']^{-1}( r^{-1}(t)) = [\psi']^{-1}(t) = t.$$
+Plugging $\eta_i = h(\beta + o_i) = \beta + o_i$ and $\psi(\eta_i) = (1/2)(\beta + o_i)^2$ into (\ref{m_plus_o_mle}), we obtain
+$$\mathcal{L}(\beta; y) = \sum_{i=1}^n w_i (y_i(\beta + o_i) - (\beta + o_i)^2/2).$$ The derivative of this expression in $\beta$ is
+$$\frac{\partial \mathcal{L}(\beta;y)}{\partial\beta} = \sum_{i=1}^n w_i (y_i - \beta - o_i) = \sum_{i=1}^n w_i(y_i - o_i) - \beta \sum_{i=1}^n w_i.$$ Setting this quantity to 0 and solving for $\beta$, we find that the MLE $\hat{\beta}^\textrm{gauss}$ is
+$$\hat{\beta}^\textrm{gauss} = \frac{\sum_{i=1}^n w_i (y_i - o_i)}{\sum_{i=1}^n w_i}.$$
+
+\subsubsection*{Poisson}
+Next, consider a Poisson response distribution and log link function $r(\mu) = \log(\mu).$ The cumulant-generating function $\psi$ is $\psi(\eta) = e^\eta.$ Therefore, by (\ref{can_param}),
+$$h(t) = [\psi']^{-1}(r^{-1}(t)) = [\psi']^{-1} \left(\exp(t) \right) = \log(\exp(t)) = t.$$ Plugging $\eta_i = h(\beta + o_i) = \beta + o_i$ and $\psi(\eta_i) = \exp(\beta + o_i)$ into (\ref{m_plus_o_mle}), we obtain
+$$ \mathcal{L}(\beta; y) = \sum_{i=1}^n w_i \left( y_i(\beta + o_i) - \exp(\beta + o_i) \right).$$ The derivative of this function in $\beta$ is 
+$$\frac{\partial \mathcal{L}(\beta; y)}{\partial \beta} = \sum_{i=1}^n w_iy_i - w_i \exp(\beta + o_i) = \sum_{i=1}^n w_i y_i - \exp(\beta) \sum_{i=1}^n w_i \exp(o_i).$$
+Setting to zero and solving for $\beta$, we find that the MLE $\hat{\beta}^\textrm{pois}$ is
+\begin{equation}\label{pois_mle}
+\hat{\beta}^\textrm{pois} = \log\left(\frac{\sum_{i=1}^n w_i y_i}{\sum_{i=1}^n w_i e^{o_i}}\right).
+\end{equation}
+
+\subsubsection*{Negative binomial}
+Finally, we consider a negative binomial response distribution (with fixed size parameter $\theta > 0$) and log link function $r(\mu) = \log(\mu)$. The cumulant-generating function $\psi$ is
+$\psi(\eta) = -\theta \log(1 - e^\eta).$ The derivative $\psi'$ of $\psi$ is
+$$ \psi'(t) = \theta \left(\frac{e^t}{1 - e^t}\right) = \frac{\theta}{e^{-t} - 1}.$$ Define the function $\delta: \R \to \R$ by $\delta(t) = -\log\left(\theta/t + 1 \right).$ We see that
+$$\psi'(\delta(t)) = \frac{\theta}{\exp\left(\log(\theta/t + 1 )\right) - 1} = t,$$ and so $\delta = [\psi']^{-1}.$ By (\ref{can_param}), we have that
+$$
+h(t) = [\psi']^{-1}(r^{-1}(t)) = -\log\left(\frac{\theta}{\exp(t)} + 1 \right) = \log\left(\frac{\exp(t)}{\theta + \exp(t)}\right).
+$$
+Therefore,
+\begin{multline}\label{nb_mo_1}
+\eta_i = h(\beta + o_i) = \log\left(\frac{\exp(\beta+o_i)}{\theta + \exp(\beta + o_i)} \right) = \beta + o_i - \log\left(\theta + e^{\beta}e^{o_i}\right) \\ = \beta - \log\left(\theta + e^{\beta}e^{o_i} \right) + C,
+\end{multline}
+ and
+ \begin{multline}\label{nb_mo_2}
+ \psi(\eta_i) = -\theta\log\left(1 - \frac{\exp(\beta+o_i)}{\theta + \exp(\beta + o_i)} \right) = -\theta \log \left(\frac{\theta}{\theta + \exp(\beta + o_i)} \right) \\ = -\theta \log (\theta) + \theta \log[\theta + \exp(\beta + o_i)] = \theta \log(\theta + e^{\beta}e^{o_i}) + C.
+ \end{multline}
+ Plugging (\ref{nb_mo_1}) and (\ref{nb_mo_2}) into (\ref{m_plus_o_mle}), the log-likelihood (up to a constant) is
+\begin{multline*}
+\mathcal{L}(\beta; y) = \beta \sum_{i=1}^n w_i y_i - \sum_{i=1}^n w_i y_i \log(\theta + e^\beta e^{o_i}) - \theta \sum_{i=1}^n w_i \log(\theta + e^\beta  e^{o_i}) \\ = \beta \sum_{i=1}^n w_i y_i - \sum_{i=1}^n (y_i + \theta)w_i\log(\theta + e^\beta e^{o_i}).
+\end{multline*}
+The derivative of $\mathcal{L}$ in $\beta$ is
+$$\frac{\partial \mathcal{L}(\beta;y)}{\partial \beta} = \sum_{i=1}^n w_i y_i  - \sum_{i=1}^n \frac{w_i(y_i + \theta) e^{\beta} e^{o_i}}{ \theta + e^{\beta} e^{o_i}}.$$
+Setting the derivative to zero, the MLE equation is
+\begin{equation}\label{nb_mle}
+e^\beta \sum_{i=1}^n \frac{w_i e^{o_i} (y_i + \theta)}{e^\beta e^{o_i} + \theta} = \sum_{i=1}^n w_i y_i.
+\end{equation}
+We cannot solve for $\beta$ in (\ref{nb_mle}) analytically. However, we can derive an asymptotically exact solution. By the law of total expectation,
+$$ \E \left[\frac{w_i  e^{o_i} (y_i + \theta)}{e^{\beta + o_i} + \theta} \right] = \E \left[\E\left[\frac{w_i e^{o_i} (y_i + \theta) }{e^{\beta + o_i} + \theta} \bigg| (o_i, w_i) \right] \right] = \E \left[\frac{w_i e^{o_i} (e^{\beta + o_i} + \theta)}{ e^{\beta + o_i} + \theta} \right] = \E [w_i e^{o_i}];
+$$
+the second equality holds because $\E[y_i | o_i ] = \mu_i = e^{\beta + o_i}.$ Dividing by $n$ on both sides of (\ref{nb_mle}) and rearranging,
+\begin{equation}\label{nb_mo_3}
+\beta = \log\left( \frac{ (1/n) \sum_{i=1}^n w_i e^{o_i} (y_i + \theta)/(e^\beta e^{o_i} + \theta)}{ (1/n) \sum_{i=1}^n w_i y_i. } \right).
+\end{equation}
+By weak LLN, the limit (in probability) of the MLE $\hat{\beta}^\textrm{NB}$ is
+\begin{equation}
+\hat{\beta}^{(\textrm{NB})} \xrightarrow{P} \log\left(\frac{\E[w_i y_i]}{\E[w_i e^{o_i}]} \right).
+\end{equation}
+But the Poisson MLE $\hat{\beta}^{(\textrm{Pois})}$ (\ref{pois_mle}) converges in probability to the same limit:
+$$ \hat{\beta}^{(\textrm{pois})} =  \log \left(\frac{ (1/n) \sum_{i=1}^n w_i y_i}{(1/n)\sum_{i=1}^n w_i e^{o_i}} \right) \xrightarrow{P} \log \left(\frac{\E[w_i y_i]}{ \E[w_i e^{o_i}]} \right).$$ Therefore, for large $n$, we can approximate $\hat{\beta}^{\textrm{(NB)}}$ by $\hat{\beta}^{(\textrm{pois})}$.
 
 \section{Additional simulation results}
 
