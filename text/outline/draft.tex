@@ -20,7 +20,7 @@
 	\end{tabularx}
 }
 \makeatother
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \usepackage{xcolor}
 \newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
@@ -34,15 +34,15 @@
 \begin{document}
 \noindent
 Tim, Gene, Kathryn
-\begin{center}
-\textbf{CRISPR genome editing, single-cell sequencing, and exponential family measurement error models}
+\begin{center} 
+\textbf{A new class of exponential family measurement error models, with application to single-cell CRISPR screens}
 \end{center}
 
 \begin{abstract}
 CRISPR genome engineering and single-cell sequencing have transformed biological discovery. Single-cell CRISPR screens unite these two technologies, linking genetic perturbations in individual cells to changes in gene expression and illuminating regulatory networks underlying diseases. In this work we study single-cell CRISPR screens from a statistical perspective. We demonstrate on real data that a standard method for estimation and inference in single-cell CRISPR screens — “thresholded regression” — exhibits attenuation bias and a bias-variance tradeoff as a function of an intrinsic tuning parameter. We recover these phenomena in precise theoretical terms in an idealized Gaussian setting. Next, we introduce GLM-EIV (“generalized linear model with errors-in-variables”), a new method for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed, overcoming limitations of thresholded regression. We develop a computational infrastructure to deploy GLM-EIV across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, single-cell CRISPR screen datasets, yielding new biological insights.
 \end{abstract}
 \tableofcontents
-
+\newpage
 \section{Introduction}
 CRISPR is a genome engineering tool that has enabled scientists to precisely edit human and nonhuman genomes, opening the door to new medical therapies \cite{Rothgangl2021,Musunuru2021} and transforming basic biology research \cite{Przybyla2021}. Recently, scientists have paired CRISPR genome engineering with single-cell sequencing \cite{Dixit2016,Datlinger2017}. The resulting assays, known as a ``single-cell CRISPR screens,'' link genetic perturbations in individual cells to changes in gene expression, illuminating regulatory networks underlying human diseases and other traits \cite{Morris2021a}.
 
@@ -50,7 +50,7 @@ Despite their promise, single-cell CRISPR screens present substantial statistica
 
 We study estimation and inference in single-cell CRISPR screens from a statistical perspective, formulating the data generating mechanism using a new class of errors-in-variables (or measurement error) models. We assume that the response variable $y$ is a GLM of an underlying predictor variable $x^*$. We do not observe $x^*$ directly; rather, we observe a noisy version $x$ of $x^*$ that itself is a GLM of $x^*$. The goal of the analysis is to estimate the effect of $x^*$ on $y$ using the observed data $(x , y)$ only. In the context of the biological application, $x^*$, $y$, and $x$ are CRISPR perturbations, gene expressions, and guide RNA counts, respectively.
 
-Our work makes two main contributions. First, we study the thresholding method from empirical and theoretical perspectives. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian model. \blue{Second, we introduce a new method, GLM-EIV (generalized linear model with errors-in-variables), for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed. In doing so, GLM-EIV implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic.} Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
+Our work makes two main contributions. First, we conduct a careful study of the thresholding method. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian model. \blue{Second, we introduce a new method, GLM-EIV (generalized linear model with errors-in-variables), for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed. In doing so, GLM-EIV implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic.} Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
 
 We implement several statistical accelerations (that likely are of independent utility) to bring the cost of GLM-EIV down to within an order of magnitude of the thresholding method. Finally, we develop a computational infrastructure to deploy GLM-EIV at-scale across hundreds or thousands of processors on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this infrastructure, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights.
 
@@ -63,14 +63,15 @@ Similarly, Townes et al.\ \cite{Townes2019} proposed GLM-PCA, a generalization o
 
 The closest parallels to our work in the statistical methodology literature are Gr\"{u}n \& Leisch \cite{Grun2008} and Ibrahim \cite{Ibrahim1990}. Gr\"{u}n \& Leisch derived a method for estimation and inference in a $k$-component mixture of GLMs. While we prefer to view GLM-EIV as a generalized errors-in-variables method,  the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Ibrahim proposed a procedure for fitting GLMs in the presence of missing-at-random covariates. Our method, by contrast, involves fitting two conditionally independent GLMs in the presence of a totally latent covariate. Thus, while Ibrahim and Gr\"{u}n \& Leisch are helpful references, our estimation and inference tasks are more complex than theirs.
 
-The genomics literature has produced several applied methods for single-cell CRISPR screen analysis. In a prior work we developed SCEPTRE \cite{Barry2020}, a custom implementation of the conditional randomization test \cite{Candes2018, Liu2021} tailored to single-cell CRISPR screen data. SCEPTRE tests whether a given perturbation is associated with the change in expression of a given gene, adjusting for sources of confounding and ensuring robustness to expression model misspecification. Other applied methods for single-cell CRISPR screen analysis include MIMOSCA \cite{Dixit2016} and scMAGeCK \cite{Yang2019}. These methods, like SCEPTRE, focus on hypothesis testing (rather than estimation), but unlike SCEPTRE, they ignore the countedness of the data and are unable to handle confounders. In this work we tackle a set of analysis challenges that are complimentary to the challenges addressed by SCEPTRE. Most importantly, we seek to \textit{estimate} (with confidence) the effect size of a perturbation on gene expression change, \blue{an unattainable objective within the nonparameteric hypothesis testing framework of SCEPTRE.}
+The genomics literature has produced several applied methods for single-cell CRISPR screen analysis. In a prior work we developed SCEPTRE \cite{Barry2020}, a custom implementation of the conditional randomization test \cite{Candes2018, Liu2021} tailored to single-cell CRISPR screen data. SCEPTRE tests whether a given perturbation is associated with the change in expression of a given gene, adjusting for sources of confounding and ensuring robustness to expression model misspecification. % Other applied methods for single-cell CRISPR screen analysis include MIMOSCA \cite{Dixit2016} and scMAGeCK \cite{Yang2019}. These methods, like SCEPTRE, focus on hypothesis testing (rather than estimation), but unlike SCEPTRE, they ignore the countedness of the data and are unable to handle confounders.
+In this work we tackle a set of analysis challenges that are complimentary to those addressed by SCEPTRE. Most importantly, we seek to \textit{estimate} (with confidence) the effect size of a perturbation on gene expression change, \blue{an objective that is unattainable within the nonparameteric hypothesis testing framework of SCEPTRE.}
 
 \subsection{Assay overview}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth]{../../figures/analysis_challenges/plot.pdf}
-	\caption{\textbf{Experimental design and analysis challenges}: \textbf{a,} Experimental design. For a given perturbation (e.g., the perturbation indicated in blue), we partition the cells into two groups: perturbed and unperturbed. Next, for a given gene, we conduct a differential expression analysis across the two groups, yielding an estimate of the impact of the given perturbation on the given gene. \textbf{b,} DAG representing all variables in the system. The perturbation (latent) impacts both gene expression and gRNA expression; technical factors act as nuisance variables, also impacting gene and gRNA expression. The target of estimation is the effect of the perturbation on gene expression. \textbf{c,} Schematic illustrating the ``background read'' phenomenon. Due to errors in the sequencing process, unperturbed cells exhibit a nonzero gRNA count distribution (bottom). The target of estimation is the change in mean gene expression in response to the perturbation (top). \textbf{d}, Example data on four cells for a given perturbation-gene pair. Note that (i) the perturbation is unobserved, and (ii) the gene and gRNA data are discrete counts.}
+	\caption{\textbf{Experimental design and analysis challenges}: \textbf{a,} Experimental design. For a given perturbation (e.g., the perturbation indicated in blue), we partition the cells into two groups: perturbed and unperturbed. Next, for a given gene, we conduct a differential expression analysis across the two groups, yielding an estimate of the impact of the given perturbation on the given gene. \textbf{b,} DAG representing all variables in the system. The perturbation (latent) impacts both gene expression and gRNA expression; technical factors act as confounders, also impacting gene and gRNA expression. The target of estimation is the effect of the perturbation on gene expression. \textbf{c,} Schematic illustrating the ``background read'' phenomenon. Due to errors in the sequencing process, unperturbed cells exhibit a nonzero gRNA count distribution (bottom). The target of estimation is the change in mean gene expression in response to the perturbation (top). \textbf{d}, Example data on four cells for a given perturbation-gene pair. Note that (i) the perturbation is unobserved, and (ii) the gene and gRNA data are discrete counts.}
 	\label{analysis_challenges}
 \end{figure}
 
@@ -342,11 +343,11 @@ The log-likelihood is
 \mathcal{L}(\theta; m, g, p) = \sum_{i=1}^n \log\left( \pi^{p_i}(1-\pi)^{1-p_i} \right) \\ + \sum_{i=1}^n \log\left( f_m(m_i; \eta^m_i)\right) + \sum_{i=1}^n \log\left( f_g(g_i; \eta_i^g) \right). \end{multline}
 Integrating over the unobserved variable $p_i$, we can write the marginal density $f$ of $(m_i, g_i)$ as
 \begin{equation}\label{marginal_density}
-f(m_i, g_i; \theta) = (1-\pi) f(m_i; \eta^m_i(0)) f(g_i; \eta^g_i(0)) + \pi f(m_i; \eta^m_i(1)) f(g_i; \eta^g_i(1)).
+f(m_i, g_i; \theta) = (1-\pi) f_m(m_i; \eta^m_i(0)) f_g(g_i; \eta^g_i(0)) + \pi f_m(m_i; \eta^m_i(1)) f_g(g_i; \eta^g_i(1)).
 \end{equation}
 Finally, the marginal log-likelihood is
 \begin{multline}\label{marginal_log_lik}
-\mathcal{L}(\theta; m, g) \\ = \sum_{i=1}^n \log\left[ (1-\pi) f(m_i; \eta^m_i(0)) f(g_i; \eta^g_i(0)) + \pi f(m_i; \eta^m_i(1)) f(g_i; \eta^g_i(1)) \right]
+\mathcal{L}(\theta; m, g) \\ = \sum_{i=1}^n \log\left[(1-\pi) f_m(m_i; \eta^m_i(0)) f_g(g_i; \eta^g_i(0)) + \pi f_m(m_i; \eta^m_i(1)) f_g(g_i; \eta^g_i(1)) \right]
 \end{multline}
 
 We see from (\ref{marginal_density}) that the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Additionally, the GLM-EIV model is a generalization of the classical errors-in-variables model (when the predictor is binary). Suppose that we observe data $(x_1, y_1), \dots, (x_n, y_n)$ from the following model:
@@ -387,7 +388,7 @@ $$T_i(1) = \P(p_i = 1| M_i = m_i, G_i = g_i, \beta^\textrm{(t)}_m, \beta^\textrm
 	\end{algorithmic}
 \end{algorithm}
 
-After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis1982} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data.
+After fitting the model, we perform inference on the estimated parameters. The easiest approach, given the complexity of the log likelihood, would be to run a parametric bootstrap on the fitted model. This strategy, however, is prohibitively slow, as the data are large and we use an EM algorithm to fit the model. Therefore, we derive an analytic formula for the asymptotic observed information matrix using Louis's Theorem \cite{Louis1982} (see appendix). Leveraging this analytic formula, we can calculate standard errors (and $p$-values and confidence intervals) quickly, enabling us to perform inference in practice on real, large-scale data. The derivation is fairly involved; simulation studies (subsequent section) confirm the correctness of the results.
 
 \subsection{Statistical accelerations}
 A downside of the the EM algorithm (Algorithm \ref{algo:em_full}) is that it requires fitting many GLMs. Assuming that we run the algorithm 15 times using randomly-generated pilot estimates (to ensure convergence to the global maximum), and assuming that the algorithm iterates through E and M steps about 10 times per run, we must fit approximately 300 GLMs. (These numbers are based on an exploratory application of the method to real and simulated data.) We devised a strategy (Algorithm \ref{algo:pilot_estimates}) to produce a highly accurate pilot estimate $(\pi^\textrm{pilot}, \beta_m^\textrm{pilot}, \beta_g^\textrm{pilot})$ of the true parameters, enabling us to run the algorithm once and converge upon the MLE within a few iterations. The strategy involves layering several statistical ``tricks'' (some new, some old) on top of one another. We expect these tricks to be independently useful for accelerating other single-cell methods (e.g., SCEPTRE \cite{Barry2020}).
@@ -447,7 +448,7 @@ The M step of the ``reduced'' GLM-EIV algorithm requires fitting two no-intercep
 \subsection{Computation}
 We develop a computational infrastructure to apply GLM-EIV to large-scale, single-cell CRISPR screen data.\footnote{Pipeline available at \texttt{github.com/timothy-barry/glmeiv-pipeline}.} The infrastructure leverages Nextflow, a programming language that facilitates building data-intensive pipelines \cite{DITommaso2017}, and ondisc\footnote{Package available at \texttt{github.com/timothy-barry/ondisc}; preprint forthcoming.}, an R package that we developed (in a separate project) to facilitate large-scale computing on single-cell data. Nextflow and ondisc together enable the construction of highly portable single-cell pipelines: one can analyze data \textit{out-of-memory} on a laptop or in a \textit{distributed} fashion across tens or hundreds of nodes on a cloud (e.g., Microsoft Azure) or high-performance cluster.
 
-Leveraging these technologies, we develop a scalable and efficient pipeline for deploying GLM-EIV (Algorithm \ref{algo:at_scale}). First, we run a round of ``precomputations'' on all $d_g$ genes and $d_p$ perturbations. The precomputations involve regressing the gene expressions (or gRNA counts) onto the technical factors, thereby ``factoring out'' lines 2-7 from Algorithm \ref{algo:pilot_estimates}. Next, we run differential expression analyses on the full set of gene-perturbation pairs; for a given pair, this amounts to obtaining the set of pilot parameters (Algorithm \ref{algo:pilot_estimates}, lines 8 onward), fitting the GLM-EIV model (Algorithm \ref{algo:em_full}), and performing inference. The three loops in Algorithm \ref{algo:at_scale} are embarassingly parallel and therefore can be massively parallelized. 
+Leveraging these technologies, we develop a scalable and efficient pipeline for GLM-EIV (Algorithm \ref{algo:at_scale}). First, we run a round of ``precomputations'' on all $d_g$ genes and $d_p$ perturbations. The precomputations involve regressing the gene expressions (or gRNA counts) onto the technical factors, thereby ``factoring out'' lines 2-7 from Algorithm \ref{algo:pilot_estimates}. Next, we run differential expression analyses on the full set of gene-perturbation pairs; for a given pair, this amounts to obtaining the complete set of pilot parameters (Algorithm \ref{algo:pilot_estimates}, lines 8 onward), fitting the GLM-EIV model (Algorithm \ref{algo:em_full}), and performing inference. The three loops in Algorithm \ref{algo:at_scale} are embarassingly parallel and therefore can be massively parallelized. 
 
 \begin{algorithm}
 	\caption{Applying GLM-EIV at scale.}\label{algo:at_scale}
@@ -470,12 +471,17 @@ Leveraging these technologies, we develop a scalable and efficient pipeline for 
 \end{algorithm}
 
 \subsection{Zero-inflated model}
+The GLM-EIV model assumes that unperturbed cells exhibit a nonzero ``background read'' gRNA count distribution due to errors in the sequencing and alignment processes. This assumption very likely is appropriate for most current single-cell CRISPR screen datasets \cite{Replogle2020}. However, background contamination may be negligible for some datasets, in which case the gRNA counts of unperturbed cells should be modeled as point masses at zero. We introduce such an extension -- which we call the ``zero-inflated GLM-EIV model'' -- in Appendix \ref{sec:zero_inf_model}. We derive efficient methods for estimation and inference in this model similar to those outlined above. However, given the ubiquity of background contamination in current single-cell CRISPR screen datasets, we focus our attention on the standard (or ``background read'') GLM-EIV model for the remainder of the main text.
 
 \section{Simulation studies}
 
 \section{Real data analysis}
 
 \section{Discussion}
+
+\bibliographystyle{unsrt}
+\newpage
+\bibliography{/Users/timbarry/optionFiles/glmeiv.bib}
 
 \begin{appendices}
 \section{Theoretical details for thresholding estimator}
@@ -797,7 +803,7 @@ The E step entails computing the membership probability of each cell. Let $\thet
 $$
 [\eta^m_i(k)]^{(t)} := h_m\left( \langle \tilde{x}_i(k) , \beta_m^{(t)} \rangle + o^m_i \right).
 $$ Similarly, let $\left[\eta^g_i(k)\right]^{(t)}$ be defined by
-$$\left[\eta^g_i(k)\right]^{(t)} :=  h_m\left( \langle \tilde{x}_i(k) , \beta_g^{(t)} \rangle + o^g_i \right).$$
+$$\left[\eta^g_i(k)\right]^{(t)} :=  h_g\left( \langle \tilde{x}_i(k) , \beta_g^{(t)} \rangle + o^g_i \right).$$
 Next, for $k \in \{0,1\},$ define $\alpha^{(t)}_i(k)$ by
 \begin{multline*}
 \alpha^{(t)}_i(k) := \P\left( M_i = m_i, G_i = g_i | P_i = k, \theta^{(t)} \right) \\ = \P\left( M_i = m_i | P_i = k, \theta^{(t)} \right) \P\left(G_i = g_i | P_i = k, \theta^{(t)} \right) \textrm{ (because $G_i \indep M_i | P_i$)} \\ = f_m\left(m_i; \left[ \eta^m_i(k) \right]^{(t)}\right) f_g\left(g_i; \left[ \eta^g_i(k) \right]^{(t)} \right).
@@ -810,10 +816,13 @@ $$
 \end{cases}
 $$
 The $i$th membership probability $T^{(t)}_i(1)$ is
-\begin{multline*}
-T^{(t)}_i(1) = \P(P_i = 1 | M_i = m_i, G_i = g_i, \theta^{(t)}) \\ = \frac{\pi^{(t)}(1) \alpha^{(t)}_i(1)}{ \sum_{k=0}^1 \pi^{(t)}(k) \alpha^{(t)}_i(k)} \textrm{ (by Bayes rule)} = \frac{1}{\frac{ \pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)} + 1} \\ = \frac{1}{ \exp\left(\log\left(\frac{\pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)}\right)\right) + 1} = \frac{ 1 }{ \exp\left(q^{(t)}_i\right) + 1},
-\end{multline*}
-where we set $$q_i^{(t)} := \log\left(\frac{\pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)}\right).$$
+\begin{multline}\label{e_step_1}
+T^{(t)}_i(1) = \P(P_i = 1 | M_i = m_i, G_i = g_i, \theta^{(t)})  = \frac{\pi^{(t)}(1) \alpha^{(t)}_i(1)}{ \sum_{k=0}^1 \pi^{(t)}(k) \alpha^{(t)}_i(k)} \textrm{ (by Bayes rule)} \\ = \frac{1}{\frac{ \pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)} + 1} = \frac{1}{ \exp\left(\log\left(\frac{\pi^{(t)}(0) \alpha_i(0)}{\pi^{(t)}(1) \alpha_i(1)}\right)\right) + 1} = \frac{ 1 }{ \exp\left(q^{(t)}_i\right) + 1},
+\end{multline}
+where we set 
+\begin{equation}\label{e_step_2}
+q_i^{(t)} := \log\left(\frac{\pi^{(t)}(0) \alpha_i^{(t)}(0)}{\pi^{(t)}(1) \alpha_i^{(t)}(1)}\right).
+\end{equation}
 Next, we have that
 \begin{multline*}
 q^{(t)}_i = \log\left[ \pi^{(t)}(0) \right] + \log\left[ f_m\left(m_i; \left[ \eta^m_i(0) \right]^{(t)}\right) \right] + \log\left[ f_g\left(g_i; \left[ \eta^g_i(0) \right]^{(t)}\right) \right] \\ - \log\left[ \pi^{(t)}(1) \right] - \log\left[ f_m\left(m_i; \left[ \eta^m_i(1) \right]^{(t)}\right) \right] - \log\left[ f_g\left(g_i; \left[ \eta^g_i(1) \right]^{(t)}\right) \right],
@@ -839,15 +848,12 @@ Thus, the maximizer $\pi^{(t+1)}$ of (\ref{Q_funct}) in $\pi$ is $\pi^{(t+1)} =
 
 \subsection{Inference}
 We derive the asymptotic observed information matrix of the GLM-EIV log likelihood, enabling us to perform inference on the parameters. First, we define some notation. For $i \in \{1, \dots, n\}$, $j \in \{0, 1\}$, and $\theta = (\pi, \beta_m, \beta_g),$ let $T^\theta_i(j)$ be defined by
-$$T^\theta_i(j) = \P_\theta\left(P_i = j | M_i = m_i, G_i = g_i\right).$$ Also, define the $\R^n$ vectors $T^\theta(0)$ and $T(1)$ by
-$$T^\theta(0) := [T^\theta_1(0), T^\theta_2(0), \dots, T^\theta_n(0)]$$ and 
-$$T^\theta(1) := [T^\theta_1(1), T^\theta_2(1), \dots, T^\theta_n(1)].$$
-
+$$T^\theta_i(j) = \P_\theta\left(P_i = j | M_i = m_i, G_i = g_i\right).$$ Let the $n \times n$ matrix $T^\theta(j)$ be given by $$T^\theta(j) = \textrm{diag}\left\{T^\theta_1(j), \dots, T^\theta_n(j)\right\}.$$
 Next, define the diagonal $n \times n$ matrices $\Delta^m$, $[\Delta']^m$, $V^m$, and $H^m$ by
 $$
 \begin{cases}
-	\Delta^m = \textrm{diag} \{ h_m'(l_1^m), \dots, h_m'( l_n^m ) \} \\
-	[\Delta']^m = \textrm{diag} \{ h_m''(l_1^m), \dots, h_m''( l_n^m) \} \\
+	\Delta^m = \textrm{diag} \{h_m'(l_1^m), \dots, h_m'(l_n^m)\} \\
+	[\Delta']^m = \textrm{diag} \{h_m''(l_1^m), \dots, h_m''(l_n^m) \} \\
 	V^m = \textrm{diag} \{ \psi''_m( \eta^m_1), \dots, \psi''_m( \eta^m_n) \} \\
 	H^m = \textrm{diag} \{ m_1 - \mu_1^m, \dots, m_n - \mu_n^m\}.
 \end{cases} 
@@ -1104,22 +1110,157 @@ Finally, the expression for $V^m_i$ follows from (\ref{computing_info_matrix_1})
 \end{tabular}
 \end{table}
 
-\section{Zero-inflated model}
-\subsection{Relationship to background real model}
+\section{Zero-inflated model}\label{sec:zero_inf_model}
+In this section we introduce the ``zero-inflated'' GLM-EIV model. The zero-inflated GLM-EIV model is appropriate to use when the unperturbed cells do not transcribe \textit{any} gRNA molecules (i.e., when there are no background reads). Let $x_i = [1, z_i]^T \in \R^{d-1}$ be the vector of observed covariates, including an intercept term. ($x_i$ is the same as $\tilde{x}_i$, but with the perturbation indicator $p_i$ removed.) Let $\beta_{g,z} = [\beta^g_0, \gamma_g] \in \R^{d-1}$ be an unknown coefficient vector. ($\beta_{g,z}$ is the same as $\beta_g$, but with the perturbation effect $\beta^g_1$ removed). Let the linear component $l^{g,z}_i$, mean $\mu^{g,z}_i$, and canonical parameter $\eta^{g,z}_i$ of gRNA count distribution of the $i$th cell be given by
+$$\begin{cases}
+l^{g,z}_i = \langle x_i, \beta_{g,z} \rangle + o^g_i \\
+r_g(\mu^{g,z}_i) = l^{g,z}_i \\
+\eta^{g,z}_i = ([\psi'_g]^{-1} \circ r^{-1}_g)(l^{g,z}_i) := h_g(l^{g,z}_i).
+\end{cases}
+$$
+The density $f_{g,z}$ of gRNA counts in the zero-inflated model is as follows:
+$$f_{g,z}(g_i; \eta^{g,z}_i, p_i) = [f_g(g_i;\eta^{g,z}_i)]^{p_i} \mathbb{I}(g_i = 0)^{1-p_i}.$$
+In other words, when the cell is \textit{perturbed} (i.e., $p_i = 1$), the zero-inflated density $f_{g,z}$ coincides with the background-read density $f_g$; by contrast, when the cell is \textit{unperturbed} (i.e., $p_i = 0$), the zero-inflated density $f_{g,z}$ is a point mass at zero. The gene expression density $f_m$ and perturbation indicator density $f_p$ are the same across the background read and zero-inflated models. We assume that the gene expression $m_i$ and gRNA count $g_i$ are conditionally independent given the perturbation indicator $p_i$. The joint density $f_z$ of $(m_i, p_i, z_i)$ is
+\begin{multline*}
+f_z(m_i, g_i, p_i) = f_m(m_i | p_i) f_{g,z}(g_i | p_i) f_p(p_i) \\ = \pi^{p_i} (1-\pi)^{1-p_i} f_m(m_i; \eta^m_i)[f_g(g_i; \eta_i^{g,z})]^{p_i} \mathbb{I}(g_i = 0)^{1-p_i}.
+\end{multline*}
+The log-likelihood $\mathcal{L}_z$ is
+\begin{multline*}
+\mathcal{L}_z(\theta; m, g, p) = \sum_{i=1}^n \log \left[ \pi^{p_i} (1-\pi)^{1-p_i} \right] + \sum_{i=1}^n \log\left[f_m(m_i; \eta^m_i) \right] \\ + \sum_{i=1}^n p_i \log \left[f_{g}(g_i; \eta_i^{g,z}) \right] + \sum_{i=1}^n (1 - p_i)\log\left[ \mathbb{I}(g_i = 0) \right],
+\end{multline*}
+where $\theta = [\pi, \beta_m, \beta_{g,z}]$ is the vector of unknown parameters.
+Integrating over the unobserved variable $p_i$, the marginal density $f_z$ of $(m_i, g_i)$ is
+$$f_z(m_i, g_i; \theta) = (1-\pi) f_m(m_i;\eta^m_i(0)) \mathbb{I}(g_i = 0) + \pi f_m(m_i; \eta^m_i(1)) f_g(g_i;\eta^{g,z}_i).$$ Finally, the marginal log-likelihood is
+$$
+\mathcal{L}_z(\theta; m_i, g_i) = \sum_{i=1}^n \log\left[ (1-\pi) f_m(m_i;\eta^m_i(0)) \mathbb{I}(g_i = 0) + \pi f_m(m_i; \eta^m_i(1)) f_g(g_i;\eta^{g,z}_i) \right].
+$$
+
 \subsection{Estimation}
+To estimate the parameters of the zero-inflated GLM-EIV model, we use an EM algorithm similar to Algorithm \ref{algo:em_full} but with two changes. First, we use a different formula for the $i$th membership probability at the $t$-th step of the algorithm $T^{(t)}_i(1)$. (We use $T^{(t)}_i(1)$ to denote the $i$th membership probability in \textit{both} the background read and zero inflated cases; the difference should be clear from context.) Let $\theta^{(t)} = (\pi^{(t)}, \beta^{(t)}_m, \beta^{(t)}_{g,z})$ be the parameter estimate at the $t$-th iteration of the algorithm. Arguing in a manner similar to the background read case, we have that $$T^{(t)}_i(1) = \frac{1}{ \exp(q_i^{\left(t,z\right)}) + 1},$$ where
+$$q_i^{(t,z)} = \log \left(\frac{(1 - \pi^{(t)}) \P(M_i = m_i | P_i = 0, \theta^{(t)}) \P(G_i = g_i | P_i = 0, \theta^{(t)})}{(\pi^{(t)}) \P(M_i = m_i | P_i = 1, \theta^{(t)}) \P(G_i = g_i | P_i = 1, \theta^{(t)})}\right).$$
+The expression for $q^{(t,z)}_i$ is
+\begin{multline*}
+q^{(t,z)}_i = \log\left[ 1 - \pi^{(t)} \right] + \log\left[ f_m\left(m_i; \left[ \eta^m_i(0) \right]^{(t)}\right) \right] + \log\left[ \mathbb{I}(g_i = 0) \right] \\ - \log\left[ \pi^{(t)} \right] - \log\left[ f_m\left(m_i; \left[ \eta^m_i(1) \right]^{(t)}\right) \right] - \log\left[ f_g\left(g_i; \left[\eta^{g,z}_i \right]^{(t)}\right) \right],
+\end{multline*}
+where $[\eta^{g,z}_i]^{(t)} = h_g( \langle x_i, \beta^{(t)}_{g,z} \rangle + o^g_i).$ Notice that if $g_i \geq 1$, then $T^{(t)}_i(1) = 1.$ This comports with our intuition that a nonzero gRNA count indicates the presence of a perturbation.
+
+Next, we consider the M step of the EM algorithm, which is similar to the background read case but slightly different. Define $Q_z(\theta | \theta^{(t)}) = \E_{(P | M = m, G = g, \theta^{(t)})} \left[ \mathcal{L}_z(\theta; m, g, p) \right].$ We have that
+\begin{multline}\label{q_funct_zero_inf}
+Q_z(\theta | \theta^{(t)}) = \sum_{i=1}^n \left[ T^{(t)}_i(1)\log(\pi) + T_i^{(t)}(0) \log(1 - \pi)\right] + \sum_{i=1}^n \sum_{j=0}^1 T^{(t)}_i(j) \log \left[ f_m( m_i; \eta_i^m(j)) \right] \\ + \sum_{i=1}^n T_i^{(t)}(1) \left[ \log( f_g(g_i; \eta_i^{g, z}))\right] + C.
+\end{multline}
+The three terms of (\ref{q_funct_zero_inf}) are functions of $\pi$, $\beta_m$, and $\beta_{g,z}$, respectively. The maximizer $\pi^{(t)}$ and $\beta_m^{(t+1)}$ of the first and second term are the same as in the background read case. The maximizer $\beta^{(t+1)}_{g,z}$ of the third term is the maximizer of the GLM with exponential family density $f_g$, link function $r_g$, responses $g$, weights $T^{(t)}(1)$, design matrix $X$, offsets $o^g$.
+
 \subsection{Inference}
+Next, we derive the asymptotic observed information matrix for the zero-inflated model, allowing us to perform inference. Again, let $T^{\theta}(1) := \textrm{diag}\{T^{\theta}_1(1), \dots, T^{\theta}_n(1)\},$ but note that $T^\theta_i(1) = \P(P_i = 1 | G_i = g_i, M_i = m_i, \theta)$ is computed differently than in the background read case. Define the $n \times n$ matrices $\Delta^{(g,z)}, [\Delta']^{(g,z)}, V^{(g,z)},$ and $H^{(g,z)}$ by
+$$
+\begin{cases}
+\Delta^{(g,z)} = \textrm{diag} \{ h_g'(l_1^{g,z} ), \dots, h_g'( l_n^{g,z}  ) \} \\
+[\Delta']^{(g,z)}  = \textrm{diag} \{ h_g''(l_1^{g,z} ), \dots, h_g''( l_n^{g,z} ) \} \\
+V^{(g,z)}  = \textrm{diag} \{ \psi_g( \eta^{g,z} _1), \dots, \psi_g( \eta^{g,z}_n) \} \\
+H^{(g,z)}  = \textrm{diag} \{ m_1 - \mu_1^{g,z} , \dots, m_n - \mu_n^{g,z} \} .
+\end{cases}
+$$
+Also, define the $\R^n$ vectors $s^{(g,z)}$ and $w^{(g,z)}$ by
+$$s^{(g,z)} = [g_1 - \mu_1^{g,z}, \dots, g_n - \mu_n^{g,z}]^T,$$ and $$w^{(g,z)} = [T^\theta_1(0)T^\theta_1(1) \Delta_1^{(g,z)}H^{(g,z)}_1,\dots, T^\theta_n(0)T^\theta_n(1) \Delta_n^{(g,z)}H^{(g,z)}_n].$$ These quantities are computable, as they do not depend on the unobserved variables $p_1, \dots, p_n$. Finally, let the unobserved, $n\times n$ matrix $P$ be defined by $P = \textrm{diag}\{ p_1, \dots, p_n \}$.
+
+
+The observed information matrix $J_z(\theta; m, g)$ is given by
+$$ J_z(\theta; m, g) = -\nabla^2 \mathcal{L}_z(\theta; m, g).$$ Louis's theorem implies that
+\begin{multline*}
+J_z(\theta; m, g) = -\E \left[\nabla^2 \mathcal{L}_z(\theta; m, g, p) | G = g, M = m \right] \\ + \E\left[\nabla \mathcal{L}_z(\theta; m, g, p) | G = g, M = m \right] \E\left[\nabla \mathcal{L}_z(\theta; m, g, p) | G = g, M = m \right]^T \\ - \E\left[\nabla\mathcal{L}_z(\theta; m, g, p) \nabla \mathcal{L}_z(\theta; m, g, p)^T | G = g, M = m \right].
+\end{multline*}
+The matrix $J_z(\theta; m, g)$ has dimension $d \times d$ and consists of nine submatrices (Figure \ref{infomatrixzeroinf}). Three of these submatrices (i.e., I, II, and V) are the same as the corresponding submatrices in the background read case. We therefore must compute the remaining submatrices (i.e., III, IV, and VI) to compute the entire matrix $J_z(\theta; m, g)$. Again, in the following, all expectations are understood to be conditional on $m$ and $g$.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.45\linewidth]{../../figures/info_matrix/info_matrix_zero_inf}
+	\caption{Block structure of the observed information matrix $J_z(\theta; m, g) = -\nabla^2 \mathcal{L}_z(\theta; m, g)$ for the zero-inflated model. Submatrices I, II, and VI are the same as in the background read model; therefore, we only need to compute submatrices III, VI, and V.}
+	\label{infomatrixzeroinf}
+\end{figure}
+
+\subsubsection*{Submatrix III (zero-inflated)}
+Denote submatrix III by $J_{\beta_{(g,z)}}(\theta; m, g)$ The formula for $J_{\beta_{(g,z)}}(\theta; m, g)$ is
+\begin{multline}\label{sub_mat_3_zeroinf}
+J_{\beta_{(g,z)}}(\theta; m, g) = -\E \left[\nabla_{\beta_{(g,z)}}^2 \mathcal{L}_z(\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \right] \E\left[\nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \right]^T \\ - \E\left[ \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p)^T \right].
+\end{multline}
+GLM theory indicates that
+$$ -\nabla_{\beta_{(g,z)}}^2 \mathcal{L}_z(\theta; m, g, p) =  X^T P ( \Delta^{(g,z)}V^{(g,z)}\Delta^{(g,z)} - (\Delta')^{(g,z)} H^{(g,z)}) X$$ and
+$$ \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) = X^T P \Delta^{(g,z)} s^{(g,z)}.$$
+We begin by computing the first term of (\ref{sub_mat_3_zeroinf}). The only random matrix among $X,$ $P$, $\Delta^{(g,z)}$, $V^{(g,z)}$, $(\Delta')^{(g,z)},$ and $H^{(g,z)}$ is $P$. Therefore, by the linearity of expectation,
+\begin{multline}\label{sub_mat_3_zeroinf_1}
+-\E \left[\nabla_{\beta_{(g,z)}}^2 \mathcal{L}_z(\theta; m, g, p) \right]   = \E \left[ X^T P (\Delta^{(g,z)}V^{(g,z)}\Delta^{(g,z)} - (\Delta')^{(g,z)} H^{(g,z)} \right] \\ = X^T T^{\theta}(1) ( \Delta^{(g,z)}V^{(g,z)}\Delta^{(g,z)} - (\Delta')^{(g,z)} H^{(g,z)}) X.
+\end{multline}
+Next, we compute the difference of the last two terms of (\ref{sub_mat_3_zeroinf}). The $(k,l)$th entry of this matrix is
+\begin{multline*}
+\bigg[ \E \left[\nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \right] \E \left[\nabla_{\beta{(g,z)}} \mathcal{L}_z(\theta; m, g, p)\right]^T \\ - \E \left[ \nabla_{{\beta_{(g,z)}}} \mathcal{L}_z(\theta; m, g, p) \nabla_{{\beta_{(g,z)}}} \mathcal{L}_z(\theta; m, g, p)^T \right] \bigg] [k,l] \\ 
+= \left[ \E \left[ {X}^T P \Delta^{(g,z)} s^{(g,z)} \right]\E \left[ {X}^T P \Delta^{(g,z)} s^{(g,z)} \right]^T\right][k,l] - \E \left[ {X}^T P \Delta s^{(g,z)} (s^{(g,z)})^T \Delta^{(g,z)} P {X}^T \right][k,l] \\ 
+= \E\left[{X}[,k]^T P \Delta^{(g,z)} s^{(g,z)} \right] \E \left[ {X}[,l]^T P \Delta^{(g,z)} s^{(g,z)} \right] - \E \left[ {X}[,k]^T P \Delta^{(g,z)} s^{(g,z)} (s^{(g,z)})^T \Delta^{(g,z)} P {X}[,l ] \right] \\
+=\E\left(\sum_{i=1}^n {x}_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_{i} \right) \E \left( \sum_{j=1}^n {x}_{jl} P_j \Delta^{(g,z)}_j s^{(g,z)}_j \right) \\ - \E \left( \sum_{i=1}^n \sum_{j=1}^n {x}_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i s^{(g,z)}_j \Delta^{(g,z)}_j P_j{x}_{jl} \right) \\ 
+= \sum_{i=1}^n \sum_{j=1}^n \E[ {x}_{ik} P_i \Delta^{(g,z)}_is^{(g,z)}_i] \E [ {x}_{jl} P_j \Delta^{(g,z)}_j s^{(g,z)}_j]  -  \sum_{i=1}^n \sum_{j=1}^n \E [ {x}_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i s^{(g,z)}_j \Delta^{(g,z)}_jP_j {x}_{jl}  ]  \\
+= \sum_{i=1}^n \sum_{j=1}^n \E[ {x}_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i ] \E \left[{x}_{jl} P_j \Delta^{(g,z)}_j s^{(g,z)}_j \right]  - \sum_{i \neq j} \E [{x}_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i] \E[s^{(g,z)}_j P_j \Delta^{(g,z)}_j {x}_{jl}] \\ - \sum_{i=1}^n \E[ {x}_{ik}P_i \Delta^{(g,z)}_i s^{(g,z)}_i s^{(g,z)}_i \Delta^{(g,z)}_i P_i{x}_{il}] \\ 
+= \sum_{i=1}^n \E[ {x}_{ik} P_i \Delta^{(g,z)}_i H^{(g,z)}_i] \E[{x}_{il}P_i\Delta^{(g,z)}_i H^{(g,z)}_i] - \sum_{i=1}^n \E[{x}_{ik}P_i^2(\Delta^{(g,z)}_i)^2 (H^{(g,z)}_i)^2 {x}_{il}] \\ = \sum_{i=1}^n {x}_{ik} T_i^{\theta}(1)^2(\Delta^{(g,z)}_i)^2 (H_i^{(g,z)})^2{x}_{il} - \sum_{i=1}^n {x}_{ik} T_i^{\theta}(1) (\Delta_i^{(g,z)})^2 (H_i^{(g,z)})^2 {x}_{il} \\ = {X}[,k]^T T^{\theta}(1)^2 (\Delta^{(g,z)})^2 (H^{(g,z)})^2 {X}[,l] - {X}[,k]^T T^{\theta}(1) (\Delta^{(g,z)})^2 (H^{(g,z)})^2 {X}[,l]
+\end{multline*}
+Therefore, we have that
+\begin{multline}\label{sub_mat_3_zeroinf_2}
+\E\left[ \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \right] \E\left[\nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \right]^T - \E\left[ \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p)^T \right] \\ = 
+X^T T^{\theta}(1)^2 (\Delta^{(g,z)})^2(H^{(g,z)})^2{X} - {X}^T T^{\theta}(1) (\Delta^{(g,z)})^2 (H^{(g,z)})^2 {X} \\ = - X^T T^{\theta}(1) \left(\Delta^{(g,z)}\right)^2 \left( H^{(g,z)} \right)^2 \left( I - T^{\theta}(1)  \right) X.
+\end{multline}
+Combining (\ref{sub_mat_3_zeroinf}), (\ref{sub_mat_3_zeroinf_1}), and (\ref{sub_mat_3_zeroinf_2}), we conclude that
+\begin{multline}\label{sub_mat_3_zeroinf_formula}
+J_{\beta_{(g, z)}} = \left( \theta; m, g \right) =  X^T T^{\theta}(1) ( \Delta^{(g,z)}V^{(g,z)}\Delta^{(g,z)} - (\Delta')^{(g,z)} H^{(g,z)}) X \\ - X^T T^{\theta}(1) \left(\Delta^{(g,z)}\right)^2 \left( H^{(g,z)} \right)^2 \left( I - T^{\theta}(1) \right) X.
+\end{multline}
+
+\subsubsection*{Submatrix IV (zero-inflated)}
+Denote submatrix IV by $J_{(\beta_{(g,z)}, \beta_m)}(\theta; m, g)$. The formula for submatrix IV is
+\begin{multline}\label{sub_mat_4_zeroinf}
+J_{(\beta_{(g,z)}, \beta_m)}(\theta; m, g) = - \E \left[\nabla_{\beta_{(g,z)}} \nabla_{\beta_m} \mathcal{L}_z (\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta_{(g,z)} }\mathcal{L}_z(\theta ; m,g,p) \right]\E\left[\nabla_{\beta_m}\mathcal{L}_z(\theta; m,g,p)\right]^T \\ - \E \left[\nabla_{\beta_{(g,z)}}\mathcal{L}_z (\theta; m,g,p) \nabla_{\beta_m}\mathcal{L}_z(\theta; m,g,p)]^T \right].
+\end{multline} 
+First, we have that
+\begin{equation}\label{sub_mat_4_zeroinf_1}
+- \E \left[\nabla_{\beta_{(g,z)}} \nabla_{\beta_m} \mathcal{L}_z (\theta; m, g, p) \right] = 0,
+\end{equation}
+ as the derivative in $\beta_m$ of $\mathcal{L}_z(\theta; m, g, p)$ is a function of $\beta_m$, and the derivative in $\beta_{(g,z)}$ of this term is $0$. Next, we compute the difference of the last two terms of (\ref{sub_mat_4_zeroinf}). Entry $(k,l)$ of this matrix is
+\begin{multline}\label{sub_mat_4_zeroinf_2}
+[\E[\nabla_{\beta_{(g,z)}}\mathcal{L}_z(\theta; m, g, p) ] \E [\nabla_{\beta_m} \mathcal{L}_z(\theta; m, g, p) ]^T \\ - \E [\nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) \nabla_{\beta_m}\mathcal{L}_z(\theta; m, g, p)^T ] ][k,l] \\ 
+= \left[ \E \left[ {X}^T P \Delta^{(g,z)} s^{(g,z)} \right] \E\left[\tilde{X}^T \Delta^m s^m\right]^T\right][k,l] - \E \left[{X}^T P \Delta^{(g,z)} s^{(g,z)} (s^m)^T \Delta^m \tilde{X} \right][k,l] \\ = \left[\E\left[{X}[,k]^T P \Delta^{(g,z)} s^{(g,z)}\right]\E\left[\tilde{X}[,l]^T \Delta^m s^m\right]^T\right] - \E \left[{X}[,k]^T P \Delta^{(g,z)} s^{(g,z)} (s^m)^T \Delta^m \tilde{X}[,l] \right] \\ = \E\left(\sum_{i=1}^n x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i\right) \E \left(\sum_{j=1}^n \tilde{x}_{jl} \Delta^m_j s^m_j \right) - \E \left(\sum_{i=1}^n \sum_{j=1}^n x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i \Delta^m_j s^m_j \tilde{x}_{jl}  \right) \\ 
+= \sum_{i=1}^n \sum_{j=1}^n \E [x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i] \E[\Delta^m_js^m_j \tilde{x}_{jl}] - \sum_{i=1}^n \sum_{j=1}^n \E[x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i \Delta^m_j s^m_j \tilde{x}_{jl}] \\
+= \sum_{i=1}^n \sum_{j=1}^n \E [x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i ] \E[\Delta^m_js^m_j \tilde{x}_{jl}] - \sum_{i \neq j} \E [x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i] \E[\Delta^m_js^m_j \tilde{x}_{jl}] \\ - \sum_{i=1}^n \E[x_{ik} P_i \Delta^{(g,z)}_i s^{(g,z)}_i \Delta^m_j s^m_j \tilde{x}_{jl}] \\
+= \sum_{i=1}^n \E[x_{ik} P_i \Delta_i^{(g,z)} H^{(g,z)}_i] \E[\tilde{x}_{il} \Delta^m_i H^m_i] - \sum_{i=1}^n \E[x_{ik} P_i \Delta_i^{(g,z)} H_i^{(g,z)} \Delta_i^m H_i^m \tilde{x}_{il}] \\ 
+= \sum_{i=1}^n \left[x_{ik} T_i^\theta(1) \Delta^{(g,z)}_i H^{(g,z)}_i \right] \cdot \left[{\Delta}^m_i(0) T^\theta_i(0) {H}^m_i(0) \tilde{x}_{il}(0) + {\Delta}^m_i(1) T_i^\theta(1) {H}^m_i(1) \tilde{x}_{il}(1)\right]
+\\ - \sum_{i=1}^n \left[x_{ik} T_i^\theta(1) \Delta^{(g,z)}_i H^{(g,z)}_i \Delta^m_i(1) H^m_i(1) \tilde{x}_{il}(1)\right] 
+\\ = \sum_{s=0}^1 \sum_{i=1}^n x_{ik} T_i^\theta(1) H_i^{(g,z)} \Delta_i^{(g,z)} T^\theta_i(s) \Delta_i^m(s) H^m(s) \tilde{x}_{il}(s) \\ - \sum_{i=1}^n \left[x_{il}T_i^\theta(1) \Delta^{(g,z)}_i H^{(g,z)}_i \Delta^m_i(1) H^m_i(1) \tilde{x}_{ik}(1)\right] \\ = \sum_{s=0}^1 X[,k]^T T^\theta(1) H^{(g,z)} \Delta^{(g,z)} T^\theta(s)\Delta^m(s)H^m(s) \tilde{X}(s)[,l] \\ - X[,k]^T \Delta^{(g,z)} H^{(g,z)} T^\theta(1)\Delta^m(1) H^m(1) \tilde{X}[,l].
+\end{multline}
+Combining (\ref{sub_mat_3_zeroinf}), (\ref{sub_mat_3_zeroinf_1}), and (\ref{sub_mat_3_zeroinf_2}) yields
+\begin{multline}\label{sub_mat_4_zeroinf_formula} J_{(\beta_{(g,z)}, \beta_m)}(\theta; m, g) = \left(\sum_{s=0}^1 X^T  T^\theta(1) H^{(g,z)} \Delta^{(g,z)} T^\theta(s) \Delta^m(s) H^m(s) \tilde{X}(s) \right) \\ - X^T \Delta^{(g,z)} H^{(g,z)} T^\theta(1) \Delta^m(1)H^m(1) \tilde{X}(1).
+\end{multline}
+
+\subsubsection*{Submatrix VI (zero-inflated)}
+Denote submatrix VI by $J_{(\beta_{(g,z)},\pi)}(\theta; m, g).$ The formula for $J_{(\beta_{(g,z)},\pi)}(\theta; m, g)$ is
+\begin{multline}\label{sub_mat_6_zeroinf}
+J_{(\beta_{(g,z)},\pi)}(\theta; m, g) = \E \left[-\nabla_{\beta_{(g,z)}} \nabla_{\pi} \mathcal{L}_z(\theta; m, g, p) \right] \\ + \E\left[ \nabla_{\beta_{(g,z)}}\mathcal{L}_z(\theta; m, g ,p)\right] \E \left[ \nabla_{\pi}\mathcal{L}_z(\theta; m,g,p) \right] \\ - \E \left[ \nabla_{\beta_{(g,z)}}\mathcal{L}_z(\theta; m,g,p) \nabla_{\pi}\mathcal{L}_z(\theta; m,g,p) \right].
+\end{multline} Recall that $\nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, p) = X^T P \Delta^{(g,z)}s^{(g,z)}$ and $\nabla_\pi \mathcal{L}_z(\theta; m, g, p) = a \left(\sum_{i=1}^n p_i\right) - b,$ where $$a = \frac{1}{\pi} + \frac{1}{1 - \pi}, \textrm{    } b = \frac{n}{1 - \pi}.$$ 
+We have that
+\begin{equation}\label{sub_mat_6_zeroinf_1}
+\E \left[-\nabla_{\beta_{(g,z)}} \nabla_{\pi} \mathcal{L}_z(\theta; m, g, p) \right] = 0,
+\end{equation}
+as the derivative in $\pi$ of $\mathcal{L}_z(\theta; m, g, p)$ is a function of $\pi$, and the derivative in $\beta_{(g,z)}$ of this term is $0$. Next, we compute the difference of the second two terms of (\ref{sub_mat_6_zeroinf}). The $k$th entry of this vector is
+\begin{multline}\label{sub_mat_6_zeroinf_2}
+\E \left[ \nabla_\pi \mathcal{L}_z(\theta; m, g, p) \right] \E\left[\nabla_{\beta_{(g,z)}} \mathcal{L}_z(\theta; m, g, x)[k] \right] - \E \left[\nabla_{\pi}\mathcal{L}(\theta; m,g,p) \nabla_{\beta_{(g,z)}} \mathcal{L} (\theta; m,g,p)[k] \right] \\= \left(\E \left[ a \sum_{i=1}^n p_i - b \right] \right)\left( \E \left[{X}[,k]^T P \Delta^{(g,z)} s^{(g,z)} \right]\right) - \E \left[ \left( a \sum_{i=1}^n p_i - b \right) {X}[,k]^T P \Delta^{(g,z)} s^{(g,z)}\right] \\ = \left( a \sum_{i=1}^n \E[p_i] - b \right) \left( \sum_{j=1}^n \E [x_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] \right) \\ - \E \left[ \left( a \sum_{i=1}^n p_i - b \right) \left( \sum_{j=1}^n \tilde{x}_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j \right) \right] \\= a \sum_{i=1}^n \sum_{j=1}^n \E [p_i] \E[x_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] - b \sum_{j=1}^n \E[x_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] \\ - \left[a \sum_{i=1}^n \sum_{j=1}^n \E [ p_i x_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] - b \sum_{j=1}^n \E[x_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] \right] \\ = a \sum_{i=1}^n \sum_{j=1}^n \E[p_i] \E[{x}_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] - a \sum_{i \neq j} \E[p_i] \E[x_{jk} p_j \Delta^{(g,z)}_j s^{(g,z)}_j] - a \sum_{i=1}^n \E[ x_{ik} p_i^2 \Delta^{(g,z)}_i s^{(g,z)}_i] \\ = a \sum_{i=1}^n \E[p_i] \E[x_{ik} p_i \Delta^{(g,z)}_i s^{(g,z)}_i] - a \sum_{i=1}^n \E[x_{ik} p_i^2 \Delta^{(g,z)}_i s^{(g,z)}_i] \\ = a \sum_{i=1}^n T^\theta_i(1) x_{ik} T^\theta_i(1) \Delta^{(g,z)}_i s^{(g,z)}_i - a \sum_{i=1}^n x_{ik} T^\theta_i(1) \Delta^{(g,z)}_i s^{(g,z)}_i \\ = a \sum_{i=1}^n \left( {x}_{ik} T^\theta_i(1)^2 \Delta^{(g,z)}_i s^{(g,z)}_i - x_{ik} T^\theta_i(1) \Delta^{(g,z)}_i s^{(g,z)}_i \right) = a \sum_{i=1}^n {x}_{ik}T^\theta_i(1)\Delta^{(g,z)}_i s^{(g,z)}_i \left( T^\theta_i(1) - 1\right) \\ = -a\sum_{i=1}^n x_{ik} T_i(0) T^\theta_i(1)\Delta^{(g,z)}_i H^{(g,z)}_i = -a X[,k]^T w^{(g,z)}.
+\end{multline}
+Combining (\ref{sub_mat_6_zeroinf}), (\ref{sub_mat_6_zeroinf_1}), and (\ref{sub_mat_6_zeroinf_2}), we conclude that
+\begin{equation}\label{sub_mat_6_zeroinf_formula} J_{(\beta_{(g,z)},\pi)}(\theta; m, g) = -\left( \frac{1}{\pi} + \frac{1}{1-\pi} \right)X^T w^{(g,z)}.\end{equation}
 
 \section{Statistical accelerations}
 A key step in the algorithm for computing the pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}) is to fit a weighted, no-intercept, univariate GLM with nonzero offset terms and a binary predictor variable (line 20). We derive an analytic formula for the MLE of this GLM for three important pairs of response distributions and link functions: Gaussian response with identity link, Poisson response with log link, and negative binomial response with log link. The GLM that we seek to estimate has responses $[m,m]^T$, predictors $[\underbrace{0, \dots, 0}_\textrm{n}, \underbrace{1, \dots, 1}_\textrm{n}]$, offsets $[\hat{f}^m, \hat{f}^m],$ and weights $w = [T_1(0), \dots, T_n(0), T_1(1), \dots, T_n(1)]^T.$ Throughout, $C$ denotes a universal constant. The log likelihood of this GLM is
-\begin{multline*}
+\begin{multline}\label{stat_acc_1}
 $$\mathcal{L}(\beta_1; m) = \sum_{i=1}^n T_i(0) f_m(m_i; h_m(\beta_1 + \hat{f}^m_i )) + \sum_{i=1}^n T_i(1) f_m(m_i; h_m(\hat{f}^m_i)) \\ = \sum_{i=1}^n T_i(1) f_m(m_i; h_m(\beta_1 + \hat{f}^m_i )) + C.$$
-\end{multline*}
+\end{multline}
 Thus, finding the MLE $\hat{\beta_1}$ is equivalent to estimating a GLM with intercept $\beta_1$, offsets $\hat{f}^m$, weights $T_i(1)$, and \textit{no} covariate terms. We term such a GLM a \textit{intercept-plus-offset} model. Below, we study intercept-plus-offset models in generality.
 
 \subsection*{Intercept-plus-offset models}
 Let $\beta \in \R$ be an unknown constant. Let $o_1, \dots, o_n \sim \mathcal{P}_1$, where $\mathcal{P}_1$ is a distribution. Let $Y_i|o_i, \dots, Y_n|o_i$ be exponential family-distributed random variables with identity sufficient statistic. Suppose the mean $\mu_i$ of $Y_i|o_i$ is given by $$r(\mu_i) = \beta + o_i,$$ where $r: \R \to \R$ is a strictly increasing, differentiable link function. We call this model the \textit{intercept-plus-offset} model.
 
-Next, let $w_1, \dots, w_n \sim \mathcal{P}_2$ be weights, where $\mathcal{P}_2$ is a distribution bounded above by $1$ and below by $0$. (A special case is $w_i = 1$ for all $i \in \{1, \dots, n\}$.) Throughout, we assume that $y_iw_i$ and $\exp(o_i)w_i$ have finite first moment.  Suppose the cumulant-generating function and carrying density of the exponential family distribution are $\psi:\R \to \R$ and $c: \R \to \R$, respectively. The canonical parameter $\eta_i$ of the $i$th observation is 
+We derive the (weighted) log likelihood of this model. Let $w_1, \dots, w_n \sim \mathcal{P}_2$ be weights, where $\mathcal{P}_2$ is a distribution bounded above by $1$ and below by $0$. (A special case, which corresponds to no weights, is $w_i = 1$ for all $i \in \{1, \dots, n\}$.) Throughout, we assume that $y_iw_i$ and $\exp(o_i)w_i$ have finite first moment.  Suppose the cumulant-generating function and carrying density of the exponential family distribution are $\psi:\R \to \R$ and $c: \R \to \R$, respectively. The canonical parameter $\eta_i$ of the $i$th observation is 
 \begin{equation}\label{can_param}
 \eta_i = ([\psi']^{-1} \circ r^{-1})(\beta + o_i) := h(\beta + o_i),
 \end{equation}
@@ -1128,7 +1269,8 @@ $$f(y_i; \eta_i) = \exp\{y_i \eta_i - \psi(\eta_i) + c(y_i)\}.$$ The weighted lo
 \begin{equation}\label{m_plus_o_mle}
 \mathcal{L}(\beta;y_i) = \sum_{i=1}^n w_i\log\left[f(y_i;\eta_i)\right] = C + \sum_{i=1}^n w_i(y_i \eta _i - \psi(\eta_i)).
 \end{equation}
-Our goal is to find the weighted MLE $\hat{\beta}$ of $\beta$. We consider three important choices for the exponential family distribution and link function, which amounts to maximizing (\ref{m_plus_o_mle}) for three specific choices of $r$ and $\psi$. In the first two cases -- Gaussian distribution with identity link and Poisson distribution with log link -- we find the \textit{finite-sample} maximizer of (\ref{m_plus_o_mle}); by contrast, in the third case -- negative binomial distribution with log link -- we find the \textit{asymptotic} maximizer.
+Our goal is to find the weighted MLE $\hat{\beta}$ of $\beta$. We consider three important choices for the exponential family distribution and link function. % This amounts to maximizing (\ref{m_plus_o_mle}) for three specific choices of $r$ and $\psi$.
+In the first two cases -- Gaussian distribution with identity link and Poisson distribution with log link -- we find the \textit{finite-sample} maximizer of (\ref{m_plus_o_mle}); by contrast, in the third case -- negative binomial distribution with log link -- we find an \textit{asymptotically exact} maximizer.
 
 \subsubsection*{Gaussian}
 First, consider a Gaussian response distribution and identity link function $r(\mu) = \mu$. The cumulant-generating function $\psi$ is $\psi(\eta) = \eta^2/2$, and so, by (\ref{can_param}),
@@ -1152,7 +1294,7 @@ Setting to zero and solving for $\beta$, we find that the MLE $\hat{\beta}^\text
 Finally, we consider a negative binomial response distribution (with fixed size parameter $\theta > 0$) and log link function $r(\mu) = \log(\mu)$. The cumulant-generating function $\psi$ is
 $\psi(\eta) = -\theta \log(1 - e^\eta).$ The derivative $\psi'$ of $\psi$ is
 $$ \psi'(t) = \theta \left(\frac{e^t}{1 - e^t}\right) = \frac{\theta}{e^{-t} - 1}.$$ Define the function $\delta: \R \to \R$ by $\delta(t) = -\log\left(\theta/t + 1 \right).$ We see that
-$$\psi'(\delta(t)) = \frac{\theta}{\exp\left(\log(\theta/t + 1 )\right) - 1} = t,$$ and so $\delta = [\psi']^{-1}.$ By (\ref{can_param}), we have that
+$$\psi'(\delta(t)) = \frac{\theta}{\exp\left(\log(\theta/t + 1 )\right) - 1} = t,$$ implying $\delta = [\psi']^{-1}.$ By (\ref{can_param}), we have that
 $$
 h(t) = [\psi']^{-1}(r^{-1}(t)) = -\log\left(\frac{\theta}{\exp(t)} + 1 \right) = \log\left(\frac{\exp(t)}{\theta + \exp(t)}\right).
 $$
@@ -1170,7 +1312,7 @@ Therefore,
 \end{multline*}
 The derivative of $\mathcal{L}$ in $\beta$ is
 $$\frac{\partial \mathcal{L}(\beta;y)}{\partial \beta} = \sum_{i=1}^n w_i y_i  - \sum_{i=1}^n \frac{w_i(y_i + \theta) e^{\beta} e^{o_i}}{ \theta + e^{\beta} e^{o_i}}.$$
-Setting the derivative to zero, the MLE equation is
+Setting the derivative to zero, the equation defining the MLE is
 \begin{equation}\label{nb_mle}
 e^\beta \sum_{i=1}^n \frac{w_i e^{o_i} (y_i + \theta)}{e^\beta e^{o_i} + \theta} = \sum_{i=1}^n w_i y_i.
 \end{equation}
@@ -1183,17 +1325,26 @@ the second equality holds because $\E[y_i | o_i ] = \mu_i = e^{\beta + o_i}.$ Di
 \end{equation}
 By weak LLN, the limit (in probability) of the MLE $\hat{\beta}^\textrm{NB}$ is
 \begin{equation}
-\hat{\beta}^{(\textrm{NB})} \xrightarrow{P} \log\left(\frac{\E[w_i y_i]}{\E[w_i e^{o_i}]} \right).
+\hat{\beta}^{\textrm{NB}} \xrightarrow{P} \log\left(\frac{\E[w_i y_i]}{\E[w_i e^{o_i}]} \right).
 \end{equation}
-But the Poisson MLE $\hat{\beta}^{(\textrm{Pois})}$ (\ref{pois_mle}) converges in probability to the same limit:
-$$ \hat{\beta}^{(\textrm{pois})} =  \log \left(\frac{ (1/n) \sum_{i=1}^n w_i y_i}{(1/n)\sum_{i=1}^n w_i e^{o_i}} \right) \xrightarrow{P} \log \left(\frac{\E[w_i y_i]}{ \E[w_i e^{o_i}]} \right).$$ Therefore, for large $n$, we can approximate $\hat{\beta}^{\textrm{(NB)}}$ by $\hat{\beta}^{(\textrm{pois})}$.
+But the Poisson MLE $\hat{\beta}^{\textrm{Pois}}$ (\ref{pois_mle}) converges in probability to the same limit:
+$$ \hat{\beta}^{\textrm{pois}} =  \log \left(\frac{ (1/n) \sum_{i=1}^n w_i y_i}{(1/n)\sum_{i=1}^n w_i e^{o_i}} \right) \xrightarrow{P} \log \left(\frac{\E[w_i y_i]}{ \E[w_i e^{o_i}]} \right).$$ Therefore, for large $n$, we can approximate $\hat{\beta}^{\textrm{NB}}$ by $\hat{\beta}^{\textrm{pois}}$.
+
+Suppose the log likelihood is unweighted (i.e., $w_i = 1$ for all $i$). We present an alternate (and simpler, more general) derivation of the approximate formula for the MLE. Let $y_i$ be a random variable with finite first moment and conditional mean $\E[y_i | o_i] = \exp(\beta + o_i).$ By the law of total expectation,
+$$ \E[y_i] = \E[\E[ y_i | o_i]] = \E[\exp(\beta + o_i)] = \exp(\beta) \E(e^{o_i}),$$ or
+\begin{equation}\label{nb_mo_4}
+\beta = \log\left(\frac{\E[y_i]}{E[e^{o_i}]} \right).
+\end{equation}
+Assuming the MLE is well-behaved, we have that $\hat{\beta} \xrightarrow{P} \beta.$ On the other hand, by WLLN and (\ref{nb_mo_4}),
+\begin{equation}\label{nb_mo_5}
+\log\left( \frac{(1/n) \sum_{i=1}^n y_i }{(1/n) \sum_{i=1}^n e^{o_i}} \right) \xrightarrow{P}  \log\left(\frac{ \E[y_i] }{ \E[e^{o_i}] } \right) = \beta.
+\end{equation}
+ Therefore, the LHS of (\ref{nb_mo_5}) approximates the MLE $\hat{\beta}$ for large $n$.
+
+\subsection*{Application to GLM-EIV}
+The GLM that we seek to estimate (\ref{stat_acc_1}) is an approximate intercept-plus-offset model: $T_1(1), \dots, T_n(1)$ are the weights $w_1,\dots, w_n$, and $\hat{f}^m_1, \dots, \hat{f}^m_n$ are the offsets $o_1, \dots, o_m$. Of course, $T_1(1), \dots, T_1(n)$ are in general dependent random variables, as are $\hat{f}^m_1, \dots, \hat{f}^m_n.$ $T_i(1)$ depends on $m_i$ and $g_i$, as well as the final parameter estimate $(\hat{\pi}, \hat{\beta}_m, \hat{\beta}_g),$ which itself is a function of $m$ and $g$; the situation is similar for the $\hat{f}^m_i$s. In practice, we find that the intercept-plus-offset model is very good approximation to the GLM (\ref{stat_acc_1}), especially when the number of cells $n$ is large. Additionally, we note that the GLM (\ref{stat_acc_1}) is fit as a subroutine of the algorithm for producing pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}). The quality of the pilot parameter estimates does not affect the validity of the estimation and inference procedures (Algorithm \ref{algo:em_full}), barring issues related to convergence to local optima (which are outside the scope fo the current work).
 
 \section{Additional simulation results}
 
 \end{appendices}
-
-\bibliographystyle{unsrt}
-\newpage
-\bibliography{/Users/timbarry/optionFiles/glmeiv.bib}
-
 \end{document}
