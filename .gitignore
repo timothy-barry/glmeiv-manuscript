@@ -4,3 +4,5 @@ bash_scripts/log
 bash_scripts/trace.txt
 .DS_Store
 R_scripts/.Rhistory
+bash_scripts/simulatr.log
+bash_scripts/.metaparams.txt
