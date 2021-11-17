@@ -1,0 +1,6 @@
+method_names:glmeiv_fast-glmeiv_slow-thresholding
+n_param_settings:24
+data_generator:100
+glmeiv_fast:100
+glmeiv_slow:560
+thresholding:70
