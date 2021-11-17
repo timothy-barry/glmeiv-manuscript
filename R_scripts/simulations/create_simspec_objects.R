@@ -48,8 +48,7 @@ fixed_params <- list(
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
   m_covariate_coefs = log(0.9),
   g_covariate_coefs = log(1.1),
-  # n_processors = 20,
-  n_processors = 2,
+  n_processors = 20,
   alpha = 0.95,
   n_em_rep = 15,
   save_membership_probs_mult = 500,
@@ -67,7 +66,7 @@ fixed_params <- list(
 one_rep_times <- list(generate_data_function = 10,
                       thresholding = 5,
                       glmeiv_fast = 20,
-                      glmeiv_slow = 250)
+                      glmeiv_slow = 500)
 
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid, fixed_params = fixed_params,
                                                one_rep_times = one_rep_times, methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
