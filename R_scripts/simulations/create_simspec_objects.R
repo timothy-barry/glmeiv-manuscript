@@ -13,6 +13,8 @@ save_obj <- function(obj, file_path, overwrite) {
     }
   }
 }
+sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/spec_objects")
+
 
 ####################################################################
 # Experiment 1
@@ -23,9 +25,8 @@ save_obj <- function(obj, file_path, overwrite) {
 set.seed(4)
 theta <- 20
 n <- 150000
-sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/spec_objects")
 to_save_sim_1 <- paste0(sim_dir, "/sim_spec_1.rds")
-g_perturbation_grid <- seq(0, 3.5, 0.5)
+g_perturbation_grid <- log(seq(1, 3.5, 0.5))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
                           fam_str = c("poisson", "nb_theta_unknown", "nb_theta_known"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
@@ -63,12 +64,24 @@ fixed_params <- list(
   m_covariate_coefs_guess_range = log(c(0.25, 2)),
   g_covariate_coefs_guess_range = log(c(0.25, 2)))
 
-one_rep_times <- list(generate_data_function = 10,
-                      thresholding = 5,
-                      glmeiv_fast = 20,
-                      glmeiv_slow = 1000)
+one_rep_times <- list(generate_data_function = NA_integer_,
+                      thresholding = NA_integer_,
+                      glmeiv_fast = NA_integer_,
+                      glmeiv_slow = NA_integer_)
 
-sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid, fixed_params = fixed_params,
-                                               one_rep_times = one_rep_times, methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
+sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
+                                               fixed_params = fixed_params,
+                                               one_rep_times = one_rep_times,
+                                               methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
 # check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
+
+
+########################################
+# Experiment 2
+# Vary g_perturbation
+# Two covariates: batch and library size
+########################################
+set.seed(4)
+n <- 150000
+to_save_sim_2 <- paste0(sim_dir, "/sim_spec_1.rds")
