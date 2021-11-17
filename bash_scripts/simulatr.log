@@ -177,3 +177,39 @@ WARN: Task runtime metrics are not reported when using macOS without a container
 [88/3e4443] Submitted process > run_methods (method: glmeiv_slow; grid row: 21)
 [b9/221c7b] Submitted process > run_methods (method: thresholding; grid row: 21)
 [ab/0305c0] Submitted process > run_methods (method: glmeiv_fast; grid row: 21)
+[4a/603330] Submitted process > run_methods (method: glmeiv_fast; grid row: 21)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[24/8d6930] Submitted process > run_methods (method: thresholding; grid row: 21)
+[bf/b11dba] Submitted process > run_methods (method: glmeiv_slow; grid row: 21)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[cd/52635c] Submitted process > run_methods (method: glmeiv_fast; grid row: 24)
+[1c/69181c] Submitted process > run_methods (method: glmeiv_fast; grid row: 24)
+[6e/9b99ce] Submitted process > run_methods (method: thresholding; grid row: 24)
+[24/a77a38] Submitted process > run_methods (method: glmeiv_slow; grid row: 24)
+[ca/6aba03] Submitted process > run_methods (method: thresholding; grid row: 24)
+[fd/392766] Submitted process > run_methods (method: glmeiv_slow; grid row: 24)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[67/9a10c6] Submitted process > run_methods (method: thresholding; grid row: 23)
+[67/e92d2b] Submitted process > run_methods (method: glmeiv_fast; grid row: 23)
+[77/7bbbb0] Submitted process > run_methods (method: glmeiv_fast; grid row: 23)
+[14/f4066e] Submitted process > run_methods (method: glmeiv_slow; grid row: 23)
+[af/b73f58] Submitted process > run_methods (method: glmeiv_slow; grid row: 23)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[43/54a145] Submitted process > run_methods (method: thresholding; grid row: 23)
+[40/d65d7f] Submitted process > run_methods (method: glmeiv_fast; grid row: 16)
+[bf/9524c0] Submitted process > run_methods (method: glmeiv_slow; grid row: 16)
+[07/95e14f] Submitted process > run_methods (method: glmeiv_fast; grid row: 16)
+[6b/f70353] Submitted process > run_methods (method: glmeiv_slow; grid row: 16)
+[a6/43b7b2] Submitted process > run_methods (method: thresholding; grid row: 16)
+[c1/a8d85c] Submitted process > run_methods (method: thresholding; grid row: 16)
+[13/b6f179] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 12)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[24/35e00b] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 12)
+[75/c3ac2e] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 13)
+[0b/a5f8fa] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 13)
+[11/6502e8] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 14)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[be/c6173c] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 14)
+WARN: Task runtime metrics are not reported when using macOS without a container engine
+[24/c2c88b] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 15)
+[07/c95814] Re-submitted process > run_methods (method: glmeiv_slow; grid row: 15)
