@@ -122,7 +122,7 @@ sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                one_rep_times = one_rep_times,
                                                methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
+# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
 
 
@@ -172,6 +172,6 @@ sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                one_rep_times = one_rep_times,
                                                methods = c("glmeiv_slow", "glmeiv_fast", "thresholding"))
 
-check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2, parallel = TRUE)
+# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2, parallel = TRUE)
 check$results$thresholding %>% filter(parameter == "m_perturbation", run_id == 1)
 }
