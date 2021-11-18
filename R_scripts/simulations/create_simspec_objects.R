@@ -68,11 +68,9 @@ sim_spec_0 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                one_rep_times = one_rep_times,
                                                methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
 # check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_0, B_in = 2, parallel = TRUE)
-save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = overwrite)
+save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = FALSE)
 
 
-# TURN OFF EVERYTHING BELOW:
-if (FALSE) {
 ####################################################################
 # Experiment 1
 # Vary g_pert, fix all other parameters
@@ -83,13 +81,12 @@ set.seed(4)
 theta <- 20
 n <- 150000
 to_save_sim_1 <- paste0(sim_dir, "/sim_spec_1.rds")
-g_perturbation_grid <- log(seq(1, 3.5, 0.5))
+g_perturbation_grid <- log(seq(1, 4, 0.75))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
-                          fam_str = c("poisson", "nb_theta_unknown", "nb_theta_known"))
+                          fam_str = c("nb_theta_unknown", "nb_theta_known"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
 fam_obj <- lapply(as.character(param_grid$fam_str), function(str) {
   switch(EXPR = str,
-         "poisson" = poisson(),
          "nb_theta_unknown" = MASS::negative.binomial(theta),
          "nb_theta_known" = MASS::negative.binomial(theta)) %>% glmeiv::augment_family_object()
 })
@@ -125,20 +122,21 @@ sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                one_rep_times = one_rep_times,
                                                methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
+check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
 
 
+if (FALSE) {
 ########################################
 # Experiment 2
+# Gaussian response distribution
 # Vary g_perturbation
 # Two covariates: batch and library size
 ########################################
 set.seed(4)
-n <- 100000
+n <- 150000
 to_save_sim_2 <- paste0(sim_dir, "/sim_spec_2.rds")
-# g_perturbation_grid <- seq(0, 4, 0.5)
-g_perturbation_grid <- 2
+g_perturbation_grid <- seq(0, 7)
 param_grid <- data.frame(g_perturbation = g_perturbation_grid,
                          grid_id = seq(1, length(g_perturbation_grid)))
 fixed_params <- list(
@@ -148,37 +146,32 @@ fixed_params <- list(
   n = n,
   B = 500,
   m_intercept = 3,
-  m_perturbation = -5,
+  m_perturbation = -4,
   g_intercept = 1,
-  covariate_matrix = data.frame(lib_size = rpois(n = n, lambda = 5000)),
-  m_covariate_coefs = 5/5000,
-  g_covariate_coefs = -5/5000,
+  covariate_matrix = data.frame(lib_size = rpois(n = n, lambda = 10000)),
+  m_covariate_coefs = 0.0025,
+  g_covariate_coefs = -0.005,
   n_processors = 20,
   alpha = 0.95,
   n_em_rep = 25,
   save_membership_probs_mult = 500,
-  pi = 0.1,
+  pi = 0.05,
   m_offset = NULL,
   g_offset = NULL,
-  pi_guess_range = c(1e-5, 0.03),
-  m_perturbation_guess_range = c(-5, 1),
-  g_perturbation_guess_range = c(-1, 5),
-  m_intercept_guess_range = c(0, 6),
-  g_intercept_guess_range = c(-2, 4),
-  m_covariate_coefs_guess_range = c(-0.5, 0.5),
-  g_covariate_coefs_guess_range = c(-0.5, 0.5),
+  pi_guess_range = c(0.05, 0.05),
+  m_perturbation_guess_range = c(-4, -4),
+  g_perturbation_guess_range = c(0, 8),
+  m_intercept_guess_range = c(3, 3),
+  g_intercept_guess_range = c(1, 1),
+  m_covariate_coefs_guess_range = c(0.0025, 0.0025),
+  g_covariate_coefs_guess_range = c(-0.005, -0.005),
   run_unknown_theta_precomputation = FALSE)
 
 sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                one_rep_times = one_rep_times,
-                                               methods = c("glmeiv_fast", "thresholding"))
+                                               methods = c("glmeiv_slow", "glmeiv_fast", "thresholding"))
 
 check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2, parallel = TRUE)
-fit <- lm(formula = m ~ p + lib_size, data = mutate(check$data[[1]][[1]], fixed_params$covariate_matrix))
-# p <- check$data[[1]][[1]]$p
-# lib_size <- rpois(n = n, lambda = 10000)
-# ep <- rnorm(length(p))
-# y <- 3 - 5 * p + 0.2 * lib_size + ep
-# fit <- lm(y ~ p + lib_size)
+check$results$thresholding %>% filter(parameter == "m_perturbation", run_id == 1)
 }
