@@ -25,7 +25,7 @@ summarized_results_gaus <- simulatr::summarize_results(sim_spec = sim_spec, sim_
                                                        metrics = c("bias", "mse", "coverage"),
                                                        parameters = c("m_perturbation"),
                                                        threshold = 0.1) %>% tibble::as_tibble() %>% dplyr::filter(arm_arm_pi_big)
-pi <- summarized_results_gaus$pi[1]  
+pi <- summarized_results_gaus$pi[1]
 m_pert <- sim_spec@fixed_parameters$m_perturbation
 my_funct <- function(x) glmeiv::get_tresholding_estimator_bias(m_perturbation = m_pert, g_perturbation = x, pi = pi)
 
@@ -56,8 +56,6 @@ summarized_results_pois <- simulatr::summarize_results(sim_spec = sim_spec, sim_
 ####################
 sim_spec <- readRDS(paste0(sim_dir, "/sim_spec_5.rds")) # simulatr specifier object
 sim_res <- readRDS(paste0(sim_dir, "/raw_result_5.rds")) # raw results; note: PSC failed for certain settings in
-
-
 
 id_classifications <- glmeiv::obtain_valid_ids(sim_res = sim_res, pi_upper = 0.4)
 valid_ids <- id_classifications$valid_ids
@@ -91,8 +89,8 @@ p1 <- ggplot(to_plot_all, aes(x = g_perturbation, value, col = Method)) +
   geom_hline(data = dplyr::filter(to_plot_all, metric_fct == "Coverage"), mapping = aes(yintercept = 0.95), colour = "black") +
   geom_line() +
   geom_function(data = dplyr::filter(to_plot_all, metric_fct == "Bias", distribution == "Gaussian"), fun = my_funct, col = "black", lwd = 0.8) +
-  geom_vline(data = dplyr::filter(to_plot_all, distribution == "Poisson"), mapping = aes(xintercept = 1.5), col = "gray60") + 
+  geom_vline(data = dplyr::filter(to_plot_all, distribution == "Poisson"), mapping = aes(xintercept = 1.5), col = "gray60") +
   geom_vline(data = dplyr::filter(to_plot_all, distribution == "Poisson"), mapping = aes(xintercept = 2.5), col = "gray60") + geom_point() +
-  theme_bw() + theme(legend.position = "bottom", panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  theme_bw() + theme(legend.position = "bottom", panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
 
 ggsave(filename = paste0(fig3_dir, "simulation_warmup_arm_g.pdf"), plot = p1, device = "pdf", scale = 1, width = 7.5, height = 6.5)

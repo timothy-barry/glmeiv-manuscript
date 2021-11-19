@@ -14,3 +14,9 @@ e) (possibly) plot of gRNA counts for Gasperini and Xie, illustrating that there
 a) Estimate vs. threshold c for three different values of \beta_g: \beta_g = 0.5, \beta_g = 1.33, \beta_g = 2
 b) Plot of limiting bias (for c = infinity) vs pi for multiple values of \beta^g (single panel probably suffices)
 c) Plot of variance vs. threshold under null hypothesis and alternative hypothesis for different values c.
+
+
+4. Main text simulation
+- plot grid: rows are metrics (bias, MSE, CI coverage rate, time), and columns are distributions Poisson, NB (theta known), NB (theta estimated)
+- x-axis: g_perturbation
+- colors are methods (GLM-EIV, GLM-EIV (accelerated), and Thresholding)
