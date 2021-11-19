@@ -36,3 +36,4 @@ Rscript run_xie_glmeiv.sh
 Rscript ../R_scripts/simulations/create_simspec_objects.R
 $SIMULATR -f $sim_dir"spec_objects/sim_spec_0.rds" -r $sim_dir"results/raw_result_0.rds"
 $SIMULATR -f $sim_dir"spec_objects/sim_spec_1.rds" -r $sim_dir"results/raw_result_1.rds"
+$SIMULATR -f $sim_dir"spec_objects/sim_spec_2.rds" -r $sim_dir"results/raw_result_2.rds"

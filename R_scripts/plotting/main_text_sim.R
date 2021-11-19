@@ -24,19 +24,22 @@ pois_spec <- readRDS(paste0(sim_spec_dir, "/sim_spec_0.rds"))
 summarized_pois_results <- summarize_results(sim_spec = pois_spec, sim_res = pois_res,
                                              metrics = c("bias", "mse", "coverage", "count", "time"),
                                              parameters = "m_perturbation") %>% mutate(distribution = "Poisson")
+# remove times with 0 counts
+thresh_grid_row_exclude <- summarized_pois_results %>% filter(metric == "count", value == 0) %>% dplyr::pull(grid_row_id)
+summarized_pois_results_trimmed <- summarized_pois_results %>%
+   filter(!(grid_id %in% thresh_grid_row_exclude & method == "thresholding"))
 
 ##################
 # 3. Make the plot
 ##################
-
-to_plot_all <- summarized_pois_results %>% filter(metric != "count") %>%
+to_plot_all <- summarized_pois_results_trimmed %>% filter(metric != "count") %>%
   mutate(metric_fct = factor(metric, levels = c("bias", "mse", "coverage", "time"),
                              labels = c("Bias", "MSE", "Coverage", "Time (s)")),
          Method = factor(method, levels = c("glmeiv_slow", "glmeiv_fast", "thresholding"),
                          labels = c("GLM-EIV", "GLM-EIV (accelerated)", "Thresholding"))) %>%
   arrange(Method) %>% mutate(exp_g_perturbation = exp(g_perturbation))
 
-ggplot(data = to_plot_all, mapping = aes(x = exp_g_perturbation, y = value, col = Method)) + 
+p <- ggplot(data = to_plot_all, mapping = aes(x = exp_g_perturbation, y = value, col = Method)) + 
   facet_grid(metric_fct ~ distribution, scales = "free_y") + xlab(expression(exp(beta[g]))) + scale_color_manual(values = my_cols) +
   geom_hline(data = dplyr::filter(to_plot_all, metric_fct == "Bias"), mapping = aes(yintercept = 0), colour = "black") +
   geom_hline(data = dplyr::filter(to_plot_all, metric_fct == "MSE"), mapping = aes(yintercept = 0), colour = "black") +
