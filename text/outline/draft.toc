@@ -1,7 +1,7 @@
 \contentsline {section}{\numberline {1}Introduction}{3}
 \contentsline {section}{\numberline {2}Background and analysis challenges}{4}
 \contentsline {subsection}{\numberline {2.1}Related work}{4}
-\contentsline {subsection}{\numberline {2.2}Assay overview}{6}
+\contentsline {subsection}{\numberline {2.2}Assay overview}{5}
 \contentsline {subsection}{\numberline {2.3}Analysis challenges}{7}
 \contentsline {section}{\numberline {3}Thresholding method}{7}
 \contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{8}

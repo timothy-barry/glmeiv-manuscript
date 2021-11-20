@@ -30,7 +30,7 @@ one_rep_times <- list(generate_data_function = NA_integer_,
 set.seed(4)
 theta <- 20
 n <- 150000
-g_perturbation_grid <- log(seq(1, 3.5, 0.5))
+g_perturbation_grid <- log(seq(1, 4, 0.5))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid)
 param_grid$grid_id <- seq(1, nrow(param_grid))
 
@@ -79,7 +79,7 @@ save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overw
 set.seed(4)
 theta <- 20
 n <- 150000
-g_perturbation_grid <- log(seq(1, 4, 0.75))
+g_perturbation_grid <- log(seq(1, 4, 0.5))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
                           fam_str = c("nb_theta_unknown", "nb_theta_known"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
