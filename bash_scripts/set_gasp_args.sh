@@ -33,7 +33,7 @@ covariate_matrix=$processed_data_dir"covariate_matrix.rds"
 m_offsets=$processed_data_dir"m_offsets.rds"
 g_offsets=$processed_data_dir"g_offsets.rds"
 # v. family strings
-m_fam="nb"
+m_fam="poisson"
 g_fam="poisson"
 # vi. pairs to analyze and pod sizes
 if [ $trial = true ]
