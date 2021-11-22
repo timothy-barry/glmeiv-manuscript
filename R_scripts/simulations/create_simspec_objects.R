@@ -162,7 +162,9 @@ fixed_params <- list(
   g_intercept_guess_range = c(1, 1),
   m_covariate_coefs_guess_range = c(0.0025, 0.0025),
   g_covariate_coefs_guess_range = c(-0.005, -0.005),
-  run_unknown_theta_precomputation = FALSE)
+  run_unknown_theta_precomputation = FALSE,
+  exponentiate_coefs = FALSE,
+  ep_tol = 1e-7)
 
 sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,

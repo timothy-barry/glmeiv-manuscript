@@ -5,8 +5,6 @@ load_all("~/research_code/simulatr/")
 my_cols <- c("firebrick3", "dodgerblue3", "orchid4")
 fig_dir <- paste0(.get_config_path("LOCAL_CODE_DIR"), "glmeiv-manuscript/figures/main_text_sim")
 if (!dir.exists(fig_dir)) dir.create(fig_dir)
-my_theme <- theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-                  panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
 # load the results and specifier objects
 sim_result_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/results")
@@ -21,7 +19,7 @@ pois_spec <- readRDS(paste0(sim_spec_dir, "/sim_spec_0.rds"))
 
 # summarize the results
 summarized_pois_results <- summarize_results(sim_spec = pois_spec, sim_res = pois_res,
-                                             metrics = c("bias", "mse", "coverage", "count", "time"),
+                                             metrics = c("bias", "mse", "coverage", "ci_width", "count", "time"),
                                              parameters = "m_perturbation") %>% mutate(distribution = "Poisson")
 # remove times with 0 counts
 thresh_grid_row_exclude <- summarized_pois_results %>% filter(metric == "count", value == 0) %>% dplyr::pull(grid_row_id)
@@ -37,7 +35,7 @@ nb_spec <- readRDS(paste0(sim_spec_dir, "/sim_spec_1.rds"))
 
 # summarize the results
 summarized_nb_results <- summarize_results(sim_spec = nb_spec, sim_res = nb_res,
-                                           metrics = c("bias", "mse", "coverage", "count", "time"),
+                                           metrics = c("bias", "mse", "ci_width", "coverage", "count", "time"),
                                            parameters = "m_perturbation")
 thresh_grid_row_exclude <- summarized_nb_results %>% filter(metric == "count", value == 0) %>% dplyr::pull(grid_row_id)
 summarized_nb_results_trimmed <- summarized_nb_results %>% 
@@ -49,8 +47,8 @@ summarized_nb_results_trimmed <- summarized_nb_results %>%
 # 3. Make the plot
 ##################
 to_plot_all <- rbind(summarized_pois_results_trimmed, summarized_nb_results_trimmed) %>% filter(metric != "count") %>%
-  mutate(metric_fct = factor(metric, levels = c("bias", "mse", "coverage", "time"),
-                             labels = c("Bias", "MSE", "Coverage", "Time (s)")),
+  mutate(metric_fct = factor(metric, levels = c("bias", "mse", "coverage", "ci_width", "time"),
+                             labels = c("Bias", "MSE", "Coverage", "CI width", "Time (s)")),
          Method = factor(method, levels = c("glmeiv_slow", "glmeiv_fast", "thresholding"),
                          labels = c("GLM-EIV", "GLM-EIV (accelerated)", "Thresholding")),
          distribution = factor(distribution, levels = c("Poisson", "NB (theta known)", "NB (theta est.)"),
@@ -64,3 +62,7 @@ p <- ggplot(data = to_plot_all, mapping = aes(x = exp_g_perturbation, y = value,
   geom_hline(data = dplyr::filter(to_plot_all, metric_fct == "Coverage"), mapping = aes(yintercept = 0.95), colour = "black") +
   geom_line() + geom_point() + 
   theme_bw() + theme(legend.position = "bottom", panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + ylab("")
+
+# save
+fp <- paste0(fig_dir, "/plot.pdf")
+ggsave(filename = fp, plot = p, device = "pdf", scale = 1.1, width = 5, height = 5.5)

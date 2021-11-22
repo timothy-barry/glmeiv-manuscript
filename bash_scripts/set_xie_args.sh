@@ -2,10 +2,12 @@ source ~/.research_config
 
 # use -t flag to set "trial" parameters; otherwise, sets "at-scale" parameters
 trial=false
-while getopts t OPT
+azure=false
+while getopts ta OPT
 do
     case "$OPT" in
         t) trial=true ;;
+        a) azure=true ;;
     esac
 done
 
@@ -18,12 +20,25 @@ thresholding_nf_pipeline=$PWD"/../nextflow_scripts/thresholding.nf"
 ######################
 # 2. Set all arguments
 ######################
-# i. Location of backing .odm files
-backing_files_dir=$LOCAL_XIE_2019_DATA_DIR"processed/"
+# i. Local vs Azure
+if [ $azure = true ]
+then
+  glmeiv_dir="az://main/glmeiv/"
+  xie_2019_dir="az://main/xie-2019/"
+  work_dir="az://main/work"
+  prof="az"
+else
+  glmeiv_dir=$LOCAL_GLMEIV_DATA_DIR
+  xie_2019_dir=$LOCAL_XIE_2019_DATA_DIR
+  work_dir=$LOCAL_GLMEIV_DATA_DIR"work"
+  prof="local"
+fi
+backing_files_dir=$xie_2019_dir"processed/"
+processed_data_dir=$glmeiv_dir"public/xie/data/"
+
+# ii. Location of backing .odm files
 gene_odm=$backing_files_dir"gene/expression_matrix.odm"
 gRNA_odm=$backing_files_dir"gRNA/raw_grouped.odm"
-# ii. Location of processed data
-processed_data_dir=$LOCAL_GLMEIV_DATA_DIR"public/xie/data/"
 # iii. metadata files
 gene_metadata=$processed_data_dir"gene_metadata.rds"
 gRNA_metadata=$processed_data_dir"gRNA_metadata.rds"

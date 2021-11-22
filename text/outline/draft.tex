@@ -472,6 +472,14 @@ The GLM-EIV model assumes that unperturbed cells exhibit a nonzero ``background 
 
 \section{Simulation studies}\label{sec:simulation}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{../../figures/main_text_sim/plot}
+	\caption{}
+	\label{main_text_sim}
+\end{figure}
+
+
 \section{Real data analysis}
 
 \section{Discussion}
@@ -1342,6 +1350,14 @@ Assuming the MLE is well-behaved, we have that $\hat{\beta} \xrightarrow{P} \bet
 The GLM that we seek to estimate (\ref{stat_acc_1}) is an approximate intercept-plus-offset model: $T_1(1), \dots, T_n(1)$ are the weights $w_1,\dots, w_n$, and $\hat{f}^m_1, \dots, \hat{f}^m_n$ are the offsets $o_1, \dots, o_m$. Of course, $T_1(1), \dots, T_1(n)$ are in general dependent random variables, as are $\hat{f}^m_1, \dots, \hat{f}^m_n.$ $T_i(1)$ depends on $m_i$ and $g_i$, as well as the final parameter estimate $(\hat{\pi}, \hat{\beta}_m, \hat{\beta}_g),$ which itself is a function of $m$ and $g$; the situation is similar for the $\hat{f}^m_i$s. In practice, we find that the intercept-plus-offset model is very good approximation to the GLM (\ref{stat_acc_1}), especially when the number of cells $n$ is large. Additionally, we note that the GLM (\ref{stat_acc_1}) is fit as a subroutine of the algorithm for producing pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}). The quality of the pilot parameter estimates does not affect the validity of the estimation and inference procedures (Algorithm \ref{algo:em_full}), barring issues related to convergence to local optima (which are outside the scope fo the current work).
 
 \section{Additional simulation results}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{../../figures/supplement_sim/gaussian}
+	\caption{}
+	\label{fig:gaussian_sim}
+\end{figure}
+
+
 
 \end{appendices}
 \end{document}
