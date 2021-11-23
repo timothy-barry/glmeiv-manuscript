@@ -65,4 +65,4 @@ p <- ggplot(data = to_plot_all, mapping = aes(x = exp_g_perturbation, y = value,
 
 # save
 fp <- paste0(fig_dir, "/plot.pdf")
-ggsave(filename = fp, plot = p, device = "pdf", scale = 1.1, width = 5, height = 5.5)
+ggsave(filename = fp, plot = p, device = "pdf", scale = 1.4, width = 4.25, height = 5.25)

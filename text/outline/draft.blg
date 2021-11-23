@@ -3,44 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: draft.aux
 The style file: unsrt.bst
 Database file #1: /Users/timbarry/optionFiles/glmeiv.bib
-You've used 29 entries,
+You've used 30 entries,
             1791 wiz_defined-function locations,
-            648 strings with 11876 characters,
-and the built_in function-call counts, 9651 in all, are:
-= -- 762
-> -- 737
+            656 strings with 12074 characters,
+and the built_in function-call counts, 9951 in all, are:
+= -- 786
+> -- 760
 < -- 6
-+ -- 257
-- -- 228
-* -- 830
-:= -- 1592
-add.period$ -- 87
-call.type$ -- 29
-change.case$ -- 27
++ -- 265
+- -- 235
+* -- 857
+:= -- 1644
+add.period$ -- 90
+call.type$ -- 30
+change.case$ -- 28
 chr.to.int$ -- 0
-cite$ -- 29
-duplicate$ -- 359
-empty$ -- 701
-format.name$ -- 228
-if$ -- 2041
+cite$ -- 30
+duplicate$ -- 368
+empty$ -- 724
+format.name$ -- 235
+if$ -- 2102
 int.to.chr$ -- 0
-int.to.str$ -- 29
-missing$ -- 31
-newline$ -- 148
-num.names$ -- 29
-pop$ -- 52
+int.to.str$ -- 30
+missing$ -- 32
+newline$ -- 153
+num.names$ -- 30
+pop$ -- 53
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 227
+skip$ -- 230
 stack$ -- 0
-substring$ -- 656
-swap$ -- 127
+substring$ -- 681
+swap$ -- 128
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 80
-width$ -- 31
-write$ -- 321
+while$ -- 83
+width$ -- 32
+write$ -- 332

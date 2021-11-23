@@ -14,26 +14,26 @@
 \contentsline {subsection}{\numberline {4.4}Computation}{23}
 \contentsline {subsection}{\numberline {4.5}Zero-inflated model}{23}
 \contentsline {section}{\numberline {5}Simulation studies}{24}
-\contentsline {section}{\numberline {6}Real data analysis}{24}
-\contentsline {section}{\numberline {7}Discussion}{24}
-\contentsline {section}{Appendices}{29}
-\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{29}
-\contentsline {subsection}{\numberline {A.1}Notation}{29}
-\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{30}
-\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{31}
-\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{32}
-\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{32}
-\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{34}
-\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{34}
-\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{35}
-\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{37}
-\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{38}
-\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{39}
-\contentsline {subsection}{\numberline {B.1}Estimation}{39}
-\contentsline {subsection}{\numberline {B.2}Inference}{42}
-\contentsline {subsection}{\numberline {B.3}Implementation}{52}
-\contentsline {section}{\numberline {C}Zero-inflated model}{55}
-\contentsline {subsection}{\numberline {C.1}Estimation}{56}
-\contentsline {subsection}{\numberline {C.2}Inference}{57}
-\contentsline {section}{\numberline {D}Statistical accelerations}{62}
-\contentsline {section}{\numberline {E}Additional simulation results}{66}
+\contentsline {section}{\numberline {6}Real data analysis}{25}
+\contentsline {section}{\numberline {7}Discussion}{25}
+\contentsline {section}{Appendices}{30}
+\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{30}
+\contentsline {subsection}{\numberline {A.1}Notation}{30}
+\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{31}
+\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{32}
+\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{33}
+\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{33}
+\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{35}
+\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{36}
+\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{36}
+\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{38}
+\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{39}
+\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{41}
+\contentsline {subsection}{\numberline {B.1}Estimation}{41}
+\contentsline {subsection}{\numberline {B.2}Inference}{43}
+\contentsline {subsection}{\numberline {B.3}Implementation}{53}
+\contentsline {section}{\numberline {C}Zero-inflated model}{56}
+\contentsline {subsection}{\numberline {C.1}Estimation}{57}
+\contentsline {subsection}{\numberline {C.2}Inference}{58}
+\contentsline {section}{\numberline {D}Statistical accelerations}{63}
+\contentsline {section}{\numberline {E}Additional simulation results}{68}

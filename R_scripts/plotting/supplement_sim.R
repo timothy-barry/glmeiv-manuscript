@@ -25,9 +25,9 @@ summarized_gaus_results <- summarize_results(sim_spec = gaus_spec, sim_res = gau
 to_plot_all <- summarized_gaus_results %>% filter(metric != "count") %>%
   mutate(metric_fct = factor(metric, levels = c("bias", "mse", "coverage", "ci_width", "time"),
                              labels = c("Bias", "MSE", "Coverage", "CI width", "Time (s)")),
-         Method = factor(method, levels = c("glmeiv_slow", "glmeiv_fast", "thresholding"),
-                         labels = c("GLM-EIV", "GLM-EIV (accelerated)", "Thresholding"))) %>%
-  arrange(Method)
+         Method = factor(method, levels = c("glmeiv_fast", "thresholding"),
+                         labels = c("GLM-EIV (accelerated)", "Thresholding"))) %>%
+  arrange(desc(Method))
 
 p <- ggplot(data = to_plot_all, mapping = aes(x = g_perturbation, y = value, col = Method)) + 
   facet_wrap(. ~ metric_fct, scales = "free_y", nrow = 1) + xlab(expression(beta[g])) + scale_color_manual(values = my_cols) +
@@ -38,4 +38,4 @@ p <- ggplot(data = to_plot_all, mapping = aes(x = g_perturbation, y = value, col
   theme_bw() + theme(legend.position = "bottom", panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + ylab("")
 
 fp <- paste0(fig_dir, "/gaussian.pdf")
-ggsave(filename = fp, plot = p, device = "pdf", scale = 1.1, width = 7, height = 2.5)
+ggsave(filename = fp, plot = p, device = "pdf", scale = 1.0, width = 7, height = 2.5)

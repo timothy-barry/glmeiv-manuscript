@@ -203,6 +203,12 @@ Paolo {DI Tommaso}, Maria Chatzou, Evan~W. Floden, Pablo~Prieto Barja, Emilio
 \newblock {Nextflow enables reproducible computational workflows}.
 \newblock {\em Nature Biotechnology}, 35(4):316--319, 2017.
 
+\bibitem{Ripley2013}
+Brian Ripley, Bill Venables, Douglas~M Bates, Kurt Hornik, Albrecht Gebhardt,
+  David Firth, and Maintainer~Brian Ripley.
+\newblock {Package ‘mass'}.
+\newblock {\em Cran r}, 538:113--120, 2013.
+
 \bibitem{fitzpatrick2009}
 Patrick Fitzpatrick.
 \newblock {\em {Advanced calculus}}, volume~5.
