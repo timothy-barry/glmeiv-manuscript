@@ -14,8 +14,8 @@
 \contentsline {subsection}{\numberline {4.4}Computation}{23}
 \contentsline {subsection}{\numberline {4.5}Zero-inflated model}{23}
 \contentsline {section}{\numberline {5}Simulation studies}{24}
-\contentsline {section}{\numberline {6}Real data analysis}{25}
-\contentsline {section}{\numberline {7}Discussion}{25}
+\contentsline {section}{\numberline {6}Real data analysis}{26}
+\contentsline {section}{\numberline {7}Discussion}{26}
 \contentsline {section}{Appendices}{30}
 \contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{30}
 \contentsline {subsection}{\numberline {A.1}Notation}{30}
@@ -36,4 +36,4 @@
 \contentsline {subsection}{\numberline {C.1}Estimation}{57}
 \contentsline {subsection}{\numberline {C.2}Inference}{58}
 \contentsline {section}{\numberline {D}Statistical accelerations}{63}
-\contentsline {section}{\numberline {E}Additional simulation results}{68}
+\contentsline {section}{\numberline {E}Additional simulation study}{68}
