@@ -20,4 +20,4 @@ nextflow run https://github.com/timothy-barry/glmeiv-pipeline -r main \
 --gRNA_metadata $gRNA_metadata \
 --g_offsets $g_offsets \
 --g_fam_str $g_fam \
--profile az -bg > $PWD/log -ansi-log false -with-trace
+-profile local -bg > $PWD/log -ansi-log false -with-trace -w $work_dir

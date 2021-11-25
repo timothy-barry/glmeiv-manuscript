@@ -7,7 +7,7 @@
 \contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{8}
 \contentsline {subsection}{\numberline {3.2}Theoretical challenges of thresholding method}{10}
 \contentsline {subsection}{\numberline {3.3}Thresholding method summary}{15}
-\contentsline {section}{\numberline {4}Generalized linear model with errors in variables}{16}
+\contentsline {section}{\numberline {4}GLM-based errors-in-variables}{16}
 \contentsline {subsection}{\numberline {4.1}Model}{16}
 \contentsline {subsection}{\numberline {4.2}Estimation and inference}{19}
 \contentsline {subsection}{\numberline {4.3}Statistical accelerations}{21}

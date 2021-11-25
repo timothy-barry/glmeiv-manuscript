@@ -14,4 +14,4 @@ nextflow run $thresholding_nf_pipeline --pairs $gRNA_gene_pairs \
 --m_offsets $m_offsets \
 --gRNA_odm $gRNA_odm \
 --gRNA_metadata $gRNA_metadata \
--bg > $PWD/log -ansi-log false -with-trace
+-bg > $PWD/log -ansi-log false -with-trace -w $work_dir
