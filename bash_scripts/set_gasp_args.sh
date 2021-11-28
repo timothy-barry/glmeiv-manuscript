@@ -15,6 +15,7 @@ done
 # location of Nextflow pipeline
 glmeiv_nf_pipeline=$LOCAL_CODE_DIR"glmeiv-pipeline/main.nf"
 thresholding_nf_pipeline=$PWD"/../nextflow_scripts/thresholding.nf"
+resampling_nf_pipeline=$PWD"/../nextflow_scripts/resampling.nf"
 
 ######################
 # 2. Set all arguments

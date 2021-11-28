@@ -31,7 +31,7 @@ g_offset <- multimodal_odm %>% get_cell_covariates() %>% dplyr::pull(gRNA_n_umis
 ##################
 # 4. Get the pairs
 ##################
-gRNA_gene_pairs <- readRDS(paste0(xie_offsite, "aux/pairs_grouped.rds"))
+gRNA_gene_pairs <- readRDS(paste0(xie_offsite, "aux/pairs_grouped.rds")) %>% dplyr::filter(protein_coding)
 # sample 5000 cis pairs and 50000 negative control
 set.seed(4)
 gRNA_gene_pairs_sub <- dplyr::filter(gRNA_gene_pairs, gene_id %in% get_feature_ids(gene_odm))
