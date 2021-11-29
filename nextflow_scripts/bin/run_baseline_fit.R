@@ -38,9 +38,9 @@ pair_id_sep <- strsplit(x = pair_id, split = ":")[[1]]
 gene_id <- pair_id_sep[1]
 gRNA_id <- pair_id_sep[2]
 
-###########################
-# 4. Fit model, save output
-###########################
+###############
+# 4. Fit models
+###############
 m <- gene_odm[[gene_id,]] %>% as.numeric()
 g <- gRNA_odm[[gRNA_id,]] %>% as.numeric()
 m_fam <- MASS::negative.binomial(NA) %>% augment_family_object()
@@ -50,13 +50,30 @@ g_fam <- poisson() %>% augment_family_object()
 m_precomp <- run_glmeiv_precomputation(y = m, covariate_matrix = covariate_matrix, offset = m_offset, fam = m_fam)
 g_precomp <- run_glmeiv_precomputation(y = g, covariate_matrix = covariate_matrix, offset = g_offset, fam = g_fam)
 
-fit <- run_glmeiv_given_precomputations(m = m, g = g, m_precomp = m_precomp, g_precomp = g_precomp,
+# fit glmeiv model
+fit_glmeiv <- run_glmeiv_given_precomputations(m = m, g = g, m_precomp = m_precomp, g_precomp = g_precomp,
                                         covariate_matrix = covariate_matrix, m_offset = m_offset,
                                         g_offset = g_offset, n_em_rep = n_em_rep, pi_guess_range = pi_guess_range,
                                         m_perturbation_guess_range = m_perturbation_guess_range,
                                         g_perturbation_guess_range = g_perturbation_guess_range)
-s <- run_inference_on_em_fit(fit, alpha)
-tbl <- wrangle_glmeiv_result(s, 0, fit, TRUE, 1, 1)
-to_save <- list(m_precomp = m_precomp, tbl = tbl, gene_id = gene_id, gRNA_id = gRNA_id)
+s <- run_inference_on_em_fit(fit_glmeiv, alpha)
+tbl_glmeiv <- wrangle_glmeiv_result(s, 0, fit_glmeiv, TRUE, 500, 1) %>% dplyr::mutate(method = "glmeiv")
+
+# fit thresholding method, using Bayes-optimal decision boundary as threshold
+g_coef <- coef(fit_glmeiv$fit_g)
+bdy <- get_optimal_threshold(g_coef[["(Intercept)"]], g_coef[["perturbation"]], g_fam, fit_glmeiv$fit_pi, covariate_matrix,
+                             g_coef[c("batch", "p_mito")], g_offset)
+phat <- as.integer(g >= bdy)
+tbl_thresh <- run_thresholding_method(phat = phat, m = m, m_fam = m_precomp$fam, m_offset = m_offset, covariate_matrix = covariate_matrix,
+                                      n_examples_per_param = 5, alpha = alpha, exponentiate_coefs = TRUE) %>% dplyr::mutate(method = "thresholding")
+
+#################
+# 5. Save outputs
+#################
+out_tbl <- rbind(tbl_glmeiv, tbl_thresh) %>% dplyr::mutate(run_id = -1, pair_id = pair_id, contam_level = -1) %>%
+  dplyr::mutate_at(.tbl = ., .vars = c("parameter", "target", "method", "pair_id"), .funs = factor)
+
+to_save <- list(m_precomp = m_precomp, tbl = out_tbl, gene_id = gene_id, gRNA_id = gRNA_id,
+                posterior_perturbation_probs = fit_glmeiv$posterior_perturbation_probs, g_coef = coef(fit_glmeiv$fit_g), fit_pi = fit_glmeiv$fit_pi)
 
 saveRDS(object = to_save, file = "baseline_fit.rds")

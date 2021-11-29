@@ -23,8 +23,10 @@ gene_metadata_fp <- args[3L]
 m_offsets_fp <- args[4L]
 g_offsets_fp <- args[5L] 
 base_fit_fp <- args[6L] 
-contam_level <- as.integer(args[7L])
+contam_level <- round(as.numeric(args[7L]), digits = 3)
 B <- as.integer(args[8L])
+print(paste0("Contam level: ", contam_level))
+
 
 #########################################
 # 2. Load ODMs, covariate matrix, offsets
@@ -44,11 +46,9 @@ m <- gene_odm[[gene_id,]] %>% as.numeric()
 m_fam <- raw_fit$m_precomp$fam
 m_precomp <- raw_fit$m_precomp
 g_fam <- poisson() %>% augment_family_object()
-param_ests <- raw_fit$tbl %>% dplyr::filter(parameter %in% c("g_intercept" , "g_perturbation", "g_batch", "g_p_mito"), target == "estimate") %>%
-  dplyr::select(-target)
-param_ests_vect <- set_names(param_ests$value, param_ests$parameter) %>% log()
-posterior_pert_probs <- raw_fit$tbl %>% dplyr::filter(target == "membership_probability") %>% dplyr::pull(value)
-pi_est <- raw_fit$tbl %>% dplyr::filter(parameter == "pi", target == "estimate") %>% dplyr::pull(value)
+param_ests_vect <- raw_fit$g_coef
+posterior_pert_probs <- raw_fit$posterior_perturbation_probs
+pi_est <-raw_fit$fit_pi
 n <- length(posterior_pert_probs)
 
 ############################
@@ -67,8 +67,8 @@ get_new_coefs <- function(background_contamination, g_int, g_pert) {
   return(out)
 }
 new_coefs <- get_new_coefs(background_contamination = contam_level,
-                           g_int = param_ests_vect[["g_intercept"]],
-                           g_pert = param_ests_vect[["g_perturbation"]])
+                           g_int = param_ests_vect[["(Intercept)"]],
+                           g_pert = param_ests_vect[["perturbation"]])
 
 # generate indicators
 p_mat <- sapply(X = seq(1, n), FUN = function(i) {
@@ -80,12 +80,12 @@ g_resample <- generate_glm_data_sim(intercept = new_coefs[["new_g_int"]],
                                     perturbation_coef = new_coefs[["new_g_pert"]],
                                     perturbation_indicators = p_mat,
                                     fam = g_fam, covariate_matrix = covariate_matrix,
-                                    covariate_coefs = param_ests_vect[c("g_batch", "g_p_mito")],
+                                    covariate_coefs = param_ests_vect[c("batch", "p_mito")],
                                     offset = g_offset, n = n, B = B)
 
 # set the bayes-optimal decision boundary
 bdy <- get_optimal_threshold(new_coefs[["new_g_int"]], new_coefs[["new_g_pert"]], g_fam, pi_est, covariate_matrix,
-                             param_ests_vect[c("g_batch", "g_p_mito")], g_offset)
+                             param_ests_vect[c("batch", "p_mito")], g_offset)
 
 ###########################
 # 5. fit models to the data
@@ -108,7 +108,7 @@ for (i in seq(1, B)) {
   # second, thresholding
   phat <- as.integer(g >= bdy)
   tbl_thresh <- run_thresholding_method(phat = phat, m = m, m_fam = m_fam, m_offset = m_offset, covariate_matrix = covariate_matrix,
-                          n_examples_per_param = 5, alpha = alpha, exponentiate_coefs = TRUE) %>% dplyr::mutate(method = "thresholding")
+                                        n_examples_per_param = 5, alpha = alpha, exponentiate_coefs = TRUE) %>% dplyr::mutate(method = "thresholding")
   
   # combine outputs
   tbl_out <- rbind(tbl_glmeiv, tbl_thresh) %>% dplyr::mutate(run_id = i)
@@ -116,5 +116,5 @@ for (i in seq(1, B)) {
 }
 
 to_save <- do.call(what = rbind, args = out_l) %>% dplyr::mutate(pair_id = paste0(gene_id, ":", gRNA_id), contam_level = contam_level) %>%
-  dplyr::mutate_at(.tbl = ., .vars = c("parameter", "target", "method", "run_id", "pair_id", "contam_level"), .funs = factor)
+  dplyr::mutate_at(.tbl = ., .vars = c("parameter", "target", "method", "pair_id"), .funs = factor)
 saveRDS(object = to_save, file = "raw_result.rds")

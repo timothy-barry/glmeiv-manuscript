@@ -44,11 +44,13 @@ then
   gene_pod_size=5 #500
   gRNA_pod_size=5 #500
   pair_pod_size=5 #500
+  B=2
 else
   gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs.rds"
   gene_pod_size=200
   gRNA_pod_size=500
   pair_pod_size=250
+  B=50
 fi
 
 # vii. results directory

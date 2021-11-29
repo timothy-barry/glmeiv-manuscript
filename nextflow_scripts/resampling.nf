@@ -3,7 +3,7 @@
 *********************/
 // Obtain the positive control pair IDs.
 process obtain_pair_ids {
-  time "60s"
+  time {60.s}
 
   output:
   stdout pair_id_ch_raw
@@ -14,19 +14,25 @@ process obtain_pair_ids {
   """
   Rscript -e '
   library(magrittr);
-  pairs <- readRDS("$pairs_fp");
-  pair_names <- pairs %>% dplyr::filter(site_type == "selfTSS") %>%
-  dplyr::summarize(paste0(gene_id, ":", gRNA_id)) %>% dplyr::slice(seq(1, 2)) %>% dplyr::pull()
-  cat(paste0(pair_names, collapse = "\n"))'
+  pairs <- readRDS("$pairs_fp") %>% dplyr::filter(site_type == "selfTSS");
+  if ("${params.trial}" == "true") {
+      pairs <- pairs %>% dplyr::slice(1:2);
+  } else {
+      set.seed(4);
+      pairs <- pairs %>% dplyr::sample_n(100);
+  }
+  pair_names <- pairs %>% dplyr::summarize(paste0(gene_id, ":", gRNA_id)) %>% dplyr::pull();
+  cat(paste0(pair_names, collapse = "\n"));'
   """
 }
 pair_id_ch = pair_id_ch_raw.splitText().map{it.trim()}
+pair_id_ch.view()
 
 
 // fit the baseline glmeiv models to the real data.
 process fit_base_glmeiv_model {
-  time 2.m
-  echo true
+  errorStrategy  { task.attempt <= 3  ? 'retry' : 'finish' }
+  time { 4.m * task.attempt }
 
   output:
   file 'baseline_fit.rds' into baseline_fit_ch
@@ -45,6 +51,7 @@ process fit_base_glmeiv_model {
   run_baseline_fit.R $covariate_matrix_fp $gene_odm_fp $gene_metadata_fp $m_offsets_fp $gRNA_odm_fp $gRNA_metadata_fp $g_offsets_fp $pair_id
   """
 }
+baseline_fit_ch.into{ baseline_fit_ch_a; baseline_fit_ch_b }
 
 // create channel of contimination levels
 my_arr = []
@@ -54,11 +61,13 @@ while (counter <= params.seq_end) {
   counter += params.seq_by
 }
 contamination_level = Channel.fromList(my_arr)
-pair_contamination_product_ch = baseline_fit_ch.combine(contamination_level)
+pair_contamination_product_ch = baseline_fit_ch_a.combine(contamination_level)
+
 
 // fit glmeiv on resampled data for each (contamination level, pair) pair.
 process fit_resampled_glmeiv {
-  time {2.m * params.B}
+  errorStrategy  { task.attempt <= 3  ? 'retry' : 'finish' }
+  time { 4.m * params.B * task.attempt }
 
   output:
   file 'raw_result.rds' into raw_results_ch
@@ -76,4 +85,47 @@ process fit_resampled_glmeiv {
   """
 }
 
+
+process combine_results_1 {
+  time {10.m}
+
+  input:
+  file 'raw_result' from baseline_fit_ch_b.collect()
+
+  output:
+  file 'combined_result_real_data.rds' into combined_result_real_data_ch
+
+  """
+  Rscript -e 'library(magrittr)
+  args <- commandArgs(trailingOnly = TRUE)
+  n_args <- length(args)
+  raw_result_fps <- args[seq(1L, n_args)]
+  combined_result <- do.call(rbind, lapply(raw_result_fps, function(fp) readRDS(fp)[["tbl"]]))
+  saveRDS(object = combined_result, file = "combined_result_real_data.rds")' raw_result*
+  """
+}
+
+
 // combine results
+process combine_results_2 {
+  time {10.m}
+  publishDir params.result_dir, mode: "copy"
+
+  input:
+  file 'raw_result' from raw_results_ch.collect()
+  file 'combined_result_real_data' from combined_result_real_data_ch
+
+  output:
+  file "resampling_result.rds" into collected_results_ch
+
+  """
+  Rscript -e '
+  library(magrittr)
+  args <- commandArgs(trailingOnly = TRUE)
+  n_args <- length(args)
+  raw_result_fps <- args[seq(1L, n_args)]
+  combined_result <- do.call(rbind, lapply(raw_result_fps, function(fp) readRDS(fp)))
+  saveRDS(object = combined_result, file = "resampling_result.rds")
+  ' combined_result_real_data raw_result*
+  """
+}
