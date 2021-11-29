@@ -26,7 +26,6 @@ process obtain_pair_ids {
   """
 }
 pair_id_ch = pair_id_ch_raw.splitText().map{it.trim()}
-pair_id_ch.view()
 
 
 // fit the baseline glmeiv models to the real data.
