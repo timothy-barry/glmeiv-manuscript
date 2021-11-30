@@ -25,10 +25,11 @@ bash run_gasp_thresh.sh
 # 2. Xie analysis
 #################
 # QC Xie data
-
-# run glmeiv at scale on Xie data
 Rscript ../R_scripts/analysis/qc_xie.R
-Rscript run_xie_glmeiv.sh
+# run glmeiv at scale on Xie data
+bash run_xie_glmeiv.sh
+# run thresholding method at scale on Xie data
+bash run_xie_thresh.sh
 
 ################
 # 3. Simulations
@@ -37,3 +38,7 @@ Rscript ../R_scripts/simulations/create_simspec_objects.R
 $SIMULATR -f $sim_dir"spec_objects/sim_spec_0.rds" -r $sim_dir"results/raw_result_0.rds"
 $SIMULATR -f $sim_dir"spec_objects/sim_spec_1.rds" -r $sim_dir"results/raw_result_1.rds"
 $SIMULATR -f $sim_dir"spec_objects/sim_spec_2.rds" -r $sim_dir"results/raw_result_2.rds"
+
+#############
+# 4. Plotting
+#############
