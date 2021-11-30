@@ -15,7 +15,7 @@ sim_dir=$LOCAL_GLMEIV_DATA_DIR"public/simulations/"
 # 1. Gasperini analysis
 #######################
 # QC Gasperini data
-Rscript ../R_scripts/analysis/qc_gasperini.R
+Rscript ../R_scripts/processing/qc_gasperini.R
 # run glmeiv at scale on Gasperini data
 bash run_gasp_glmeiv.sh
 # run thresholding method at scale on Gasperini data
@@ -25,7 +25,7 @@ bash run_gasp_thresh.sh
 # 2. Xie analysis
 #################
 # QC Xie data
-Rscript ../R_scripts/analysis/qc_xie.R
+Rscript ../R_scripts/processing/qc_xie.R
 # run glmeiv at scale on Xie data
 bash run_xie_glmeiv.sh
 # run thresholding method at scale on Xie data
