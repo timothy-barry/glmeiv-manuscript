@@ -3,8 +3,8 @@ library(ggplot2)
 
 # load the results
 xie_result_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/xie/results/")
-glmeiv_res <- readRDS(paste0(xie_result_dir, "glmeiv_result.rds")) %>% dplyr::distinct() # ensure ahead of time rows are distinct; check gRNA_gene_pairs data frame.
-thresh_res <- readRDS(paste0(xie_result_dir, "result_thresholding.rds")) %>% dplyr::distinct()
+# glmeiv_res <- readRDS(paste0(xie_result_dir, "glmeiv_result.rds")) %>% dplyr::distinct()
+# thresh_res <- readRDS(paste0(xie_result_dir, "result_thresholding.rds")) %>% dplyr::distinct()
 
 # examine g_perturbation for glmeiv in the different categories
 glmeiv_res %>% dplyr::filter(parameter == "g_perturbation",

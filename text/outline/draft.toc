@@ -37,3 +37,4 @@
 \contentsline {subsection}{\numberline {C.2}Inference}{58}
 \contentsline {section}{\numberline {D}Statistical accelerations}{63}
 \contentsline {section}{\numberline {E}Additional simulation study}{68}
+\contentsline {section}{\numberline {F}Real data analysis details}{69}

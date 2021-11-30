@@ -1366,6 +1366,11 @@ We ran an additional simulation study in which we modeled the gene and gRNA expr
 	\caption{Additional simulation results on Gaussian data. GLM-EIV (accelerated) outperformed the thresholding method on bias, mean squared error, confidence interval coverage rate, and confidence interval width metrics.}\label{fig:gaussian_sim}
 \end{figure}
 
+\section{Real data analysis details}
+
+We performed quality control. We kept cells with percent mitochondrial reads less than 8$\%$. For the Gasperini dataset, we furthermore kept cells with UMI and gRNA counts in the 5th to 95th percentiles to reduce the effect of outliers. (We did not perform this latter filter on the Xie data, as the latter dataset appeared to be less noisy and contained fewer cells.) Next, we kept genes expressed in at least $10\%$ of cells with a mean expression level of at least $1$. We did not QC the gRNAs.
+
+The quality-controlled Xie dataset contained $n = 101,508$ cells, $1,030$ genes, and $516$ gRNAs. There were $50,000$ \textit{in silico} negative control pairs and $681$ candidate \textit{cis} pairs. The quality-controlled Gasperini dataset contained $n = 170,645$ cells, $2,079$ genes, $6,598$ gRNAs. There were $17,028$ candidate \textit{cis} pairs, $97,818$ negative control pairs, and $322$ positive control pairs.
 
 \end{appendices}
 \end{document}
