@@ -11,9 +11,9 @@ gene_odm <- read_odm(odm_fp = paste0(xie_offsite, "gene/expression_matrix.odm"),
 gRNA_odm <- read_odm(odm_fp = paste0(xie_offsite, "gRNA/raw_grouped.odm"),
                      metadata_fp = paste0(xie_offsite, "gRNA/raw_grouped_metadata.rds"))
 
-#######################
-# 2. QC on genes, gRNAs
-#######################
+#############################
+# 2. QC on genes (no gRNA qc)
+#############################
 highly_expressed_genes <- gene_odm %>% get_feature_covariates() %>%
   dplyr::mutate(p_exp = n_nonzero / ncol(gene_odm)) %>%
   dplyr::filter(p_exp >= 0.08) %>% row.names()
@@ -31,13 +31,13 @@ g_offset <- multimodal_odm %>% get_cell_covariates() %>% dplyr::pull(gRNA_n_umis
 ##################
 # 4. Get the pairs
 ##################
-gRNA_gene_pairs <- readRDS(paste0(xie_offsite, "aux/pairs_grouped.rds")) %>% dplyr::filter(protein_coding)
-# sample 5000 cis pairs and 50000 negative control
+gRNA_gene_pairs <- readRDS(paste0(xie_offsite, "aux/pairs_grouped.rds"))
 set.seed(4)
 gRNA_gene_pairs_sub <- dplyr::filter(gRNA_gene_pairs, gene_id %in% get_feature_ids(gene_odm))
 # check for duplication of pair id
 gRNA_gene_pairs_sub %>% dplyr::summarize(pair_id = paste0(gene_id, gRNA_id)) %>%
   dplyr::pull() %>% duplicated() %>% any()
+# combine the cis pairs with 50,000, randomly-selected negative control pairs
 gRNA_gene_sample <- rbind(gRNA_gene_pairs_sub %>% dplyr::filter(type == "cis"),
                           gRNA_gene_pairs_sub %>% dplyr::filter(type == "neg_control") %>% dplyr::slice_sample(n = 50000))
 

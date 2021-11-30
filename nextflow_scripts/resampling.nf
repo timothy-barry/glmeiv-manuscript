@@ -17,9 +17,6 @@ process obtain_pair_ids {
   pairs <- readRDS("$pairs_fp") %>% dplyr::filter(site_type == "selfTSS");
   if ("${params.trial}" == "true") {
       pairs <- pairs %>% dplyr::slice(1:2);
-  } else {
-      set.seed(4);
-      pairs <- pairs %>% dplyr::sample_n(100);
   }
   pair_names <- pairs %>% dplyr::summarize(paste0(gene_id, ":", gRNA_id)) %>% dplyr::pull();
   cat(paste0(pair_names, collapse = "\n"));'
