@@ -47,4 +47,4 @@ compare_df <- dplyr::left_join(x = glmeiv_df, y = thresh_df,
 
 p1 <- ggplot(data = compare_df, mapping = aes(x = value_glmeiv, y = value_thresholding)) + 
   geom_point(alpha = 0.7) + facet_grid(.~target) + xlab("GLM-EIV") + ylab("Thresholding") + theme_bw() +
-  geom_abline(slope = 1, intercept = 0, col = "blue") + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  geom_abline(slope = 1, intercept = 0, col = "blue") + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
