@@ -151,18 +151,7 @@ comparison_df_sub <- comparison_df %>% filter(glmeiv_ok)
 p3 <- ggplot(data = comparison_df_sub, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.5) + 
   geom_abline(slope = 1, intercept = 0, col = my_cols[2], lwd = 1) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme +
   annotate(geom = "table", x = min(comparison_df_sub$value_thresh), y = max(comparison_df_sub$value_thresh), label = list(ci_info), vjust = 1, hjust = 0, fill = "white")
-ggsave(filename = "~/ex.pdf", plot = p3)
 
-
-# examine bad results
-corrected_pairs <- glmeiv_res %>% filter(target == "corrected_est", site_type == "NTC") %>% pull(pair_id) %>% as.character()
-bad_pairs <- glmeiv_res %>% filter(parameter == "m_perturbation", target == "estimate", site_type == "NTC", value > 2, !(pair_id %in% corrected_pairs)) %>% pull(pair_id) %>% as.character()
-
-glmeiv_res_bad <- glmeiv_res %>% filter(pair_id %in% bad_pairs)
-
-m_p_mitos <- glmeiv_res_bad %>% filter(parameter == "m_p_mito", target == "estimate") %>% pull(value)
-pis <- glmeiv_res_bad %>% filter(parameter == "pi", target == "estimate") %>% pull(value)
-g_pert <- glmeiv_res %>% filter(pair_id %in% bad_pairs, parameter == "g_perturbation", target == "estimate") %>% pull(value)
-spread <- glmeiv_res %>% filter(pair_id %in% bad_pairs, target == "membership_probability_spread") %>% pull(value)
-m_pert <- glmeiv_res_bad %>% filter(parameter == "m_perturbation", target == "estimate") %>% pull(value)
-
+# Examine bad pairs
+bad_pairs <- glmeiv_res %>% filter(parameter == "m_perturbation", target == "estimate", type == "neg_control", value > 3.5)
+glmeiv_res %>% filter(pair_id %in% bad_pairs, target  == "estimate" | parameter == "meta" ) %>% print(n = 20)

@@ -52,17 +52,18 @@ g_fam="poisson"
 # vi. pairs to analyze and pod sizes
 if [ $trial = true ]
 then
-  gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_trial.rds"
+  gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs_problem.rds"
   gene_pod_size=3 #500
   gRNA_pod_size=3 #500
   pair_pod_size=3 #500
+  result_file_name="glmeiv_result_trial.rds"
 else
   gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs.rds"
   gene_pod_size=200
   gRNA_pod_size=500
   pair_pod_size=500
+  result_file_name="glmeiv_result.rds"
 fi
 
 # vii. results directory
 result_dir=$LOCAL_GLMEIV_DATA_DIR"public/xie/results"
-result_file_name="glmeiv_result.rds"
