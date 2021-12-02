@@ -41,4 +41,4 @@ nextflow run https://github.com/timothy-barry/glmeiv-pipeline -r main \
  --g_offsets $g_offsets \
  --g_fam_str $g_fam \
  --result_file_name $result_file_name \
- -bg > $PWD/log -ansi-log false -with-trace -w $work_dir
+ -bg > $PWD/log -ansi-log false -with-trace -w $work_dir -resume
