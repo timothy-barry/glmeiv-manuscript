@@ -15,6 +15,7 @@ result_dir_gasp <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/gas
 ########################
 # 1. Resampling analysis
 ########################
+n_pairs <- resampling_df$pair_id %>% unique() %>% length()
 resampling_df <- readRDS(paste0(result_dir_gasp, "/resampling_result.rds"))
 # a function to plot the result given a given pair
 f <- function(resampling_df, pair_id, x_max = 0.5) {
@@ -35,20 +36,23 @@ f <- function(resampling_df, pair_id, x_max = 0.5) {
   return(p)
 }
 pair_ids <- as.character(unique(resampling_df$pair_id))
-p1 <- f(resampling_df, pair_ids[10], x_max = 0.4)
+p1 <- f(resampling_df, pair_ids[37], x_max = 0.4) # good choices: 37
 
 # an "aggregate" version of the above analysis
-aggregate_df <- resampling_df %>% filter(contam_level >= 0, parameter == "m_perturbation", target == "estimate") %>%
-  select(-parameter, -target) %>% group_by(method, pair_id, contam_level) %>%
-  summarize(m = mean(value)) %>% ungroup() %>% group_by(method, pair_id) %>%
+aggregate_df <- resampling_df %>% filter(contam_level >= 0, parameter == "m_perturbation", target %in% c("estimate", "confint_lower", "confint_upper")) %>%
+  select(-parameter) %>% tidyr::pivot_wider(names_from = "target", values_from = "value") %>% group_by(method, pair_id, contam_level) %>%
+  summarize(m = mean(estimate), m_lower_ci = mean(confint_lower, na.rm = TRUE), m_upper_ci = mean(confint_upper, na.rm = TRUE)) %>% ungroup() %>% group_by(method, pair_id) %>%
   group_modify(.f = function(tbl, key) {
     baseline_est <- tbl$m[tbl$contam_level == 0]
     p_change <- abs(tbl$m - baseline_est)/baseline_est
-    mutate(tbl, p_change = p_change)
+    ci_cover <- (tbl$m_lower_ci < baseline_est) & (tbl$m_upper_ci > baseline_est)
+    mutate(tbl, p_change = p_change, ci_cover = ci_cover)
   }) %>% ungroup() %>% group_by(contam_level, method) %>% summarize(median_p_change = median(p_change),
-                                                                    mean_p_change = mean(p_change),
                                                                     lower_median_ci = sort(p_change)[qbinom(.025, length(p_change), 0.5)],
-                                                                    upper_median_ci = sort(p_change)[qbinom(.975, length(p_change), 0.5)]) %>%
+                                                                    upper_median_ci = sort(p_change)[qbinom(.975, length(p_change), 0.5)],
+                                                                    mean_coverage = mean(ci_cover),
+                                                                    lower_cover_ci = mean_coverage - 1.96 * sqrt((1/n_pairs) * mean_coverage * (1 - mean_coverage)),
+                                                                    upper_cover_ci = mean_coverage + 1.96 * sqrt((1/n_pairs) * mean_coverage * (1 - mean_coverage))) %>%
   mutate(method = factor(method, c("glmeiv", "thresholding"), c("GLM-EIV", "Thresholding")))
 
 p2 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
@@ -57,6 +61,13 @@ p2 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
   scale_color_manual(values = c(my_cols[1], my_cols[3])) +
   xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0,0.01))) + geom_ribbon(aes(ymin = lower_median_ci, ymax = upper_median_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
   ylab("Median REC across pairs") + scale_fill_manual(values = c(my_cols[1], my_cols[3]))
+
+p3 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
+             mapping = aes(x = contam_level, y = mean_coverage, col = method)) + 
+  theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "blank", legend.title=element_blank()) +
+  scale_color_manual(values = c(my_cols[1], my_cols[3])) +
+  xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0, 0.01))) + geom_ribbon(aes(ymin = lower_cover_ci, ymax = upper_cover_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
+  ylab("CI stability across pairs") + scale_fill_manual(values = c(my_cols[1], my_cols[3]))
 
 # difference between resampled 0 and fitted 0.
 raw_est_vs_fitted_model_est <- resampling_df %>% filter(contam_level %in% c(-1, 0), parameter == "m_perturbation", target == "estimate") %>%

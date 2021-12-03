@@ -50,7 +50,7 @@ else
   gRNA_gene_pairs=$processed_data_dir"gRNA_gene_pairs.rds"
   gene_pod_size=200
   gRNA_pod_size=500
-  pair_pod_size=250
+  pair_pod_size=200
   B=50
   result_file_name="glmeiv_result.rds"
 fi

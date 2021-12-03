@@ -35,7 +35,7 @@
 \noindent
 Tim, Gene, Kathryn
 \begin{center} 
-\textbf{A class of exponential family measurement error models, with application to single-cell CRISPR screens}
+\textbf{A class of exponential family measurement error models applied to CRISPR genome editing and single-cell sequencing}
 \end{center}
 
 \begin{abstract}
@@ -52,7 +52,7 @@ We study estimation and inference in single-cell CRISPR screens from a statistic
 
 Our work makes two main contributions. First, we conduct a detailed study of the thresholding method. Notably, we demonstrate on real data that the thresholding method exhibits attenuation bias and a bias-variance tradeoff as a function of the selected threshold, and we recover these phenomena in precise mathematical terms in an idealized Gaussian setting. Second, we introduce a new method, GLM-EIV (``GLM-based errors-in-variables''), for single-cell CRISPR screen analysis. GLM-EIV generalizes the classical errors-in-variables model to response distributions and sources of measurement error that are exponential family-distributed. GLM-EIV thereby implicitly estimates the probability that each cell was perturbed, obviating the need to explicitly impute perturbation assignments via thresholding or another heuristic. Theoretical analyses and simulation studies indicate that GLM-EIV outperforms the thresholding method in large regions of the parameter space.
 
-We implement several statistical accelerations (that likely are of independent utility) to bring the cost of GLM-EIV down to within about an order of magnitude of the thresholding method. Finally, we develop a Docker-containerized application to deploy GLM-EIV at-scale across tens or hundreds of nodes on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this application, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights.
+We implement several statistical accelerations (that possibly are independently useful) to bring the cost of GLM-EIV down to within about an order of magnitude of the thresholding method. Finally, we develop a Docker-containerized application to deploy GLM-EIV at-scale across tens or hundreds of nodes on clouds (e.g., Microsoft Azure) and high-performance clusters. Leveraging this application, we apply GLM-EIV to analyze two recent, large-scale, high multiplicity-of-infection single-cell CRISPR screen datasets, yielding new biological and statistical insights.
 
 \section{Background and analysis challenges}
 
@@ -489,6 +489,10 @@ First, we observed that GLM-EIV dominated thresholded regression on all statisti
 Interestingly, thresholded regression exhibited better confidence interval coverage under estimated $\theta$ than under known $\theta$ (row 3). Estimating $\theta$ leads to slight inflation bias (i.e., overestimating the true effect size), whereas, as we showed previously, thresholding leads to attenuation bias (i.e., underestimating the true effect size). These phenomena partially cancel, yielding less biased estimates. We note that GLM-EIV and the thresholding method in principal are compatible with \textit{any} $\theta$ estimation procedure, including those based on more sophisticated techniques, such as regularization \cite{Hafemeister2019}. We defer rigorous investigation of the impact of different $\theta$ estimation strategies on these methods to future work.
 
 \section{Real data analysis}
+
+% We anticipate three practical uses of the GLM-EIV in single-cell CRISPR screen analysis: first, determining the extent of background contamination, which will inform subsequent analysis decisions. Second, if the amount of background contamination is sufficiently high, thresholding will fail, and so GLM-EIV should be used to get a good answer. On the other hand, if the amount of background contamination is low, we would use the two methods in conjunction: first, fit GLM-EIV to some subset of the data (e.g., the positive control pairs) to get the approximate Bayes-optimal decision boundary; and second, using this decision boundary in the thresholding method. As we have shown, the threshold exerts a substantial impact on the results. In this way, GLM-EIV becomes a threshold selection procedure, enabling statistically rigorous and scientifically reproducible threshold selection procedure, eliminating the aribrariness of selecting a threshold by, for example, eye.
+
+
 
 \section{Discussion}
 
