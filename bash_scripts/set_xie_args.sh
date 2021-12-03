@@ -26,12 +26,12 @@ then
   glmeiv_dir="az://main/glmeiv/"
   xie_2019_dir="az://main/xie-2019/"
   work_dir="az://main/work"
-  prof="az"
+  prof="-profile az"
 else
   glmeiv_dir=$LOCAL_GLMEIV_DATA_DIR
   xie_2019_dir=$LOCAL_XIE_2019_DATA_DIR
   work_dir=$LOCAL_GLMEIV_DATA_DIR"work"
-  prof="local"
+  prof=""
 fi
 backing_files_dir=$xie_2019_dir"processed/"
 processed_data_dir=$glmeiv_dir"public/xie/data/"
