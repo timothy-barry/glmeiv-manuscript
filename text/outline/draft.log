@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 DEC 2021 20:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  3 DEC 2021 11:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -448,14 +448,14 @@ Package pdftex.def Info: ../../figures/main_text_sim/plot.pdf  used on input li
 ne 480.
 (pdftex.def)             Requested size: 409.76732pt x 506.47343pt.
  [24] [25 <../../figures/main_text_sim/plot.pdf>]
-[26] (./draft.bbl [27] [28] [29]) [30] [31] [32] [33] [34]
-Overfull \hbox (19.85266pt too wide) in paragraph at lines 656--656
+[26] [27] (./draft.bbl [28] [29] [30]) [31] [32] [33] [34] [35]
+Overfull \hbox (19.85266pt too wide) in paragraph at lines 660--660
 []\OT1/cmr/bx/n/14.4 Comparing Bayes-optimal de-ci-sion bound-ary and large thr
 esh-
  []
 
-[35]
-Overfull \hbox (11.84581pt too wide) in paragraph at lines 666--667
+[36]
+Overfull \hbox (11.84581pt too wide) in paragraph at lines 670--671
 \OT1/cmr/m/n/12 We con-clude that $\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 (\OML/cmm/
 m/it/12 ^^L[]; c[]; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) \OML/
 cmm/m/it/12 > b\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; \OMS/cmsy/m/n/12 1\OML/
@@ -467,7 +467,7 @@ T1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; c[]; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =
  []
 
 
-Overfull \hbox (27.53612pt too wide) in paragraph at lines 666--667
+Overfull \hbox (27.53612pt too wide) in paragraph at lines 670--671
 \OML/cmm/m/it/12 b\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; \OMS/cmsy/m/n/12 1\O
 ML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2)$ for $\O
 ML/cmm/m/it/12 ^^L[] \OT1/cmr/m/n/12 = 2^^H[](3\OML/cmm/m/it/12 =\OT1/cmr/m/n/1
@@ -479,8 +479,8 @@ msy/m/n/12 2 \OT1/cmr/m/n/12 (2^^H[](3\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 4)\OML/
 cmm/m/it/12 ; \OMS/cmsy/m/n/12 1\OT1/cmr/m/n/12 )$. 
  []
 
-[36] [37]
-Overfull \hbox (1.75761pt too wide) in paragraph at lines 738--740
+[37] [38]
+Overfull \hbox (1.75761pt too wide) in paragraph at lines 742--744
 \OT1/cmr/m/n/12 We con-clude by (42[]) and (43[]) that $\OML/cmm/m/it/12 ^^M$ \
 OT1/cmr/m/n/12 is mono-ton-i-cally in-creas-ing in $\OML/cmm/m/it/12 ^^L[]$\OT1
 /cmr/m/n/12 . Fi-nally, $\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^
@@ -488,14 +488,14 @@ L[]; c; ^^Y\OT1/cmr/m/n/12 ) =
  []
 
 
-Underfull \hbox (badness 2980) detected at line 750
+Underfull \hbox (badness 2980) detected at line 754
  []$[]   [] \OML/cmm/m/it/12 ^^M\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L[]; c; \OT
 1/cmr/m/n/12 1\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 2) = [] = [] \OML/cmm/m/it/12 >
  \OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 :  $ 
  []
 
-[38] [39] [40] [41] [42]
-Overfull \hbox (36.20682pt too wide) in paragraph at lines 890--892
+[39] [40] [41] [42] [43]
+Overfull \hbox (36.20682pt too wide) in paragraph at lines 894--896
 \OT1/cmr/m/n/12 and let the vec-tors $\OML/cmm/m/it/12 s[]\OT1/cmr/m/n/12 (\OML
 /cmm/m/it/12 j\OT1/cmr/m/n/12 )$ and $\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 (\OML
 /cmm/m/it/12 j\OT1/cmr/m/n/12 )$ be de-fined anal-o-gously. The quan-ti-ties $^
@@ -504,57 +504,57 @@ Overfull \hbox (36.20682pt too wide) in paragraph at lines 890--892
 (\OML/cmm/m/it/12 j\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 ;$
  []
 
-[43]
-<../../figures/info_matrix/info_matrix_background.jpg, id=195, 1323.94624pt x 1
+[44]
+<../../figures/info_matrix/info_matrix_background.jpg, id=198, 1323.94624pt x 1
 317.92375pt>
 File: ../../figures/info_matrix/info_matrix_background.jpg Graphic file (type j
 pg)
 <use ../../figures/info_matrix/info_matrix_background.jpg>
 Package pdftex.def Info: ../../figures/info_matrix/info_matrix_background.jpg  
-used on input line 902.
+used on input line 906.
 (pdftex.def)             Requested size: 204.88365pt x 203.9342pt.
 
-Underfull \hbox (badness 1383) detected at line 920
+Underfull \hbox (badness 1383) detected at line 924
  []$[]  \OMS/cmsy/m/n/12 r[]L\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^R\OT1/cmr/m/n/
 12 ; \OML/cmm/m/it/12 m; g; p\OT1/cmr/m/n/12 ) = [] [] = [] \OMS/cmsy/m/n/12 ^^
 @ []\OML/cmm/m/it/12 :  $ 
  []
 
-[44] [45 <../../figures/info_matrix/info_matrix_background.jpg>] [46] [47]
-[48] [49]
-Underfull \hbox (badness 10000) in paragraph at lines 1011--1013
+[45] [46 <../../figures/info_matrix/info_matrix_background.jpg>] [47] [48]
+[49] [50]
+Underfull \hbox (badness 10000) in paragraph at lines 1015--1017
 
  []
 
-[50] [51] [52] [53] [54] [55]
-Overfull \hbox (2.96815pt too wide) in paragraph at lines 1125--1125
+[51] [52] [53] [54] [55] [56]
+Overfull \hbox (2.96815pt too wide) in paragraph at lines 1129--1129
  []|\OT1/cmtt/m/n/12 mu.eta.prime| 
  []
 
-[56] [57] [58]
-<../../figures/info_matrix/info_matrix_zero_inf.jpg, id=244, 1402.23875pt x 126
+[57] [58] [59]
+<../../figures/info_matrix/info_matrix_zero_inf.jpg, id=247, 1402.23875pt x 126
 0.71pt>
 File: ../../figures/info_matrix/info_matrix_zero_inf.jpg Graphic file (type jpg
 )
 <use ../../figures/info_matrix/info_matrix_zero_inf.jpg>
 Package pdftex.def Info: ../../figures/info_matrix/info_matrix_zero_inf.jpg  us
-ed on input line 1193.
+ed on input line 1197.
 (pdftex.def)             Requested size: 204.88365pt x 184.19293pt.
- [59 <../../figures/info_matrix/info_matrix_zero_inf.jpg>]
-Overfull \hbox (7.8044pt too wide) detected at line 1219
+ [60 <../../figures/info_matrix/info_matrix_zero_inf.jpg>]
+Overfull \hbox (7.8044pt too wide) detected at line 1223
  []$[] \OT1/cmr/m/n/12 = [] [\OML/cmm/m/it/12 k; l\OT1/cmr/m/n/12 ] \OMS/cmsy/m
 /n/12 ^^@ \U/msb/m/n/12 E [] \OT1/cmr/m/n/12 [\OML/cmm/m/it/12 k; l\OT1/cmr/m/n
 /12 ]$ 
  []
 
 
-Overfull \hbox (20.89171pt too wide) detected at line 1219
+Overfull \hbox (20.89171pt too wide) detected at line 1223
  []$[] \OT1/cmr/m/n/12 = \U/msb/m/n/12 E [] E [] \OMS/cmsy/m/n/12 ^^@ \U/msb/m/
 n/12 E []$ 
  []
 
 
-Overfull \hbox (1.54306pt too wide) detected at line 1219
+Overfull \hbox (1.54306pt too wide) detected at line 1223
  []$[] \OT1/cmr/m/n/12 = [] [] \U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12
  x[]P[]\OT1/cmr/m/n/12 ^^A[]\OML/cmm/m/it/12 s[]\OT1/cmr/m/n/12 ]\U/msb/m/n/12 
 E [] \OMS/cmsy/m/n/12 ^^@ [] \U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 x
@@ -564,17 +564,17 @@ OT1/cmr/m/n/12 [\OML/cmm/m/it/12 s[]P[]\OT1/cmr/m/n/12 ^^A[]\OML/cmm/m/it/12 x[
  []
 
 
-Overfull \hbox (33.41832pt too wide) detected at line 1224
+Overfull \hbox (33.41832pt too wide) detected at line 1228
  []$[]  \U/msb/m/n/12 E [] E [][] \OMS/cmsy/m/n/12 ^^@ \U/msb/m/n/12 E []$ 
  []
 
-[60] [61] [62]
-Overfull \hbox (0.97153pt too wide) detected at line 1266
+[61] [62] [63]
+Overfull \hbox (0.97153pt too wide) detected at line 1270
  []$[]  \U/msb/m/n/12 E [] E [] \OMS/cmsy/m/n/12 ^^@ \U/msb/m/n/12 E []$ 
  []
 
 
-Overfull \hbox (4.16304pt too wide) detected at line 1266
+Overfull \hbox (4.16304pt too wide) detected at line 1270
  []$[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 a [] [] \U/msb/m/n/12 E\OT1/cmr/m/n/1
 2 [\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 ]\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cm
 m/m/it/12 x[]p[]\OT1/cmr/m/n/12 ^^A[]\OML/cmm/m/it/12 s[]\OT1/cmr/m/n/12 ] \OMS
@@ -586,20 +586,20 @@ m/m/it/12 x[]p[]\OT1/cmr/m/n/12 ^^A[]\OML/cmm/m/it/12 s[]\OT1/cmr/m/n/12 ] \OMS
  []
 
 
-Overfull \hbox (10.22507pt too wide) detected at line 1266
+Overfull \hbox (10.22507pt too wide) detected at line 1270
  []$[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 a [] [] \OT1/cmr/m/n/12 = \OML/cmm/m/
 it/12 a [] x[]T[]\OT1/cmr/m/n/12 (1)^^A[]\OML/cmm/m/it/12 s[] []$ 
  []
 
-[63] [64] [65] [66] [67]
-<../../figures/supplement_sim/gaussian.pdf, id=274, 505.89pt x 180.675pt>
+[64] [65] [66] [67] [68]
+<../../figures/supplement_sim/gaussian.pdf, id=277, 505.89pt x 180.675pt>
 File: ../../figures/supplement_sim/gaussian.pdf Graphic file (type pdf)
 <use ../../figures/supplement_sim/gaussian.pdf>
 Package pdftex.def Info: ../../figures/supplement_sim/gaussian.pdf  used on inp
-ut line 1369.
+ut line 1373.
 (pdftex.def)             Requested size: 455.30013pt x 162.6115pt.
- [68 <../../figures/supplement_sim/gaussian.pdf>]
-[69] (./draft.aux) ) 
+ [69 <../../figures/supplement_sim/gaussian.pdf>]
+[70] (./draft.aux) ) 
 Here is how much of TeX's memory you used:
  4978 strings out of 492649
  72721 string characters out of 6129622
@@ -629,10 +629,10 @@ l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local
 /texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/lo
 cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on draft.pdf (69 pages, 1274230 bytes).
+Output written on draft.pdf (70 pages, 1275838 bytes).
 PDF statistics:
- 356 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
+ 359 PDF objects out of 1000 (max. 8388607)
+ 245 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

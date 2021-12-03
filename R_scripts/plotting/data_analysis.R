@@ -2,10 +2,12 @@ library(dplyr)
 library(ggplot2)
 library(ggpmisc)
 library(tidyr)
+library(cowplot)
+gasp_res <- readr::read_tsv(paste0(file = .get_config_path("LOCAL_GASPERINI_2019_DATA_DIR"), "at-scale/raw/GSE120861_all_deg_results.at_scale.txt"))
+pair_info <- gasp_res %>% select(pairs4merge, ENSG, gene_short_name, gRNA_group, target_site.chr, target_site.start, target_site.stop)
 
 my_theme <- theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), panel.background = element_rect("white"))
-
 
 my_cols <- c("firebrick3", "dodgerblue3", "orchid4")
 fig_dir <- paste0(.get_config_path("LOCAL_CODE_DIR"), "glmeiv-manuscript/figures/data_analysis")
@@ -17,8 +19,13 @@ result_dir_gasp <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/gas
 ########################
 n_pairs <- resampling_df$pair_id %>% unique() %>% length()
 resampling_df <- readRDS(paste0(result_dir_gasp, "/resampling_result.rds"))
-# a function to plot the result given a given pair
-f <- function(resampling_df, pair_id, x_max = 0.5) {
+
+# a function that plots the result given a given pair on the same plot
+f2 <- function(resampling_df, pair_id, x_max = 0.4, pair_info) {
+  split_pair <- strsplit(pair_id, ":")[[1]]
+  my_info <- pair_info %>% filter(ENSG == split_pair[1], gRNA_group == split_pair[2])
+  title <- paste0("Gene ", my_info$gene_short_name)
+  
   df <- dplyr::filter(resampling_df, pair_id == !!pair_id, contam_level <= x_max) %>%
     dplyr::filter(parameter == "m_perturbation", target %in% c("estimate", "confint_lower", "confint_upper")) %>%
     dplyr::select(-parameter, -pair_id) %>%
@@ -27,16 +34,19 @@ f <- function(resampling_df, pair_id, x_max = 0.5) {
   df_synth <- df %>% dplyr::filter(contam_level >= 0) %>% dplyr::group_by(method, contam_level) %>%
     dplyr::summarize(m_est = mean(estimate, na.rm = TRUE), m_ci_upper = mean(confint_upper, na.rm = TRUE), m_ci_lower = mean(confint_lower, na.rm = TRUE))
   df_gt <- df %>% dplyr::filter(contam_level == -1)
-  p <- ggplot(data = df_synth, mapping = aes(x = contam_level, y = m_est)) + facet_grid(.~method) +
-    geom_hline(data = df_gt, mapping = aes(yintercept = estimate), color = my_cols[2], lwd = 0.75) +
-    theme_bw() + xlab("Excess background contamination") + 
-    scale_color_manual(values=c("grey70", "grey70", "black")) + ylab("Estiamte") + geom_ribbon(aes(ymin = m_ci_lower, ymax = m_ci_upper), fill = "grey70", alpha = 0.5) + geom_line(lwd = 0.75) +
-    theme(legend.position = "none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.spacing.x = unit(4, "mm"), panel.border = element_blank(), axis.line = element_line(colour = "black")) +
-    scale_x_continuous(expand = expansion(mult = c(0, 0.05)))
+  
+  p <- ggplot(data = df_synth, mapping = aes(x = contam_level, y = m_est, col = method)) + 
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "blank", legend.title=element_blank(), plot.title = element_text(hjust = 0.5, size = 11)) +
+    scale_color_manual(values = c(my_cols[1], my_cols[3])) + geom_hline(yintercept = mean(df_gt$estimate), col = "black", lwd = 0.85) + 
+    xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0.05, 0.03))) +  geom_ribbon(aes(ymin = m_ci_lower, ymax = m_ci_upper), fill = "grey80", alpha = 0.6, linetype=0) + geom_line(lwd = 0.85) +
+    ylab("Estimate") + scale_fill_manual(values = c(my_cols[1], my_cols[3])) + my_theme +
+    ggtitle(label = title)
   return(p)
 }
+
 pair_ids <- as.character(unique(resampling_df$pair_id))
-p1 <- f(resampling_df, pair_ids[37], x_max = 0.4) # good choices: 37
+p3 <- f2(resampling_df, pair_ids[37], x_max = 0.4, pair_info) # good choices: 37
+p4 <- f2(resampling_df, pair_ids[73], x_max = 0.4, pair_info) # good choices: 37
 
 # an "aggregate" version of the above analysis
 aggregate_df <- resampling_df %>% filter(contam_level >= 0, parameter == "m_perturbation", target %in% c("estimate", "confint_lower", "confint_upper")) %>%
@@ -55,19 +65,19 @@ aggregate_df <- resampling_df %>% filter(contam_level >= 0, parameter == "m_pert
                                                                     upper_cover_ci = mean_coverage + 1.96 * sqrt((1/n_pairs) * mean_coverage * (1 - mean_coverage))) %>%
   mutate(method = factor(method, c("glmeiv", "thresholding"), c("GLM-EIV", "Thresholding")))
 
-p2 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
+p5 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
              mapping = aes(x = contam_level, y = median_p_change, col = method)) + 
-  geom_hline(yintercept = 0, col = "black", lwd = 0.5) + theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.21, 0.82), legend.title=element_blank()) +
+  geom_hline(yintercept = 0, col = "black", lwd = 0.5) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.25, 0.88), legend.title=element_blank()) +
   scale_color_manual(values = c(my_cols[1], my_cols[3])) +
-  xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0,0.01))) + geom_ribbon(aes(ymin = lower_median_ci, ymax = upper_median_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
-  ylab("Median REC across pairs") + scale_fill_manual(values = c(my_cols[1], my_cols[3]))
+  xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0, 0.01))) + geom_ribbon(aes(ymin = lower_median_ci, ymax = upper_median_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
+  ylab("Median REC") + scale_fill_manual(values = c(my_cols[1], my_cols[3])) + my_theme
 
-p3 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
+p6 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
              mapping = aes(x = contam_level, y = mean_coverage, col = method)) + 
   theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "blank", legend.title=element_blank()) +
   scale_color_manual(values = c(my_cols[1], my_cols[3])) +
   xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0, 0.01))) + geom_ribbon(aes(ymin = lower_cover_ci, ymax = upper_cover_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
-  ylab("CI stability across pairs") + scale_fill_manual(values = c(my_cols[1], my_cols[3]))
+  ylab("CI stability") + scale_fill_manual(values = c(my_cols[1], my_cols[3])) + my_theme
 
 # difference between resampled 0 and fitted 0.
 raw_est_vs_fitted_model_est <- resampling_df %>% filter(contam_level %in% c(-1, 0), parameter == "m_perturbation", target == "estimate") %>%
@@ -84,6 +94,7 @@ raw_est_vs_fitted_model_est
 # Raw data analyses
 ####################
 # Define functions
+
 # 1. join data frames for comparison
 join_results <- function(glmeiv_res, thresh_res, site_type) {
   left_join(x = filter(.data = glmeiv_res, target == "estimate", parameter == "m_perturbation", type == !!site_type) %>% select(pair_id, value),
@@ -108,6 +119,7 @@ get_ci_coverage_rate <- function(df, site_type = NULL) {
 ####################
 # Gasperini analysis
 ####################
+if (FALSE) {
 #  1. load the results
 glmeiv_res <- paste0(result_dir_gasp, "/result_glmeiv.rds") %>% readRDS() %>% mutate(type = site_type)
 thresh_res <- paste0(result_dir_gasp, "/result_thresholding.rds") %>% readRDS() %>% mutate(type = site_type)
@@ -132,6 +144,7 @@ p3 <- ggplot(data = comparison_df, mapping = aes(x = value_glmeiv, y = value_thr
 comparison_df <- join_results(glmeiv_res, thresh_res, "selfTSS")
 p4 <- ggplot(data = comparison_df, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.5) + 
   geom_abline(slope = 1, intercept = 0, col = my_cols[2], lwd = 1) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme
+}
 
 ##############
 # Xie analysis
@@ -159,10 +172,13 @@ ci_info <- rbind(get_ci_coverage_rate(glmeiv_res, "neg_control"),
 # 5. Plot results
 comparison_df <- join_results(glmeiv_res, thresh_res, "neg_control") %>% mutate(glmeiv_ok = value_glmeiv < 1.25 & value_glmeiv > 0.75)
 comparison_df_sub <- comparison_df %>% filter(glmeiv_ok)
-p3 <- ggplot(data = comparison_df_sub, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.5) + 
-  geom_abline(slope = 1, intercept = 0, col = my_cols[2], lwd = 1) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme +
-  annotate(geom = "table", x = min(comparison_df_sub$value_thresh), y = max(comparison_df_sub$value_thresh), label = list(ci_info), vjust = 1, hjust = 0, fill = "white")
+p2 <- ggplot(data = comparison_df_sub, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.25, color = my_cols[2], cex = 0.9) + 
+  geom_abline(slope = 1, intercept = 0, lwd = 0.85) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme +
+  annotate(geom = "table", x = min(comparison_df_sub$value_thresh), y = max(comparison_df_sub$value_thresh) + 0.05, label = list(ci_info), vjust = 1, hjust = 0, fill = "white")
 
-# Examine bad pairs
-bad_pairs <- glmeiv_res %>% filter(parameter == "m_perturbation", target == "estimate", type == "neg_control", value > 3.5)
-glmeiv_res %>% filter(pair_id %in% bad_pairs, target  == "estimate" | parameter == "meta" ) %>% print(n = 20)
+
+##############
+# Save results
+##############
+p_final <- cowplot::plot_grid(NULL, p2, p3, p4, p5, p6, nrow = 3, labels = c("a", "b", "c", "d", "e", "f"), align = "v")
+ggsave(filename = paste0(fig_dir, "/raw_plot.png"), plot = p_final, device = "png", dpi = 330, scale = 0.9, width = 7, height = 8)
