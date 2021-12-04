@@ -1,4 +1,10 @@
+#!/bin/bash
+#SBATCH -p RM-shared
+#SBATCH -t 48:00:00
+#SBATCH --ntasks-per-node=2
+
 source set_xie_args.sh
+export NXF_OPTS="-Xms500M -Xmx2G" # limit NF to 2 GB of memory
 
 #######################
 # Run Nextflow pipeline
