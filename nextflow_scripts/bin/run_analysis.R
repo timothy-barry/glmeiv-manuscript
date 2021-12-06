@@ -1,8 +1,3 @@
-##############################
-# 0. Set a few hyperparameters
-##############################
-threshold <- "adaptive"
-
 ########################################
 # 1. Load packages and command-line args
 ########################################
@@ -16,7 +11,8 @@ gene_metadata_fp <- args[3L]
 m_offsets_fp <- args[4L]
 gRNA_odm_fp <- args[5L]
 gRNA_metadata_fp <- args[6L]
-other_args <- args[seq(7L, n_args)]
+threshold <- as.numeric(args[7L])
+other_args <- args[seq(8L, n_args)]
 
 #########################################
 # 2. Load ODMs, covariate matrix, offsets
@@ -47,15 +43,16 @@ for (i in seq(1L, n_pairs)) {
   if (i == 1 || gRNA_ids[i] != gRNA_ids[i - 1]) { # likewise for gRNAs
     g <- as.numeric(gRNA_odm[[gRNA,]])
   }
+  
   # loop through different thresholds, fitting model to each
-  # perform threshold
-  if (is.numeric(threshold)) {
-    curr_threshold <- threshold
-  } else {
-    g_prime <- g[g >= 1]
-    curr_threshold <- mean(g_prime)
-  }
-  phat <- as.integer(g >= curr_threshold)
+  # if (is.numeric(threshold)) {
+  #  curr_threshold <- threshold
+  # } else {
+  #  g_prime <- g[g >= 1]
+  #  curr_threshold <- mean(g_prime)
+  # }
+  
+  phat <- as.integer(g >= threshold)
   # run thresholding method
   fit <- glmeiv::run_thresholding_method(phat = phat, m = m, m_fam = m_fam,
                                          m_offset = m_offset, covariate_matrix = covariate_matrix,

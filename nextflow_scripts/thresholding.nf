@@ -98,10 +98,11 @@ process run_gene_gRNA_analysis {
   // 4. m_offsets
   // 5. gRNA_odm
   // 6. gRNA_metadata
+  // 7. threshold
   // 8. input (gene_id, gRNA_id, gene_precomp, gRNA_precomp) tuples
 
   """
-  Rscript $projectDir/bin/run_analysis.R $params.covariate_matrix $params.gene_odm $params.gene_metadata $params.m_offsets $params.gRNA_odm $params.gRNA_metadata $input
+  Rscript $projectDir/bin/run_analysis.R $params.covariate_matrix $params.gene_odm $params.gene_metadata $params.m_offsets $params.gRNA_odm $params.gRNA_metadata $params.threshold $input
   """
 }
 

@@ -67,3 +67,6 @@ fi
 
 # vii. results directory
 result_dir=$LOCAL_GLMEIV_DATA_DIR"public/xie/results"
+
+# viii. threshold
+thresh=$(cat $processed_data_dir"dec_bdy.txt")
