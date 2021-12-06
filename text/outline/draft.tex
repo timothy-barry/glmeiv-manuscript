@@ -496,6 +496,12 @@ Interestingly, thresholded regression exhibited better confidence interval cover
 
 We see the practical use of this method as follows. First, deploy GLM-EIV to some random subset of pairs to assess the extent of background contamination. If the background contamination sufficiently high, apply GLM-EIV to analyze the data directly. On the other hand, if the background contamination is low, the thresholding method is an appealing method due to its speed and stability. A challenge, as we have shown, is that the selected threshold exerts a substantial impact on the results. GLM-EIV approximates the Bayes-optimal decision boundary, which, as we showed in an idealized Gaussian setting, minimizes attenuation bias when the gRNA count distribution is sufficiently-well separated. Therefore, in problem settings where thresholding is tenable, GLM-EIV provides a statistically principled, scientifically reproducible, empirically effective threshold selection procedure.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{../../figures/dec_tree/dec_tree_image}
+\end{figure}
+
+
 To our knowledge, this is the first statistical work to study single-cell CRISPR screens. One of our objectives is to bring to the attention of the statistical community an emerging class of functional genomics assays that likely will exert a major impact on biology research. Additionally, this is the first work to leverage the ondisc-Nextflow-cloud/HPC technology stack, a set of programming tools for large-scale single-cell analysis that we view as powerful and user-friendly.
 
 \bibliographystyle{unsrt}
