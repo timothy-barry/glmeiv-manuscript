@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{tabularx}
+\usepackage{amssymb}
 \usepackage{array}
 \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
 \newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
@@ -278,7 +279,7 @@ p_i \sim \textrm{Bern}(\pi),
 \end{equation} where $\pi \in (0,1/2]$. 
  Together, (\ref{glmeiv_model_1}, \ref{glmeiv_model_2}, \ref{glmeiv_model_3}, \ref{glmeiv_model_4}, \ref{glmeiv_model_5}) define the standard GLM-EIV model. The terms $(\beta^m_0 + \beta^m_1p_i + \gamma^T_m z_i)$ and $(\beta^g_0 + \beta^g_1 p_i + \gamma^T_g z_i)$ can be interpreted as relative gene and gRNA expressions, similar to the analogous term in the thresholding model. Likewise, the target of inference $\beta^m_1$ is the log fold change in gene expression in response to the perturbation, accounting for technical factors.
  
-\subsubsection*{Full GLM-EIV model}
+\subsubsection*{General model}
 To provide greater modeling flexibility, we generalize the GLM-EIV model to arbitrary exponential family response distributions and link functions. To increase notational compactness, let $\tilde{x_i} = [1, p_i, z_i]^T \in \R^d$ be the vector of covariates (including an intercept term) for the $i$th cell. (We use the tilde as a reminder that the vector is partially unobserved.) Let $\beta_m = [\beta^m_0, \beta^m_1, \gamma_m]^T \in \R^d$ and $\beta_g = [\beta^g_0, \beta^g_1, \gamma_g]^T \in \R^d$ be the unknown coefficient vectors corresponding to the gene and gRNA expression models, respectively. Finally, let $o^m_i$ and $o^g_i$ be the (possibly zero) offset terms for the gene and gRNA models; in practice, we typically set $o^m_i$ and $o^g_i$ to $\log(d^m_i)$ and $\log(d^g_i)$, respectively.
 
 We use a GLM approach to model the gene and gRNA expressions. Considering first the gene expression model, let the $i$th linear component $l^m_i$ of the model be $$l^m_i = \langle \tilde{x}_i, \beta_m \rangle + o^m_i.$$ Let the mean $\mu^m_i$ of the $i$th observation be
@@ -335,14 +336,14 @@ We derive the log-likelihood of the GLM-EIV model. We conduct estimation and inf
 \begin{equation}\label{full_density}
 f(m_i,g_i,p_i; \theta) = f_m(m_i | p_i) f_g(g_i | p_i) f_p(p_i) \\ = \pi^{p_i}(1-\pi)^{1-p_i} f_m(m_i; \eta^m_i) f_g(g_i; \eta^g).
 \end{equation}
-The log-likelihood is
+The complete-data log-likelihood is
 \begin{multline}\label{full_log_lik}
 \mathcal{L}(\theta; m, g, p) = \sum_{i=1}^n \log\left( \pi^{p_i}(1-\pi)^{1-p_i} \right) \\ + \sum_{i=1}^n \log\left( f_m(m_i; \eta^m_i)\right) + \sum_{i=1}^n \log\left( f_g(g_i; \eta_i^g) \right). \end{multline}
-Integrating over the unobserved variable $p_i$, we can write the marginal density $f$ of $(m_i, g_i)$ as
+Integrating over the unobserved variable $p_i$, we can write the density $f$ of $(m_i, g_i)$ as
 \begin{equation}\label{marginal_density}
 f(m_i, g_i; \theta) = (1-\pi) f_m(m_i; \eta^m_i(0)) f_g(g_i; \eta^g_i(0)) + \pi f_m(m_i; \eta^m_i(1)) f_g(g_i; \eta^g_i(1)).
 \end{equation}
-Finally, the marginal log-likelihood is
+Finally, the log-likelihood is
 \begin{multline}\label{marginal_log_lik}
 \mathcal{L}(\theta; m, g) \\ = \sum_{i=1}^n \log\left[(1-\pi) f_m(m_i; \eta^m_i(0)) f_g(g_i; \eta^g_i(0)) + \pi f_m(m_i; \eta^m_i(1)) f_g(g_i; \eta^g_i(1)) \right]
 \end{multline}
@@ -354,7 +355,7 @@ y_i = \beta_0 + \beta_1 x^*_i + \ep_i \\
 x_i = x^*_i + \tau_i,
 \end{cases}
 \end{equation}
-where $x^*_i \sim \textrm{Bern}(\pi), \ep_i \sim N(0,1), \tau_i \sim N(0,1),$ and $\ep_i$,$\tau_i$, and $x^*_i$ are independent. The model (\ref{classical_eiv}) is a special case of the GLM-EIV model. More generally, GLM-EIV allows the use of regression functions (that optionally include covariates and use nonlinear links) to model $y_i$ and $x_i$; $y_i$ and $x_i$ need not be Gaussian.
+where $x^*_i \sim \textrm{Bern}(\pi), \ep_i \sim N(0,1), \tau_i \sim N(0,1),$ and $\ep_i$,$\tau_i$, and $x^*_i$ are independent. The model (\ref{classical_eiv}) is a GLM-EIV model with identity link, Gaussian response, and no covariate terms.
 
 \subsection{Estimation and inference}
 
@@ -442,7 +443,7 @@ Therefore, to estimate $\beta^m_1$, $\beta^g_1$, and $\pi$, we fit a GLM-EIV mod
 
 The M step of the ``reduced'' GLM-EIV algorithm requires fitting two no-intercept, univariate GLMs with offsets (Algorithm \ref{algo:pilot_estimates}, line 20). We derive analytic formulas for the MLEs of these GLMs in the three most important cases: Gaussian response with identity link, Poisson response with log link, and negative binomial response with log link (see appendix; the latter formula is asymptotically exact, and, to the best of our knowledge, new). Consequently, we do not need to run the relatively slow IRLS procedure to carry out the M step of the ``reduced'' GLM-EIV algorithm. Overall, the proposed algorithm for obtaining the pilot parameter estimates (Algorithm \ref{algo:pilot_estimates}) requires fitting only two GLMs (via IRLS).
 
-\subsection{Computing}
+\subsection{Computing}\label{sec:computing}
 We developed a computational infrastructure to apply GLM-EIV to large-scale, single-cell CRISPR screen data.\footnote{Pipeline available at \texttt{github.com/timothy-barry/glmeiv-pipeline}.} The infrastructure leverages Nextflow, a programming language that facilitates building data-intensive pipelines \cite{DITommaso2017}, and ondisc\footnote{Package available at \texttt{github.com/timothy-barry/ondisc}; preprint forthcoming.}, an R package that we developed (in a separate project) to facilitate large-scale computing on single-cell data. Nextflow and ondisc together enable the construction of highly portable single-cell pipelines: one can analyze data \textit{out-of-memory} on a laptop or in a \textit{distributed} fashion across tens or hundreds of nodes on a cloud (e.g., Microsoft Azure, Google Cloud) or high-performance cluster.
 
 Leveraging these technologies, we develop a scalable and efficient pipeline for GLM-EIV (Algorithm \ref{algo:at_scale}). First, we run a round of ``precomputations'' on all $d_g$ genes and $d_p$ perturbations. The precomputations involve regressing the gene expressions (or gRNA counts) onto the technical factors, thereby ``factoring out'' lines 2-7 from Algorithm \ref{algo:pilot_estimates}. Next, we run differential expression analyses on the full set of gene-perturbation pairs; for a given pair, this amounts to obtaining the complete set of pilot parameters (Algorithm \ref{algo:pilot_estimates}, lines 8 onward), fitting the GLM-EIV model (Algorithm \ref{algo:em_full}), and performing inference. The three loops in Algorithm \ref{algo:at_scale} are embarassingly parallel and therefore can be massively parallelized. 
@@ -488,21 +489,39 @@ First, we observed that GLM-EIV dominated thresholded regression on all statisti
 
 Interestingly, thresholded regression exhibited better confidence interval coverage under estimated $\theta$ than under known $\theta$ (row 3). Estimating $\theta$ leads to slight inflation bias (i.e., overestimating the true effect size), whereas, as we showed previously, thresholding leads to attenuation bias (i.e., underestimating the true effect size). These phenomena partially cancel, yielding less biased estimates. We note that GLM-EIV and the thresholding method in principal are compatible with \textit{any} $\theta$ estimation procedure, including those based on more sophisticated techniques, such as regularization \cite{Hafemeister2019}. We defer rigorous investigation of the impact of different $\theta$ estimation strategies on these methods to future work.
 
-\section{Real data analysis}
+\section{Data analysis}
 
-% We anticipate three practical uses of the GLM-EIV in single-cell CRISPR screen analysis: first, determining the extent of background contamination, which will inform subsequent analysis decisions. Second, if the amount of background contamination is sufficiently high, thresholding will fail, and so GLM-EIV should be used to get a good answer. On the other hand, if the amount of background contamination is low, we would use the two methods in conjunction: first, fit GLM-EIV to some subset of the data (e.g., the positive control pairs) to get the approximate Bayes-optimal decision boundary; and second, using this decision boundary in the thresholding method. As we have shown, the threshold exerts a substantial impact on the results. In this way, GLM-EIV becomes a threshold selection procedure, enabling statistically rigorous and scientifically reproducible threshold selection procedure, eliminating the aribrariness of selecting a threshold by, for example, eye.
+Leveraging our computational infrastructure (Section \ref{sec:computing}), we applied GLM-EIV to analyze the entire Gasperini and Xie datasets (Figure \ref{fig:real_data}). Our theoretical analyses (Section \ref{sec:thresholding_theory}) and simulation studies (Section \ref{sec:simulation}) revealed that the Bayes-optimal decision boundary is a good choice for the threshold when the gRNA count distribution is well separated. Therefore, under the assumption that the effect of the perturbation on gRNA expression is similar across pairs, we used the fitted GLM-EIV models to approximate the Bayes-optimal decision boundary for both datasets, yielding a boundary of $3$ for Gasperini and $7$ for Xie. We then applied the thresholding method to analyze both datasets, setting the threshold to the Bayes-optimal decision boundary estimated using GLM-EIV.
 
-\section{Discussion}
+% We compared GLM-EIV to thresholded regression on the real data and surprisingly found that the two methods produced similar results. Figures \ref{fig:real_data}a and \ref{fig:real_data}b show the estimate of the target of inference $\exp(\beta^m_1)$ 
 
-We see the practical use of this method as follows. First, deploy GLM-EIV to some random subset of pairs to assess the extent of background contamination. If the background contamination sufficiently high, apply GLM-EIV to analyze the data directly. On the other hand, if the background contamination is low, the thresholding method is an appealing method due to its speed and stability. A challenge, as we have shown, is that the selected threshold exerts a substantial impact on the results. GLM-EIV approximates the Bayes-optimal decision boundary, which, as we showed in an idealized Gaussian setting, minimizes attenuation bias when the gRNA count distribution is sufficiently-well separated. Therefore, in problem settings where thresholding is tenable, GLM-EIV provides a statistically principled, scientifically reproducible, empirically effective threshold selection procedure.
+To better understand this result, we examined the estimated effect of the perturbation on gRNA expression, $\exp(\hat{\beta}_1^g)$; this parameter plays an important role in determining problem difficulty. The value of $\exp(\hat{\beta}_1^g)$ was greater than expected: the 95\% CI for this parameter averaged across pairs was $[XX,XX]$ and $[300, 316]$ on the Gasperini and Xie data, respectively. We concluded that both datasets lay in an ``easy'' region of the parameter space, making thresholding a tenable strategy (provided the threshold is selected well).
+
+To illuminate the settings in which GLM-EIV and the thresholding method diverge, we artificially increased the problem difficulty by generating partially-synthetic datasets. To this end, we sampled gRNA counts from a realistic model, holding fixed the raw gene expressions, library sizes, covariates, and fitted perturbation probabilities. We defined a normalized parameter called ``excess background contamination'' that controlled the problem difficulty. When excess background contamination was equal to zero, we sampled gRNA counts directly from the fitted model. As excess background contamination increased, we sampled gRNA counts from a slightly modified version of the fitted model in which the mean gRNA expression of \textit{unperturbed} cells was increased while the mean gRNA expression of \textit{perturbed} cells was held constant. Finally, when excess background contamination was equal to $1$ (the maximum value), we set the mean gRNA expression of unperturbed cells equal to that of perturbed cells and sampled from the resulting model.
+
+We generated partially-synthetic data for each of the 322 positive control pairs in the Gasperini dataset, varying excess background contamination over the interval $[0,0.4].$ We applied GLM-EIV and the thresholding method to analyze these data. We present results on two representative pairs (the pair containing gene \textit{LRIF1} and the pair containing gene \textit{NDUFA2}) in Figures \ref{fig:real_data}c-d. First, we observed that the estimate produced by the methods on the raw data (depicted as a horizontal black line) coincided almost exactly with the estimate produced by the methods on the partially-synthetic data generated by setting excess background contamination to zero (trend present across all genes; average relative difference $0.003$). This indicates that the fitted model accurately tracked the gRNA count distribution. Next, we observed that, as excess background contamination increased, the thresholding method exhibited severe attenuation bias, whereas GLM-EIV remained roughly stable.
+
+We conducted a similar analysis on the entire set of positive control pairs. First, for each pair, we computed the ``relative estimate change'' (REC), defined as the relative difference between the estimate at some level of excess contamination and zero excess contamination (Figure \ref{fig:real_data}d). % We plotted median 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\linewidth]{../../figures/dec_tree/dec_tree_image}
+	\includegraphics[width=0.9\linewidth]{../../figures/data_analysis/annotated_plot_crop}
+	\caption{\textbf{Data analysis}. \textbf{a-b}, Fold change estimates produced by GLM-EIV and thresholded regression on Gasperini (\textbf{a}) and Xie (\textbf{b}) negative control pairs. \textbf{c-d}, Estimates produced by GLM-EIV and thresholded regression on two positive control pairs -- \textit{LRIF1} (\textbf{a}) and \textit{NDUFA2} (\textbf{b}) -- plotted as a function of excess background contamination. Grey bands, 95\% CIs outputted by the methods. \textbf{e-f}, Median relative estimate change (REC; \textbf{e}) and confidence interval coverage rate (\textbf{f}) aggregated across \textit{all} 322 positive control pairs, plotted as a function of excess background contamination. Colored bands, pointwise 95\% CIs for population quantities. Panels (\textbf{c-f}) together illustrate that GLM-EIV was more stable than thresholded regression as background contamination increased.}
+	\label{fig:real_data}
 \end{figure}
 
 
-To our knowledge, this is the first statistical work to study single-cell CRISPR screens. One of our objectives is to bring to the attention of the statistical community an emerging class of functional genomics assays that likely will exert a major impact on biology research. Additionally, this is the first work to leverage the ondisc-Nextflow-cloud/HPC technology stack, a set of programming tools for large-scale single-cell analysis that we view as powerful and user-friendly.
+\section{Discussion}
+
+% We see the practical use of this method as follows. First, deploy GLM-EIV to some random subset of pairs to assess the extent of background contamination. If the background contamination sufficiently high, apply GLM-EIV to analyze the data directly. On the other hand, if the background contamination is low, the thresholding method is an appealing method due to its speed and stability. A challenge, as we have shown, is that the selected threshold exerts a substantial impact on the results. GLM-EIV approximates the Bayes-optimal decision boundary, which, as we showed in an idealized Gaussian setting, minimizes attenuation bias when the gRNA count distribution is sufficiently-well separated. Therefore, in problem settings where thresholding is tenable, GLM-EIV provides a statistically principled, scientifically reproducible, empirically effective threshold selection procedure.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{../../figures/dec_tree/dec_tree_crop}
+\caption{\textbf{Use of GLM-EIV in practice}. The decision tree above illustrates how we anticipate GLM-EIV could be used in practice. First, apply GLM-EIV to a set of randomly-sampled gene-perturbation pairs to assess background contamination level (positive control pairs work best for this purpose). If GLM-EIV indicates that background contamination is high (e.g., $\exp(\beta^g_1) \lessapprox $ 10), apply GLM-EIV to analyze the entire dataset; otherwise, approximate the Bayes-optimal decision boundary using the fitted GLM-EIV models. Next, apply a thresholding method (e.g., SCEPTRE or thresholded negative binomial regression) to analyze the data, setting the threshold to the estimated Bayes-optimal decision boundary.}
+\end{figure}
+
+% To our knowledge, this is the first statistical work to study single-cell CRISPR screens. One of our objectives is to bring to the attention of the statistical community an emerging class of functional genomics assays that likely will exert a major impact on biology research. Additionally, this is the first work to leverage the ondisc-Nextflow-cloud/HPC technology stack, a set of programming tools for large-scale single-cell analysis that we view as powerful and user-friendly.
 
 \bibliographystyle{unsrt}
 \newpage

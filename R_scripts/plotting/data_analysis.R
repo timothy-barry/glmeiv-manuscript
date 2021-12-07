@@ -38,7 +38,7 @@ f2 <- function(resampling_df, pair_id, x_max = 0.4, pair_info) {
   p <- ggplot(data = df_synth, mapping = aes(x = contam_level, y = m_est, col = method)) + 
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "blank", legend.title=element_blank(), plot.title = element_text(hjust = 0.5, size = 11)) +
     scale_color_manual(values = c(my_cols[1], my_cols[3])) + geom_hline(yintercept = mean(df_gt$estimate), col = "black", lwd = 0.85) + 
-    xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0.05, 0.03))) +  geom_ribbon(aes(ymin = m_ci_lower, ymax = m_ci_upper), fill = "grey80", alpha = 0.6, linetype=0) + geom_line(lwd = 0.85) +
+    xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0.05, 0.03))) +  geom_ribbon(aes(ymin = m_ci_lower, ymax = m_ci_upper), fill = "grey60", alpha = 0.8, linetype = 0) + geom_line(lwd = 0.85) +
     ylab("Estimate") + scale_fill_manual(values = c(my_cols[1], my_cols[3])) + my_theme +
     ggtitle(label = title)
   return(p)
@@ -94,7 +94,6 @@ raw_est_vs_fitted_model_est
 # Raw data analyses
 ####################
 # Define functions
-
 # 1. join data frames for comparison
 join_results <- function(glmeiv_res, thresh_res, site_type) {
   left_join(x = filter(.data = glmeiv_res, target == "estimate", parameter == "m_perturbation", type == !!site_type) %>% select(pair_id, value),
@@ -175,7 +174,6 @@ comparison_df_sub <- comparison_df %>% filter(glmeiv_ok)
 p2 <- ggplot(data = comparison_df_sub, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.25, color = my_cols[2], cex = 0.9) + 
   geom_abline(slope = 1, intercept = 0, lwd = 0.85) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme +
   annotate(geom = "table", x = min(comparison_df_sub$value_thresh), y = max(comparison_df_sub$value_thresh) + 0.05, label = list(ci_info), vjust = 1, hjust = 0, fill = "white")
-
 
 ##############
 # Save results

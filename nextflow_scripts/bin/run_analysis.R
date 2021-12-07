@@ -43,15 +43,8 @@ for (i in seq(1L, n_pairs)) {
   if (i == 1 || gRNA_ids[i] != gRNA_ids[i - 1]) { # likewise for gRNAs
     g <- as.numeric(gRNA_odm[[gRNA,]])
   }
-  
+
   # loop through different thresholds, fitting model to each
-  # if (is.numeric(threshold)) {
-  #  curr_threshold <- threshold
-  # } else {
-  #  g_prime <- g[g >= 1]
-  #  curr_threshold <- mean(g_prime)
-  # }
-  
   phat <- as.integer(g >= threshold)
   # run thresholding method
   fit <- glmeiv::run_thresholding_method(phat = phat, m = m, m_fam = m_fam,
@@ -62,3 +55,8 @@ for (i in seq(1L, n_pairs)) {
 
 out <- do.call(rbind, out_l) %>% dplyr::mutate_at(c("parameter", "target", "gene_id", "gRNA_id"), factor)
 saveRDS(object = out, file = "raw_result.rds")
+
+
+# leftover code
+# g_prime <- g[g >= 1]
+# curr_threshold <- mean(g_prime)
