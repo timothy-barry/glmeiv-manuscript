@@ -209,6 +209,24 @@ Brian Ripley, Bill Venables, Douglas~M Bates, Kurt Hornik, Albrecht Gebhardt,
 \newblock {Package ‘mass'}.
 \newblock {\em Cran r}, 538:113--120, 2013.
 
+\bibitem{Schraivogel2020}
+Daniel Schraivogel, Andreas~R. Gschwind, Jennifer~H. Milbank, Daniel~R. Leonce,
+  Petra Jakob, Lukas Mathur, Jan~O. Korbel, Christoph~A. Merten, Lars Velten,
+  and Lars~M. Steinmetz.
+\newblock {Targeted Perturb-seq enables genome-scale genetic screens in single
+  cells}.
+\newblock {\em Nature Methods}, 17(6):629--635, 2020.
+
+\bibitem{Mimitou2021}
+Eleni~P. Mimitou, Caleb~A. Lareau, Kelvin~Y. Chen, Andre~L. Zorzetto-Fernandes,
+  Yuhan Hao, Yusuke Takeshima, Wendy Luo, Tse~Shun Huang, Bertrand~Z. Yeung,
+  Efthymia Papalexi, Pratiksha~I. Thakore, Tatsuya Kibayashi, James~Badger
+  Wing, Mayu Hata, Rahul Satija, Kristopher~L. Nazor, Shimon Sakaguchi, Leif~S.
+  Ludwig, Vijay~G. Sankaran, Aviv Regev, and Peter Smibert.
+\newblock {\em {Scalable, multimodal profiling of chromatin accessibility, gene
+  expression and protein levels in single cells}}, volume~39.
+\newblock Springer US, 2021.
+
 \bibitem{fitzpatrick2009}
 Patrick Fitzpatrick.
 \newblock {\em {Advanced calculus}}, volume~5.
