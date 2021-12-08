@@ -17,8 +17,8 @@ result_dir_gasp <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/gas
 ########################
 # 1. Resampling analysis
 ########################
-n_pairs <- resampling_df$pair_id %>% unique() %>% length()
 resampling_df <- readRDS(paste0(result_dir_gasp, "/resampling_result.rds"))
+n_pairs <- resampling_df$pair_id %>% unique() %>% length()
 
 # a function that plots the result given a given pair on the same plot
 f2 <- function(resampling_df, pair_id, x_max = 0.4, pair_info) {
@@ -118,32 +118,31 @@ get_ci_coverage_rate <- function(df, site_type = NULL) {
 ####################
 # Gasperini analysis
 ####################
-if (FALSE) {
 #  1. load the results
 glmeiv_res <- paste0(result_dir_gasp, "/result_glmeiv.rds") %>% readRDS() %>% mutate(type = site_type)
 thresh_res <- paste0(result_dir_gasp, "/result_thresholding.rds") %>% readRDS() %>% mutate(type = site_type)
 
-# 2. Ensure we are examining the same pairs (Gasp missing ~100 due to probable node failure)
+# 2. Ensure we are examining the same pairs
 glmeiv_pairs <- glmeiv_res %>% filter(parameter == "m_perturbation", target == "estimate") %>% pull(pair_id) %>% as.character() %>% sort()
 thresh_pairs <- thresh_res %>% filter(parameter == "m_perturbation", target == "estimate") %>% pull(pair_id) %>% as.character() %>% sort()
+identical(glmeiv_pairs, thresh_pairs) # pairs are the same across glmeiv and thresholding
 
-glmeiv_res <- glmeiv_res %>% filter(pair_id %in% ok_glmeiv_pairs)
-thresh_res <- thresh_res %>% filter(pair_id %in% ok_glmeiv_pairs)
+# 3. mean g_perturbation
+glmeiv_res %>% filter(parameter == "g_perturbation") %>% pivot_wider(id_cols = "pair_id", names_from = "target") %>%
+  summarize(m_est = mean(estimate), m_confint_lower = mean(confint_lower, na.rm = TRUE), m_confint_upper = mean(confint_upper[confint_upper < 10000], na.rm = TRUE))
 
 # 4. get CI coverage for NTCs
-get_ci_coverage_rate(glmeiv_res, "NTC")
-get_ci_coverage_rate(thresh_res, "NTC")
+ci_info <- rbind(get_ci_coverage_rate(glmeiv_res, "NTC"),
+                 get_ci_coverage_rate(thresh_res, "NTC")) %>%
+  mutate(Method = c("GLM-EIV", "Thresh."), coverage_rate = round(coverage_rate, 1), mean_width = round(mean_width, 3)) %>%
+  select(Method, "Cov. rate" = coverage_rate, "Width" = mean_width)
 
 # 5. Plot results on NTC pairs
-comparison_df <- join_results(glmeiv_res, thresh_res, "NTC")
-p3 <- ggplot(data = comparison_df, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.5) + 
-  geom_abline(slope = 1, intercept = 0, col = my_cols[2], lwd = 1) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme
-
-# Plot positive control pairs
-comparison_df <- join_results(glmeiv_res, thresh_res, "selfTSS")
-p4 <- ggplot(data = comparison_df, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.5) + 
-  geom_abline(slope = 1, intercept = 0, col = my_cols[2], lwd = 1) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme
-}
+comparison_df <- join_results(glmeiv_res, thresh_res, "NTC") %>% mutate(glmeiv_ok = value_glmeiv < 1.25 & value_glmeiv > 0.75)
+comparison_df_sub <- comparison_df %>% filter(glmeiv_ok)
+p1 <- ggplot(data = comparison_df_sub %>% filter(value_glmeiv >= 0.8), mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.25, color = my_cols[2], cex = 0.9) + 
+  geom_abline(slope = 1, intercept = 0, lwd = 0.85) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme +
+  annotate(geom = "table", x = min(comparison_df_sub$value_glmeiv), y = max(comparison_df_sub$value_thresh) + 0.15, label = list(ci_info), vjust = 1, hjust = 0, fill = "white") + xlim(c(NA, 1.25)) + ylim(c(NA, 1.4))
 
 ##############
 # Xie analysis
@@ -173,10 +172,10 @@ comparison_df <- join_results(glmeiv_res, thresh_res, "neg_control") %>% mutate(
 comparison_df_sub <- comparison_df %>% filter(glmeiv_ok)
 p2 <- ggplot(data = comparison_df_sub, mapping = aes(x = value_glmeiv, y = value_thresh)) + geom_point(alpha = 0.25, color = my_cols[2], cex = 0.9) + 
   geom_abline(slope = 1, intercept = 0, lwd = 0.85) + xlab("GLM-EIV estimate") + ylab("Thresholding estimate") + my_theme +
-  annotate(geom = "table", x = min(comparison_df_sub$value_thresh), y = max(comparison_df_sub$value_thresh) + 0.05, label = list(ci_info), vjust = 1, hjust = 0, fill = "white")
+  annotate(geom = "table", x = min(comparison_df_sub$value_glmeiv), y = max(comparison_df_sub$value_thresh) + 0.05, label = list(ci_info), vjust = 1, hjust = 0, fill = "white")
 
 ##############
 # Save results
 ##############
-p_final <- cowplot::plot_grid(NULL, p2, p3, p4, p5, p6, nrow = 3, labels = c("a", "b", "c", "d", "e", "f"), align = "v")
+p_final <- cowplot::plot_grid(p1, p2, p3, p4, p5, p6, nrow = 3, labels = c("a", "b", "c", "d", "e", "f"), align = "v")
 ggsave(filename = paste0(fig_dir, "/raw_plot.png"), plot = p_final, device = "png", dpi = 330, scale = 0.9, width = 7, height = 8)
