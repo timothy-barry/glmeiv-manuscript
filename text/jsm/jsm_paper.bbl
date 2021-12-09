@@ -1,0 +1,2511 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{Aigner1973}{article}{}
+      \name{author}{1}{}{%
+        {{hash=362bf3c26180193defee8970445bee4c}{%
+           family={Aigner},
+           familyi={A\bibinitperiod},
+           given={Dennis\bibnamedelima J},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {North-Holland}%
+      }
+      \strng{namehash}{362bf3c26180193defee8970445bee4c}
+      \strng{fullhash}{362bf3c26180193defee8970445bee4c}
+      \strng{bibnamehash}{362bf3c26180193defee8970445bee4c}
+      \strng{authorbibnamehash}{362bf3c26180193defee8970445bee4c}
+      \strng{authornamehash}{362bf3c26180193defee8970445bee4c}
+      \strng{authorfullhash}{362bf3c26180193defee8970445bee4c}
+      \field{sortinit}{A}
+      \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Econometrics}
+      \field{number}{1}
+      \field{title}{{Regression with a binary independent variable subject to errors of observation}}
+      \field{volume}{1}
+      \field{year}{1973}
+      \field{pages}{49\bibrangedash 59}
+      \range{pages}{11}
+    \endentry
+    \entry{Barry2020}{article}{}
+      \name{author}{5}{}{%
+        {{hash=8d1ac8cbb69e290353a265fed8368c47}{%
+           family={Barry},
+           familyi={B\bibinitperiod},
+           given={Timothy},
+           giveni={T\bibinitperiod}}}%
+        {{hash=cd51e8b9b19cb1518180a8fc28fa51ab}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Xuran},
+           giveni={X\bibinitperiod}}}%
+        {{hash=3b6c78c7b9ac7244bcc82e834ce101be}{%
+           family={Morris},
+           familyi={M\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=05b461b94ae0c05f5f954c648ee571d9}{%
+           family={Roeder},
+           familyi={R\bibinitperiod},
+           given={Kathryn},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f887da698add9051a306ec077275a4c3}{%
+           family={Katsevich},
+           familyi={K\bibinitperiod},
+           given={Eugene},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{fullhash}{d068c4bc8610c3b8ee93f273cba28eb0}
+      \strng{bibnamehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{authorbibnamehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{authornamehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{authorfullhash}{d068c4bc8610c3b8ee93f273cba28eb0}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Single-cell CRISPR screens are an emerging biotechnology promising unprecedented insights into gene regulation. However, the analysis of these screens presents significant statistical challenges. For example, technical factors like sequencing depth impact not only expression measurement but also perturbation detection, creating a confounding effect. We demonstrate on two recent large-scale single-cell CRISPR screens how these challenges cause calibration issues among existing analysis methods. To address these challenges, we propose SCEPTRE: analysis of single-cell perturbation screens via conditional resampling. This methodology, designed to avoid calibration issues due to technical confounders and expression model misspecifica-tion, infers associations between perturbations and expression by resampling the former according to a working model for perturbation detection probability in each cell. SCETPRE demonstrates excellent calibration and sensitivity on the CRISPR screen data and yields 200 new regulatory relationships, many of which are supported by existing functional data.}
+      \field{journaltitle}{Genome Biology, to appear}
+      \field{title}{{SCEPTRE improves calibration and sensitivity in single-cell CRISPR screen analysis}}
+      \field{year}{2021}
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Barry et al. - 2020 - Conditional resampling improves calibration and sensitivity in single-cell CRISPR screen analysis.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Candes2018}{article}{}
+      \name{author}{4}{}{%
+        {{hash=212891f9c14b24a5e86eafd8500304fa}{%
+           family={Cand{è}s},
+           familyi={C\bibinitperiod},
+           given={Emmanuel},
+           giveni={E\bibinitperiod}}}%
+        {{hash=84e992947ee6777f06640104c0dbbf0e}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Yingying},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=a1ab16be9c4f427e777468e60b1edaa0}{%
+           family={Janson},
+           familyi={J\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=0f66fa2ea251428c6943aaa92cd79812}{%
+           family={Lv},
+           familyi={L\bibinitperiod},
+           given={Jinchi},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{24caf3e0ebaf80f34100d2d0fbc9c276}
+      \strng{fullhash}{49700fd541bc866b412574c6ed09075a}
+      \strng{bibnamehash}{24caf3e0ebaf80f34100d2d0fbc9c276}
+      \strng{authorbibnamehash}{24caf3e0ebaf80f34100d2d0fbc9c276}
+      \strng{authornamehash}{24caf3e0ebaf80f34100d2d0fbc9c276}
+      \strng{authorfullhash}{49700fd541bc866b412574c6ed09075a}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Many contemporary large-scale applications involve building interpretable models linking a large set of potential covariates to a response in a non-linear fashion, such as when the response is binary. Although this modelling problem has been extensively studied, it remains unclear how to control the fraction of false discoveries effectively even in high dimensional logistic regression, not to mention general high dimensional non-linear models. To address such a practical problem, we propose a new framework of ‘model-X' knockoffs, which reads from a different perspective the knockoff procedure that was originally designed for controlling the false discovery rate in linear models. Whereas the knockoffs procedure is constrained to homoscedastic linear models with n⩾p, the key innovation here is that model-X knockoffs provide valid inference from finite samples in settings in which the conditional distribution of the response is arbitrary and completely unknown. Furthermore, this holds no matter the number of covariates. Correct inference in such a broad setting is achieved by constructing knockoff variables probabilistically instead of geometrically. To do this, our approach requires that the covariates are random (independent and identically distributed rows) with a distribution that is known, although we provide preliminary experimental evidence that our procedure is robust to unknown or estimated distributions. To our knowledge, no other procedure solves the controlled variable selection problem in such generality but, in the restricted settings where competitors exist, we demonstrate the superior power of knockoffs through simulations. Finally, we apply our procedure to data from a case–control study of Crohn's disease in the UK, making twice as many discoveries as the original analysis of the same data.}
+      \field{eprinttype}{arXiv}
+      \field{issn}{14679868}
+      \field{journaltitle}{Journal of the Royal Statistical Society. Series B: Statistical Methodology}
+      \field{number}{3}
+      \field{title}{{Panning for gold: ‘model-X' knockoffs for high dimensional controlled variable selection}}
+      \field{volume}{80}
+      \field{year}{2018}
+      \field{pages}{551\bibrangedash 577}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.1111/rssb.12265
+      \endverb
+      \verb{eprint}
+      \verb 1610.02351
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Cand{\`{e}}s et al. - 2018 - Panning for gold ‘model-X' knockoffs for high dimensional controlled variable selection.pdf:pdf
+      \endverb
+      \keyw{False discovery rate,Generalized linear models,Genomewide association study,Knockoff filter,Logistic regression,Markov blanket,Testing for conditional independence in non-linear}
+    \endentry
+    \entry{Datlinger2017}{article}{}
+      \name{author}{10}{}{%
+        {{hash=b0b058e7027cc3410b773395e369a23b}{%
+           family={Datlinger},
+           familyi={D\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=672b65bc8172cb3939a4bf5968672885}{%
+           family={Rendeiro},
+           familyi={R\bibinitperiod},
+           given={Andr{é}\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=7d70f0f2c2dac63186b5354126378e82}{%
+           family={Schmidl},
+           familyi={S\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=46c98aecfc2a86504ecd2486effde874}{%
+           family={Krausgruber},
+           familyi={K\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=39ea725d4dad57ca6024aa025a75fda6}{%
+           family={Traxler},
+           familyi={T\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=205e0835ddc3b83e37f4dd04e6b3e35b}{%
+           family={Klughammer},
+           familyi={K\bibinitperiod},
+           given={Johanna},
+           giveni={J\bibinitperiod}}}%
+        {{hash=97f7ce95edb43fbd56f2c720092e1e96}{%
+           family={Schuster},
+           familyi={S\bibinitperiod},
+           given={Linda\bibnamedelima C.},
+           giveni={L\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=8cbdb27d65074c0cbba620f14676bc3e}{%
+           family={Kuchler},
+           familyi={K\bibinitperiod},
+           given={Amelie},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4b17dd191cbf4631a388008c08defb83}{%
+           family={Alpar},
+           familyi={A\bibinitperiod},
+           given={Donat},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d373ae394b1cb0f5a407dc3ab07f8ed1}{%
+           family={Bock},
+           familyi={B\bibinitperiod},
+           given={Christoph},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{fullhash}{f74b2285984117eb44f666423abc7bfc}
+      \strng{bibnamehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{authorbibnamehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{authornamehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{authorfullhash}{f74b2285984117eb44f666423abc7bfc}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{CRISPR-based genetic screens are accelerating biological discovery, but current methods have inherent limitations. Widely used pooled screens are restricted to simple readouts including cell proliferation and sortable marker proteins. Arrayed screens allow for comprehensive molecular readouts such as transcriptome profiling, but at much lower throughput. Here we combine pooled CRISPR screening with single-cell RNA sequencing into a broadly applicable workflow, directly linking guide RNA expression to transcriptome responses in thousands of individual cells. Our method for CRISPR droplet sequencing (CROP-seq) enables pooled CRISPR screens with single-cell transcriptome resolution, which will facilitate high-throughput functional dissection of complex regulatory mechanisms and heterogeneous cell populations.}
+      \field{issn}{15487105}
+      \field{journaltitle}{Nature Methods}
+      \field{number}{3}
+      \field{title}{{Pooled CRISPR screening with single-cell transcriptome readout}}
+      \field{volume}{14}
+      \field{year}{2017}
+      \field{pages}{297\bibrangedash 301}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1038/nmeth.4177
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Datlinger et al. - 2017 - Pooled CRISPR screening with single-cell transcriptome readout.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/nmeth.4177
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/nmeth.4177
+      \endverb
+      \keyw{biology,crispr screen}
+    \endentry
+    \entry{Datlinger2021}{article}{}
+      \name{author}{7}{}{%
+        {{hash=b0b058e7027cc3410b773395e369a23b}{%
+           family={Datlinger},
+           familyi={D\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=672b65bc8172cb3939a4bf5968672885}{%
+           family={Rendeiro},
+           familyi={R\bibinitperiod},
+           given={Andr{é}\bibnamedelima F.},
+           giveni={A\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=bba92a93f66b2fb80fb61e4375623baa}{%
+           family={Boenke},
+           familyi={B\bibinitperiod},
+           given={Thorina},
+           giveni={T\bibinitperiod}}}%
+        {{hash=debd919f6566356a67cda5dc16891d33}{%
+           family={Senekowitsch},
+           familyi={S\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=46c98aecfc2a86504ecd2486effde874}{%
+           family={Krausgruber},
+           familyi={K\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=1603bbce1f3f293ee9313fbdc573c216}{%
+           family={Barreca},
+           familyi={B\bibinitperiod},
+           given={Daniele},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d373ae394b1cb0f5a407dc3ab07f8ed1}{%
+           family={Bock},
+           familyi={B\bibinitperiod},
+           given={Christoph},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{fullhash}{296676fa1b1e4ebca9be369ecf393542}
+      \strng{bibnamehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{authorbibnamehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{authornamehash}{0e8e4054b8a10baf55ff64992462738a}
+      \strng{authorfullhash}{296676fa1b1e4ebca9be369ecf393542}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Cell atlas projects and high-throughput perturbation screens require single-cell sequencing at a scale that is challenging with current technology. To enable cost-effective single-cell sequencing for millions of individual cells, we developed ‘single-cell combinatorial fluidic indexing' (scifi). The scifi-RNA-seq assay combines one-step combinatorial preindexing of entire transcriptomes inside permeabilized cells with subsequent single-cell RNA-seq using microfluidics. Preindexing allows us to load several cells per droplet and computationally demultiplex their individual expression profiles. Thereby, scifi-RNA-seq massively increases the throughput of droplet-based single-cell RNA-seq, and provides a straightforward way of multiplexing thousands of samples in a single experiment. Compared with multiround combinatorial indexing, scifi-RNA-seq provides an easy and efficient workflow. Compared to cell hashing methods, which flag and discard droplets containing more than one cell, scifi-RNA-seq resolves and retains individual transcriptomes from overloaded droplets. We benchmarked scifi-RNA-seq on various human and mouse cell lines, validated it for primary human T cells and applied it in a highly multiplexed CRISPR screen with single-cell transcriptome readout of T cell receptor activation.}
+      \field{isbn}{4159202101}
+      \field{issn}{15487105}
+      \field{journaltitle}{Nature Methods}
+      \field{number}{6}
+      \field{title}{{Ultra-high-throughput single-cell RNA sequencing and perturbation screening with combinatorial fluidic indexing}}
+      \field{volume}{18}
+      \field{year}{2021}
+      \field{pages}{635\bibrangedash 642}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1038/s41592-021-01153-z
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Datlinger et al. - 2021 - Ultra-high-throughput single-cell RNA sequencing and perturbation screening with combinatorial fluidic indexin.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41592-021-01153-z
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41592-021-01153-z
+      \endverb
+    \endentry
+    \entry{DITommaso2017}{article}{}
+      \name{author}{6}{}{%
+        {{hash=d5dcc51780e406450a449c0a16f7ab58}{%
+           family={{DI Tommaso}},
+           familyi={D\bibinitperiod},
+           given={Paolo},
+           giveni={P\bibinitperiod}}}%
+        {{hash=88c0295fc89c86fe692bc243a34bb08f}{%
+           family={Chatzou},
+           familyi={C\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod}}}%
+        {{hash=e2ac06f071c5d944b86901d318d04c63}{%
+           family={Floden},
+           familyi={F\bibinitperiod},
+           given={Evan\bibnamedelima W.},
+           giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=3f881a7fb45a026e5d9c25c5900596f8}{%
+           family={Barja},
+           familyi={B\bibinitperiod},
+           given={Pablo\bibnamedelima Prieto},
+           giveni={P\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=5a9789d684836c90e4c407be8624e03f}{%
+           family={Palumbo},
+           familyi={P\bibinitperiod},
+           given={Emilio},
+           giveni={E\bibinitperiod}}}%
+        {{hash=9575abec5abbfbf3a0c003c8e9dc0dfc}{%
+           family={Notredame},
+           familyi={N\bibinitperiod},
+           given={Cedric},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2bcb285b2f5b677e789104d617bcd96d}
+      \strng{fullhash}{3b52c014bab84c127131b0f32e729ae6}
+      \strng{bibnamehash}{2bcb285b2f5b677e789104d617bcd96d}
+      \strng{authorbibnamehash}{2bcb285b2f5b677e789104d617bcd96d}
+      \strng{authornamehash}{2bcb285b2f5b677e789104d617bcd96d}
+      \strng{authorfullhash}{3b52c014bab84c127131b0f32e729ae6}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{15461696}
+      \field{journaltitle}{Nature Biotechnology}
+      \field{number}{4}
+      \field{title}{{Nextflow enables reproducible computational workflows}}
+      \field{volume}{35}
+      \field{year}{2017}
+      \field{pages}{316\bibrangedash 319}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1038/nbt.3820
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/nextflow.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Dixit2016}{article}{}
+      \name{author}{16}{}{%
+        {{hash=d8064c2e1478c92cbebd31658aa5ad26}{%
+           family={Dixit},
+           familyi={D\bibinitperiod},
+           given={Atray},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5a9f10194430eda9f534d42bc89cb30a}{%
+           family={Parnas},
+           familyi={P\bibinitperiod},
+           given={Oren},
+           giveni={O\bibinitperiod}}}%
+        {{hash=f4de780655fad4e6e4791dba56bdbdc8}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Biyu},
+           giveni={B\bibinitperiod}}}%
+        {{hash=10df17e91e505f9b382b727f6338933a}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jenny},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f7d1fb749e36bee79f951f34f54a13b3}{%
+           family={Fulco},
+           familyi={F\bibinitperiod},
+           given={Charles\bibnamedelima P.},
+           giveni={C\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=191bc988b19b68792642a1545d28084e}{%
+           family={Jerby-Arnon},
+           familyi={J\bibinithyphendelim A\bibinitperiod},
+           given={Livnat},
+           giveni={L\bibinitperiod}}}%
+        {{hash=e8c0de4dc29ec37d0be1915b8ffed7b7}{%
+           family={Marjanovic},
+           familyi={M\bibinitperiod},
+           given={Nemanja\bibnamedelima D.},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=5f4287ce58c92823cafda71294fdca63}{%
+           family={Dionne},
+           familyi={D\bibinitperiod},
+           given={Danielle},
+           giveni={D\bibinitperiod}}}%
+        {{hash=bd9922b843b61251e4ee63f862347383}{%
+           family={Burks},
+           familyi={B\bibinitperiod},
+           given={Tyler},
+           giveni={T\bibinitperiod}}}%
+        {{hash=2ab7c44c20ef3fd32dd3347af9b979f0}{%
+           family={Raychowdhury},
+           familyi={R\bibinitperiod},
+           given={Raktima},
+           giveni={R\bibinitperiod}}}%
+        {{hash=709a0901bb2ae541b148ce12b84da8cd}{%
+           family={Adamson},
+           familyi={A\bibinitperiod},
+           given={Britt},
+           giveni={B\bibinitperiod}}}%
+        {{hash=b3c2e25697dc878d03b60b232e366f28}{%
+           family={Norman},
+           familyi={N\bibinitperiod},
+           given={Thomas\bibnamedelima M.},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=b59f757bbe7fe1d73139d3960737d98a}{%
+           family={Lander},
+           familyi={L\bibinitperiod},
+           given={Eric\bibnamedelima S.},
+           giveni={E\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=bad4feb6886c9be5fad6425bd29bc01a}{%
+           family={Weissman},
+           familyi={W\bibinitperiod},
+           given={Jonathan\bibnamedelima S.},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=987ee418ae32e261a8a5385e14cda479}{%
+           family={Friedman},
+           familyi={F\bibinitperiod},
+           given={Nir},
+           giveni={N\bibinitperiod}}}%
+        {{hash=f08f6961a7cb7d9674fb102073c60ca3}{%
+           family={Regev},
+           familyi={R\bibinitperiod},
+           given={Aviv},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier Inc.}%
+      }
+      \strng{namehash}{34ceae41e51e40ef0ddf67d8a69c004f}
+      \strng{fullhash}{ac66502e4ca39afe5b9bd16d38be53f0}
+      \strng{bibnamehash}{34ceae41e51e40ef0ddf67d8a69c004f}
+      \strng{authorbibnamehash}{34ceae41e51e40ef0ddf67d8a69c004f}
+      \strng{authornamehash}{34ceae41e51e40ef0ddf67d8a69c004f}
+      \strng{authorfullhash}{ac66502e4ca39afe5b9bd16d38be53f0}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Genetic screens help infer gene function in mammalian cells, but it has remained difficult to assay complex phenotypes—such as transcriptional profiles—at scale. Here, we develop Perturb-seq, combining single-cell RNA sequencing (RNA-seq) and clustered regularly interspaced short palindromic repeats (CRISPR)-based perturbations to perform many such assays in a pool. We demonstrate Perturb-seq by analyzing 200,000 cells in immune cells and cell lines, focusing on transcription factors regulating the response of dendritic cells to lipopolysaccharide (LPS). Perturb-seq accurately identifies individual gene targets, gene signatures, and cell states affected by individual perturbations and their genetic interactions. We posit new functions for regulators of differentiation, the anti-viral response, and mitochondrial function during immune activation. By decomposing many high content measurements into the effects of perturbations, their interactions, and diverse cell metadata, Perturb-seq dramatically increases the scope of pooled genomic assays.}
+      \field{issn}{10974172}
+      \field{journaltitle}{Cell}
+      \field{number}{7}
+      \field{title}{{Perturb-Seq: Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens}}
+      \field{volume}{167}
+      \field{year}{2016}
+      \field{pages}{1853\bibrangedash 1866.e17}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1016/j.cell.2016.11.038
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Dixit et al. - 2016 - Perturb-Seq Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1016/j.cell.2016.11.038
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1016/j.cell.2016.11.038
+      \endverb
+      \keyw{CRISPR,biology,epistasis,genetic interactions,pooled screen,single-cell RNA-seq}
+    \endentry
+    \entry{Gallagher2018}{article}{}
+      \name{author}{2}{}{%
+        {{hash=aa14c2177eb94751670a45509a96e9c0}{%
+           family={Gallagher},
+           familyi={G\bibinitperiod},
+           given={Michael\bibnamedelima D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=a98cc51f190dcf2fb59bed359423011a}{%
+           family={Chen-Plotkin},
+           familyi={C\bibinithyphendelim P\bibinitperiod},
+           given={Alice\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Society of Human Genetics}%
+      }
+      \strng{namehash}{ce3223945a3676f05974b88cb3d756fe}
+      \strng{fullhash}{1d91d1c52cf1557db119cca1240d54a4}
+      \strng{bibnamehash}{1d91d1c52cf1557db119cca1240d54a4}
+      \strng{authorbibnamehash}{1d91d1c52cf1557db119cca1240d54a4}
+      \strng{authornamehash}{ce3223945a3676f05974b88cb3d756fe}
+      \strng{authorfullhash}{1d91d1c52cf1557db119cca1240d54a4}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{During the past 12 years, genome-wide association studies (GWASs) have uncovered thousands of genetic variants that influence risk for complex human traits and diseases. Yet functional studies aimed at delineating the causal genetic variants and biological mechanisms underlying the observed statistical associations with disease risk have lagged. In this review, we highlight key advances in the field of functional genomics that may facilitate the derivation of biological meaning post-GWAS. We highlight the evidence suggesting that causal variants underlying disease risk often function through regulatory effects on the expression of target genes and that these expression effects might be modest and cell-type specific. We moreover discuss specific studies as proof-of-principle examples for current statistical, bioinformatic, and empirical bench-based approaches to downstream elucidation of GWAS-identified disease risk loci.}
+      \field{issn}{15376605}
+      \field{journaltitle}{American Journal of Human Genetics}
+      \field{number}{5}
+      \field{title}{{The Post-GWAS Era: From Association to Function}}
+      \field{volume}{102}
+      \field{year}{2018}
+      \field{pages}{717\bibrangedash 730}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1016/j.ajhg.2018.04.002
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Gallagher2018.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1016/j.ajhg.2018.04.002
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1016/j.ajhg.2018.04.002
+      \endverb
+    \endentry
+    \entry{Gasperini2020}{article}{}
+      \name{author}{3}{}{%
+        {{hash=f791fd260c5dbc299712e73c0be7f985}{%
+           family={Gasperini},
+           familyi={G\bibinitperiod},
+           given={Molly},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ae384018ce909f0156ad9bdfbe53f1a2}{%
+           family={Tome},
+           familyi={T\bibinitperiod},
+           given={Jacob\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=5a50df52643f6bba00616c104eda3653}{%
+           family={Shendure},
+           familyi={S\bibinitperiod},
+           given={Jay},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{75e23b032b77426edf3f7eed5a9c5255}
+      \strng{fullhash}{63bfd2b65ebae9a4d51484e0192a6d62}
+      \strng{bibnamehash}{63bfd2b65ebae9a4d51484e0192a6d62}
+      \strng{authorbibnamehash}{63bfd2b65ebae9a4d51484e0192a6d62}
+      \strng{authornamehash}{75e23b032b77426edf3f7eed5a9c5255}
+      \strng{authorfullhash}{63bfd2b65ebae9a4d51484e0192a6d62}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The human gene catalogue is essentially complete, but we lack an equivalently vetted inventory of bona fide human enhancers. Hundreds of thousands of candidate enhancers have been nominated via biochemical annotations; however, only a handful of these have been validated and confidently linked to their target genes. Here we review emerging technologies for discovering, characterizing and validating human enhancers at scale. We furthermore propose a new framework for operationally defining enhancers that accommodates the heterogeneous and complementary results that are emerging from reporter assays, biochemical measurements and CRISPR screens.}
+      \field{isbn}{4157601902090}
+      \field{issn}{14710064}
+      \field{journaltitle}{Nature Reviews Genetics}
+      \field{number}{5}
+      \field{title}{{Towards a comprehensive catalogue of validated and target-linked human enhancers}}
+      \field{volume}{21}
+      \field{year}{2020}
+      \field{pages}{292\bibrangedash 310}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1038/s41576-019-0209-0
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Gasperini, Tome, Shendure - 2020 - Towards a comprehensive catalogue of validated and target-linked human enhancers.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41576-019-0209-0
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41576-019-0209-0
+      \endverb
+      \keyw{biology}
+    \endentry
+    \entry{Gasperini2019}{article}{}
+      \name{author}{13}{}{%
+        {{hash=f791fd260c5dbc299712e73c0be7f985}{%
+           family={Gasperini},
+           familyi={G\bibinitperiod},
+           given={Molly},
+           giveni={M\bibinitperiod}}}%
+        {{hash=7af38053aefce00a693d1174b8d1e93c}{%
+           family={Hill},
+           familyi={H\bibinitperiod},
+           given={Andrew\bibnamedelima J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=ed944c1b125507eeb9157de28597bb9e}{%
+           family={McFaline-Figueroa},
+           familyi={M\bibinithyphendelim F\bibinitperiod},
+           given={Jos{é}\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=6b1562bf7eb11ee833054de9282cedf8}{%
+           family={Martin},
+           familyi={M\bibinitperiod},
+           given={Beth},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c034383197dc04944a7c98cf7d13a0f2}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Seungsoo},
+           giveni={S\bibinitperiod}}}%
+        {{hash=97c468f2d7c9267860afd2cd8b516bdf}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Melissa\bibnamedelima D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=dae7e6a08df162fde07c84f2c83e5072}{%
+           family={Jackson},
+           familyi={J\bibinitperiod},
+           given={Dana},
+           giveni={D\bibinitperiod}}}%
+        {{hash=9de544045f7d0132a13f28527787c873}{%
+           family={Leith},
+           familyi={L\bibinitperiod},
+           given={Anh},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b0d30cd25719328245fcc422857434dd}{%
+           family={Schreiber},
+           familyi={S\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=8a3d58e9058bbe23d013a31a8e413294}{%
+           family={Noble},
+           familyi={N\bibinitperiod},
+           given={William\bibnamedelima S.},
+           giveni={W\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=5621efe15ca5598a9e861fc0a93a06fa}{%
+           family={Trapnell},
+           familyi={T\bibinitperiod},
+           given={Cole},
+           giveni={C\bibinitperiod}}}%
+        {{hash=fbfb14a9ce5844b759c8db0108b0f7f1}{%
+           family={Ahituv},
+           familyi={A\bibinitperiod},
+           given={Nadav},
+           giveni={N\bibinitperiod}}}%
+        {{hash=5a50df52643f6bba00616c104eda3653}{%
+           family={Shendure},
+           familyi={S\bibinitperiod},
+           given={Jay},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{75e23b032b77426edf3f7eed5a9c5255}
+      \strng{fullhash}{f2f6daa5384a9ac9ad87b06af22d9e6b}
+      \strng{bibnamehash}{75e23b032b77426edf3f7eed5a9c5255}
+      \strng{authorbibnamehash}{75e23b032b77426edf3f7eed5a9c5255}
+      \strng{authornamehash}{75e23b032b77426edf3f7eed5a9c5255}
+      \strng{authorfullhash}{f2f6daa5384a9ac9ad87b06af22d9e6b}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Over one million candidate regulatory elements have been identified across the human genome, but nearly all are unvalidated and their target genes uncertain. Approaches based on human genetics are limited in scope to common variants and in resolution by linkage disequilibrium. We present a multiplex, expression quantitative trait locus (eQTL)-inspired framework for mapping enhancer-gene pairs by introducing random combinations of CRISPR/Cas9-mediated perturbations to each of many cells, followed by single-cell RNA sequencing (RNA-seq). Across two experiments, we used dCas9-KRAB to perturb 5,920 candidate enhancers with no strong a priori hypothesis as to their target gene(s), measuring effects by profiling 254,974 single-cell transcriptomes. We identified 664 (470 high-confidence) cis enhancer-gene pairs, which were enriched for specific transcription factors, non-housekeeping status, and genomic and 3D conformational proximity to their target genes. This framework will facilitate the large-scale mapping of enhancer-gene regulatory interactions, a critical yet largely uncharted component of the cis-regulatory landscape of the human genome.}
+      \field{issn}{10974172}
+      \field{journaltitle}{Cell}
+      \field{number}{1-2}
+      \field{title}{{A Genome-wide Framework for Mapping Gene Regulation via Cellular Genetic Screens}}
+      \field{volume}{176}
+      \field{year}{2019}
+      \field{pages}{377\bibrangedash 390.e19}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1016/j.cell.2018.11.029
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Gasperini et al. - 2019 - A Genome-wide Framework for Mapping Gene Regulation via Cellular Genetic Screens.pdf:pdf
+      \endverb
+      \keyw{CRISPR,CRISPRi,RNA-seq,biology,crispr screen,crisprQTL,eQTL,enhancer,gene regulation,genetic screen,human genetics,single cell}
+    \endentry
+    \entry{Grun2008}{inbook}{}
+      \name{author}{2}{}{%
+        {{hash=b8898a27e02239f552d6070af25a25f6}{%
+           family={Gr{ü}n},
+           familyi={G\bibinitperiod},
+           given={Bettina},
+           giveni={B\bibinitperiod}}}%
+        {{hash=206bc8e5c879d4926dffd8eed005bcc7}{%
+           family={Leisch},
+           familyi={L\bibinitperiod},
+           given={Friedrich},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Physica-Verlag HD}%
+      }
+      \strng{namehash}{35cf939113b16c344807dc1e9a300599}
+      \strng{fullhash}{1b77f0b13bf03858a5788de3044c014d}
+      \strng{bibnamehash}{1b77f0b13bf03858a5788de3044c014d}
+      \strng{authorbibnamehash}{1b77f0b13bf03858a5788de3044c014d}
+      \strng{authornamehash}{35cf939113b16c344807dc1e9a300599}
+      \strng{authorfullhash}{1b77f0b13bf03858a5788de3044c014d}
+      \field{sortinit}{G}
+      \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Finite mixture models have now been used for more than hundred years (Newcomb (1886), Pearson (1894)). They are a very popular statistical modeling technique given that they constitute a flexible and-easily extensible model class for (1) approximating general distribution functions in a semi-parametric way and (2) accounting for unobserved heterogeneity. The number of applications has tremendously increased in the last decades as model estimation in a frequentist as well as a Bayesian framework has become feasible with the nowadays easily available computing power.}
+      \field{booktitle}{Recent Advances in Linear Models and Related Areas: Essays in Honour of Helge Toutenburg}
+      \field{isbn}{978-3-7908-2064-5}
+      \field{title}{{Finite Mixtures of Generalized Linear Regression Models}}
+      \field{year}{2008}
+      \field{pages}{205\bibrangedash 230}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1007/978-3-7908-2064-5_11
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-7908-2064-5{\_}11
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-7908-2064-5%7B%5C_%7D11
+      \endverb
+    \endentry
+    \entry{Hafemeister2019}{article}{}
+      \name{author}{2}{}{%
+        {{hash=8305cf763ce839321ef58044c7b3ef49}{%
+           family={Hafemeister},
+           familyi={H\bibinitperiod},
+           given={Christoph},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d06bc96caba8ec75d09d2d169fa958da}{%
+           family={Satija},
+           familyi={S\bibinitperiod},
+           given={Rahul},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Genome Biology}%
+      }
+      \strng{namehash}{2a6ee360f17707decf75a3dfe33c87de}
+      \strng{fullhash}{40fa3ca486ffedc24ba71f50587e8e97}
+      \strng{bibnamehash}{40fa3ca486ffedc24ba71f50587e8e97}
+      \strng{authorbibnamehash}{40fa3ca486ffedc24ba71f50587e8e97}
+      \strng{authornamehash}{2a6ee360f17707decf75a3dfe33c87de}
+      \strng{authorfullhash}{40fa3ca486ffedc24ba71f50587e8e97}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of molecules detected in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from "regularized negative binomial regression," where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation and improves common downstream analytical tasks such as variable gene selection, dimensional reduction, and differential expression. Our approach can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.}
+      \field{issn}{1474760X}
+      \field{journaltitle}{Genome Biology}
+      \field{number}{1}
+      \field{title}{{Normalization and variance stabilization of single-cell RNA-seq data using regularized negative binomial regression}}
+      \field{volume}{20}
+      \field{year}{2019}
+      \field{pages}{1\bibrangedash 15}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1186/s13059-019-1874-1
+      \endverb
+      \verb{file}
+      \verb ::;:Users/timbarry/research{\_}papers/Hafemeister2020.pdf:pdf
+      \endverb
+      \keyw{Kathryn,Normalization,Single-cell RNA-seq,single cell}
+    \endentry
+    \entry{Hill2018}{article}{}
+      \name{author}{9}{}{%
+        {{hash=7af38053aefce00a693d1174b8d1e93c}{%
+           family={Hill},
+           familyi={H\bibinitperiod},
+           given={Andrew\bibnamedelima J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=ed944c1b125507eeb9157de28597bb9e}{%
+           family={McFaline-Figueroa},
+           familyi={M\bibinithyphendelim F\bibinitperiod},
+           given={Jos{é}\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=f879a62e618714ab1322e6f7a55761be}{%
+           family={Starita},
+           familyi={S\bibinitperiod},
+           given={Lea\bibnamedelima M.},
+           giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=d35df79be830ecf4beaf7eae9672b130}{%
+           family={Gasperini},
+           familyi={G\bibinitperiod},
+           given={Molly\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=973bcc0a824bcaa7ae000100817bee24}{%
+           family={Matreyek},
+           familyi={M\bibinitperiod},
+           given={Kenneth\bibnamedelima A.},
+           giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=db4d281125f57b48ba1d0dec430f964b}{%
+           family={Packer},
+           familyi={P\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=dae7e6a08df162fde07c84f2c83e5072}{%
+           family={Jackson},
+           familyi={J\bibinitperiod},
+           given={Dana},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5a50df52643f6bba00616c104eda3653}{%
+           family={Shendure},
+           familyi={S\bibinitperiod},
+           given={Jay},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5621efe15ca5598a9e861fc0a93a06fa}{%
+           family={Trapnell},
+           familyi={T\bibinitperiod},
+           given={Cole},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{e7c5fe236c5da614deac26a3869649a5}
+      \strng{fullhash}{ca688bcef076523349850f89e380ee70}
+      \strng{bibnamehash}{e7c5fe236c5da614deac26a3869649a5}
+      \strng{authorbibnamehash}{e7c5fe236c5da614deac26a3869649a5}
+      \strng{authornamehash}{e7c5fe236c5da614deac26a3869649a5}
+      \strng{authorfullhash}{ca688bcef076523349850f89e380ee70}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Several groups recently coupled CRISPR perturbations and single-cell RNA-seq for pooled genetic screens. We demonstrate that vector designs of these studies are susceptible to {â} 1/450{\%} swapping of guide RNA-barcode associations because of lentiviral template switching. We optimized a published alternative, CROP-seq, in which the guide RNA also serves as the barcode, and here confirm that this strategy performs robustly and doubled the rate at which guides are assigned to cells to 94{\%}.}
+      \field{issn}{15487105}
+      \field{journaltitle}{Nature Methods}
+      \field{number}{4}
+      \field{title}{{On the design of CRISPR-based single-cell molecular screens}}
+      \field{volume}{15}
+      \field{year}{2018}
+      \field{pages}{271\bibrangedash 274}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1038/nmeth.4604
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Hill et al. - 2018 - On the design of CRISPR-based single-cell molecular screens.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/nmeth.4604
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/nmeth.4604
+      \endverb
+      \keyw{biology,crispr screen}
+    \endentry
+    \entry{Ibrahim1990}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d84df3196333c4f52554bc87765e2d88}{%
+           family={Ibrahim},
+           familyi={I\bibinitperiod},
+           given={Joseph\bibnamedelima G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{d84df3196333c4f52554bc87765e2d88}
+      \strng{fullhash}{d84df3196333c4f52554bc87765e2d88}
+      \strng{bibnamehash}{d84df3196333c4f52554bc87765e2d88}
+      \strng{authorbibnamehash}{d84df3196333c4f52554bc87765e2d88}
+      \strng{authornamehash}{d84df3196333c4f52554bc87765e2d88}
+      \strng{authorfullhash}{d84df3196333c4f52554bc87765e2d88}
+      \field{sortinit}{I}
+      \field{sortinithash}{320bc8fe8101b9376f9f21cd507de0e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper proposes a method for estimating the parameters in a generalized linear model with missing covariates. The missing covariates are assumed to come from a continuous distribution, and are assumed to be missing at random. In particular, Gaussian quadrature methods are used on the E‐step of the EM algorithm, leading to an approximate EM algorithm. The parameters are then estimated using the weighted EM procedure given in Ibrahim (1990). This approximate EM procedure leads to approximate maximum likelihood estimates, whose standard errors and asymptotic properties are given. The proposed procedure is illustrated on a data set. Copyright {©} 1992, Wiley Blackwell. All rights reserved}
+      \field{issn}{1467842X}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{number}{411}
+      \field{title}{{Incomplete Data in Generalized Linear Models}}
+      \field{volume}{85}
+      \field{year}{1990}
+      \field{pages}{765\bibrangedash 769}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1111/j.1467-842X.1992.tb01062.x
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Ibrahim - 1990 - Incomplete Data in Generalized Linear Models.pdf:pdf
+      \endverb
+      \keyw{EM algorithm,GLM,Gaussian quadrature,em algorithm,generalized linear model,incomplete data,statistics}
+    \endentry
+    \entry{Lause2021}{article}{}
+      \name{author}{3}{}{%
+        {{hash=cea8ebf53addf538fd931e9740b2b04c}{%
+           family={Lause},
+           familyi={L\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=30f46bf5fd8b18adc9707a70cec598b6}{%
+           family={Berens},
+           familyi={B\bibinitperiod},
+           given={Philipp},
+           giveni={P\bibinitperiod}}}%
+        {{hash=85a42394eb715e476e39053e10dcf052}{%
+           family={Kobak},
+           familyi={K\bibinitperiod},
+           given={Dmitry},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Genome Biology}%
+      }
+      \strng{namehash}{02b24f31b212f6f00fcb286da05ec72f}
+      \strng{fullhash}{5440b798fe7820c34c946e2a68941303}
+      \strng{bibnamehash}{5440b798fe7820c34c946e2a68941303}
+      \strng{authorbibnamehash}{5440b798fe7820c34c946e2a68941303}
+      \strng{authornamehash}{02b24f31b212f6f00fcb286da05ec72f}
+      \strng{authorfullhash}{5440b798fe7820c34c946e2a68941303}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Background: Standard preprocessing of single-cell RNA-seq UMI data includes normalization by sequencing depth to remove this technical variability, and nonlinear transformation to stabilize the variance across genes with different expression levels. Instead, two recent papers propose to use statistical count models for these tasks: Hafemeister and Satija (Genome Biol 20:296, 2019) recommend using Pearson residuals from negative binomial regression, while Townes et al. (Genome Biol 20:295, 2019) recommend fitting a generalized PCA model. Here, we investigate the connection between these approaches theoretically and empirically, and compare their effects on downstream processing. Results: We show that the model of Hafemeister and Satija produces noisy parameter estimates because it is overspecified, which is why the original paper employs post hoc smoothing. When specified more parsimoniously, it has a simple analytic solution equivalent to the rank-one Poisson GLM-PCA of Townes et al. Further, our analysis indicates that per-gene overdispersion estimates in Hafemeister and Satija are biased, and that the data are in fact consistent with the overdispersion parameter being independent of gene expression. We then use negative control data without biological variability to estimate the technical overdispersion of UMI counts, and find that across several different experimental protocols, the data are close to Poisson and suggest very moderate overdispersion. Finally, we perform a benchmark to compare the performance of Pearson residuals, variance-stabilizing transformations, and GLM-PCA on scRNA-seq datasets with known ground truth. Conclusions: We demonstrate that analytic Pearson residuals strongly outperform other methods for identifying biologically variable genes, and capture more of the biologically meaningful variation when used for dimensionality reduction.}
+      \field{issn}{1474760X}
+      \field{journaltitle}{Genome Biology}
+      \field{number}{1}
+      \field{title}{{Analytic Pearson residuals for normalization of single-cell RNA-seq UMI data}}
+      \field{volume}{22}
+      \field{year}{2021}
+      \field{pages}{1\bibrangedash 20}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1186/s13059-021-02451-7
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Lause, Berens, Kobak - 2021 - Analytic Pearson residuals for normalization of single-cell RNA-seq UMI data.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Lin2021}{article}{}
+      \name{author}{3}{}{%
+        {{hash=90e8a7d15bed764d0dd24e61ad85bb1d}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Kevin\bibnamedelima Z.},
+           giveni={K\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+        {{hash=5716652c08e70b34048d4a87afff54d5}{%
+           family={Lei},
+           familyi={L\bibinitperiod},
+           given={Jing},
+           giveni={J\bibinitperiod}}}%
+        {{hash=05b461b94ae0c05f5f954c648ee571d9}{%
+           family={Roeder},
+           familyi={R\bibinitperiod},
+           given={Kathryn},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor {\&} Francis}%
+      }
+      \strng{namehash}{d64bcb799e768f432d1f29e1c89c71c2}
+      \strng{fullhash}{ea08aac395a661f97950f76073d3f580}
+      \strng{bibnamehash}{ea08aac395a661f97950f76073d3f580}
+      \strng{authorbibnamehash}{ea08aac395a661f97950f76073d3f580}
+      \strng{authornamehash}{d64bcb799e768f432d1f29e1c89c71c2}
+      \strng{authorfullhash}{ea08aac395a661f97950f76073d3f580}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Scientists often embed cells into a lower-dimensional space when studying single-cell RNA-seq data for improved downstream analyses such as developmental trajectory analyses, but the statistical properties of such nonlinear embedding methods are often not well understood. In this article, we develop the exponential-family SVD (eSVD), a nonlinear embedding method for both cells and genes jointly with respect to a random dot product model using exponential-family distributions. Our estimator uses alternating minimization, which enables us to have a computationally efficient method, prove the identifiability conditions and consistency of our method, and provide statistically principled procedures to tune our method. All these qualities help advance the single-cell embedding literature, and we provide extensive simulations to demonstrate that the eSVD is competitive compared to other embedding methods. We apply the eSVD via Gaussian distributions where the standard deviations are proportional to the means to analyze a single-cell dataset of oligodendrocytes in mouse brains. Using the eSVD estimated embedding, we then investigate the cell developmental trajectories of the oligodendrocytes. While previous results are not able to distinguish the trajectories among the mature oligodendrocyte cell types, our diagnostics and results demonstrate there are two major developmental trajectories that diverge at mature oligodendrocytes. Supplementary materials for this article, including a standardized description of the materials available for reproducing the work, are available as an online supplementary materials.}
+      \field{issn}{1537274X}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{number}{0}
+      \field{title}{{Exponential-Family Embedding With Application to Cell Developmental Trajectories for Single-Cell RNA-Seq Data}}
+      \field{volume}{0}
+      \field{year}{2021}
+      \field{pages}{1\bibrangedash 32}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1080/01621459.2021.1886106
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Lin2021.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/01621459.2021.1886106
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/01621459.2021.1886106
+      \endverb
+      \keyw{Gene expression,Latent space models,Matrix factorization,Oligodendrocytes,Random dot product model}
+    \endentry
+    \entry{Liu2021}{article}{}
+      \name{author}{4}{}{%
+        {{hash=bae5737e2471e8136070ca3a40858e07}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Molei},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f887da698add9051a306ec077275a4c3}{%
+           family={Katsevich},
+           familyi={K\bibinitperiod},
+           given={Eugene},
+           giveni={E\bibinitperiod}}}%
+        {{hash=a1ab16be9c4f427e777468e60b1edaa0}{%
+           family={Janson},
+           familyi={J\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=1397f973e97cb40b67654aac778db5ec}{%
+           family={Ramdas},
+           familyi={R\bibinitperiod},
+           given={Aaditya},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9d90d52b08ec68b7bb110abdf5a35bc8}
+      \strng{fullhash}{59f6073bb16b58bd1e2e5c1b0fe8059c}
+      \strng{bibnamehash}{9d90d52b08ec68b7bb110abdf5a35bc8}
+      \strng{authorbibnamehash}{9d90d52b08ec68b7bb110abdf5a35bc8}
+      \strng{authornamehash}{9d90d52b08ec68b7bb110abdf5a35bc8}
+      \strng{authorfullhash}{59f6073bb16b58bd1e2e5c1b0fe8059c}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We consider the problem of conditional independence testing: given a response Y and co- variates (X, Z), we test the null hypothesis that Y ⊥⊥ X | Z. The conditional randomization test was recently proposed as a way to use distributional information about X | Z to exactly and non-asymptotically control Type-I error using any test statistic in any dimensionality without assuming anything about Y | (X, Z). This flexibility, in principle, allows one to derive powerful 20 test statistics from complex prediction algorithms while maintaining statistical validity. Yet the direct use of such advanced test statistics in the conditional randomization test is prohibitively computationally expensive, especially with multiple testing, due to the requirement to recompute the test statistic many times on resampled data. We propose the distilled conditional randomiza- tion test, a novel approach to using state-of-the-art machine learning algorithms in the conditional 25 randomization test while drastically reducing the number of times those algorithms need to be run, thereby taking advantage of their power and the conditional randomization test's statistical guarantees without suffering the usual computational expense. In addition to distillation, we pro- pose a number of other tricks like screening and recycling computations to further speed up the conditional randomization test without sacrificing its high power and exact validity. Indeed, we 30 show in simulations that all our proposals combined lead to a test that has similar power to the most powerful existing conditional randomization test implementations but requires orders of magnitude less computation, making it a practical tool even for large data sets. We demonstrate these benefits on a breast cancer dataset by identifying biomarkers related to cancer stage.}
+      \field{isbn}{6177384609}
+      \field{issn}{0304-4017}
+      \field{journaltitle}{Biometrika}
+      \field{title}{{Fast and Powerful Conditional Randomization Testing via Distillation}}
+      \field{year}{2021}
+      \field{pages}{1\bibrangedash 25}
+      \range{pages}{25}
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Liu.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Louis1982}{article}{}
+      \name{author}{1}{}{%
+        {{hash=11b3ce2e929969a2b45cd4cd367e2899}{%
+           family={Louis},
+           familyi={L\bibinitperiod},
+           given={By\bibnamedelima Thomas\bibnamedelima A},
+           giveni={B\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{fullhash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{bibnamehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{authorbibnamehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{authornamehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{authorfullhash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Society}
+      \field{number}{2}
+      \field{title}{{Finding the Observed Information Matrix when Using the EM Algorithm}}
+      \field{volume}{44}
+      \field{year}{1982}
+      \field{pages}{226\bibrangedash 233}
+      \range{pages}{8}
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Louis - 2012 - Finding the Observed Information Matrix when Using the EM Algorithm Author ( s ) Thomas A . Louis Reviewed work ( s ) Sou.pdf:pdf
+      \endverb
+      \keyw{em algorithm,maximum likelihood,observed information,speeding,statistics}
+    \endentry
+    \entry{Mimitou2019}{article}{}
+      \name{author}{14}{}{%
+        {{hash=e5b552ed1c10413166c29b681fc213f1}{%
+           family={Mimitou},
+           familyi={M\bibinitperiod},
+           given={Eleni\bibnamedelima P.},
+           giveni={E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=8df6c123e40673aafc8fec124640c4fd}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Anthony},
+           giveni={A\bibinitperiod}}}%
+        {{hash=fd2d429ad91e68f54a45eec095980a3e}{%
+           family={Montalbano},
+           familyi={M\bibinitperiod},
+           given={Antonino},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7be7b10df9a2d57e7bddce67122182a1}{%
+           family={Hao},
+           familyi={H\bibinitperiod},
+           given={Stephanie},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f99d853656dd79df22e4e1efb8fb7393}{%
+           family={Stoeckius},
+           familyi={S\bibinitperiod},
+           given={Marlon},
+           giveni={M\bibinitperiod}}}%
+        {{hash=14f28fe82dcb7445909ed26fa796a535}{%
+           family={Legut},
+           familyi={L\bibinitperiod},
+           given={Mateusz},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6f87ae1af7cd28af23ff185c6dfdaf78}{%
+           family={Roush},
+           familyi={R\bibinitperiod},
+           given={Timothy},
+           giveni={T\bibinitperiod}}}%
+        {{hash=fc0488ac94df78474d641c7fa49b2737}{%
+           family={Herrera},
+           familyi={H\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8db992b18380963d13aeafa275b5e772}{%
+           family={Papalexi},
+           familyi={P\bibinitperiod},
+           given={Efthymia},
+           giveni={E\bibinitperiod}}}%
+        {{hash=18c59c490b17a340e97363663bb35825}{%
+           family={Ouyang},
+           familyi={O\bibinitperiod},
+           given={Zhengqing},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=d06bc96caba8ec75d09d2d169fa958da}{%
+           family={Satija},
+           familyi={S\bibinitperiod},
+           given={Rahul},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9d8f2774899c495b26321586a69ead0f}{%
+           family={Sanjana},
+           familyi={S\bibinitperiod},
+           given={Neville\bibnamedelima E.},
+           giveni={N\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=7b489b648ad87796043095a995848626}{%
+           family={Koralov},
+           familyi={K\bibinitperiod},
+           given={Sergei\bibnamedelima B.},
+           giveni={S\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=f26a014e248b84b89c12feeb6b89cb24}{%
+           family={Smibert},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{fullhash}{7d9baac6cab26dd2d2256e987da9371d}
+      \strng{bibnamehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{authorbibnamehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{authornamehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{authorfullhash}{7d9baac6cab26dd2d2256e987da9371d}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Multimodal single-cell assays provide high-resolution snapshots of complex cell populations, but are mostly limited to transcriptome plus an additional modality. Here, we describe expanded CRISPR-compatible cellular indexing of transcriptomes and epitopes by sequencing (ECCITE-seq) for the high-throughput characterization of at least five modalities of information from each single cell. We demonstrate application of ECCITE-seq to multimodal CRISPR screens with robust direct single-guide RNA capture and to clonotype-aware multimodal phenotyping of cancer samples.}
+      \field{isbn}{4159201903}
+      \field{issn}{15487105}
+      \field{journaltitle}{Nature Methods}
+      \field{number}{5}
+      \field{title}{{Multiplexed detection of proteins, transcriptomes, clonotypes and CRISPR perturbations in single cells}}
+      \field{volume}{16}
+      \field{year}{2019}
+      \field{pages}{409\bibrangedash 412}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1038/s41592-019-0392-0
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Mimitou et al. - 2019 - Multiplexed detection of proteins, transcriptomes, clonotypes and CRISPR perturbations in single cells.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41592-019-0392-0
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41592-019-0392-0
+      \endverb
+      \keyw{crispr screen,single cell}
+    \endentry
+    \entry{Mimitou2021}{book}{}
+      \name{author}{21}{}{%
+        {{hash=e5b552ed1c10413166c29b681fc213f1}{%
+           family={Mimitou},
+           familyi={M\bibinitperiod},
+           given={Eleni\bibnamedelima P.},
+           giveni={E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=e59791fe33a5376aa4713cd70b09a9e0}{%
+           family={Lareau},
+           familyi={L\bibinitperiod},
+           given={Caleb\bibnamedelima A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=9c4ae13a4b4bfa8f1458254a5778e59e}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Kelvin\bibnamedelima Y.},
+           giveni={K\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=3fdfde894d74c933e3d9be7c1a120bf6}{%
+           family={Zorzetto-Fernandes},
+           familyi={Z\bibinithyphendelim F\bibinitperiod},
+           given={Andre\bibnamedelima L.},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=717de464784fac05c2b8e6a03fb778f1}{%
+           family={Hao},
+           familyi={H\bibinitperiod},
+           given={Yuhan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=77bdf69dbfbe0a2c0ba4c201bda1b506}{%
+           family={Takeshima},
+           familyi={T\bibinitperiod},
+           given={Yusuke},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c44880dfeff83673fef82b89b0b60257}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Wendy},
+           giveni={W\bibinitperiod}}}%
+        {{hash=2f6ff2711257e36ba0b3afe9309ed9c7}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Tse\bibnamedelima Shun},
+           giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=88fbe0c4e7cee9cfd40f2786057407d8}{%
+           family={Yeung},
+           familyi={Y\bibinitperiod},
+           given={Bertrand\bibnamedelima Z.},
+           giveni={B\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+        {{hash=8db992b18380963d13aeafa275b5e772}{%
+           family={Papalexi},
+           familyi={P\bibinitperiod},
+           given={Efthymia},
+           giveni={E\bibinitperiod}}}%
+        {{hash=f484862fea490063ca510f82b46f0fe7}{%
+           family={Thakore},
+           familyi={T\bibinitperiod},
+           given={Pratiksha\bibnamedelima I.},
+           giveni={P\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+        {{hash=1699dfaaf058aa7cf1b254b908bed167}{%
+           family={Kibayashi},
+           familyi={K\bibinitperiod},
+           given={Tatsuya},
+           giveni={T\bibinitperiod}}}%
+        {{hash=65c38d7021802994307dd5a5187c5b19}{%
+           family={Wing},
+           familyi={W\bibinitperiod},
+           given={James\bibnamedelima Badger},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=55ec9de53299655fffbe052c9819ebf3}{%
+           family={Hata},
+           familyi={H\bibinitperiod},
+           given={Mayu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d06bc96caba8ec75d09d2d169fa958da}{%
+           family={Satija},
+           familyi={S\bibinitperiod},
+           given={Rahul},
+           giveni={R\bibinitperiod}}}%
+        {{hash=06f3ced845a3f15a6b807a851710921c}{%
+           family={Nazor},
+           familyi={N\bibinitperiod},
+           given={Kristopher\bibnamedelima L.},
+           giveni={K\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=7222b3b0b88cc667d15a231f49f6b150}{%
+           family={Sakaguchi},
+           familyi={S\bibinitperiod},
+           given={Shimon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=cc847c347e81f9466aeb29b174e3a544}{%
+           family={Ludwig},
+           familyi={L\bibinitperiod},
+           given={Leif\bibnamedelima S.},
+           giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=bc21ea08e1f4962d94e07c56ec8a212c}{%
+           family={Sankaran},
+           familyi={S\bibinitperiod},
+           given={Vijay\bibnamedelima G.},
+           giveni={V\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=f08f6961a7cb7d9674fb102073c60ca3}{%
+           family={Regev},
+           familyi={R\bibinitperiod},
+           given={Aviv},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f26a014e248b84b89c12feeb6b89cb24}{%
+           family={Smibert},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{fullhash}{e610048d58846e590bab95ce56525197}
+      \strng{bibnamehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{authorbibnamehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{authornamehash}{28754fcbe033d8c8821bf24df98887c3}
+      \strng{authorfullhash}{e610048d58846e590bab95ce56525197}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Recent technological advances have enabled massively parallel chromatin profiling with scATAC-seq (single-cell assay for transposase accessible chromatin by sequencing). Here we present ATAC with select antigen profiling by sequencing (ASAP-seq), a tool to simultaneously profile accessible chromatin and protein levels. Our approach pairs sparse scATAC-seq data with robust detection of hundreds of cell surface and intracellular protein markers and optional capture of mitochondrial DNA for clonal tracking, capturing three distinct modalities in single cells. ASAP-seq uses a bridging approach that repurposes antibody:oligonucleotide conjugates designed for existing technologies that pair protein measurements with single-cell RNA sequencing. Together with DOGMA-seq, an adaptation of CITE-seq (cellular indexing of transcriptomes and epitopes by sequencing) for measuring gene activity across the central dogma of gene regulation, we demonstrate the utility of systematic multi-omic profiling by revealing coordinated and distinct changes in chromatin, RNA and surface proteins during native hematopoietic differentiation and peripheral blood mononuclear cell stimulation and as a combinatorial decoder and reporter of multiplexed perturbations in primary T cells.}
+      \field{booktitle}{Nature Biotechnology}
+      \field{isbn}{4158702100927}
+      \field{issn}{15461696}
+      \field{number}{10}
+      \field{title}{{Scalable, multimodal profiling of chromatin accessibility, gene expression and protein levels in single cells}}
+      \field{volume}{39}
+      \field{year}{2021}
+      \field{pages}{1246\bibrangedash 1258}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1038/s41587-021-00927-2
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/asap-seq.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41587-021-00927-2
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41587-021-00927-2
+      \endverb
+    \endentry
+    \entry{Morris2021a}{article}{}
+      \name{author}{13}{}{%
+        {{hash=3b6c78c7b9ac7244bcc82e834ce101be}{%
+           family={Morris},
+           familyi={M\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=69b4f3739bde35ba12ef2f87fda079bb}{%
+           family={Daniloski},
+           familyi={D\bibinitperiod},
+           given={Zharko},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=0a492ad067624ccef2d1e03b8e0e1d17}{%
+           family={Domingo},
+           familyi={D\bibinitperiod},
+           given={J{ú}lia},
+           giveni={J\bibinitperiod}}}%
+        {{hash=8d1ac8cbb69e290353a265fed8368c47}{%
+           family={Barry},
+           familyi={B\bibinitperiod},
+           given={Timothy},
+           giveni={T\bibinitperiod}}}%
+        {{hash=c8a94539612ef1447ca3d7b1b8d5337c}{%
+           family={Ziosi},
+           familyi={Z\bibinitperiod},
+           given={Marcello},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5e876350711278ecdc0eb32db00c8c0c}{%
+           family={Glinos},
+           familyi={G\bibinitperiod},
+           given={Dafni\bibnamedelima A.},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=7be7b10df9a2d57e7bddce67122182a1}{%
+           family={Hao},
+           familyi={H\bibinitperiod},
+           given={Stephanie},
+           giveni={S\bibinitperiod}}}%
+        {{hash=e5b552ed1c10413166c29b681fc213f1}{%
+           family={Mimitou},
+           familyi={M\bibinitperiod},
+           given={Eleni\bibnamedelima P.},
+           giveni={E\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=f26a014e248b84b89c12feeb6b89cb24}{%
+           family={Smibert},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=05b461b94ae0c05f5f954c648ee571d9}{%
+           family={Roeder},
+           familyi={R\bibinitperiod},
+           given={Kathryn},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f887da698add9051a306ec077275a4c3}{%
+           family={Katsevich},
+           familyi={K\bibinitperiod},
+           given={Eugene},
+           giveni={E\bibinitperiod}}}%
+        {{hash=4c4bd18a06ee72d5ff6079c776026382}{%
+           family={Lappalainen},
+           familyi={L\bibinitperiod},
+           given={Tuuli},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9d8f2774899c495b26321586a69ead0f}{%
+           family={Sanjana},
+           familyi={S\bibinitperiod},
+           given={Neville\bibnamedelima E.},
+           giveni={N\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{f85b4a9c7af76e0b912ff5c5ccde09af}
+      \strng{fullhash}{b05110c1a72f09eb62f54d934a0836c4}
+      \strng{bibnamehash}{f85b4a9c7af76e0b912ff5c5ccde09af}
+      \strng{authorbibnamehash}{f85b4a9c7af76e0b912ff5c5ccde09af}
+      \strng{authornamehash}{f85b4a9c7af76e0b912ff5c5ccde09af}
+      \strng{authorfullhash}{b05110c1a72f09eb62f54d934a0836c4}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The majority of variants associated with complex traits and common diseases identified by genome-wide association studies (GWAS) map to noncoding regions of the genome with unknown regulatory effects in cis and trans . By leveraging biobank-scale GWAS data, massively parallel CRISPR screens and single cell transcriptome sequencing, we discovered target genes of noncoding variants for blood trait loci. The closest gene was often the target gene, but this was not always the case. We also identified trans -effects networks of noncoding variants when cis target genes encoded transcription factors, such as GFI1B and NFE2 . We observed that GFI1B trans -target genes were enriched for GFI1B binding sites and fine-mapped GWAS variants, and expressed in human bone marrow progenitor cells, suggesting that GFI1B acts as a master regulator of blood traits. This platform will enable massively parallel assays to catalog the target genes of human noncoding variants in both cis and trans . {\#}{\#}{\#} Competing Interest Statement N.E.S. is an advisor to Vertex. T.L. is an advisor to Goldfinch Bio and GSK and, with equity, Variant Bio.}
+      \field{journaltitle}{bioRxiv}
+      \field{title}{{Discovery of target genes and pathways of blood trait loci using pooled CRISPR screens and single cell RNA sequencing}}
+      \field{year}{2021}
+      \field{pages}{2021.04.07.438882}
+      \range{pages}{-1}
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Morris et al. - 2021 - Discovery of target genes and pathways of blood trait loci using pooled CRISPR screens and single cell RNA sequen.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.biorxiv.org/content/10.1101/2021.04.07.438882v1{\%}0Ahttps://www.biorxiv.org/content/10.1101/2021.04.07.438882v1.abstract
+      \endverb
+      \verb{url}
+      \verb https://www.biorxiv.org/content/10.1101/2021.04.07.438882v1%7B%5C%%7D0Ahttps://www.biorxiv.org/content/10.1101/2021.04.07.438882v1.abstract
+      \endverb
+    \endentry
+    \entry{Musunuru2021}{article}{}
+      \name{author}{42}{}{%
+        {{hash=29e323ad31e584b8bf7451471518acf4}{%
+           family={Musunuru},
+           familyi={M\bibinitperiod},
+           given={Kiran},
+           giveni={K\bibinitperiod}}}%
+        {{hash=25abe7db3e2a2e26ef762021af7940c2}{%
+           family={Chadwick},
+           familyi={C\bibinitperiod},
+           given={Alexandra\bibnamedelima C.},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=0c5c570273e3ec7017ceb65c4f877d20}{%
+           family={Mizoguchi},
+           familyi={M\bibinitperiod},
+           given={Taiji},
+           giveni={T\bibinitperiod}}}%
+        {{hash=a2769dd6a45e2dbaeab5a0aea9412ec1}{%
+           family={Garcia},
+           familyi={G\bibinitperiod},
+           given={Sara\bibnamedelima P.},
+           giveni={S\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=9ac7e947dbdcd1f2562ebba55436c28e}{%
+           family={DeNizio},
+           familyi={D\bibinitperiod},
+           given={Jamie\bibnamedelima E.},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=94d692025f8a77b8b4b5c7ff0c61b430}{%
+           family={Reiss},
+           familyi={R\bibinitperiod},
+           given={Caroline\bibnamedelima W.},
+           giveni={C\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=ffeae43f5f9c301e3d0ffc5b82b18e10}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Kui},
+           giveni={K\bibinitperiod}}}%
+        {{hash=b511e1d46f2d9135ac37756985fa3b69}{%
+           family={Iyer},
+           familyi={I\bibinitperiod},
+           given={Sowmya},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9c40f850122d792e09e6323598e7d579}{%
+           family={Dutta},
+           familyi={D\bibinitperiod},
+           given={Chaitali},
+           giveni={C\bibinitperiod}}}%
+        {{hash=c510717c97cf15d1effc3c4702a8ef63}{%
+           family={Clendaniel},
+           familyi={C\bibinitperiod},
+           given={Victoria},
+           giveni={V\bibinitperiod}}}%
+        {{hash=a186486266a298e63ed7fa04cb648a26}{%
+           family={Amaonye},
+           familyi={A\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=bd2f82e78cc168e44eb9dd4f3f778253}{%
+           family={Beach},
+           familyi={B\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+        {{hash=60cb4ae6a2b8703ddb9369f796af62bc}{%
+           family={Berth},
+           familyi={B\bibinitperiod},
+           given={Kathleen},
+           giveni={K\bibinitperiod}}}%
+        {{hash=9d55b1338d80a74c92aa762663a890c6}{%
+           family={Biswas},
+           familyi={B\bibinitperiod},
+           given={Souvik},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a007d7e41405a682362bada56307ea28}{%
+           family={Braun},
+           familyi={B\bibinitperiod},
+           given={Maurine\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=49855046cceec40894294e87660f9548}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Huei\bibnamedelima Mei},
+           giveni={H\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=d695ec3587f922f495e730915513688c}{%
+           family={Colace},
+           familyi={C\bibinitperiod},
+           given={Thomas\bibnamedelima V.},
+           giveni={T\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=dec5692b76f438b0caf0c07ffb31e42c}{%
+           family={Ganey},
+           familyi={G\bibinitperiod},
+           given={John\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=edb514c6a1ab172b6f38caa571266894}{%
+           family={Gangopadhyay},
+           familyi={G\bibinitperiod},
+           given={Soumyashree\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=197f051fdf6b0c65b2f9a29a6878b484}{%
+           family={Garrity},
+           familyi={G\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod}}}%
+        {{hash=774aec2063c1f617f1de1b57dccddbb3}{%
+           family={Kasiewicz},
+           familyi={K\bibinitperiod},
+           given={Lisa\bibnamedelima N.},
+           giveni={L\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=3e6572a15cc10893636c1f96845cebe3}{%
+           family={Lavoie},
+           familyi={L\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod}}}%
+        {{hash=24b680f53fa1b5becc266ee8b8b648f1}{%
+           family={Madsen},
+           familyi={M\bibinitperiod},
+           given={James\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=bdf149e441bdd97223890150400b1eaa}{%
+           family={Matsumoto},
+           familyi={M\bibinitperiod},
+           given={Yuri},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=ac3aa837137695310a8aaf441e9de1d4}{%
+           family={Mazzola},
+           familyi={M\bibinitperiod},
+           given={Anne\bibnamedelima Marie},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=738b73d159d0581c4e029ce73d8dca67}{%
+           family={Nasrullah},
+           familyi={N\bibinitperiod},
+           given={Yusuf\bibnamedelima S.},
+           giveni={Y\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=b0a4f4b76850a128aa1c97c7e8b945e8}{%
+           family={Nneji},
+           familyi={N\bibinitperiod},
+           given={Joseph},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6bbbd7f21a400a6071f7408e604e83e4}{%
+           family={Ren},
+           familyi={R\bibinitperiod},
+           given={Huilan},
+           giveni={H\bibinitperiod}}}%
+        {{hash=d7fcee5b0cf88ebff686740ad9f31046}{%
+           family={Sanjeev},
+           familyi={S\bibinitperiod},
+           given={Athul},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e1f4bd4235985f42586d033909966ac2}{%
+           family={Shay},
+           familyi={S\bibinitperiod},
+           given={Madeleine},
+           giveni={M\bibinitperiod}}}%
+        {{hash=bec2e1eda80fd66d43d623dd052022b0}{%
+           family={Stahley},
+           familyi={S\bibinitperiod},
+           given={Mary\bibnamedelima R.},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=8b573741efd49903219ab8ac4a46e3db}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Steven\bibnamedelima H.Y.},
+           giveni={S\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=721d2960ca38afc38e1a06c7b0ca7726}{%
+           family={Tam},
+           familyi={T\bibinitperiod},
+           given={Ying\bibnamedelima K.},
+           giveni={Y\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=141e95597ebd42d5a9319efea551cd18}{%
+           family={Gaudelli},
+           familyi={G\bibinitperiod},
+           given={Nicole\bibnamedelima M.},
+           giveni={N\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=7c48464951c160f7676d214af7fa08ef}{%
+           family={Ciaramella},
+           familyi={C\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3424e8e1f69cde35dbc52d583d661b3a}{%
+           family={Stolz},
+           familyi={S\bibinitperiod},
+           given={Leslie\bibnamedelima E.},
+           giveni={L\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=f4e6f9e24a93771b61e75b8bef45814a}{%
+           family={Malyala},
+           familyi={M\bibinitperiod},
+           given={Padma},
+           giveni={P\bibinitperiod}}}%
+        {{hash=5b09aff6a2692334d14f64fad9e4c5fb}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Christopher\bibnamedelima J.},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=0e2dd5a9fa0b4c0f6c05182a6f761111}{%
+           family={Rajeev},
+           familyi={R\bibinitperiod},
+           given={Kallanthottathil\bibnamedelima G.},
+           giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=8d0ff2c88ad9805643e4b2dd8ec008e7}{%
+           family={Rohde},
+           familyi={R\bibinitperiod},
+           given={Ellen},
+           giveni={E\bibinitperiod}}}%
+        {{hash=31536de587a20822891c94a02f70385d}{%
+           family={Bellinger},
+           familyi={B\bibinitperiod},
+           given={Andrew\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=27fd1eaf5e62f8465d29aeccc3be3365}{%
+           family={Kathiresan},
+           familyi={K\bibinitperiod},
+           given={Sekar},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{c7b8ff665ec3c8169b3df5fdb1a84948}
+      \strng{fullhash}{2b2386a1383d1bd5034feff7cc522d2c}
+      \strng{bibnamehash}{c7b8ff665ec3c8169b3df5fdb1a84948}
+      \strng{authorbibnamehash}{c7b8ff665ec3c8169b3df5fdb1a84948}
+      \strng{authornamehash}{c7b8ff665ec3c8169b3df5fdb1a84948}
+      \strng{authorfullhash}{2b2386a1383d1bd5034feff7cc522d2c}
+      \field{sortinit}{M}
+      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Gene-editing technologies, which include the CRISPR–Cas nucleases1–3 and CRISPR base editors4,5, have the potential to permanently modify disease-causing genes in patients6. The demonstration of durable editing in target organs of nonhuman primates is a key step before in vivo administration of gene editors to patients in clinical trials. Here we demonstrate that CRISPR base editors that are delivered in vivo using lipid nanoparticles can efficiently and precisely modify disease-related genes in living cynomolgus monkeys (Macaca fascicularis). We observed a near-complete knockdown of PCSK9 in the liver after a single infusion of lipid nanoparticles, with concomitant reductions in blood levels of PCSK9 and low-density lipoprotein cholesterol of approximately 90{\%} and about 60{\%}, respectively; all of these changes remained stable for at least 8 months after a single-dose treatment. In addition to supporting a ‘once-and-done' approach to the reduction of low-density lipoprotein cholesterol and the treatment of atherosclerotic cardiovascular disease (the leading cause of death worldwide7), our results provide a proof-of-concept for how CRISPR base editors can be productively applied to make precise single-nucleotide changes in therapeutic target genes in the liver, and potentially in other organs.}
+      \field{issn}{14764687}
+      \field{journaltitle}{Nature}
+      \field{number}{7859}
+      \field{title}{{In vivo CRISPR base editing of PCSK9 durably lowers cholesterol in primates}}
+      \field{volume}{593}
+      \field{year}{2021}
+      \field{pages}{429\bibrangedash 434}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1038/s41586-021-03534-y
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Musunuru et al. - 2021 - In vivo CRISPR base editing of PCSK9 durably lowers cholesterol in primates.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41586-021-03534-y
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41586-021-03534-y
+      \endverb
+    \endentry
+    \entry{Przybyla2021}{article}{}
+      \name{author}{2}{}{%
+        {{hash=f8918fbc3f338463fdd85364e7c1f2ea}{%
+           family={Przybyla},
+           familyi={P\bibinitperiod},
+           given={Laralynne},
+           giveni={L\bibinitperiod}}}%
+        {{hash=91c228a31eecabf56e99fce3697e6a28}{%
+           family={Gilbert},
+           familyi={G\bibinitperiod},
+           given={Luke\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{8c352f95670a3a6400d73bd614488a91}
+      \strng{fullhash}{042784027f29b660943f84d4fa05902c}
+      \strng{bibnamehash}{042784027f29b660943f84d4fa05902c}
+      \strng{authorbibnamehash}{042784027f29b660943f84d4fa05902c}
+      \strng{authornamehash}{8c352f95670a3a6400d73bd614488a91}
+      \strng{authorfullhash}{042784027f29b660943f84d4fa05902c}
+      \field{sortinit}{P}
+      \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The past 25 years of genomics research first revealed which genes are encoded by the human genome and then a detailed catalogue of human genome variation associated with many diseases. Despite this, the function of many genes and gene regulatory elements remains poorly characterized, which limits our ability to apply these insights to human disease. The advent of new CRISPR functional genomics tools allows for scalable and multiplexable characterization of genes and gene regulatory elements encoded by the human genome. These approaches promise to reveal mechanisms of gene function and regulation, and to enable exploration of how genes work together to modulate complex phenotypes.}
+      \field{isbn}{0123456789}
+      \field{issn}{14710064}
+      \field{journaltitle}{Nature Reviews Genetics}
+      \field{title}{{A new era in functional genomics screens}}
+      \field{volume}{0123456789}
+      \field{year}{2021}
+      \verb{doi}
+      \verb 10.1038/s41576-021-00409-w
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Przybyla, Gilbert - 2021 - A new era in functional genomics screens.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41576-021-00409-w
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41576-021-00409-w
+      \endverb
+      \keyw{Przy2021}
+    \endentry
+    \entry{Replogle2020}{article}{}
+      \name{author}{17}{}{%
+        {{hash=b189d64c6d4cd48bf823e9bf25580bc8}{%
+           family={Replogle},
+           familyi={R\bibinitperiod},
+           given={Joseph\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=b3c2e25697dc878d03b60b232e366f28}{%
+           family={Norman},
+           familyi={N\bibinitperiod},
+           given={Thomas\bibnamedelima M.},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=33abe6e6795366d1e016b4eb0086859b}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Albert},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7214afd3e368b1b3823a80ed1d995c41}{%
+           family={Hussmann},
+           familyi={H\bibinitperiod},
+           given={Jeffrey\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=42990f77d0dad790e7a9f0d77aa2d3b0}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=95c2efebaea2d467fd0e7e362732397a}{%
+           family={Cogan},
+           familyi={C\bibinitperiod},
+           given={J.\bibnamedelimi Zachery},
+           giveni={J\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+        {{hash=9201cdf33d9a814815bbadf7992d1c24}{%
+           family={Meer},
+           familyi={M\bibinitperiod},
+           given={Elliott\bibnamedelima J.},
+           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=4267e4d5520ae85ad49afaef7fc24e43}{%
+           family={Terry},
+           familyi={T\bibinitperiod},
+           given={Jessica\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=347eb62d691e03d3b1afef8f23845919}{%
+           family={Riordan},
+           familyi={R\bibinitperiod},
+           given={Daniel\bibnamedelima P.},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=bba8edc4dfbbc8fe73390e4b562c9cc3}{%
+           family={Srinivas},
+           familyi={S\bibinitperiod},
+           given={Niranjan},
+           giveni={N\bibinitperiod}}}%
+        {{hash=069553e8a1234417956afdf67605ff33}{%
+           family={Fiddes},
+           familyi={F\bibinitperiod},
+           given={Ian\bibnamedelima T.},
+           giveni={I\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=98ce977b39fd6db4e6f8dc5962b9a6e0}{%
+           family={Arthur},
+           familyi={A\bibinitperiod},
+           given={Joseph\bibnamedelima G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=91d8ea0eb93f03e13dbe41170cbf9d41}{%
+           family={Alvarado},
+           familyi={A\bibinitperiod},
+           given={Luigi\bibnamedelima J.},
+           giveni={L\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=e01795964979d75c0121c161d5d54a43}{%
+           family={Pfeiffer},
+           familyi={P\bibinitperiod},
+           given={Katherine\bibnamedelima A.},
+           giveni={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e5dd9dd21f40752361c4ea3300613a01}{%
+           family={Mikkelsen},
+           familyi={M\bibinitperiod},
+           given={Tarjei\bibnamedelima S.},
+           giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=bad4feb6886c9be5fad6425bd29bc01a}{%
+           family={Weissman},
+           familyi={W\bibinitperiod},
+           given={Jonathan\bibnamedelima S.},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=709a0901bb2ae541b148ce12b84da8cd}{%
+           family={Adamson},
+           familyi={A\bibinitperiod},
+           given={Britt},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{7195a93dc948e6d28fe767dc4382d649}
+      \strng{fullhash}{879b6b2b72270f5f0ad046c8e12320a3}
+      \strng{bibnamehash}{7195a93dc948e6d28fe767dc4382d649}
+      \strng{authorbibnamehash}{7195a93dc948e6d28fe767dc4382d649}
+      \strng{authornamehash}{7195a93dc948e6d28fe767dc4382d649}
+      \strng{authorfullhash}{879b6b2b72270f5f0ad046c8e12320a3}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Single-cell CRISPR screens enable the exploration of mammalian gene function and genetic regulatory networks. However, use of this technology has been limited by reliance on indirect indexing of single-guide RNAs (sgRNAs). Here we present direct-capture Perturb-seq, a versatile screening approach in which expressed sgRNAs are sequenced alongside single-cell transcriptomes. Direct-capture Perturb-seq enables detection of multiple distinct sgRNA sequences from individual cells and thus allows pooled single-cell CRISPR screens to be easily paired with combinatorial perturbation libraries that contain dual-guide expression vectors. We demonstrate the utility of this approach for high-throughput investigations of genetic interactions and, leveraging this ability, dissect epistatic interactions between cholesterol biogenesis and DNA repair. Using direct capture Perturb-seq, we also show that targeting individual genes with multiple sgRNAs per cell improves efficacy of CRISPR interference and activation, facilitating the use of compact, highly active CRISPR libraries for single-cell screens. Last, we show that hybridization-based target enrichment permits sensitive, specific sequencing of informative transcripts from single-cell RNA-seq experiments.}
+      \field{issn}{15461696}
+      \field{journaltitle}{Nature Biotechnology}
+      \field{title}{{Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing}}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.1038/s41587-020-0470-y
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Replogle et al. - 2020 - Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41587-020-0470-y
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41587-020-0470-y
+      \endverb
+      \keyw{biology,crispr screen}
+    \endentry
+    \entry{Ripley2013}{article}{}
+      \name{author}{7}{}{%
+        {{hash=9f9d654283f80c9c7890f4a86fd8a47a}{%
+           family={Ripley},
+           familyi={R\bibinitperiod},
+           given={Brian},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3bc0c29fc5033e0113033c89b3754df8}{%
+           family={Venables},
+           familyi={V\bibinitperiod},
+           given={Bill},
+           giveni={B\bibinitperiod}}}%
+        {{hash=5a69126043d127c54c7da707d3cc881e}{%
+           family={Bates},
+           familyi={B\bibinitperiod},
+           given={Douglas\bibnamedelima M},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=bec8dd1340457a82c21b54971e4c9417}{%
+           family={Hornik},
+           familyi={H\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5a6bca2cf7a9030c5bb9fb7c88239e71}{%
+           family={Gebhardt},
+           familyi={G\bibinitperiod},
+           given={Albrecht},
+           giveni={A\bibinitperiod}}}%
+        {{hash=83bd34bb6266c52d0791aef76d308276}{%
+           family={Firth},
+           familyi={F\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=fbdbf5d63d558d579781302ba9e1d120}{%
+           family={Ripley},
+           familyi={R\bibinitperiod},
+           given={Maintainer\bibnamedelima Brian},
+           giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{558d0e9ec848be9fd06e23c1ac8fe2d7}
+      \strng{fullhash}{5d12285d1a83f2c5cf09962a8f40e8af}
+      \strng{bibnamehash}{558d0e9ec848be9fd06e23c1ac8fe2d7}
+      \strng{authorbibnamehash}{558d0e9ec848be9fd06e23c1ac8fe2d7}
+      \strng{authornamehash}{558d0e9ec848be9fd06e23c1ac8fe2d7}
+      \strng{authorfullhash}{5d12285d1a83f2c5cf09962a8f40e8af}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cran r}
+      \field{title}{{Package ‘mass'}}
+      \field{volume}{538}
+      \field{year}{2013}
+      \field{pages}{113\bibrangedash 120}
+      \range{pages}{8}
+    \endentry
+    \entry{Rothgangl2021}{article}{}
+      \name{author}{32}{}{%
+        {{hash=6a66f38d93f07cce92b7b012ae302a62}{%
+           family={Rothgangl},
+           familyi={R\bibinitperiod},
+           given={Tanja},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ba3066598d687d428eb963c6ab5a0c24}{%
+           family={Dennis},
+           familyi={D\bibinitperiod},
+           given={Melissa\bibnamedelima K.},
+           giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=ba15faae968381fc44f6ad8f9b60e587}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Paulo\bibnamedelima J.C.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=84e53f88dc9c67ddfd2de2b1d819468a}{%
+           family={Oka},
+           familyi={O\bibinitperiod},
+           given={Rurika},
+           giveni={R\bibinitperiod}}}%
+        {{hash=dad4bb633d1ad67d6098cadc1beac79e}{%
+           family={Witzigmann},
+           familyi={W\bibinitperiod},
+           given={Dominik},
+           giveni={D\bibinitperiod}}}%
+        {{hash=e9c2eabb0b93a2700fef54b85fc342fd}{%
+           family={Villiger},
+           familyi={V\bibinitperiod},
+           given={Lukas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=973df0b8d2d935963459b4e65a14930b}{%
+           family={Qi},
+           familyi={Q\bibinitperiod},
+           given={Weihong},
+           giveni={W\bibinitperiod}}}%
+        {{hash=1800455838077466f31d0f9f1873d44a}{%
+           family={Hruzova},
+           familyi={H\bibinitperiod},
+           given={Martina},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f8e2ac39456a5a2562b4e4fb323a9a06}{%
+           family={Kissling},
+           familyi={K\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=cf5a8ee202a949b8bea2d6ebb99d9e87}{%
+           family={Lenggenhager},
+           familyi={L\bibinitperiod},
+           given={Daniela},
+           giveni={D\bibinitperiod}}}%
+        {{hash=dd6875832f1d1763dd2317b3680ac264}{%
+           family={Borrelli},
+           familyi={B\bibinitperiod},
+           given={Costanza},
+           giveni={C\bibinitperiod}}}%
+        {{hash=b9ac87a243bfefbbba28e776996971e2}{%
+           family={Egli},
+           familyi={E\bibinitperiod},
+           given={Sabina},
+           giveni={S\bibinitperiod}}}%
+        {{hash=54f6caf6e33fa5bde74aa87e21bbd4d0}{%
+           family={Frey},
+           familyi={F\bibinitperiod},
+           given={Nina},
+           giveni={N\bibinitperiod}}}%
+        {{hash=285159a30428b9b6e1160585793c8652}{%
+           family={Bakker},
+           familyi={B\bibinitperiod},
+           given={No{ë}lle},
+           giveni={N\bibinitperiod}}}%
+        {{hash=718a627de7254fb8d64ba873c125c0aa}{%
+           family={Walker},
+           familyi={W\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=f80d1f18dea198cb5e4f7b4db35f178d}{%
+           family={Kadina},
+           familyi={K\bibinitperiod},
+           given={Anastasia\bibnamedelima P.},
+           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=8e4bdc87ce4489eb4a31a9ec25ab8de6}{%
+           family={Victorov},
+           familyi={V\bibinitperiod},
+           given={Denis\bibnamedelima V.},
+           giveni={D\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=3473d89e690490337761fe0f6bc1f973}{%
+           family={Pacesa},
+           familyi={P\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5ce58740621796e104af5509bd76a6bb}{%
+           family={Kreutzer},
+           familyi={K\bibinitperiod},
+           given={Susanne},
+           giveni={S\bibinitperiod}}}%
+        {{hash=465f892a51986b3aa16173d21be98e85}{%
+           family={Kontarakis},
+           familyi={K\bibinitperiod},
+           given={Zacharias},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=5ecc562b34f11d305a1361c1cf26b929}{%
+           family={Moor},
+           familyi={M\bibinitperiod},
+           given={Andreas},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3aa57e081fa07841f82a2722cbf3fce1}{%
+           family={Jinek},
+           familyi={J\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=e1d091ebbd193ea7f7adfaf521c962ab}{%
+           family={Weissman},
+           familyi={W\bibinitperiod},
+           given={Drew},
+           giveni={D\bibinitperiod}}}%
+        {{hash=178915d50522c2a92140a30201f0ea29}{%
+           family={Stoffel},
+           familyi={S\bibinitperiod},
+           given={Markus},
+           giveni={M\bibinitperiod}}}%
+        {{hash=cd7de01fb268dedd75a49525ac78f476}{%
+           family={Boxtel},
+           familyi={B\bibinitperiod},
+           given={Ruben},
+           giveni={R\bibinitperiod},
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+        {{hash=53a8931a51a84a07824ec34d2d879702}{%
+           family={Holden},
+           familyi={H\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=7522a024a3e8b0e67f2f7c921667cde0}{%
+           family={Pardi},
+           familyi={P\bibinitperiod},
+           given={Norbert},
+           giveni={N\bibinitperiod}}}%
+        {{hash=aef50bde4fa0676af4afe1e34492d50d}{%
+           family={Th{ö}ny},
+           familyi={T\bibinitperiod},
+           given={Beat},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c04824d2ad25640c614c58c38d94e10f}{%
+           family={H{ä}berle},
+           familyi={H\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod}}}%
+        {{hash=721d2960ca38afc38e1a06c7b0ca7726}{%
+           family={Tam},
+           familyi={T\bibinitperiod},
+           given={Ying\bibnamedelima K.},
+           giveni={Y\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=cbc305b9c060e84e3644d0e24a34a4c4}{%
+           family={Semple},
+           familyi={S\bibinitperiod},
+           given={Sean\bibnamedelima C.},
+           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=22258b1b7a13aae786a27a7a6b1980c8}{%
+           family={Schwank},
+           familyi={S\bibinitperiod},
+           given={Gerald},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{58dd65bf6cb9b24d45745b3c71c699c5}
+      \strng{fullhash}{b060de8700cf92da890eaab1ed397960}
+      \strng{bibnamehash}{58dd65bf6cb9b24d45745b3c71c699c5}
+      \strng{authorbibnamehash}{58dd65bf6cb9b24d45745b3c71c699c5}
+      \strng{authornamehash}{58dd65bf6cb9b24d45745b3c71c699c5}
+      \strng{authorfullhash}{b060de8700cf92da890eaab1ed397960}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Most known pathogenic point mutations in humans are C•G to T•A substitutions, which can be directly repaired by adenine base editors (ABEs). In this study, we investigated the efficacy and safety of ABEs in the livers of mice and cynomolgus macaques for the reduction of blood low-density lipoprotein (LDL) levels. Lipid nanoparticle–based delivery of mRNA encoding an ABE and a single-guide RNA targeting PCSK9, a negative regulator of LDL, induced up to 67{\%} editing (on average, 61{\%}) in mice and up to 34{\%} editing (on average, 26{\%}) in macaques. Plasma PCSK9 and LDL levels were stably reduced by 95{\%} and 58{\%} in mice and by 32{\%} and 14{\%} in macaques, respectively. ABE mRNA was cleared rapidly, and no off-target mutations in genomic DNA were found. Re-dosing in macaques did not increase editing, possibly owing to the detected humoral immune response to ABE upon treatment. These findings support further investigation of ABEs to treat patients with monogenic liver diseases.}
+      \field{isbn}{4158702100}
+      \field{issn}{15461696}
+      \field{journaltitle}{Nature Biotechnology}
+      \field{number}{8}
+      \field{title}{{In vivo adenine base editing of PCSK9 in macaques reduces LDL cholesterol levels}}
+      \field{volume}{39}
+      \field{year}{2021}
+      \field{pages}{949\bibrangedash 957}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1038/s41587-021-00933-4
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Rothgangl et al. - 2021 - In vivo adenine base editing of PCSK9 in macaques reduces LDL cholesterol levels.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41587-021-00933-4
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41587-021-00933-4
+      \endverb
+      \keyw{Rothgangl2021}
+    \endentry
+    \entry{Sarkar2021}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b583f7309441a0f8cf0c769085d6842c}{%
+           family={Sarkar},
+           familyi={S\bibinitperiod},
+           given={Abhishek},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b6392ab77144d0d73f3f35bd39da607c}{%
+           family={Stephens},
+           familyi={S\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{6414ab6ceecce97c0cff174e73d6eb36}
+      \strng{fullhash}{490cc8133f0d661cb13d8524bd8dc8c7}
+      \strng{bibnamehash}{490cc8133f0d661cb13d8524bd8dc8c7}
+      \strng{authorbibnamehash}{490cc8133f0d661cb13d8524bd8dc8c7}
+      \strng{authornamehash}{6414ab6ceecce97c0cff174e73d6eb36}
+      \strng{authorfullhash}{490cc8133f0d661cb13d8524bd8dc8c7}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The high proportion of zeros in typical single-cell RNA sequencing datasets has led to widespread but inconsistent use of terminology such as dropout and missing data. Here, we argue that much of this terminology is unhelpful and confusing, and outline simple ideas to help to reduce confusion. These include: (1) observed single-cell RNA sequencing counts reflect both true gene expression levels and measurement error, and carefully distinguishing between these contributions helps to clarify thinking; and (2) method development should start with a Poisson measurement model, rather than more complex models, because it is simple and generally consistent with existing data. We outline how several existing methods can be viewed within this framework and highlight how these methods differ in their assumptions about expression variation. We also illustrate how our perspective helps to address questions of biological interest, such as whether messenger RNA expression levels are multimodal among cells.}
+      \field{issn}{15461718}
+      \field{journaltitle}{Nature Genetics}
+      \field{number}{6}
+      \field{title}{{Separating measurement and expression models clarifies confusion in single-cell RNA sequencing analysis}}
+      \field{volume}{53}
+      \field{year}{2021}
+      \field{pages}{770\bibrangedash 777}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1038/s41588-021-00873-4
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/sarkar2021.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41588-021-00873-4
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41588-021-00873-4
+      \endverb
+    \endentry
+    \entry{Savoca2000}{article}{}
+      \name{author}{1}{}{%
+        {{hash=3eb50a6ffeef4529dfa5504022f5dd55}{%
+           family={Savoca},
+           familyi={S\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{3eb50a6ffeef4529dfa5504022f5dd55}
+      \strng{fullhash}{3eb50a6ffeef4529dfa5504022f5dd55}
+      \strng{bibnamehash}{3eb50a6ffeef4529dfa5504022f5dd55}
+      \strng{authorbibnamehash}{3eb50a6ffeef4529dfa5504022f5dd55}
+      \strng{authornamehash}{3eb50a6ffeef4529dfa5504022f5dd55}
+      \strng{authorfullhash}{3eb50a6ffeef4529dfa5504022f5dd55}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents an overview of the theory of measurement error bias in ordinary regression estimators when several binary explanatory variables are mismeasured. This situation commonly occurs in health-related applications where the effects of illness are modeled in a multivariate framework and where health conditions are usually 0-1 survey responses indicating the absence or presence of diseases. An analysis of the effect of psychiatric diseases on male earnings provides an empirical example that indicates extensive measurement error bias even in sophisticated survey measures that are designed to simulate clinical diagnoses. A corrected covariance matrix is constructed from a validity study of the survey mental health indicators. When ordinary least squares estimators are adjusted by this correction matrix, the estimated earnings effects drop for certain diseases (drug abuse, general phobic disorders) and rise for others (anti-social personality).}
+      \field{issn}{13873741}
+      \field{journaltitle}{Health Services and Outcomes Research Methodology}
+      \field{number}{2}
+      \field{title}{{Measurement errors in binary regressors: An application to measuring the effects of specific psychiatric diseases on earnings}}
+      \field{volume}{1}
+      \field{year}{2000}
+      \field{pages}{149\bibrangedash 164}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1023/A:1012541005920
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Savoca2000.pdf:pdf
+      \endverb
+      \keyw{Binary variables,Measurement error,Multiple regression,Psychiatric diseases}
+    \endentry
+    \entry{Schraivogel2020}{article}{}
+      \name{author}{10}{}{%
+        {{hash=b9970b3687be2d4668c684a57cb24c08}{%
+           family={Schraivogel},
+           familyi={S\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d5b09f6b701f0833d8593859b29c670a}{%
+           family={Gschwind},
+           familyi={G\bibinitperiod},
+           given={Andreas\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=f441f4bee2e4d672e4c6349eebef315d}{%
+           family={Milbank},
+           familyi={M\bibinitperiod},
+           given={Jennifer\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=3f8e22d76d78c43a6b2397fb5da1eefb}{%
+           family={Leonce},
+           familyi={L\bibinitperiod},
+           given={Daniel\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=e17af587dd657a7fb9c2acfaf4e33199}{%
+           family={Jakob},
+           familyi={J\bibinitperiod},
+           given={Petra},
+           giveni={P\bibinitperiod}}}%
+        {{hash=2d5e62be1554de1a1c30e30d3214f58a}{%
+           family={Mathur},
+           familyi={M\bibinitperiod},
+           given={Lukas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=d8f4573ebeef313f386d57e30f95f2d0}{%
+           family={Korbel},
+           familyi={K\bibinitperiod},
+           given={Jan\bibnamedelima O.},
+           giveni={J\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=0109a78e0fce49507b6f5674303c53fe}{%
+           family={Merten},
+           familyi={M\bibinitperiod},
+           given={Christoph\bibnamedelima A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=612a9aa10d8d4ddbd58db15113ed9a53}{%
+           family={Velten},
+           familyi={V\bibinitperiod},
+           given={Lars},
+           giveni={L\bibinitperiod}}}%
+        {{hash=12ff5e5deb5bb0fd47fac28220adace0}{%
+           family={Steinmetz},
+           familyi={S\bibinitperiod},
+           given={Lars\bibnamedelima M.},
+           giveni={L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{2e93325a6ca7ccec0bb49713ca773d0e}
+      \strng{fullhash}{01c15356f4b6ba5ebf878b63e3e35c45}
+      \strng{bibnamehash}{2e93325a6ca7ccec0bb49713ca773d0e}
+      \strng{authorbibnamehash}{2e93325a6ca7ccec0bb49713ca773d0e}
+      \strng{authornamehash}{2e93325a6ca7ccec0bb49713ca773d0e}
+      \strng{authorfullhash}{01c15356f4b6ba5ebf878b63e3e35c45}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The transcriptome contains rich information on molecular, cellular and organismal phenotypes. However, experimental and statistical limitations constrain sensitivity and throughput of genetic screening with single-cell transcriptomics readout. To overcome these limitations, we introduce targeted Perturb-seq (TAP-seq), a sensitive, inexpensive and platform-independent method focusing single-cell RNA-seq coverage on genes of interest, thereby increasing the sensitivity and scale of genetic screens by orders of magnitude. TAP-seq permits routine analysis of thousands of CRISPR-mediated perturbations within a single experiment, detects weak effects and lowly expressed genes, and decreases sequencing requirements by up to 50-fold. We apply TAP-seq to generate perturbation-based enhancer–target gene maps for 1,778 enhancers within 2.5{\%} of the human genome. We thereby show that enhancer–target association is jointly determined by three-dimensional contact frequency and epigenetic states, allowing accurate prediction of enhancer targets throughout the genome. In addition, we demonstrate that TAP-seq can identify cell subtypes with only 100 sequencing reads per cell.}
+      \field{issn}{15487105}
+      \field{journaltitle}{Nature Methods}
+      \field{number}{6}
+      \field{title}{{Targeted Perturb-seq enables genome-scale genetic screens in single cells}}
+      \field{volume}{17}
+      \field{year}{2020}
+      \field{pages}{629\bibrangedash 635}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1038/s41592-020-0837-5
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Schraivogel et al. - 2020 - Targeted Perturb-seq enables genome-scale genetic screens in single cells.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1038/s41592-020-0837-5
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1038/s41592-020-0837-5
+      \endverb
+      \keyw{crispr screen}
+    \endentry
+    \entry{Stefanski2000a}{article}{}
+      \name{author}{1}{}{%
+        {{hash=593bc1833119d5149759e9266c286717}{%
+           family={Stefanski},
+           familyi={S\bibinitperiod},
+           given={L.\bibnamedelimi A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{593bc1833119d5149759e9266c286717}
+      \strng{fullhash}{593bc1833119d5149759e9266c286717}
+      \strng{bibnamehash}{593bc1833119d5149759e9266c286717}
+      \strng{authorbibnamehash}{593bc1833119d5149759e9266c286717}
+      \strng{authornamehash}{593bc1833119d5149759e9266c286717}
+      \strng{authorfullhash}{593bc1833119d5149759e9266c286717}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1537274X}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{number}{452}
+      \field{title}{{Measurement Error Models}}
+      \field{volume}{95}
+      \field{year}{2000}
+      \field{pages}{1353\bibrangedash 1358}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1080/01621459.2000.10474347
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Stefanski2000.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Svensson2020}{article}{}
+      \name{author}{1}{}{%
+        {{hash=6728f2b61ee12d970d8c9dee57b038af}{%
+           family={Svensson},
+           familyi={S\bibinitperiod},
+           given={Valentine},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{6728f2b61ee12d970d8c9dee57b038af}
+      \strng{fullhash}{6728f2b61ee12d970d8c9dee57b038af}
+      \strng{bibnamehash}{6728f2b61ee12d970d8c9dee57b038af}
+      \strng{authorbibnamehash}{6728f2b61ee12d970d8c9dee57b038af}
+      \strng{authornamehash}{6728f2b61ee12d970d8c9dee57b038af}
+      \strng{authorfullhash}{6728f2b61ee12d970d8c9dee57b038af}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{15461696}
+      \field{journaltitle}{Nature Biotechnology}
+      \field{title}{{Droplet scRNA-seq is not zero-inflated}}
+      \field{volume}{38}
+      \field{year}{2020}
+      \field{pages}{142\bibrangedash 150}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1038/s41587-020-0413-7
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Svensson - 2020 - Droplet scRNA-seq is not zero-inflated.pdf:pdf
+      \endverb
+      \keyw{single cell methods}
+    \endentry
+    \entry{Townes2019}{article}{}
+      \name{author}{4}{}{%
+        {{hash=0ce42dabc9bf03432ee77c38684ee3c5}{%
+           family={Townes},
+           familyi={T\bibinitperiod},
+           given={F.\bibnamedelimi William},
+           giveni={F\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=f5f1e5f26985ac667019e2b9791df02d}{%
+           family={Hicks},
+           familyi={H\bibinitperiod},
+           given={Stephanie\bibnamedelima C.},
+           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=a20767017656a1357c228a73a82802fd}{%
+           family={Aryee},
+           familyi={A\bibinitperiod},
+           given={Martin\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=0714f845c6ff03d15d51f4a7d0fd7080}{%
+           family={Irizarry},
+           familyi={I\bibinitperiod},
+           given={Rafael\bibnamedelima A.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Genome Biology}%
+      }
+      \strng{namehash}{048eb74a465b28abca51cb3d3fdde787}
+      \strng{fullhash}{a82bb23210e811e4cfca21839d138f4d}
+      \strng{bibnamehash}{048eb74a465b28abca51cb3d3fdde787}
+      \strng{authorbibnamehash}{048eb74a465b28abca51cb3d3fdde787}
+      \strng{authornamehash}{048eb74a465b28abca51cb3d3fdde787}
+      \strng{authorfullhash}{a82bb23210e811e4cfca21839d138f4d}
+      \field{sortinit}{T}
+      \field{sortinithash}{6f7aff9db9dcfeb7f95fd5bbd2f78df9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Single-cell RNA-Seq (scRNA-Seq) profiles gene expression of individual cells. Recent scRNA-Seq datasets have incorporated unique molecular identifiers (UMIs). Using negative controls, we show UMI counts follow multinomial sampling with no zero inflation. Current normalization procedures such as log of counts per million and feature selection by highly variable genes produce false variability in dimension reduction. We propose simple multinomial methods, including generalized principal component analysis (GLM-PCA) for non-normal distributions, and feature selection using deviance. These methods outperform the current practice in a downstream clustering assessment using ground truth datasets.}
+      \field{issn}{1474760X}
+      \field{journaltitle}{Genome Biology}
+      \field{number}{1}
+      \field{title}{{Feature selection and dimension reduction for single-cell RNA-Seq based on a multinomial model}}
+      \field{volume}{20}
+      \field{year}{2019}
+      \field{pages}{1\bibrangedash 16}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1186/s13059-019-1861-6
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Townes et al. - 2019 - Feature selection and dimension reduction for single-cell RNA-Seq based on a multinomial model.pdf:pdf
+      \endverb
+      \keyw{Dimension reduction,GLM-PCA,Gene expression,Principal component analysis,RNA-Seq,Single cell,Variable genes,single cell methods}
+    \endentry
+    \entry{Xie2019a}{article}{}
+      \name{author}{5}{}{%
+        {{hash=cf12046c6c3e0a4028402bc4041ee652}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Shiqi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=65292ccef40b39e7335c2d84e156e0ef}{%
+           family={Armendariz},
+           familyi={A\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=2dd11f0e6305e6c8cbffd634ed28ed57}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Pei},
+           giveni={P\bibinitperiod}}}%
+        {{hash=5fac84dd7445fd98c06501667543e6c7}{%
+           family={Duan},
+           familyi={D\bibinitperiod},
+           given={Jialei},
+           giveni={J\bibinitperiod}}}%
+        {{hash=8f4d43878e839c10533e350b9a1bcbef}{%
+           family={Hon},
+           familyi={H\bibinitperiod},
+           given={Gary\bibnamedelima C.},
+           giveni={G\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ElsevierCompany.}%
+      }
+      \strng{namehash}{61de6b38c23584ab3bd0f2992002d8f7}
+      \strng{fullhash}{ab2e81886d8b78fcd3f33993c16d1f20}
+      \strng{bibnamehash}{61de6b38c23584ab3bd0f2992002d8f7}
+      \strng{authorbibnamehash}{61de6b38c23584ab3bd0f2992002d8f7}
+      \strng{authornamehash}{61de6b38c23584ab3bd0f2992002d8f7}
+      \strng{authorfullhash}{ab2e81886d8b78fcd3f33993c16d1f20}
+      \field{sortinit}{X}
+      \field{sortinithash}{b0b62a29ee4a21a0e618fed53a0313cc}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Single-cell screens enable high-throughput functional assessment of enhancers in their endogenous genomic context. However, the design of current studies limits their application to identifying the primary gene targets of enhancers. Here, we improve the experimental and computational parameters of single-cell enhancer screens to identify the secondary gene targets of enhancers. Our analysis of {>}500 putative enhancers in K562 cells reveals an interwoven enhancer-driven gene regulatory network. We find that enhancers from distinct genomic loci converge to modulate the expression of common sub-modules, including the $\alpha$- and $\beta$-globin loci, by directly regulating transcription factors. Our analysis suggests that several genetic variants associated with myeloid blood cell traits alter the activity of a distal enhancer of MYB (∼140 kb away), with downstream consequences on hemoglobin genes expression and cell state. These data have implications for the understanding of enhancer-associated traits and emphasize the flexibility of controlling transcriptional systems by modifying enhancer activity.}
+      \field{issn}{22111247}
+      \field{journaltitle}{Cell Reports}
+      \field{number}{9}
+      \field{title}{{Global Analysis of Enhancer Targets Reveals Convergent Enhancer-Driven Regulatory Modules}}
+      \field{volume}{29}
+      \field{year}{2019}
+      \field{pages}{2570\bibrangedash 2578.e5}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1016/j.celrep.2019.10.073
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Xie et al. - 2019 - Global Analysis of Enhancer Targets Reveals Convergent Enhancer-Driven Regulatory Modules.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1016/j.celrep.2019.10.073
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1016/j.celrep.2019.10.073
+      \endverb
+      \keyw{GWAS,crispr screen,enhancer,regulatory network,single-cell screen}
+    \endentry
+  \enddatalist
+\endrefsection
+
+\refsection{1}
+  \datalist[entry]{nty/global//global/global}
+    \entry{fitzpatrick2009}{book}{}
+      \name{author}{1}{}{%
+        {{hash=957bbc00edfe4cdf315b4dc59df7ab05}{%
+           family={Fitzpatrick},
+           familyi={F\bibinitperiod},
+           given={Patrick},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Soc.}%
+      }
+      \strng{namehash}{957bbc00edfe4cdf315b4dc59df7ab05}
+      \strng{fullhash}{957bbc00edfe4cdf315b4dc59df7ab05}
+      \strng{bibnamehash}{957bbc00edfe4cdf315b4dc59df7ab05}
+      \strng{authorbibnamehash}{957bbc00edfe4cdf315b4dc59df7ab05}
+      \strng{authornamehash}{957bbc00edfe4cdf315b4dc59df7ab05}
+      \strng{authorfullhash}{957bbc00edfe4cdf315b4dc59df7ab05}
+      \field{sortinit}{F}
+      \field{sortinithash}{669c706c6f1fbf3b5a83d26f1d9e9e72}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Advanced calculus}}
+      \field{volume}{5}
+      \field{year}{2009}
+    \endentry
+    \entry{Louis1982}{article}{}
+      \name{author}{1}{}{%
+        {{hash=11b3ce2e929969a2b45cd4cd367e2899}{%
+           family={Louis},
+           familyi={L\bibinitperiod},
+           given={By\bibnamedelima Thomas\bibnamedelima A},
+           giveni={B\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{fullhash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{bibnamehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{authorbibnamehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{authornamehash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \strng{authorfullhash}{11b3ce2e929969a2b45cd4cd367e2899}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Society}
+      \field{number}{2}
+      \field{title}{{Finding the Observed Information Matrix when Using the EM Algorithm}}
+      \field{volume}{44}
+      \field{year}{1982}
+      \field{pages}{226\bibrangedash 233}
+      \range{pages}{8}
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Louis - 2012 - Finding the Observed Information Matrix when Using the EM Algorithm Author ( s ) Thomas A . Louis Reviewed work ( s ) Sou.pdf:pdf
+      \endverb
+      \keyw{em algorithm,maximum likelihood,observed information,speeding,statistics}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
