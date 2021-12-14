@@ -2007,15 +2007,12 @@
     <bcf:citekey order="23">Hill2018</bcf:citekey>
     <bcf:citekey order="24">Ibrahim1990</bcf:citekey>
     <bcf:citekey order="25">Louis1982</bcf:citekey>
-    <bcf:citekey order="26">Barry2020</bcf:citekey>
-    <bcf:citekey order="27">DITommaso2017</bcf:citekey>
-    <bcf:citekey order="28">Replogle2020</bcf:citekey>
-    <bcf:citekey order="29">Ripley2013</bcf:citekey>
-    <bcf:citekey order="30">Hafemeister2019</bcf:citekey>
-    <bcf:citekey order="31">Barry2020</bcf:citekey>
-    <bcf:citekey order="32">Przybyla2021</bcf:citekey>
-    <bcf:citekey order="33">Schraivogel2020</bcf:citekey>
-    <bcf:citekey order="34">Mimitou2021</bcf:citekey>
+    <bcf:citekey order="26">DITommaso2017</bcf:citekey>
+    <bcf:citekey order="27">Ripley2013</bcf:citekey>
+    <bcf:citekey order="28">Hafemeister2019</bcf:citekey>
+    <bcf:citekey order="29">Przybyla2021</bcf:citekey>
+    <bcf:citekey order="30">Schraivogel2020</bcf:citekey>
+    <bcf:citekey order="31">Mimitou2021</bcf:citekey>
   </bcf:section>
   <!-- SECTION 1 -->
   <bcf:bibdata section="1">

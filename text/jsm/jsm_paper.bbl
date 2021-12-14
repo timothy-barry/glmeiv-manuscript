@@ -2505,6 +2505,39 @@
       \endverb
       \keyw{em algorithm,maximum likelihood,observed information,speeding,statistics}
     \endentry
+    \entry{Stefanski2000a}{article}{}
+      \name{author}{1}{}{%
+        {{hash=593bc1833119d5149759e9266c286717}{%
+           family={Stefanski},
+           familyi={S\bibinitperiod},
+           given={L.\bibnamedelimi A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{593bc1833119d5149759e9266c286717}
+      \strng{fullhash}{593bc1833119d5149759e9266c286717}
+      \strng{bibnamehash}{593bc1833119d5149759e9266c286717}
+      \strng{authorbibnamehash}{593bc1833119d5149759e9266c286717}
+      \strng{authornamehash}{593bc1833119d5149759e9266c286717}
+      \strng{authorfullhash}{593bc1833119d5149759e9266c286717}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1537274X}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{number}{452}
+      \field{title}{{Measurement Error Models}}
+      \field{volume}{95}
+      \field{year}{2000}
+      \field{pages}{1353\bibrangedash 1358}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1080/01621459.2000.10474347
+      \endverb
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Stefanski2000.pdf:pdf
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

@@ -72,8 +72,9 @@ p_c <- ggplot(data = to_plot_c %>% dplyr::mutate(Metric = factor(Metric, levels 
                                                        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
 # combine
-p_bottom <- plot_grid(p_b, p_c, align = "h", ncol = 2, rel_widths = c(1, 2), labels = c("b", "c"))
-p <- plot_grid(p_a, p_bottom, ncol = 1, labels = c("a", ""))
+# p_bottom <- plot_grid(p_b, p_c, align = "h", ncol = 2, rel_widths = c(1, 2), labels = c("b", "c"))
+# p <- plot_grid(p_a, p_bottom, ncol = 1, labels = c("a", ""))
 
 # save
-ggsave(filename = paste0(fig_dir, "/plot.jpeg"), plot = p, device = "jpeg", scale = 1.05, width = 6, height = 4, dpi = 320)
+ggsave(filename = paste0(fig_dir, "/plot.jpeg"), plot = p_c, device = "jpeg", scale = 1.0, width = 4.5, height = 2.5, dpi = 320)
+ggsave(filename = paste0(fig_dir, "/app_plot.jpeg"), plot = p_a, device = "jpeg", scale = 1.5, width = 4.5, height = 1.5, dpi = 320)

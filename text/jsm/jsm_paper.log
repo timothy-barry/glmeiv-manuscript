@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  9 DEC 2021 12:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 DEC 2021 19:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -200,6 +200,66 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headsep=\skip50
 \dth@everypar=\toks32
 )
+(/usr/local/texlive/2018/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
+\ttl@box=\box32
+\beforetitleunit=\skip51
+\aftertitleunit=\skip52
+\ttl@plus=\dimen129
+\ttl@minus=\dimen130
+\ttl@toksa=\toks33
+\titlewidth=\dimen131
+\titlewidthlast=\dimen132
+\titlewidthfirst=\dimen133
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2009/09/02 v1.2b extra appendix facilities
+\c@@pps=\count106
+\c@@ppsavesec=\count107
+\c@@ppsaveapp=\count108
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count109
+\c@ALG@rem=\count110
+\c@ALG@nested=\count111
+\ALG@tlm=\skip53
+\ALG@thistlm=\skip54
+\c@ALG@Lnr=\count112
+\c@ALG@blocknr=\count113
+\c@ALG@storecount=\count114
+\c@ALG@tmpcounter=\count115
+\ALG@tmplength=\skip55
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks34
+\AP@partial=\box33
+\AP@footins=\box34
+)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2018/03/04 v3.11 programmable bibliographies (PK/MW)
 
@@ -224,7 +284,7 @@ Package pdftexcmds Info: \pdfdraftmode found.
 )
 (/usr/local/texlive/2018/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count106
+\etb@tempcnta=\count116
 )
 (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
@@ -241,7 +301,7 @@ Package etexcmds Info: Could not find \expanded.
 )))
 (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count107
+\lrq@indent=\count117
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
@@ -253,62 +313,62 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 (/usr/local/texlive/2018/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/local/texlive/2018/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write4
-\integerpart=\count108
-\decimalpart=\count109
+\integerpart=\count118
+\decimalpart=\count119
 )
 Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
-\c@tabx@nest=\count110
-\c@listtotal=\count111
-\c@listcount=\count112
-\c@liststart=\count113
-\c@liststop=\count114
-\c@citecount=\count115
-\c@citetotal=\count116
-\c@multicitecount=\count117
-\c@multicitetotal=\count118
-\c@instcount=\count119
-\c@maxnames=\count120
-\c@minnames=\count121
-\c@maxitems=\count122
-\c@minitems=\count123
-\c@citecounter=\count124
-\c@savedcitecounter=\count125
-\c@uniquelist=\count126
-\c@uniquename=\count127
-\c@refsection=\count128
-\c@refsegment=\count129
-\c@maxextratitle=\count130
-\c@maxextratitleyear=\count131
-\c@maxextradate=\count132
-\c@maxextraalpha=\count133
-\c@abbrvpenalty=\count134
-\c@highnamepenalty=\count135
-\c@lownamepenalty=\count136
-\c@maxparens=\count137
-\c@parenlevel=\count138
-\blx@tempcnta=\count139
-\blx@tempcntb=\count140
-\blx@tempcntc=\count141
-\blx@maxsection=\count142
-\blx@maxsegment@0=\count143
-\blx@notetype=\count144
-\blx@parenlevel@text=\count145
-\blx@parenlevel@foot=\count146
-\blx@sectionciteorder@0=\count147
-\labelnumberwidth=\skip51
-\labelalphawidth=\skip52
-\biblabelsep=\skip53
-\bibitemsep=\skip54
-\bibnamesep=\skip55
-\bibinitsep=\skip56
-\bibparsep=\skip57
-\bibhang=\skip58
+\c@tabx@nest=\count120
+\c@listtotal=\count121
+\c@listcount=\count122
+\c@liststart=\count123
+\c@liststop=\count124
+\c@citecount=\count125
+\c@citetotal=\count126
+\c@multicitecount=\count127
+\c@multicitetotal=\count128
+\c@instcount=\count129
+\c@maxnames=\count130
+\c@minnames=\count131
+\c@maxitems=\count132
+\c@minitems=\count133
+\c@citecounter=\count134
+\c@savedcitecounter=\count135
+\c@uniquelist=\count136
+\c@uniquename=\count137
+\c@refsection=\count138
+\c@refsegment=\count139
+\c@maxextratitle=\count140
+\c@maxextratitleyear=\count141
+\c@maxextradate=\count142
+\c@maxextraalpha=\count143
+\c@abbrvpenalty=\count144
+\c@highnamepenalty=\count145
+\c@lownamepenalty=\count146
+\c@maxparens=\count147
+\c@parenlevel=\count148
+\blx@tempcnta=\count149
+\blx@tempcntb=\count150
+\blx@tempcntc=\count151
+\blx@maxsection=\count152
+\blx@maxsegment@0=\count153
+\blx@notetype=\count154
+\blx@parenlevel@text=\count155
+\blx@parenlevel@foot=\count156
+\blx@sectionciteorder@0=\count157
+\labelnumberwidth=\skip56
+\labelalphawidth=\skip57
+\biblabelsep=\skip58
+\bibitemsep=\skip59
+\bibnamesep=\skip60
+\bibinitsep=\skip61
+\bibparsep=\skip62
+\bibhang=\skip63
 \blx@bcfin=\read1
 \blx@bcfout=\write5
-\c@mincomprange=\count148
-\c@maxcomprange=\count149
-\c@mincompwidth=\count150
+\c@mincomprange=\count158
+\c@maxcomprange=\count159
+\c@mincompwidth=\count160
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -319,88 +379,88 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'numeric-comp.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count151
-\c@savedafterword=\count152
-\c@annotator=\count153
-\c@savedannotator=\count154
-\c@author=\count155
-\c@savedauthor=\count156
-\c@bookauthor=\count157
-\c@savedbookauthor=\count158
-\c@commentator=\count159
-\c@savedcommentator=\count160
-\c@editor=\count161
-\c@savededitor=\count162
-\c@editora=\count163
-\c@savededitora=\count164
-\c@editorb=\count165
-\c@savededitorb=\count166
-\c@editorc=\count167
-\c@savededitorc=\count168
-\c@foreword=\count169
-\c@savedforeword=\count170
-\c@holder=\count171
-\c@savedholder=\count172
-\c@introduction=\count173
-\c@savedintroduction=\count174
-\c@namea=\count175
-\c@savednamea=\count176
-\c@nameb=\count177
-\c@savednameb=\count178
-\c@namec=\count179
-\c@savednamec=\count180
-\c@translator=\count181
-\c@savedtranslator=\count182
-\c@shortauthor=\count183
-\c@savedshortauthor=\count184
-\c@shorteditor=\count185
-\c@savedshorteditor=\count186
-\c@labelname=\count187
-\c@savedlabelname=\count188
-\c@institution=\count189
-\c@savedinstitution=\count190
-\c@lista=\count191
-\c@savedlista=\count192
-\c@listb=\count193
-\c@savedlistb=\count194
-\c@listc=\count195
-\c@savedlistc=\count196
-\c@listd=\count197
-\c@savedlistd=\count198
-\c@liste=\count199
-\c@savedliste=\count266
-\c@listf=\count267
-\c@savedlistf=\count268
-\c@location=\count269
-\c@savedlocation=\count270
-\c@organization=\count271
-\c@savedorganization=\count272
-\c@origlocation=\count273
-\c@savedoriglocation=\count274
-\c@origpublisher=\count275
-\c@savedorigpublisher=\count276
-\c@publisher=\count277
-\c@savedpublisher=\count278
-\c@language=\count279
-\c@savedlanguage=\count280
-\c@origlanguage=\count281
-\c@savedoriglanguage=\count282
-\c@pageref=\count283
-\c@savedpageref=\count284
-\shorthandwidth=\skip59
-\shortjournalwidth=\skip60
-\shortserieswidth=\skip61
-\shorttitlewidth=\skip62
-\shortauthorwidth=\skip63
-\shorteditorwidth=\skip64
-\locallabelnumberwidth=\skip65
-\locallabelalphawidth=\skip66
-\localshorthandwidth=\skip67
-\localshortjournalwidth=\skip68
-\localshortserieswidth=\skip69
-\localshorttitlewidth=\skip70
-\localshortauthorwidth=\skip71
-\localshorteditorwidth=\skip72
+\c@afterword=\count161
+\c@savedafterword=\count162
+\c@annotator=\count163
+\c@savedannotator=\count164
+\c@author=\count165
+\c@savedauthor=\count166
+\c@bookauthor=\count167
+\c@savedbookauthor=\count168
+\c@commentator=\count169
+\c@savedcommentator=\count170
+\c@editor=\count171
+\c@savededitor=\count172
+\c@editora=\count173
+\c@savededitora=\count174
+\c@editorb=\count175
+\c@savededitorb=\count176
+\c@editorc=\count177
+\c@savededitorc=\count178
+\c@foreword=\count179
+\c@savedforeword=\count180
+\c@holder=\count181
+\c@savedholder=\count182
+\c@introduction=\count183
+\c@savedintroduction=\count184
+\c@namea=\count185
+\c@savednamea=\count186
+\c@nameb=\count187
+\c@savednameb=\count188
+\c@namec=\count189
+\c@savednamec=\count190
+\c@translator=\count191
+\c@savedtranslator=\count192
+\c@shortauthor=\count193
+\c@savedshortauthor=\count194
+\c@shorteditor=\count195
+\c@savedshorteditor=\count196
+\c@labelname=\count197
+\c@savedlabelname=\count198
+\c@institution=\count199
+\c@savedinstitution=\count266
+\c@lista=\count267
+\c@savedlista=\count268
+\c@listb=\count269
+\c@savedlistb=\count270
+\c@listc=\count271
+\c@savedlistc=\count272
+\c@listd=\count273
+\c@savedlistd=\count274
+\c@liste=\count275
+\c@savedliste=\count276
+\c@listf=\count277
+\c@savedlistf=\count278
+\c@location=\count279
+\c@savedlocation=\count280
+\c@organization=\count281
+\c@savedorganization=\count282
+\c@origlocation=\count283
+\c@savedoriglocation=\count284
+\c@origpublisher=\count285
+\c@savedorigpublisher=\count286
+\c@publisher=\count287
+\c@savedpublisher=\count288
+\c@language=\count289
+\c@savedlanguage=\count290
+\c@origlanguage=\count291
+\c@savedoriglanguage=\count292
+\c@pageref=\count293
+\c@savedpageref=\count294
+\shorthandwidth=\skip64
+\shortjournalwidth=\skip65
+\shortserieswidth=\skip66
+\shorttitlewidth=\skip67
+\shortauthorwidth=\skip68
+\shorteditorwidth=\skip69
+\locallabelnumberwidth=\skip70
+\locallabelalphawidth=\skip71
+\localshorthandwidth=\skip72
+\localshortjournalwidth=\skip73
+\localshortserieswidth=\skip74
+\localshorttitlewidth=\skip75
+\localshortauthorwidth=\skip76
+\localshorteditorwidth=\skip77
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -412,13 +472,13 @@ Package biblatex Info: ... file 'biblatex.def' found.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2018/03/04 v3.11 biblatex compatibility (PK/MW)
-\c@textcitecount=\count285
-\c@textcitetotal=\count286
-\c@textcitemaxnames=\count287
-\c@biburlnumpenalty=\count288
-\c@biburlucpenalty=\count289
-\c@biburllcpenalty=\count290
-\c@smartand=\count291
+\c@textcitecount=\count295
+\c@textcitetotal=\count296
+\c@textcitemaxnames=\count297
+\c@biburlnumpenalty=\count298
+\c@biburlucpenalty=\count299
+\c@biburllcpenalty=\count300
+\c@smartand=\count301
 )
 Package biblatex Info: Trying to load bibliography style 'numeric-comp'...
 Package biblatex Info: ... file 'numeric-comp.bbx' found.
@@ -435,16 +495,16 @@ Package biblatex Info: ... file 'standard.bbx' found.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2018/03/04 v3.11 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count292
-\c@bbx:relatedtotal=\count293
+\c@bbx:relatedcount=\count302
+\c@bbx:relatedtotal=\count303
 )))
 Package biblatex Info: Trying to load citation style 'numeric-comp'...
 Package biblatex Info: ... file 'numeric-comp.cbx' found.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/cbx/numeric-comp.cbx
 File: numeric-comp.cbx 2018/03/04 v3.11 biblatex citation style (PK/MW)
-\c@cbx@tempcnta=\count294
-\c@cbx@tempcntb=\count295
+\c@cbx@tempcnta=\count304
+\c@cbx@tempcntb=\count305
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\footcite'.
@@ -463,48 +523,6 @@ Package biblatex Info: ... file 'biblatex.cfg' found.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
 ))
-(/usr/local/texlive/2018/texmf-dist/tex/latex/appendix/appendix.sty
-Package: appendix 2009/09/02 v1.2b extra appendix facilities
-\c@@pps=\count296
-\c@@ppsavesec=\count297
-\c@@ppsaveapp=\count298
-)
-(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
-Package: algpseudocode 
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
-Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
-
-Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count299
-\c@ALG@rem=\count300
-\c@ALG@nested=\count301
-\ALG@tlm=\skip73
-\ALG@thistlm=\skip74
-\c@ALG@Lnr=\count302
-\c@ALG@blocknr=\count303
-\c@ALG@storecount=\count304
-\c@ALG@tmpcounter=\count305
-\ALG@tmplength=\skip75
-)
-Document Style - pseudocode environments for use with the `algorithmicx' style
-) (/usr/local/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-)
 \c@proposition=\count306
 \c@lemma=\count307
 
@@ -514,27 +532,27 @@ Package: subfig 2005/06/28 ver: 1.3 subfig package
 (/usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 67.
-\captionmargin=\dimen129
-\captionmargin@=\dimen130
-\captionwidth=\dimen131
-\caption@tempdima=\dimen132
-\caption@indent=\dimen133
-\caption@parindent=\dimen134
-\caption@hangindent=\dimen135
+\captionmargin=\dimen134
+\captionmargin@=\dimen135
+\captionwidth=\dimen136
+\caption@tempdima=\dimen137
+\caption@indent=\dimen138
+\caption@parindent=\dimen139
+\caption@hangindent=\dimen140
 )
 \c@KVtest=\count308
-\sf@farskip=\skip76
-\sf@captopadj=\dimen136
-\sf@capskip=\skip77
-\sf@nearskip=\skip78
+\sf@farskip=\skip78
+\sf@captopadj=\dimen141
+\sf@capskip=\skip79
+\sf@nearskip=\skip80
 \c@subfigure=\count309
 \c@subfigure@save=\count310
 \c@lofdepth=\count311
 \c@subtable=\count312
 \c@subtable@save=\count313
 \c@lotdepth=\count314
-\sf@top=\skip79
-\sf@bottom=\skip80
+\sf@top=\skip81
+\sf@bottom=\skip82
 )
 (/Users/timbarry/optionFiles/mymacros.sty)
 Package biblatex Info: Trying to load language 'english'...
@@ -549,18 +567,18 @@ File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
 (./jsm_paper.aux)
 \openout1 = `jsm_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -599,16 +617,16 @@ LaTeX Font Info:    ... okay on input line 52.
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count317
-\scratchdimen=\dimen137
-\scratchbox=\box32
+\scratchdimen=\dimen142
+\scratchbox=\box35
 \nofMPsegments=\count318
 \nofMParguments=\count319
-\everyMPshowfont=\toks33
+\everyMPshowfont=\toks35
 \MPscratchCnt=\count320
-\MPscratchDim=\dimen138
+\MPscratchDim=\dimen143
 \MPnumerator=\count321
 \makeMPintoPDFobject=\count322
-\everyMPtoPDFconversion=\toks34
+\everyMPtoPDFconversion=\toks36
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -638,194 +656,234 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'jsm_paper.bbl' found.
 
 (./jsm_paper.bbl)
-Package biblatex Info: Reference section=0 on input line 52.
-Package biblatex Info: Reference segment=0 on input line 52.
+Package biblatex Info: Reference section=0 on input line 67.
+Package biblatex Info: Reference segment=0 on input line 67.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
  [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+msa on input line 68.
+LaTeX Font Info:    Try loading font information for U+msa on input line 83.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 68.
+LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2] [3]
-[4] [5] [6] [7] [8] [9]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 180.
-
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 180.
- [10] [11]
-[12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26]
-[27] [28] [29] [30] [31] [32]
-<../../figures/analysis_challenges/plot.pdf, id=121, 1250.27098pt x 879.285pt>
+[4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19]
+[20] [21] [22] [23] [24] [25]
+<../../figures/analysis_challenges/plot.pdf, id=96, 1250.27098pt x 879.285pt>
 File: ../../figures/analysis_challenges/plot.pdf Graphic file (type pdf)
 <use ../../figures/analysis_challenges/plot.pdf>
 Package pdftex.def Info: ../../figures/analysis_challenges/plot.pdf  used on in
-put line 508.
+put line 396.
 (pdftex.def)             Requested size: 469.75502pt x 330.36166pt.
- [33
+ [26
 
  <../../figures/analysis_challenges/plot.pdf>]
-<../../figures/thresholding_empirical/plot.jpeg, id=150, 1806.75pt x 1806.75pt>
+<../../figures/thresholding_empirical/plot.jpeg, id=125, 1806.75pt x 1806.75pt>
 
 File: ../../figures/thresholding_empirical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_empirical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_empirical/plot.jpeg  used o
-n input line 517.
+n input line 405.
 (pdftex.def)             Requested size: 469.75502pt x 469.74393pt.
-[34
+[27
 
  <../../figures/thresholding_empirical/plot.jpeg>]
-<../../figures/thresholding_theoretical/plot.jpeg, id=154, 2023.56pt x 1349.04p
-t>
+<../../figures/thresholding_theoretical/plot.jpeg, id=129, 1445.4pt x 803.0pt>
 File: ../../figures/thresholding_theoretical/plot.jpeg Graphic file (type jpg)
 <use ../../figures/thresholding_theoretical/plot.jpeg>
 Package pdftex.def Info: ../../figures/thresholding_theoretical/plot.jpeg  used
- on input line 525.
-(pdftex.def)             Requested size: 469.75502pt x 313.15453pt.
- [35
+ on input line 413.
+(pdftex.def)             Requested size: 328.82707pt x 182.67665pt.
+ [28
 
  <../../figures/thresholding_theoretical/plot.jpeg>]
-<../../figures/main_text_sim/plot.pdf, id=158, 429.605pt x 530.98375pt>
+<../../figures/main_text_sim/plot.pdf, id=133, 429.605pt x 530.98375pt>
 File: ../../figures/main_text_sim/plot.pdf Graphic file (type pdf)
 <use ../../figures/main_text_sim/plot.pdf>
 Package pdftex.def Info: ../../figures/main_text_sim/plot.pdf  used on input li
-ne 535.
+ne 423.
 (pdftex.def)             Requested size: 422.77664pt x 522.5562pt.
- [36
+ [29
 
  <../../figures/main_text_sim/plot.pdf>]
-<../../figures/data_analysis/annotated_plot_crop.pdf, id=168, 949.5475pt x 1084
+<../../figures/data_analysis/annotated_plot_crop.pdf, id=143, 949.5475pt x 1084
 .05pt>
 File: ../../figures/data_analysis/annotated_plot_crop.pdf Graphic file (type pd
 f)
 <use ../../figures/data_analysis/annotated_plot_crop.pdf>
 Package pdftex.def Info: ../../figures/data_analysis/annotated_plot_crop.pdf  u
-sed on input line 543.
+sed on input line 431.
 (pdftex.def)             Requested size: 422.77664pt x 482.65714pt.
 
-[37 <../../figures/data_analysis/annotated_plot_crop.pdf>]
-<../../figures/dec_tree/dec_tree_crop.pdf, id=190, 1111.15125pt x 415.5525pt>
+[30 <../../figures/data_analysis/annotated_plot_crop.pdf>]
+<../../figures/dec_tree/dec_tree_crop.pdf, id=163, 1111.15125pt x 415.5525pt>
 File: ../../figures/dec_tree/dec_tree_crop.pdf Graphic file (type pdf)
 <use ../../figures/dec_tree/dec_tree_crop.pdf>
 Package pdftex.def Info: ../../figures/dec_tree/dec_tree_crop.pdf  used on inpu
-t line 551.
+t line 439.
 (pdftex.def)             Requested size: 422.77664pt x 158.11449pt.
- [38
+ [31
 
 
  <../../figures/dec_tree/dec_tree_crop.pdf>]
 \blx@maxsegment@1=\count323
 \blx@sectionciteorder@1=\count324
-Package biblatex Info: Reference section=1 on input line 558.
-Package biblatex Info: Setting label 'refsection:1' on input line 558.
- [39
+Package biblatex Info: Reference section=1 on input line 444.
+Package biblatex Info: Setting label 'refsection:1' on input line 444.
+ [32
 
-] [40] [41] [42] [43] [44] [45] [46] [47]
-[48] [49]
-Underfull \hbox (badness 10000) detected at line 805
- []$[]   [] \OML/cmm/m/it/10.95 ^^M\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^L[
-]; c; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 =\OT1/cmr/m/n/10.95 2) = [] = [] 
-\OML/cmm/m/it/10.95 > \OMS/cmsy/m/n/10.95 ^^@\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/
-10.95 :  $ 
+]
+<../../figures/thresholding_theoretical/app_plot.jpeg, id=184, 2168.1pt x 722.7
+pt>
+File: ../../figures/thresholding_theoretical/app_plot.jpeg Graphic file (type j
+pg)
+<use ../../figures/thresholding_theoretical/app_plot.jpeg>
+Package pdftex.def Info: ../../figures/thresholding_theoretical/app_plot.jpeg  
+used on input line 475.
+(pdftex.def)             Requested size: 469.75502pt x 156.57947pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[33] [34 <../../figures/thresholding_theoretical/app_plot.jpeg>] [35] [36]
+[37]
+Overfull \hbox (28.40138pt too wide) in paragraph at lines 587--587
+[] []|\OT1/cmr/bx/n/12 A.7 Limit of $\OML/cmm/m/it/12 ^^M$ \OT1/cmr/bx/n/12 in 
+$\OML/cmm/m/it/12 c$[] \OT1/cmr/m/n/10.95 As-sume (with-out loss of gen-er-al-i
+ty) that $\OML/cmm/m/it/10.95 ^^L[] > \OT1/cmr/m/n/10.95 0$. We com-pute $[][] 
+\OML/cmm/m/it/10.95 ^^M\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^L[]; c; ^^Y\OT
+1/cmr/m/n/10.95 )$.
  []
 
-[50] [51] [52] [53] [54] [55] [56]
-<../../figures/info_matrix/info_matrix_background.jpg, id=265, 1323.94624pt x 1
+[38] [39]
+Overfull \hbox (25.87178pt too wide) in paragraph at lines 613--614
+\OT1/cmr/m/n/10.95 (1\OML/cmm/m/it/10.95 =\OT1/cmr/m/n/10.95 2)\OML/cmm/m/it/10
+.95 ^^L[]:$ \OT1/cmr/m/n/10.95 We show that $\OML/cmm/m/it/10.95 c \OT1/cmr/m/n
+/10.95 = \OML/cmm/m/it/10.95 c[]$ \OT1/cmr/m/n/10.95 is a crit-i-cal value of $
+\OML/cmm/m/it/10.95 ^^M$ \OT1/cmr/m/n/10.95 for $\OML/cmm/m/it/10.95 ^^Y \OT1/c
+mr/m/n/10.95 = 1\OML/cmm/m/it/10.95 =\OT1/cmr/m/n/10.95 2$ and given $\OML/cmm/
+m/it/10.95 ^^L[]$\OT1/cmr/m/n/10.95 , i.e, $\OML/cmm/m/it/10.95 D[]^^M\OT1/cmr/
+m/n/10.95 (\OML/cmm/m/it/10.95 ^^L[]; c[]; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10
+.95 =\OT1/cmr/m/n/10.95 2) =
+ []
+
+[40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50]
+<../../figures/info_matrix/info_matrix_background.jpg, id=246, 1323.94624pt x 1
 317.92375pt>
 File: ../../figures/info_matrix/info_matrix_background.jpg Graphic file (type j
 pg)
 <use ../../figures/info_matrix/info_matrix_background.jpg>
 Package pdftex.def Info: ../../figures/info_matrix/info_matrix_background.jpg  
-used on input line 957.
+used on input line 871.
 (pdftex.def)             Requested size: 211.38832pt x 210.40958pt.
- [57]
-Underfull \hbox (badness 10000) detected at line 975
+
+Underfull \hbox (badness 10000) detected at line 889
  []$[]  \OMS/cmsy/m/n/10.95 r[]L\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^R\OT1
 /cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 m; g; p\OT1/cmr/m/n/10.95 ) = [] [] = [] \
 OMS/cmsy/m/n/10.95 ^^@ []\OML/cmm/m/it/10.95 :  $ 
  []
 
-[58 <../../figures/info_matrix/info_matrix_background.jpg>] [59] [60] [61]
-[62] [63]
-Underfull \hbox (badness 10000) in paragraph at lines 1066--1068
-
+[51 <../../figures/info_matrix/info_matrix_background.jpg>] [52] [53]
+Underfull \hbox (badness 3482) detected at line 926
+ []$[]  \U/msb/m/n/10.95 E [] \OT1/cmr/m/n/10.95 = [] [](\OML/cmm/m/it/10.95 s\
+OT1/cmr/m/n/10.95 )[]\OML/cmm/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/1
+0.95 s\OT1/cmr/m/n/10.95 ) [] [](\OML/cmm/m/it/10.95 s\OT1/cmr/m/n/10.95 )\OML/
+cmm/m/it/10.95 :$ [][]  
  []
 
-[64] [65] [66] [67] [68] [69] [70] [71] [72] [73]
-<../../figures/info_matrix/info_matrix_zero_inf.jpg, id=321, 1402.23875pt x 126
+[54] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64]
+<../../figures/info_matrix/info_matrix_zero_inf.jpg, id=292, 1402.23875pt x 126
 0.71pt>
 File: ../../figures/info_matrix/info_matrix_zero_inf.jpg Graphic file (type jpg
 )
 <use ../../figures/info_matrix/info_matrix_zero_inf.jpg>
 Package pdftex.def Info: ../../figures/info_matrix/info_matrix_zero_inf.jpg  us
-ed on input line 1248.
+ed on input line 1160.
 (pdftex.def)             Requested size: 211.38832pt x 190.04094pt.
- [74 <../../figures/info_matrix/info_matrix_zero_inf.jpg>] [75] [76] [77] [78] 
-[79] [80] [81] [82] [83]
-Overfull \hbox (10.2927pt too wide) in paragraph at lines 1417--1418
-\OT1/cmr/m/n/10.95 The GLM that we seek to es-ti-mate (89[]) is an ap-prox-i-ma
-te intercept-plus-offset model: $\OML/cmm/m/it/10.95 T[]\OT1/cmr/m/n/10.95 (1)\
-OML/cmm/m/it/10.95 ; [] ; T[]\OT1/cmr/m/n/10.95 (1)$
+
+Overfull \hbox (21.23685pt too wide) in paragraph at lines 1166--1167
+[] []\OT1/cmr/bx/n/10.95 Sub-ma-trix III (ze-ro-in-flated)[] \OT1/cmr/m/n/10.95
+ De-note sub-ma-trix III by $\OML/cmm/m/it/10.95 J[]\OT1/cmr/m/n/10.95 (\OML/cm
+m/m/it/10.95 ^^R\OT1/cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 m; g\OT1/cmr/m/n/10.95
+ )$ The for-mula for $\OML/cmm/m/it/10.95 J[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/
+10.95 ^^R\OT1/cmr/m/n/10.95 ; \OML/cmm/m/it/10.95 m; g\OT1/cmr/m/n/10.95 )$
  []
 
-[84]
-<../../figures/supplement_sim/gaussian.pdf, id=357, 505.89pt x 180.675pt>
+[65] [66 <../../figures/info_matrix/info_matrix_zero_inf.jpg>] [67] [68]
+[69] [70] [71] [72] [73] [74] [75]
+
+LaTeX Warning: Reference `algo:pilot_estimates' on page 76 undefined on input l
+ine 1365.
+
+
+Overfull \hbox (1.34724pt too wide) in paragraph at lines 1365--1366
+[] []\OT1/cmr/bx/n/12 Ap-pli-ca-tion to GLM-EIV[] \OT1/cmr/m/n/10.95 The GLM th
+at we seek to es-ti-mate (84[]) is an ap-prox-i-mate intercept-
+ []
+
+
+Overfull \hbox (2.61214pt too wide) in paragraph at lines 1365--1366
+\OML/cmm/m/it/10.95 o[]; [] ; o[]$\OT1/cmr/m/n/10.95 . Of course, $\OML/cmm/m/i
+t/10.95 T[]\OT1/cmr/m/n/10.95 (1)\OML/cmm/m/it/10.95 ; [] ; T[]\OT1/cmr/m/n/10.
+95 (\OML/cmm/m/it/10.95 n\OT1/cmr/m/n/10.95 )$ are in gen-eral de-pen-dent ran-
+dom vari-ables, as are $[]\OML/cmm/m/it/10.95 ; [] ; []:$
+ []
+
+<../../figures/supplement_sim/gaussian.pdf, id=329, 505.89pt x 180.675pt>
 File: ../../figures/supplement_sim/gaussian.pdf Graphic file (type pdf)
 <use ../../figures/supplement_sim/gaussian.pdf>
 Package pdftex.def Info: ../../figures/supplement_sim/gaussian.pdf  used on inp
-ut line 1424.
+ut line 1372.
 (pdftex.def)             Requested size: 469.75502pt x 167.77237pt.
- [85 <../../figures/supplement_sim/gaussian.pdf>]
-Package biblatex Info: Reference section=0 on input line 1434.
- [86] (./jsm_paper.aux)
+[76] [77 <../../figures/supplement_sim/gaussian.pdf>]
+Package biblatex Info: Reference section=0 on input line 1388.
+ [78] (./jsm_paper.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package logreq Info: Writing requests to 'jsm_paper.run.xml'.
 \openout1 = `jsm_paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 12115 strings out of 492649
- 205912 string characters out of 6129622
- 639022 words of memory out of 5000000
- 15810 multiletter control sequences out of 15000+600000
- 15875 words of font info for 61 fonts, out of 8000000 for 9000
+ 12382 strings out of 492649
+ 209583 string characters out of 6129622
+ 645493 words of memory out of 5000000
+ 16074 multiletter control sequences out of 15000+600000
+ 15083 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,20n,45p,2163b,1225s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,20n,45p,2163b,1330s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
-ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
-al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
-/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/te
-xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
-ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/
-2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2018/texmf-
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
+/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
+exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
+/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/201
+8/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2018/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on jsm_paper.pdf (86 pages, 1927200 bytes).
+Output written on jsm_paper.pdf (78 pages, 1904374 bytes).
 PDF statistics:
- 440 PDF objects out of 1000 (max. 8388607)
- 296 compressed objects within 3 object streams
+ 415 PDF objects out of 1000 (max. 8388607)
+ 278 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
