@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 DEC 2021 19:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  16 DEC 2021 14:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -841,9 +841,10 @@ File: ../../figures/supplement_sim/gaussian.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../../figures/supplement_sim/gaussian.pdf  used on inp
 ut line 1372.
 (pdftex.def)             Requested size: 469.75502pt x 167.77237pt.
-[76] [77 <../../figures/supplement_sim/gaussian.pdf>]
-Package biblatex Info: Reference section=0 on input line 1388.
- [78] (./jsm_paper.aux)
+[76] [77 <../../figures/supplement_sim/gaussian.pdf>] [78]
+Package biblatex Info: Reference section=0 on input line 1390.
+ [79]
+(./jsm_paper.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -852,10 +853,10 @@ Package logreq Info: Writing requests to 'jsm_paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 12382 strings out of 492649
- 209583 string characters out of 6129622
- 645493 words of memory out of 5000000
- 16074 multiletter control sequences out of 15000+600000
+ 12386 strings out of 492649
+ 209711 string characters out of 6129622
+ 645592 words of memory out of 5000000
+ 16078 multiletter control sequences out of 15000+600000
  15083 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,20n,45p,2163b,1330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -880,10 +881,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2018/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on jsm_paper.pdf (78 pages, 1904374 bytes).
+Output written on jsm_paper.pdf (79 pages, 1907548 bytes).
 PDF statistics:
- 415 PDF objects out of 1000 (max. 8388607)
- 278 compressed objects within 3 object streams
+ 419 PDF objects out of 1000 (max. 8388607)
+ 281 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

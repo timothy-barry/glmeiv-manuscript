@@ -48,17 +48,17 @@
 \newlabel{prop:c_limit}{{7}{13}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Theoretical challenges of thresholded regression.} \textbf  {a,} Asymptotic relative bias versus threshold for different values of $\beta ^g_1$. The bias function is highly nonconvex and strictly nonzero. Vertical blue lines, Bayes-optimal decision boundaries. Across all panels, $\beta ^g_0 = 0$ and $\pi = 1/2$. \textbf  {b,} Asymptotic relative bias versus $\pi $ when the threshold is set to a large number. The two quantities coincide exactly. \textbf  {c,} Bias-variance decomposition for thresholding method in no-intercept model. Bias decreases and variance increases as the threshold tends to infinity. $\beta ^g_1 = 1, \beta ^m_1 = 1,$ and $\pi = 0.1$.}}{14}}
 \newlabel{thresholding_theoretical}{{3}{14}}
-\newlabel{theoretical_model_no_int}{{4}{15}}
-\newlabel{thresh_estimator_no_int}{{5}{15}}
-\newlabel{prop:bv_decomp}{{8}{15}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Thresholding method summary}{15}}
+\newlabel{theoretical_model_no_int}{{4}{14}}
 \citation{Townes2019}
 \citation{Svensson2020}
 \citation{Hafemeister2019}
 \citation{Sarkar2021}
+\newlabel{thresh_estimator_no_int}{{5}{15}}
+\newlabel{prop:bv_decomp}{{8}{15}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Thresholding method summary}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}GLM-based errors-in-variables}{15}}
 \citation{Datlinger2017}
 \citation{Hill2018}
-\@writefile{toc}{\contentsline {section}{\numberline {4}GLM-based errors-in-variables}{16}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Model}{16}}
 \newlabel{sec:model}{{4.1}{16}}
 \newlabel{glmeiv_model_1}{{6}{16}}
@@ -66,8 +66,8 @@
 \newlabel{glmeiv_model_3}{{8}{16}}
 \newlabel{glmeiv_model_4}{{9}{16}}
 \newlabel{glmeiv_model_5}{{10}{16}}
+\newlabel{full_density}{{11}{18}}
 \citation{Ibrahim1990}
-\newlabel{full_density}{{11}{19}}
 \newlabel{full_log_lik}{{12}{19}}
 \newlabel{marginal_density}{{13}{19}}
 \newlabel{marginal_log_lik}{{14}{19}}
@@ -77,7 +77,7 @@
 \citation{Barry2020}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces EM algorithm for GLM-EIV model.}}{20}}
 \newlabel{algo:em_full}{{1}{20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Statistical accelerations}{21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Statistical accelerations}{20}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Computing pilot parameter estimates.}}{22}}
 \newlabel{algo:pilot_estimates}{{2}{22}}
 \citation{DITommaso2017}
@@ -94,8 +94,8 @@
 \newlabel{main_text_sim}{{4}{25}}
 \citation{Hafemeister2019}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Data analysis}{26}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Data analysis}. \textbf  {a-b}, Estimates for fold change produced by GLM-EIV and thresholded regression on Gasperini (\textbf  {a}) and Xie (\textbf  {b}) negative control pairs. \textbf  {c-d}, Estimates produced by GLM-EIV and thresholded regression on two positive control pairs -- \textit  {LRIF1} (\textbf  {a}) and \textit  {NDUFA2} (\textbf  {b}) -- plotted as a function of excess background contamination. Grey bands, 95\% CIs for the target of inference outputted by the methods. \textbf  {e-f}, Median relative estimate change (REC; \textbf  {e}) and confidence interval coverage rate (\textbf  {f}) across \textit  {all} 322 positive control pairs, plotted as a function of excess background contamination. Colored bands, pointwise 95\% CIs for population quantities. Panels (\textbf  {c-f}) together illustrate that GLM-EIV demonstrated greater stability than thresholded regression as background contamination increased.}}{28}}
-\newlabel{fig:real_data}{{5}{28}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Data analysis}. \textbf  {a-b}, Estimates for fold change produced by GLM-EIV and thresholded regression on Gasperini (\textbf  {a}) and Xie (\textbf  {b}) negative control pairs. \textbf  {c-d}, Estimates produced by GLM-EIV and thresholded regression on two positive control pairs -- \textit  {LRIF1} (\textbf  {a}) and \textit  {NDUFA2} (\textbf  {b}) -- plotted as a function of excess background contamination. Grey bands, 95\% CIs for the target of inference outputted by the methods. \textbf  {e-f}, Median relative estimate change (REC; \textbf  {e}) and confidence interval coverage rate (\textbf  {f}) across \textit  {all} 322 positive control pairs, plotted as a function of excess background contamination. Colored bands, pointwise 95\% CIs for population quantities. Panels (\textbf  {c-f}) together illustrate that GLM-EIV demonstrated greater stability than thresholded regression as background contamination increased.}}{27}}
+\newlabel{fig:real_data}{{5}{27}}
 \citation{Barry2020}
 \citation{Przybyla2021}
 \citation{Schraivogel2020}
@@ -103,166 +103,134 @@
 \bibstyle{unsrt}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{29}}
 \bibdata{/Users/timbarry/optionFiles/glmeiv.bib}
-\bibcite{Rothgangl2021}{1}
-\bibcite{Musunuru2021}{2}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Use of GLM-EIV in practice}. The decision tree above illustrates how we anticipate GLM-EIV could be used in practice. First, apply GLM-EIV to a set of randomly-sampled gene-perturbation pairs to assess background contamination level (positive control pairs work best for this purpose). If GLM-EIV indicates that background contamination is high (e.g., $\qopname  \relax o{exp}(\beta ^g_1) \lessapprox $ 10), apply GLM-EIV to analyze the entire dataset; otherwise, approximate the Bayes-optimal decision boundary using the fitted GLM-EIV models. Next, apply a thresholding method (e.g., SCEPTRE or thresholded negative binomial regression) to analyze the data, setting the threshold to the estimated Bayes-optimal decision boundary.}}{30}}
 \newlabel{fig:dec_tree}{{6}{30}}
-\bibcite{Przybyla2021}{3}
-\bibcite{Dixit2016}{4}
-\bibcite{Datlinger2017}{5}
-\bibcite{Morris2021a}{6}
-\bibcite{Lin2021}{7}
-\bibcite{Lause2021}{8}
-\bibcite{Townes2019}{9}
-\bibcite{Grun2008}{10}
-\bibcite{Ibrahim1990}{11}
-\bibcite{Barry2020}{12}
-\bibcite{Candes2018}{13}
-\bibcite{Liu2021}{14}
-\bibcite{Yang2019}{15}
-\bibcite{Gasperini2019}{16}
-\bibcite{Datlinger2021}{17}
-\bibcite{Mimitou2019}{18}
-\bibcite{Gallagher2018}{19}
-\bibcite{Gasperini2020}{20}
-\bibcite{Replogle2020}{21}
-\bibcite{Stefanski2000a}{22}
-\bibcite{Svensson2020}{23}
-\bibcite{Hafemeister2019}{24}
-\bibcite{Sarkar2021}{25}
-\bibcite{Hill2018}{26}
-\bibcite{Louis1982}{27}
-\bibcite{DITommaso2017}{28}
-\bibcite{Ripley2013}{29}
-\bibcite{Schraivogel2020}{30}
-\bibcite{Mimitou2021}{31}
-\bibcite{fitzpatrick2009}{32}
+\@writefile{toc}{\contentsline {section}{Appendices}{30}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{30}}
 \citation{fitzpatrick2009}
-\@writefile{toc}{\contentsline {section}{Appendices}{34}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{34}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Notation}{34}}
-\newlabel{sec:notation}{{A.1}{34}}
-\newlabel{def_g}{{16}{34}}
-\newlabel{def_h}{{17}{34}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{35}}
-\newlabel{sec:convergence}{{A.2}{35}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{36}}
-\newlabel{sec:simplication}{{A.3}{36}}
-\newlabel{thm:gamma_expression_1}{{18}{36}}
-\newlabel{thm:gamma_expression_2}{{19}{36}}
-\newlabel{thm:gamma_expression_3}{{20}{36}}
-\newlabel{thm:gamma_expression_4}{{21}{36}}
-\newlabel{gamma_alternative}{{22}{36}}
-\newlabel{gamma_alternative_pi_half}{{23}{36}}
-\newlabel{gamma_alt2_pi_half}{{24}{37}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{37}}
-\newlabel{sec:derivatives}{{A.4}{37}}
-\newlabel{dg_dc}{{25}{37}}
-\newlabel{dh_dc}{{26}{37}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{37}}
-\newlabel{sec:c_limit}{{A.5}{37}}
-\newlabel{c_limit_product}{{27}{38}}
-\newlabel{c_limit_product_2}{{28}{38}}
-\newlabel{c_limit_product_3}{{29}{38}}
-\newlabel{c_limit_product_4}{{30}{38}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{39}}
-\newlabel{sec:bayes_opt}{{A.6}{39}}
-\newlabel{quotient_rule}{{31}{39}}
-\newlabel{dg_dc_bayes}{{32}{39}}
-\newlabel{dh_dc_bayes}{{33}{39}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{39}}
-\newlabel{sec:comparison}{{A.7}{39}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{40}}
-\newlabel{sec:monotone}{{A.8}{40}}
-\newlabel{basic_ineq_cp}{{34}{40}}
-\newlabel{basic_ineq_cp_2}{{35}{40}}
-\newlabel{basic_ineq_cp_3}{{36}{41}}
-\newlabel{dg_dbeta}{{37}{41}}
-\newlabel{dh_dbeta}{{38}{41}}
-\newlabel{basic_ineq_cp_4}{{39}{42}}
-\newlabel{def_2g}{{40}{42}}
-\newlabel{def_4h}{{41}{42}}
-\newlabel{basic_ineq_cp_5}{{42}{42}}
-\newlabel{d_gamma_d_beta}{{43}{42}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{42}}
-\newlabel{sec:att_bias}{{A.9}{42}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{43}}
-\newlabel{sec:bv_decomp}{{A.10}{43}}
-\newlabel{bc_decomp_1}{{44}{43}}
-\newlabel{bv_decomp_2}{{45}{44}}
-\newlabel{bv_decomp_3}{{46}{44}}
-\newlabel{bv_decomp_4}{{47}{44}}
-\newlabel{bv_decomp_5}{{48}{44}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{44}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Estimation}{44}}
-\newlabel{e_step_1}{{49}{45}}
-\newlabel{e_step_2}{{50}{45}}
-\newlabel{Q_funct}{{51}{46}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Notation}{31}}
+\newlabel{sec:notation}{{A.1}{31}}
+\newlabel{def_g}{{16}{31}}
+\newlabel{def_h}{{17}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{31}}
+\newlabel{sec:convergence}{{A.2}{31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{32}}
+\newlabel{sec:simplication}{{A.3}{32}}
+\newlabel{thm:gamma_expression_1}{{18}{32}}
+\newlabel{thm:gamma_expression_2}{{19}{33}}
+\newlabel{thm:gamma_expression_3}{{20}{33}}
+\newlabel{thm:gamma_expression_4}{{21}{33}}
+\newlabel{gamma_alternative}{{22}{33}}
+\newlabel{gamma_alternative_pi_half}{{23}{33}}
+\newlabel{gamma_alt2_pi_half}{{24}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{33}}
+\newlabel{sec:derivatives}{{A.4}{33}}
+\newlabel{dg_dc}{{25}{34}}
+\newlabel{dh_dc}{{26}{34}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{34}}
+\newlabel{sec:c_limit}{{A.5}{34}}
+\newlabel{c_limit_product}{{27}{34}}
+\newlabel{c_limit_product_2}{{28}{34}}
+\newlabel{c_limit_product_3}{{29}{35}}
+\newlabel{c_limit_product_4}{{30}{35}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{35}}
+\newlabel{sec:bayes_opt}{{A.6}{35}}
+\newlabel{quotient_rule}{{31}{35}}
+\newlabel{dg_dc_bayes}{{32}{36}}
+\newlabel{dh_dc_bayes}{{33}{36}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{36}}
+\newlabel{sec:comparison}{{A.7}{36}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{37}}
+\newlabel{sec:monotone}{{A.8}{37}}
+\newlabel{basic_ineq_cp}{{34}{37}}
+\newlabel{basic_ineq_cp_2}{{35}{37}}
+\newlabel{basic_ineq_cp_3}{{36}{37}}
+\newlabel{dg_dbeta}{{37}{38}}
+\newlabel{dh_dbeta}{{38}{38}}
+\newlabel{basic_ineq_cp_4}{{39}{38}}
+\newlabel{def_2g}{{40}{38}}
+\newlabel{def_4h}{{41}{38}}
+\newlabel{basic_ineq_cp_5}{{42}{38}}
+\newlabel{d_gamma_d_beta}{{43}{38}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{39}}
+\newlabel{sec:att_bias}{{A.9}{39}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{39}}
+\newlabel{sec:bv_decomp}{{A.10}{39}}
+\newlabel{bc_decomp_1}{{44}{39}}
+\newlabel{bv_decomp_2}{{45}{40}}
+\newlabel{bv_decomp_3}{{46}{40}}
+\newlabel{bv_decomp_4}{{47}{40}}
+\newlabel{bv_decomp_5}{{48}{40}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{41}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Estimation}{41}}
+\newlabel{e_step_1}{{49}{42}}
+\newlabel{e_step_2}{{50}{42}}
+\newlabel{Q_funct}{{51}{42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Inference}{43}}
 \citation{Louis1982}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Inference}{47}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Block structure of the observed information matrix $J(\theta ; m, g) = -\nabla ^2 \mathcal  {L}(\theta ; m, g)$. The matrix is symmetric, and so we only need to compute submatrices I-VI to compute the entire matrix.}}{48}}
-\newlabel{infomatrixbackground}{{7}{48}}
-\newlabel{zero_inf_info_mat}{{52}{48}}
-\newlabel{sub_mat_pi}{{53}{48}}
-\newlabel{d_L_d_pi}{{54}{49}}
-\newlabel{submat_pi_1}{{55}{49}}
-\newlabel{submat_pi_2}{{56}{50}}
-\newlabel{sub_mat_1_formula}{{57}{50}}
-\newlabel{sub_mat_2}{{58}{50}}
-\newlabel{sub_mat_2_1}{{59}{51}}
-\newlabel{sub_mat_2_2}{{60}{52}}
-\newlabel{sub_mat_2_formula}{{61}{52}}
-\newlabel{sub_mat_3_formula}{{62}{53}}
-\newlabel{sub_mat_4}{{63}{53}}
-\newlabel{sub_mat_4_1}{{64}{53}}
-\newlabel{sub_mat_4_2}{{65}{54}}
-\newlabel{sub_mat_4_formula}{{66}{54}}
-\newlabel{sub_mat_5}{{67}{54}}
-\newlabel{sub_mat_5_1}{{68}{55}}
-\newlabel{sub_mat_5_2}{{69}{56}}
-\newlabel{sub_mat_5_formula}{{70}{56}}
-\newlabel{sub_mat_6_formula}{{71}{56}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Implementation}{57}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Computing the matrices $\Delta ^m(j)$, $[\Delta ']^m(j)$, $V^m(j)$, $H^m(j)$, and $s^m(j)$ given given $\beta _m$.}}{58}}
-\newlabel{algo:computing_info_matrices}{{4}{58}}
-\newlabel{computing_info_matrix_1}{{72}{59}}
-\newlabel{computing_info_matrix_2}{{73}{59}}
-\newlabel{computing_info_matrix_3}{{74}{59}}
-\newlabel{computing_info_matrix_4}{{75}{59}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \texttt  {linkinv}, \texttt  {variance}, \texttt  {mu.eta}, \texttt  {skewness}, \texttt  {mu.eta.prime} for common family objects (i.e., pairs of distributions and link functions).}}{60}}
-\newlabel{family_object_functions}{{1}{60}}
-\@writefile{toc}{\contentsline {section}{\numberline {C}Zero-inflated model}{60}}
-\newlabel{sec:zero_inf_model}{{C}{60}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Estimation}{61}}
-\newlabel{q_funct_zero_inf}{{76}{62}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Inference}{62}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Block structure of the observed information matrix $J_z(\theta ; m, g) = -\nabla ^2 \mathcal  {L}_z(\theta ; m, g)$ for the zero-inflated model. Submatrices I, II, and VI are the same as in the background read model; therefore, we only need to compute submatrices III, VI, and V.}}{63}}
-\newlabel{infomatrixzeroinf}{{8}{63}}
-\newlabel{sub_mat_3_zeroinf}{{77}{63}}
-\newlabel{sub_mat_3_zeroinf_1}{{78}{63}}
-\newlabel{sub_mat_3_zeroinf_2}{{79}{64}}
-\newlabel{sub_mat_3_zeroinf_formula}{{80}{64}}
-\newlabel{sub_mat_4_zeroinf}{{81}{65}}
-\newlabel{sub_mat_4_zeroinf_1}{{82}{65}}
-\newlabel{sub_mat_4_zeroinf_2}{{83}{66}}
-\newlabel{sub_mat_4_zeroinf_formula}{{84}{66}}
-\newlabel{sub_mat_6_zeroinf}{{85}{66}}
-\newlabel{sub_mat_6_zeroinf_1}{{86}{66}}
-\newlabel{sub_mat_6_zeroinf_2}{{87}{67}}
-\newlabel{sub_mat_6_zeroinf_formula}{{88}{67}}
-\@writefile{toc}{\contentsline {section}{\numberline {D}Statistical accelerations}{67}}
-\newlabel{stat_acc_1}{{89}{67}}
-\newlabel{can_param}{{90}{68}}
-\newlabel{m_plus_o_mle}{{91}{68}}
-\newlabel{pois_mle}{{92}{69}}
-\newlabel{nb_mo_1}{{93}{70}}
-\newlabel{nb_mo_2}{{94}{70}}
-\newlabel{nb_mle}{{95}{70}}
-\newlabel{nb_mo_3}{{96}{70}}
-\newlabel{nb_mo_4}{{98}{71}}
-\newlabel{nb_mo_5}{{99}{71}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Additional simulation results on Gaussian data. GLM-EIV (accelerated) outperformed the thresholding method on bias, mean squared error, confidence interval coverage rate, and confidence interval width metrics.}}{72}}
-\newlabel{fig:gaussian_sim}{{9}{72}}
-\@writefile{toc}{\contentsline {section}{\numberline {E}Additional simulation study}{72}}
-\newlabel{sec:extra_sims}{{E}{72}}
-\@writefile{toc}{\contentsline {section}{\numberline {F}Real data analysis details}{72}}
+\newlabel{zero_inf_info_mat}{{52}{44}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Block structure of the observed information matrix $J(\theta ; m, g) = -\nabla ^2 \mathcal  {L}(\theta ; m, g)$. The matrix is symmetric, and so we only need to compute submatrices I-VI to compute the entire matrix.}}{45}}
+\newlabel{infomatrixbackground}{{7}{45}}
+\newlabel{sub_mat_pi}{{53}{45}}
+\newlabel{d_L_d_pi}{{54}{45}}
+\newlabel{submat_pi_1}{{55}{46}}
+\newlabel{submat_pi_2}{{56}{46}}
+\newlabel{sub_mat_1_formula}{{57}{46}}
+\newlabel{sub_mat_2}{{58}{47}}
+\newlabel{sub_mat_2_1}{{59}{47}}
+\newlabel{sub_mat_2_2}{{60}{48}}
+\newlabel{sub_mat_2_formula}{{61}{49}}
+\newlabel{sub_mat_3_formula}{{62}{49}}
+\newlabel{sub_mat_4}{{63}{49}}
+\newlabel{sub_mat_4_1}{{64}{49}}
+\newlabel{sub_mat_4_2}{{65}{50}}
+\newlabel{sub_mat_4_formula}{{66}{51}}
+\newlabel{sub_mat_5}{{67}{51}}
+\newlabel{sub_mat_5_1}{{68}{51}}
+\newlabel{sub_mat_5_2}{{69}{52}}
+\newlabel{sub_mat_5_formula}{{70}{52}}
+\newlabel{sub_mat_6_formula}{{71}{52}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Implementation}{54}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Computing the matrices $\Delta ^m(j)$, $[\Delta ']^m(j)$, $V^m(j)$, $H^m(j)$, and $s^m(j)$ given given $\beta _m$.}}{54}}
+\newlabel{algo:computing_info_matrices}{{4}{54}}
+\newlabel{computing_info_matrix_1}{{72}{55}}
+\newlabel{computing_info_matrix_2}{{73}{55}}
+\newlabel{computing_info_matrix_3}{{74}{55}}
+\newlabel{computing_info_matrix_4}{{75}{55}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \texttt  {linkinv}, \texttt  {variance}, \texttt  {mu.eta}, \texttt  {skewness}, \texttt  {mu.eta.prime} for common family objects (i.e., pairs of distributions and link functions).}}{56}}
+\newlabel{family_object_functions}{{1}{56}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Zero-inflated model}{56}}
+\newlabel{sec:zero_inf_model}{{C}{56}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Estimation}{57}}
+\newlabel{q_funct_zero_inf}{{76}{58}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Inference}{58}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Block structure of the observed information matrix $J_z(\theta ; m, g) = -\nabla ^2 \mathcal  {L}_z(\theta ; m, g)$ for the zero-inflated model. Submatrices I, II, and VI are the same as in the background read model; therefore, we only need to compute submatrices III, VI, and V.}}{59}}
+\newlabel{infomatrixzeroinf}{{8}{59}}
+\newlabel{sub_mat_3_zeroinf}{{77}{59}}
+\newlabel{sub_mat_3_zeroinf_1}{{78}{59}}
+\newlabel{sub_mat_3_zeroinf_2}{{79}{60}}
+\newlabel{sub_mat_3_zeroinf_formula}{{80}{60}}
+\newlabel{sub_mat_4_zeroinf}{{81}{61}}
+\newlabel{sub_mat_4_zeroinf_1}{{82}{61}}
+\newlabel{sub_mat_4_zeroinf_2}{{83}{62}}
+\newlabel{sub_mat_4_zeroinf_formula}{{84}{62}}
+\newlabel{sub_mat_6_zeroinf}{{85}{62}}
+\newlabel{sub_mat_6_zeroinf_1}{{86}{62}}
+\newlabel{sub_mat_6_zeroinf_2}{{87}{63}}
+\newlabel{sub_mat_6_zeroinf_formula}{{88}{63}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Statistical accelerations}{63}}
+\newlabel{stat_acc_1}{{89}{63}}
+\newlabel{can_param}{{90}{64}}
+\newlabel{m_plus_o_mle}{{91}{64}}
+\newlabel{pois_mle}{{92}{65}}
+\newlabel{nb_mo_1}{{93}{66}}
+\newlabel{nb_mo_2}{{94}{66}}
+\newlabel{nb_mle}{{95}{66}}
+\newlabel{nb_mo_3}{{96}{66}}
+\newlabel{nb_mo_4}{{98}{67}}
+\newlabel{nb_mo_5}{{99}{67}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Additional simulation results on Gaussian data. GLM-EIV (accelerated) outperformed the thresholding method on bias, mean squared error, confidence interval coverage rate, and confidence interval width metrics.}}{68}}
+\newlabel{fig:gaussian_sim}{{9}{68}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Additional simulation study}{68}}
+\newlabel{sec:extra_sims}{{E}{68}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Real data analysis details}{68}}

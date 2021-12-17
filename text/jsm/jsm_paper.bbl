@@ -2450,6 +2450,92 @@
 
 \refsection{1}
   \datalist[entry]{nty/global//global/global}
+    \entry{Barry2020}{article}{}
+      \name{author}{5}{}{%
+        {{hash=8d1ac8cbb69e290353a265fed8368c47}{%
+           family={Barry},
+           familyi={B\bibinitperiod},
+           given={Timothy},
+           giveni={T\bibinitperiod}}}%
+        {{hash=cd51e8b9b19cb1518180a8fc28fa51ab}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Xuran},
+           giveni={X\bibinitperiod}}}%
+        {{hash=3b6c78c7b9ac7244bcc82e834ce101be}{%
+           family={Morris},
+           familyi={M\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=05b461b94ae0c05f5f954c648ee571d9}{%
+           family={Roeder},
+           familyi={R\bibinitperiod},
+           given={Kathryn},
+           giveni={K\bibinitperiod}}}%
+        {{hash=f887da698add9051a306ec077275a4c3}{%
+           family={Katsevich},
+           familyi={K\bibinitperiod},
+           given={Eugene},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{fullhash}{d068c4bc8610c3b8ee93f273cba28eb0}
+      \strng{bibnamehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{authorbibnamehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{authornamehash}{84b13be4b1e7980600040df331f19a03}
+      \strng{authorfullhash}{d068c4bc8610c3b8ee93f273cba28eb0}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Single-cell CRISPR screens are an emerging biotechnology promising unprecedented insights into gene regulation. However, the analysis of these screens presents significant statistical challenges. For example, technical factors like sequencing depth impact not only expression measurement but also perturbation detection, creating a confounding effect. We demonstrate on two recent large-scale single-cell CRISPR screens how these challenges cause calibration issues among existing analysis methods. To address these challenges, we propose SCEPTRE: analysis of single-cell perturbation screens via conditional resampling. This methodology, designed to avoid calibration issues due to technical confounders and expression model misspecifica-tion, infers associations between perturbations and expression by resampling the former according to a working model for perturbation detection probability in each cell. SCETPRE demonstrates excellent calibration and sensitivity on the CRISPR screen data and yields 200 new regulatory relationships, many of which are supported by existing functional data.}
+      \field{journaltitle}{Genome Biology, to appear}
+      \field{title}{{SCEPTRE improves calibration and sensitivity in single-cell CRISPR screen analysis}}
+      \field{year}{2021}
+      \verb{file}
+      \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Barry et al. - 2020 - Conditional resampling improves calibration and sensitivity in single-cell CRISPR screen analysis.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Choudhary2021a}{article}{}
+      \name{author}{2}{}{%
+        {{hash=62353eeab420c7cfece1d2c28c2f478f}{%
+           family={Choudhary},
+           familyi={C\bibinitperiod},
+           given={Saket},
+           giveni={S\bibinitperiod}}}%
+        {{hash=d06bc96caba8ec75d09d2d169fa958da}{%
+           family={Satija},
+           familyi={S\bibinitperiod},
+           given={Rahul},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{4f9d0ddb1a2b51a6268f2ad192cac9da}
+      \strng{fullhash}{2e67a4310f84f1fed80815c18a63b932}
+      \strng{bibnamehash}{2e67a4310f84f1fed80815c18a63b932}
+      \strng{authorbibnamehash}{2e67a4310f84f1fed80815c18a63b932}
+      \strng{authornamehash}{4f9d0ddb1a2b51a6268f2ad192cac9da}
+      \strng{authorfullhash}{2e67a4310f84f1fed80815c18a63b932}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Heterogeneity in single-cell RNA-seq (scRNA-seq) data is driven by multiple sources, including biological variation in cellular state as well as technical variation introduced during experimental processing. Deconvolving these effects is a key challenge for preprocessing workflows. Recent work has demonstrated the importance and utility of count models for scRNA-seq analysis, but there is a lack of consensus on which statistical distributions and parameter settings are appropriate. Here, we analyze 58 scRNA-seq datasets that span a wide range of technologies, systems, and sequencing depths in order to evaluate the performance of different error models. We find that while a Poisson error model appears appropriate for sparse datasets, we observe clear evidence of overdispersion for genes with sufficient sequencing depth in all biological systems, necessitating the use of a negative binomial model. Moreover, we find that the degree of overdispersion varies widely across datasets, systems, and gene abundances, and argues for a data-driven approach for parameter estimation. Based on these analyses, we provide a set of recommendations for modeling variation in scRNA-seq data, particularly when using generalized linear models or likelihood-based approaches for preprocessing and downstream analysis. {\#}{\#}{\#} Competing Interest Statement In the past three years, RS has worked as a consultant for Bristol-Myers Squibb, Regeneron, and Kallyope, and served as an SAB member for ImmunAI, Resolve Biosciences, Nanostring and the NYC Pandemic Response Lab.}
+      \field{journaltitle}{bioRxiv}
+      \field{number}{8}
+      \field{title}{{Comparison and evaluation of statistical error models for scRNA-seq}}
+      \field{year}{2021}
+      \field{pages}{2021.07.07.451498}
+      \range{pages}{-1}
+      \verb{file}
+      \verb :Users/timbarry/research{\_}papers/Saket{\_}2021.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.biorxiv.org/content/10.1101/2021.07.07.451498v1{\%}0Ahttps://www.biorxiv.org/content/10.1101/2021.07.07.451498v1.abstract
+      \endverb
+      \verb{url}
+      \verb https://www.biorxiv.org/content/10.1101/2021.07.07.451498v1%7B%5C%%7D0Ahttps://www.biorxiv.org/content/10.1101/2021.07.07.451498v1.abstract
+      \endverb
+    \endentry
     \entry{fitzpatrick2009}{book}{}
       \name{author}{1}{}{%
         {{hash=957bbc00edfe4cdf315b4dc59df7ab05}{%
@@ -2504,39 +2590,6 @@
       \verb :Users/timbarry/Library/Application Support/Mendeley Desktop/Downloaded/Louis - 2012 - Finding the Observed Information Matrix when Using the EM Algorithm Author ( s ) Thomas A . Louis Reviewed work ( s ) Sou.pdf:pdf
       \endverb
       \keyw{em algorithm,maximum likelihood,observed information,speeding,statistics}
-    \endentry
-    \entry{Stefanski2000a}{article}{}
-      \name{author}{1}{}{%
-        {{hash=593bc1833119d5149759e9266c286717}{%
-           family={Stefanski},
-           familyi={S\bibinitperiod},
-           given={L.\bibnamedelimi A.},
-           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-      }
-      \strng{namehash}{593bc1833119d5149759e9266c286717}
-      \strng{fullhash}{593bc1833119d5149759e9266c286717}
-      \strng{bibnamehash}{593bc1833119d5149759e9266c286717}
-      \strng{authorbibnamehash}{593bc1833119d5149759e9266c286717}
-      \strng{authornamehash}{593bc1833119d5149759e9266c286717}
-      \strng{authorfullhash}{593bc1833119d5149759e9266c286717}
-      \field{sortinit}{S}
-      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{1537274X}
-      \field{journaltitle}{Journal of the American Statistical Association}
-      \field{number}{452}
-      \field{title}{{Measurement Error Models}}
-      \field{volume}{95}
-      \field{year}{2000}
-      \field{pages}{1353\bibrangedash 1358}
-      \range{pages}{6}
-      \verb{doi}
-      \verb 10.1080/01621459.2000.10474347
-      \endverb
-      \verb{file}
-      \verb :Users/timbarry/research{\_}papers/Stefanski2000.pdf:pdf
-      \endverb
     \endentry
   \enddatalist
 \endrefsection

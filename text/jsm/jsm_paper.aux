@@ -72,11 +72,11 @@
 \abx@aux@backref{21}{Gasperini2020}{0}{4}{4}
 \abx@aux@cite{Replogle2020}
 \abx@aux@segm{0}{0}{Replogle2020}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Analysis challenges}{5}}
+\abx@aux@backref{22}{Replogle2020}{0}{5}{5}
 \abx@aux@segm{0}{0}{Gasperini2019}
 \abx@aux@cite{Xie2019a}
 \abx@aux@segm{0}{0}{Xie2019a}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Analysis challenges}{5}}
-\abx@aux@backref{22}{Replogle2020}{0}{5}{5}
 \abx@aux@backref{23}{Gasperini2019}{0}{6}{6}
 \abx@aux@backref{24}{Xie2019a}{0}{6}{6}
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3}Thresholding method}{6}}
@@ -161,7 +161,7 @@
 \newlabel{thresholding_theoretical}{{3}{28}}
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Simulation study}. Columns correspond to distributions (Poisson, NB with known $\theta $, NB with estimated $\theta $), and rows correspond to metrics (bias, MSE, coverage, CI width, and time). Methods are shown in different colors; GLM-EIV (red) is masked by accelerated GLM-EIV (blue) in several panels. GLM-EIV demonstrated superior statistical performance to the thresholding method on all metrics (rows 1-4). Accelerated GLM-EIV had substantially lower computational cost than ``vanilla'' GLM-EIV (bottom row) despite demonstrating identical statistical performance (rows 1-4).}}{29}}
 \newlabel{main_text_sim}{{4}{29}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Data analysis}. \textbf  {a-b}, Estimates for fold change produced by GLM-EIV and thresholded regression on Gasperini (\textbf  {a}) and Xie (\textbf  {b}) negative control pairs. \textbf  {c-d}, Estimates produced by GLM-EIV and thresholded regression on two positive control pairs -- \textit  {LRIF1} (\textbf  {a}) and \textit  {NDUFA2} (\textbf  {b}) -- plotted as a function of excess background contamination. Grey bands, 95\% CIs for the target of inference outputted by the methods. \textbf  {e-f}, Median relative estimate change (REC; \textbf  {e}) and confidence interval coverage rate (\textbf  {f}) across \textit  {all} 322 positive control pairs, plotted as a function of excess background contamination. Colored bands, pointwise 95\% CIs for population quantities. Panels (\textbf  {c-f}) together illustrate that GLM-EIV demonstrated greater stability than thresholded regression as background contamination increased.}}{30}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Data analysis}. \textbf  {a-b}, Estimates for fold change produced by GLM-EIV and thresholded regression on Gasperini (\textbf  {a}) and Xie (\textbf  {b}) negative control pairs. \textbf  {c-d}, Estimates produced by GLM-EIV and thresholded regression on two positive control pairs -- \textit  {LRIF1} (\textbf  {a}) and \textit  {NDUFA2} (\textbf  {b}) -- plotted as a function of excess background contamination. Grey bands, 95\% CIs for the target of inference outputted by the methods. \textbf  {e-f}, Median relative estimate change (REC; \textbf  {e}) and confidence interval coverage rate (\textbf  {f}) across \textit  {all} 322 positive control pairs, plotted as a function of excess background contamination. Panels (\textbf  {c-f}) together illustrate that GLM-EIV demonstrated greater stability than thresholded regression as background contamination increased.}}{30}}
 \newlabel{fig:real_data}{{5}{30}}
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Use of GLM-EIV in practice}. The decision tree above illustrates how we anticipate GLM-EIV could be used in practice. First, apply GLM-EIV to a set of randomly-sampled gene-perturbation pairs to assess background contamination level (positive control pairs work best for this purpose). If GLM-EIV indicates that background contamination is high (e.g., $\qopname  \relax o{exp}(\beta ^g_1) \lessapprox $ 10), apply GLM-EIV to analyze the entire dataset; otherwise, approximate the Bayes-optimal decision boundary using the fitted GLM-EIV models. Next, apply a thresholding method (e.g., SCEPTRE or thresholded negative binomial regression) to analyze the data, setting the threshold to the estimated Bayes-optimal decision boundary.}}{31}}
 \newlabel{fig:dec_tree}{{6}{31}}
@@ -308,13 +308,20 @@
 \newlabel{nb_mle}{{90}{75}}
 \newlabel{nb_mo_3}{{91}{75}}
 \newlabel{nb_mo_4}{{93}{75}}
+\abx@aux@cite{Choudhary2021a}
+\abx@aux@segm{1}{0}{Choudhary2021a}
 \newlabel{nb_mo_5}{{94}{76}}
 \@writefile{toc}{\defcounter {refsection}{1}\relax }\@writefile{toc}{\contentsline {section}{\numberline {E}Additional simulation study}{76}}
 \newlabel{sec:extra_sims}{{E}{76}}
+\abx@aux@segm{1}{0}{Barry2020}
+\abx@aux@segm{1}{0}{Choudhary2021a}
 \@writefile{lof}{\defcounter {refsection}{1}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Additional simulation results on Gaussian data. GLM-EIV (accelerated) outperformed the thresholding method on bias, mean squared error, confidence interval coverage rate, and confidence interval width metrics.}}{77}}
 \newlabel{fig:gaussian_sim}{{10}{77}}
 \@writefile{toc}{\defcounter {refsection}{1}\relax }\@writefile{toc}{\contentsline {section}{\numberline {F}Data analysis details}{77}}
 \newlabel{sec:data_analysis_details}{{F}{77}}
+\abx@aux@backref{75}{Choudhary2021a}{1}{77}{77}
+\abx@aux@backref{76}{Barry2020}{1}{77}{77}
+\abx@aux@backref{77}{Choudhary2021a}{1}{77}{77}
 \abx@aux@refcontextdefaultsdone
 \abx@aux@defaultrefcontext{0}{Aigner1973}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{Barry2020}{nty/global//global/global}
@@ -349,6 +356,7 @@
 \abx@aux@defaultrefcontext{0}{Svensson2020}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{Townes2019}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{Xie2019a}{nty/global//global/global}
+\abx@aux@defaultrefcontext{1}{Barry2020}{nty/global//global/global}
+\abx@aux@defaultrefcontext{1}{Choudhary2021a}{nty/global//global/global}
 \abx@aux@defaultrefcontext{1}{fitzpatrick2009}{nty/global//global/global}
 \abx@aux@defaultrefcontext{1}{Louis1982}{nty/global//global/global}
-\abx@aux@defaultrefcontext{1}{Stefanski2000a}{nty/global//global/global}

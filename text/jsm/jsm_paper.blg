@@ -1,27 +1,27 @@
 [0] Config.pm:302> INFO - This is Biber 2.11
 [0] Config.pm:305> INFO - Logfile is 'jsm_paper.blg'
-[34] biber-darwin:313> INFO - === Mon Dec 13, 2021, 15:31:14
-[59] Biber.pm:371> INFO - Reading 'jsm_paper.bcf'
-[138] Biber.pm:857> INFO - Found 33 citekeys in bib section 0
-[138] Biber.pm:857> INFO - Found 3 citekeys in bib section 1
-[138] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
-[154] Biber.pm:3976> INFO - Processing section 0
-[168] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/timbarry/optionFiles/glmeiv.bib' for section 0
-[184] bibtex.pm:1500> INFO - LaTeX decoding ...
-[295] bibtex.pm:1316> INFO - Found BibTeX data source '/Users/timbarry/optionFiles/glmeiv.bib'
-[529] Utils.pm:193> WARN - ISBN '4157601902090' in entry 'Gasperini2020' is invalid - run biber with '--validate_datamodel' for details.
-[640] Utils.pm:193> WARN - ISBN '4158702100927' in entry 'Mimitou2021' is invalid - run biber with '--validate_datamodel' for details.
-[641] Utils.pm:193> WARN - BibTeX subsystem: /var/folders/h6/pt59hmwd7rqb3jqfzwh0hlth0000gn/T/dFyhcs8ur8/glmeiv.bib_18388.utf8, line 6, warning: 176 characters of junk seen at toplevel
-[675] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[675] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[675] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[675] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[720] Biber.pm:3976> INFO - Processing section 1
-[720] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/timbarry/optionFiles/glmeiv.bib' for section 1
-[736] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[736] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[736] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[736] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[740] bbl.pm:617> INFO - Writing 'jsm_paper.bbl' with encoding 'UTF-8'
-[765] bbl.pm:720> INFO - Output to jsm_paper.bbl
-[765] Biber.pm:110> INFO - WARNINGS: 3
+[33] biber-darwin:313> INFO - === Thu Dec 16, 2021, 14:42:07
+[54] Biber.pm:371> INFO - Reading 'jsm_paper.bcf'
+[135] Biber.pm:857> INFO - Found 33 citekeys in bib section 0
+[135] Biber.pm:857> INFO - Found 4 citekeys in bib section 1
+[135] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
+[152] Biber.pm:3976> INFO - Processing section 0
+[162] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/timbarry/optionFiles/glmeiv.bib' for section 0
+[168] bibtex.pm:1500> INFO - LaTeX decoding ...
+[280] bibtex.pm:1316> INFO - Found BibTeX data source '/Users/timbarry/optionFiles/glmeiv.bib'
+[527] Utils.pm:193> WARN - ISBN '4157601902090' in entry 'Gasperini2020' is invalid - run biber with '--validate_datamodel' for details.
+[620] Utils.pm:193> WARN - ISBN '4158702100927' in entry 'Mimitou2021' is invalid - run biber with '--validate_datamodel' for details.
+[621] Utils.pm:193> WARN - BibTeX subsystem: /var/folders/h6/pt59hmwd7rqb3jqfzwh0hlth0000gn/T/jNUKiYdJle/glmeiv.bib_1007.utf8, line 6, warning: 176 characters of junk seen at toplevel
+[657] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[657] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[657] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[657] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[698] Biber.pm:3976> INFO - Processing section 1
+[698] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/timbarry/optionFiles/glmeiv.bib' for section 1
+[727] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[727] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[727] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[727] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[731] bbl.pm:617> INFO - Writing 'jsm_paper.bbl' with encoding 'UTF-8'
+[757] bbl.pm:720> INFO - Output to jsm_paper.bbl
+[757] Biber.pm:110> INFO - WARNINGS: 3

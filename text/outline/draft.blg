@@ -1,48 +1,5 @@
-This is BibTeX, Version 0.99d (TeX Live 2018)
-Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
-The top-level auxiliary file: draft.aux
-The style file: unsrt.bst
-Database file #1: /Users/timbarry/optionFiles/glmeiv.bib
-Warning--can't use both volume and number fields in Mimitou2021
-You've used 32 entries,
-            1791 wiz_defined-function locations,
-            668 strings with 12983 characters,
-and the built_in function-call counts, 10722 in all, are:
-= -- 824
-> -- 857
-< -- 7
-+ -- 298
-- -- 266
-* -- 943
-:= -- 1789
-add.period$ -- 96
-call.type$ -- 32
-change.case$ -- 29
-chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 387
-empty$ -- 767
-format.name$ -- 266
-if$ -- 2249
-int.to.chr$ -- 0
-int.to.str$ -- 32
-missing$ -- 35
-newline$ -- 163
-num.names$ -- 32
-pop$ -- 59
-preamble$ -- 1
-purify$ -- 0
-quote$ -- 0
-skip$ -- 236
-stack$ -- 0
-substring$ -- 706
-swap$ -- 132
-text.length$ -- 7
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 0
-warning$ -- 1
-while$ -- 87
-width$ -- 34
-write$ -- 354
-(There was 1 warning)
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'draft.blg'
+[32] biber-darwin:313> INFO - === Mon Dec 13, 2021, 21:48:35
+[154] Utils.pm:209> ERROR - Cannot find control file 'draft.bcf'! - Did latex run successfully on your .tex file before you ran biber?
+[154] Biber.pm:114> INFO - ERRORS: 1

@@ -7,34 +7,34 @@
 \contentsline {subsection}{\numberline {3.1}Empirical challenges of thresholding method}{8}
 \contentsline {subsection}{\numberline {3.2}Theoretical challenges of thresholding method}{10}
 \contentsline {subsection}{\numberline {3.3}Thresholding method summary}{15}
-\contentsline {section}{\numberline {4}GLM-based errors-in-variables}{16}
+\contentsline {section}{\numberline {4}GLM-based errors-in-variables}{15}
 \contentsline {subsection}{\numberline {4.1}Model}{16}
 \contentsline {subsection}{\numberline {4.2}Estimation and inference}{19}
-\contentsline {subsection}{\numberline {4.3}Statistical accelerations}{21}
+\contentsline {subsection}{\numberline {4.3}Statistical accelerations}{20}
 \contentsline {subsection}{\numberline {4.4}Computing}{23}
 \contentsline {subsection}{\numberline {4.5}Zero-inflated model}{23}
 \contentsline {section}{\numberline {5}Simulation studies}{24}
 \contentsline {section}{\numberline {6}Data analysis}{26}
 \contentsline {section}{\numberline {7}Discussion}{29}
-\contentsline {section}{Appendices}{34}
-\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{34}
-\contentsline {subsection}{\numberline {A.1}Notation}{34}
-\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{35}
-\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{36}
-\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{37}
-\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{37}
-\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{39}
-\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{39}
-\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{40}
-\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{42}
-\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{43}
-\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{44}
-\contentsline {subsection}{\numberline {B.1}Estimation}{44}
-\contentsline {subsection}{\numberline {B.2}Inference}{47}
-\contentsline {subsection}{\numberline {B.3}Implementation}{57}
-\contentsline {section}{\numberline {C}Zero-inflated model}{60}
-\contentsline {subsection}{\numberline {C.1}Estimation}{61}
-\contentsline {subsection}{\numberline {C.2}Inference}{62}
-\contentsline {section}{\numberline {D}Statistical accelerations}{67}
-\contentsline {section}{\numberline {E}Additional simulation study}{72}
-\contentsline {section}{\numberline {F}Real data analysis details}{72}
+\contentsline {section}{Appendices}{30}
+\contentsline {section}{\numberline {A}Theoretical details for thresholding estimator}{30}
+\contentsline {subsection}{\numberline {A.1}Notation}{31}
+\contentsline {subsection}{\numberline {A.2}Almost sure limit of $\mathaccentV {hat}05E{\beta }^m_1$}{31}
+\contentsline {subsection}{\numberline {A.3}Re-expressing $\gamma $ in a simpler form}{32}
+\contentsline {subsection}{\numberline {A.4}Derivatives of $g$ and $h$ in $c$}{33}
+\contentsline {subsection}{\numberline {A.5}Limit of $\gamma $ in $c$}{34}
+\contentsline {subsection}{\numberline {A.6}Bayes-optimal decision boundary as a critical value of $\gamma $}{35}
+\contentsline {subsection}{\numberline {A.7}Comparing Bayes-optimal decision boundary and large threshold}{36}
+\contentsline {subsection}{\numberline {A.8}Monotonicity in $\beta ^g_1$}{37}
+\contentsline {subsection}{\numberline {A.9}Strict attenuation bias}{39}
+\contentsline {subsection}{\numberline {A.10}Bias-variance decomposition in no-intercept model}{39}
+\contentsline {section}{\numberline {B}Estimation and inference in the GLM-EIV model}{41}
+\contentsline {subsection}{\numberline {B.1}Estimation}{41}
+\contentsline {subsection}{\numberline {B.2}Inference}{43}
+\contentsline {subsection}{\numberline {B.3}Implementation}{54}
+\contentsline {section}{\numberline {C}Zero-inflated model}{56}
+\contentsline {subsection}{\numberline {C.1}Estimation}{57}
+\contentsline {subsection}{\numberline {C.2}Inference}{58}
+\contentsline {section}{\numberline {D}Statistical accelerations}{63}
+\contentsline {section}{\numberline {E}Additional simulation study}{68}
+\contentsline {section}{\numberline {F}Real data analysis details}{68}
