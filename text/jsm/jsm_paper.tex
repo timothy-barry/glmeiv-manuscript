@@ -13,7 +13,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{array}
-\usepackage{titlesec} 
+\usepackage{titlesec}
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage[toc,page]{appendix}
@@ -94,7 +94,7 @@ Motivated by the challenges of single-cell data, several authors recently have e
 
 The closest parallels to our work in the statistical methodology literature are Gr\"{u}n \& Leisch \cite{Grun2008} and Ibrahim \cite{Ibrahim1990}. Gr\"{u}n \& Leisch derived a method for estimation and inference in a $k$-component mixture of GLMs. While we prefer to view GLM-EIV as a generalized errors-in-variables method,  the GLM-EIV model is equivalent to a two-component mixture of \textit{products} of GLM densities. Ibrahim proposed a procedure for fitting GLMs in the presence of missing-at-random covariates. Our method, by contrast, involves fitting two conditionally independent GLMs in the presence of a totally latent covariate. Thus, while Ibrahim and Gr\"{u}n \& Leisch are helpful references, our estimation and inference tasks are more complex than theirs. Other relevant references include Aigner \cite{Aigner1973} and Savoca \cite{Savoca2000}.
 
-The genomics literature has produced several applied methods for single-cell CRISPR screen analysis. In a prior work we developed SCEPTRE \cite{Barry2020}, a custom implementation of the conditional randomization test \cite{Candes2018, Liu2021} tailored to single-cell CRISPR screen data. SCEPTRE tests whether a given perturbation is associated with the change in expression of a given gene, adjusting for sources of confounding and ensuring robustness to expression model misspecification. In this work we tackle a set of analysis challenges that are complimentary to those addressed by SCEPTRE. Most importantly, we account for the fact that the perturbation is measured with noise, an issue that SCEPTRE circumvents via thresholding. Additionally, we seek to \textit{estimate} (with confidence) the effect size of a perturbation on gene expression change, an objective that is challenging to attain within the nonparametric hypothesis testing framework of SCEPTRE.
+The genomics literature has produced several applied methods for single-cell CRISPR screen analysis. In a prior work we developed SCEPTRE \cite{Barry2021}, a custom implementation of the conditional randomization test \cite{Candes2018, Liu2021} tailored to single-cell CRISPR screen data. SCEPTRE tests whether a given perturbation is associated with the change in expression of a given gene, adjusting for sources of confounding and ensuring robustness to expression model misspecification. In this work we tackle a set of analysis challenges that are complimentary to those addressed by SCEPTRE. Most importantly, we account for the fact that the perturbation is measured with noise, an issue that SCEPTRE circumvents via thresholding. Additionally, we seek to \textit{estimate} (with confidence) the effect size of a perturbation on gene expression change, an objective that is challenging to attain within the nonparametric hypothesis testing framework of SCEPTRE.
 
  %Other applied methods for single-cell CRISPR screen analysis include MIMOSCA \cite{Dixit2016} and scMAGeCK \cite{Yang2019}. % These methods, like SCEPTRE, focus on hypothesis testing (rather than estimation), but unlike SCEPTRE, they ignore the countedness of the data and are unable to handle confounders.
 

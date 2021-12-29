@@ -1,0 +1,28 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'jasa.blg'
+[30] biber-darwin:313> INFO - === Wed Dec 29, 2021, 01:18:57
+[47] Biber.pm:371> INFO - Reading 'jasa.bcf'
+[123] Biber.pm:857> INFO - Found 33 citekeys in bib section 0
+[123] Biber.pm:857> INFO - Found 4 citekeys in bib section 1
+[123] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
+[138] Biber.pm:3976> INFO - Processing section 0
+[147] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/timbarry/optionFiles/glmeiv.bib' for section 0
+[152] bibtex.pm:1500> INFO - LaTeX decoding ...
+[248] bibtex.pm:1316> INFO - Found BibTeX data source '/Users/timbarry/optionFiles/glmeiv.bib'
+[479] Utils.pm:193> WARN - ISBN '4157601902090' in entry 'Gasperini2020' is invalid - run biber with '--validate_datamodel' for details.
+[569] Utils.pm:193> WARN - ISBN '4158702100927' in entry 'Mimitou2021' is invalid - run biber with '--validate_datamodel' for details.
+[570] Utils.pm:193> WARN - BibTeX subsystem: /var/folders/h6/pt59hmwd7rqb3jqfzwh0hlth0000gn/T/GgDbBdvNFA/glmeiv.bib_28641.utf8, line 6, warning: 176 characters of junk seen at toplevel
+[618] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[618] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[618] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[618] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[661] Biber.pm:3976> INFO - Processing section 1
+[661] Biber.pm:4136> INFO - Looking for bibtex format file '/Users/timbarry/optionFiles/glmeiv.bib' for section 1
+[671] Utils.pm:193> WARN - I didn't find a database entry for 'Barry2020' (section 1)
+[679] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[679] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[680] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[680] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[683] bbl.pm:617> INFO - Writing 'jasa.bbl' with encoding 'UTF-8'
+[709] bbl.pm:720> INFO - Output to jasa.bbl
+[710] Biber.pm:110> INFO - WARNINGS: 4

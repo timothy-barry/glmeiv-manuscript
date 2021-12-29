@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  16 DEC 2021 14:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  29 DEC 2021 01:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -655,7 +655,15 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'jsm_paper.bbl' found.
 
-(./jsm_paper.bbl)
+(./jsm_paper.bbl
+
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database (refsection 1):
+(biblatex)                Barry2020
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+)
 Package biblatex Info: Reference section=0 on input line 67.
 Package biblatex Info: Reference segment=0 on input line 67.
 Package caption Info: Begin \AtBeginDocument code.
@@ -665,7 +673,8 @@ Package caption Info: End \AtBeginDocument code.
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Try loading font information for U+msa on input line 83.
- (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 83.
@@ -853,10 +862,10 @@ Package logreq Info: Writing requests to 'jsm_paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 12386 strings out of 492649
- 209711 string characters out of 6129622
- 645592 words of memory out of 5000000
- 16078 multiletter control sequences out of 15000+600000
+ 12384 strings out of 492649
+ 209618 string characters out of 6129622
+ 645567 words of memory out of 5000000
+ 16076 multiletter control sequences out of 15000+600000
  15083 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,20n,45p,2163b,1330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -881,7 +890,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2018/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on jsm_paper.pdf (79 pages, 1907548 bytes).
+Output written on jsm_paper.pdf (79 pages, 1907549 bytes).
 PDF statistics:
  419 PDF objects out of 1000 (max. 8388607)
  281 compressed objects within 3 object streams
