@@ -21,7 +21,9 @@ process obtain_gene_id {
   stdout gene_id_ch_raw
 
   """
-  Rscript -e 'pairs <- readRDS("$params.pairs");
+  Rscript -e '
+  if (!("/jet/home/timbar/R/x86_64-redhat-linux-gnu-library/4.0" %in% .libPaths())) .libPaths("/jet/home/timbar/R/x86_64-redhat-linux-gnu-library/4.0");
+  pairs <- readRDS("$params.pairs");
   gene_names <- unique(as.character(pairs[["gene_id"]]));
   cat(paste0(gene_names, collapse = "\n"))'
   """
@@ -67,7 +69,9 @@ process obtain_pair_id {
   stdout all_par_ch_raw
 
   """
-  Rscript -e 'pairs <- readRDS("$params.pairs");
+  Rscript -e '
+  if (!("/jet/home/timbar/R/x86_64-redhat-linux-gnu-library/4.0" %in% .libPaths())) .libPaths("/jet/home/timbar/R/x86_64-redhat-linux-gnu-library/4.0");
+  pairs <- readRDS("$params.pairs");
   pairs <- dplyr::arrange(pairs, gene_id);
   gene_names <- as.character(pairs[["gene_id"]]);
   gRNA_names <- as.character(pairs[["gRNA_id"]]);
