@@ -11,7 +11,7 @@ gene_metadata_fp <- args[3L]
 m_offsets_fp <- args[4L]
 gRNA_odm_fp <- args[5L]
 gRNA_metadata_fp <- args[6L]
-threshold <- as.numeric(args[7L])
+thresholds <- as.numeric(unlist(strsplit(args[7L], ",")))
 other_args <- args[seq(8L, n_args)]
 
 #########################################
@@ -44,19 +44,17 @@ for (i in seq(1L, n_pairs)) {
     g <- as.numeric(gRNA_odm[[gRNA,]])
   }
 
-  # loop through different thresholds, fitting model to each
-  phat <- as.integer(g >= threshold)
-  # run thresholding method
-  fit <- glmeiv::run_thresholding_method(phat = phat, m = m, m_fam = m_fam,
-                                         m_offset = m_offset, covariate_matrix = covariate_matrix,
-                                         n_examples_per_param = 5) %>% dplyr::mutate(gene_id = gene, gRNA_id = gRNA)
-  out_l[[i]] <- fit
+  coef_df <- lapply(X = thresholds, FUN = function(threshold) {
+    # perform threshold
+    phat <- as.integer(g >= threshold)
+    # run thresholding method
+    fit <- glmeiv::run_thresholding_method(phat = phat, m = m, m_fam = m_fam,
+                                           m_offset = m_offset, covariate_matrix = covariate_matrix,
+                                           n_examples_per_param = 5) %>% dplyr::mutate(threshold = threshold)
+    return(fit)
+  }) %>% do.call(rbind, .) %>% dplyr::mutate(gene_id = gene, gRNA_id = gRNA)
+  out_l[[i]] <- coef_df
 }
 
 out <- do.call(rbind, out_l) %>% dplyr::mutate_at(c("parameter", "target", "gene_id", "gRNA_id"), factor)
 saveRDS(object = out, file = "raw_result.rds")
-
-
-# leftover code
-# g_prime <- g[g >= 1]
-# curr_threshold <- mean(g_prime)

@@ -8,6 +8,7 @@
 // params.gene_pod_size = 3
 // params.gRNA_pod_size = 3
 // params.pair_pod_size = 3
+params.out_file_name = "result_thresholding.rds"
 
 /*********************
 * gene precomputations
@@ -83,7 +84,7 @@ all_pairs_labelled_buffered
 // Run the gene-gRNA analysis
 process run_gene_gRNA_analysis {
   errorStrategy  { task.attempt <= 4  ? 'retry' : 'finish' }
-  time { 1.m * params.pair_pod_size }
+  time { 2.m * params.pair_pod_size }
   echo true
 
   output:
@@ -117,12 +118,12 @@ process collect_results {
   publishDir params.result_dir, mode: "copy"
 
   output:
-  file 'result_thresholding.rds' into collected_results_ch
+  file params.out_file_name into collected_results_ch
 
   input:
   file 'raw_result' from raw_results_ch.collect()
 
   """
-  Rscript $projectDir/bin/collect_results.R $params.pairs raw_result*
+  Rscript $projectDir/bin/collect_results.R $params.pairs $params.out_file_name raw_result*
   """
 }

@@ -89,6 +89,7 @@ set.seed(11)
 sample_pairs <- subsetted_pairs %>% dplyr::filter(gene_id %in% sample(x = subsetted_pairs$gene_id, size = 4, replace = FALSE) &
                                   gRNA_id %in% sample(x = subsetted_pairs$gRNA_id, size = 4, replace = FALSE)) %>%
   dplyr::slice_sample(n = 15)
+pc_pairs <- subsetted_pairs %>% dplyr::filter(site_type == "selfTSS")
 sample_pairs_pc <- subsetted_pairs %>% dplyr::filter(site_type == "selfTSS") %>% dplyr::slice_sample(n = 15)
 
 ########################################################
@@ -106,6 +107,9 @@ saveRDS(object = covariate_matrix_to_save,
 # subsetted pairs
 saveRDS(object = subsetted_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs.rds"))
+# subsetted pc pairs
+saveRDS(object = subsetted_pairs,
+        paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs_pc.rds"))
 # sample pairs
 saveRDS(sample_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs_sample.rds"))

@@ -1,5 +1,5 @@
 library(magrittr)
-load_all("~/research_code/glmeiv/")
+library(glmeiv)
 library(dplyr)
 
 ########

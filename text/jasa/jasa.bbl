@@ -38,6 +38,8 @@
       \strng{authorfullhash}{362bf3c26180193defee8970445bee4c}
       \field{sortinit}{A}
       \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Econometrics}
@@ -87,10 +89,12 @@
       \strng{authorfullhash}{d068c4bc8610c3b8ee93f273cba28eb0}
       \field{sortinit}{B}
       \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{{<}p{>}Single-cell CRISPR screens are a promising biotechnology for mapping regulatory elements to target genes at genome-wide scale. However, technical factors like sequencing depth impact not only expression measurement but also perturbation detection, creating a confounding effect. We demonstrate on two single-cell CRISPR screens how these challenges cause calibration issues. We propose SCEPTRE: analysis of single-cell perturbation screens via conditional resampling, which infers associations between perturbations and expression by resampling the former according to a working model for perturbation detection probability in each cell. SCEPTRE demonstrates very good calibration and sensitivity on CRISPR screen data, yielding hundreds of new regulatory relationships supported by orthogonal biological evidence.{<}/p{>}}
-      \field{journaltitle}{Genome Biology, to appear}
+      \field{abstract}{Single-cell CRISPR screens are a promising biotechnology for mapping regulatory elements to target genes at genome-wide scale. However, technical factors like sequencing depth impact not only expression measurement but also perturbation detection, creating a confounding effect. We demonstrate on two single-cell CRISPR screens how these challenges cause calibration issues. We propose SCEPTRE: analysis of single-cell perturbation screens via conditional resampling, which infers associations between perturbations and expression by resampling the former according to a working model for perturbation detection probability in each cell. SCEPTRE demonstrates very good calibration and sensitivity on CRISPR screen data, yielding hundreds of new regulatory relationships supported by orthogonal biological evidence.}
+      \field{journaltitle}{Genome Biology}
       \field{title}{{SCEPTRE improves calibration and sensitivity in single-cell CRISPR screen analysis}}
       \field{year}{2021}
       \field{pages}{1\bibrangedash 19}
@@ -130,6 +134,8 @@
       \strng{authorfullhash}{49700fd541bc866b412574c6ed09075a}
       \field{sortinit}{C}
       \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Many contemporary large-scale applications involve building interpretable models linking a large set of potential covariates to a response in a non-linear fashion, such as when the response is binary. Although this modelling problem has been extensively studied, it remains unclear how to control the fraction of false discoveries effectively even in high dimensional logistic regression, not to mention general high dimensional non-linear models. To address such a practical problem, we propose a new framework of ‘model-X' knockoffs, which reads from a different perspective the knockoff procedure that was originally designed for controlling the false discovery rate in linear models. Whereas the knockoffs procedure is constrained to homoscedastic linear models with n⩾p, the key innovation here is that model-X knockoffs provide valid inference from finite samples in settings in which the conditional distribution of the response is arbitrary and completely unknown. Furthermore, this holds no matter the number of covariates. Correct inference in such a broad setting is achieved by constructing knockoff variables probabilistically instead of geometrically. To do this, our approach requires that the covariates are random (independent and identically distributed rows) with a distribution that is known, although we provide preliminary experimental evidence that our procedure is robust to unknown or estimated distributions. To our knowledge, no other procedure solves the controlled variable selection problem in such generality but, in the restricted settings where competitors exist, we demonstrate the superior power of knockoffs through simulations. Finally, we apply our procedure to data from a case–control study of Crohn's disease in the UK, making twice as many discoveries as the original analysis of the same data.}
@@ -217,6 +223,8 @@
       \strng{authorfullhash}{f74b2285984117eb44f666423abc7bfc}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{CRISPR-based genetic screens are accelerating biological discovery, but current methods have inherent limitations. Widely used pooled screens are restricted to simple readouts including cell proliferation and sortable marker proteins. Arrayed screens allow for comprehensive molecular readouts such as transcriptome profiling, but at much lower throughput. Here we combine pooled CRISPR screening with single-cell RNA sequencing into a broadly applicable workflow, directly linking guide RNA expression to transcriptome responses in thousands of individual cells. Our method for CRISPR droplet sequencing (CROP-seq) enables pooled CRISPR screens with single-cell transcriptome resolution, which will facilitate high-throughput functional dissection of complex regulatory mechanisms and heterogeneous cell populations.}
@@ -291,6 +299,8 @@
       \strng{authorfullhash}{296676fa1b1e4ebca9be369ecf393542}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Cell atlas projects and high-throughput perturbation screens require single-cell sequencing at a scale that is challenging with current technology. To enable cost-effective single-cell sequencing for millions of individual cells, we developed ‘single-cell combinatorial fluidic indexing' (scifi). The scifi-RNA-seq assay combines one-step combinatorial preindexing of entire transcriptomes inside permeabilized cells with subsequent single-cell RNA-seq using microfluidics. Preindexing allows us to load several cells per droplet and computationally demultiplex their individual expression profiles. Thereby, scifi-RNA-seq massively increases the throughput of droplet-based single-cell RNA-seq, and provides a straightforward way of multiplexing thousands of samples in a single experiment. Compared with multiround combinatorial indexing, scifi-RNA-seq provides an easy and efficient workflow. Compared to cell hashing methods, which flag and discard droplets containing more than one cell, scifi-RNA-seq resolves and retains individual transcriptomes from overloaded droplets. We benchmarked scifi-RNA-seq on various human and mouse cell lines, validated it for primary human T cells and applied it in a highly multiplexed CRISPR screen with single-cell transcriptome readout of T cell receptor activation.}
@@ -357,6 +367,8 @@
       \strng{authorfullhash}{3b52c014bab84c127131b0f32e729ae6}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{issn}{15461696}
@@ -468,6 +480,8 @@
       \strng{authorfullhash}{ac66502e4ca39afe5b9bd16d38be53f0}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Genetic screens help infer gene function in mammalian cells, but it has remained difficult to assay complex phenotypes—such as transcriptional profiles—at scale. Here, we develop Perturb-seq, combining single-cell RNA sequencing (RNA-seq) and clustered regularly interspaced short palindromic repeats (CRISPR)-based perturbations to perform many such assays in a pool. We demonstrate Perturb-seq by analyzing 200,000 cells in immune cells and cell lines, focusing on transcription factors regulating the response of dendritic cells to lipopolysaccharide (LPS). Perturb-seq accurately identifies individual gene targets, gene signatures, and cell states affected by individual perturbations and their genetic interactions. We posit new functions for regulators of differentiation, the anti-viral response, and mitochondrial function during immune activation. By decomposing many high content measurements into the effects of perturbations, their interactions, and diverse cell metadata, Perturb-seq dramatically increases the scope of pooled genomic assays.}
@@ -517,6 +531,8 @@
       \strng{authorfullhash}{1d91d1c52cf1557db119cca1240d54a4}
       \field{sortinit}{G}
       \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{During the past 12 years, genome-wide association studies (GWASs) have uncovered thousands of genetic variants that influence risk for complex human traits and diseases. Yet functional studies aimed at delineating the causal genetic variants and biological mechanisms underlying the observed statistical associations with disease risk have lagged. In this review, we highlight key advances in the field of functional genomics that may facilitate the derivation of biological meaning post-GWAS. We highlight the evidence suggesting that causal variants underlying disease risk often function through regulatory effects on the expression of target genes and that these expression effects might be modest and cell-type specific. We moreover discuss specific studies as proof-of-principle examples for current statistical, bioinformatic, and empirical bench-based approaches to downstream elucidation of GWAS-identified disease risk loci.}
@@ -570,6 +586,8 @@
       \strng{authorfullhash}{63bfd2b65ebae9a4d51484e0192a6d62}
       \field{sortinit}{G}
       \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The human gene catalogue is essentially complete, but we lack an equivalently vetted inventory of bona fide human enhancers. Hundreds of thousands of candidate enhancers have been nominated via biochemical annotations; however, only a handful of these have been validated and confidently linked to their target genes. Here we review emerging technologies for discovering, characterizing and validating human enhancers at scale. We furthermore propose a new framework for operationally defining enhancers that accommodates the heterogeneous and complementary results that are emerging from reporter assays, biochemical measurements and CRISPR screens.}
@@ -672,6 +690,8 @@
       \strng{authorfullhash}{f2f6daa5384a9ac9ad87b06af22d9e6b}
       \field{sortinit}{G}
       \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Over one million candidate regulatory elements have been identified across the human genome, but nearly all are unvalidated and their target genes uncertain. Approaches based on human genetics are limited in scope to common variants and in resolution by linkage disequilibrium. We present a multiplex, expression quantitative trait locus (eQTL)-inspired framework for mapping enhancer-gene pairs by introducing random combinations of CRISPR/Cas9-mediated perturbations to each of many cells, followed by single-cell RNA sequencing (RNA-seq). Across two experiments, we used dCas9-KRAB to perturb 5,920 candidate enhancers with no strong a priori hypothesis as to their target gene(s), measuring effects by profiling 254,974 single-cell transcriptomes. We identified 664 (470 high-confidence) cis enhancer-gene pairs, which were enriched for specific transcription factors, non-housekeeping status, and genomic and 3D conformational proximity to their target genes. This framework will facilitate the large-scale mapping of enhancer-gene regulatory interactions, a critical yet largely uncharted component of the cis-regulatory landscape of the human genome.}
@@ -718,6 +738,8 @@
       \strng{authorfullhash}{1b77f0b13bf03858a5788de3044c014d}
       \field{sortinit}{G}
       \field{sortinithash}{5e8d2bf9d38de41b1528bd307546008f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Finite mixture models have now been used for more than hundred years (Newcomb (1886), Pearson (1894)). They are a very popular statistical modeling technique given that they constitute a flexible and-easily extensible model class for (1) approximating general distribution functions in a semi-parametric way and (2) accounting for unobserved heterogeneity. The number of applications has tremendously increased in the last decades as model estimation in a frequentist as well as a Bayesian framework has become feasible with the nowadays easily available computing power.}
@@ -761,6 +783,8 @@
       \strng{authorfullhash}{40fa3ca486ffedc24ba71f50587e8e97}
       \field{sortinit}{H}
       \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Single-cell RNA-seq (scRNA-seq) data exhibits significant cell-to-cell variation due to technical factors, including the number of molecules detected in each cell, which can confound biological heterogeneity with technical effects. To address this, we present a modeling framework for the normalization and variance stabilization of molecular count data from scRNA-seq experiments. We propose that the Pearson residuals from "regularized negative binomial regression," where cellular sequencing depth is utilized as a covariate in a generalized linear model, successfully remove the influence of technical characteristics from downstream analyses while preserving biological heterogeneity. Importantly, we show that an unconstrained negative binomial model may overfit scRNA-seq data, and overcome this by pooling information across genes with similar abundances to obtain stable parameter estimates. Our procedure omits the need for heuristic steps including pseudocount addition or log-transformation and improves common downstream analytical tasks such as variable gene selection, dimensional reduction, and differential expression. Our approach can be applied to any UMI-based scRNA-seq dataset and is freely available as part of the R package sctransform, with a direct interface to our single-cell toolkit Seurat.}
@@ -839,6 +863,8 @@
       \strng{authorfullhash}{ca688bcef076523349850f89e380ee70}
       \field{sortinit}{H}
       \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Several groups recently coupled CRISPR perturbations and single-cell RNA-seq for pooled genetic screens. We demonstrate that vector designs of these studies are susceptible to {â} 1/450{\%} swapping of guide RNA-barcode associations because of lentiviral template switching. We optimized a published alternative, CROP-seq, in which the guide RNA also serves as the barcode, and here confirm that this strategy performs robustly and doubled the rate at which guides are assigned to cells to 94{\%}.}
@@ -880,6 +906,8 @@
       \strng{authorfullhash}{d84df3196333c4f52554bc87765e2d88}
       \field{sortinit}{I}
       \field{sortinithash}{320bc8fe8101b9376f9f21cd507de0e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{This paper proposes a method for estimating the parameters in a generalized linear model with missing covariates. The missing covariates are assumed to come from a continuous distribution, and are assumed to be missing at random. In particular, Gaussian quadrature methods are used on the E‐step of the EM algorithm, leading to an approximate EM algorithm. The parameters are then estimated using the weighted EM procedure given in Ibrahim (1990). This approximate EM procedure leads to approximate maximum likelihood estimates, whose standard errors and asymptotic properties are given. The proposed procedure is illustrated on a data set. Copyright {©} 1992, Wiley Blackwell. All rights reserved}
@@ -928,6 +956,8 @@
       \strng{authorfullhash}{5440b798fe7820c34c946e2a68941303}
       \field{sortinit}{L}
       \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Background: Standard preprocessing of single-cell RNA-seq UMI data includes normalization by sequencing depth to remove this technical variability, and nonlinear transformation to stabilize the variance across genes with different expression levels. Instead, two recent papers propose to use statistical count models for these tasks: Hafemeister and Satija (Genome Biol 20:296, 2019) recommend using Pearson residuals from negative binomial regression, while Townes et al. (Genome Biol 20:295, 2019) recommend fitting a generalized PCA model. Here, we investigate the connection between these approaches theoretically and empirically, and compare their effects on downstream processing. Results: We show that the model of Hafemeister and Satija produces noisy parameter estimates because it is overspecified, which is why the original paper employs post hoc smoothing. When specified more parsimoniously, it has a simple analytic solution equivalent to the rank-one Poisson GLM-PCA of Townes et al. Further, our analysis indicates that per-gene overdispersion estimates in Hafemeister and Satija are biased, and that the data are in fact consistent with the overdispersion parameter being independent of gene expression. We then use negative control data without biological variability to estimate the technical overdispersion of UMI counts, and find that across several different experimental protocols, the data are close to Poisson and suggest very moderate overdispersion. Finally, we perform a benchmark to compare the performance of Pearson residuals, variance-stabilizing transformations, and GLM-PCA on scRNA-seq datasets with known ground truth. Conclusions: We demonstrate that analytic Pearson residuals strongly outperform other methods for identifying biologically variable genes, and capture more of the biologically meaningful variation when used for dimensionality reduction.}
@@ -975,6 +1005,8 @@
       \strng{authorfullhash}{ea08aac395a661f97950f76073d3f580}
       \field{sortinit}{L}
       \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Scientists often embed cells into a lower-dimensional space when studying single-cell RNA-seq data for improved downstream analyses such as developmental trajectory analyses, but the statistical properties of such nonlinear embedding methods are often not well understood. In this article, we develop the exponential-family SVD (eSVD), a nonlinear embedding method for both cells and genes jointly with respect to a random dot product model using exponential-family distributions. Our estimator uses alternating minimization, which enables us to have a computationally efficient method, prove the identifiability conditions and consistency of our method, and provide statistically principled procedures to tune our method. All these qualities help advance the single-cell embedding literature, and we provide extensive simulations to demonstrate that the eSVD is competitive compared to other embedding methods. We apply the eSVD via Gaussian distributions where the standard deviations are proportional to the means to analyze a single-cell dataset of oligodendrocytes in mouse brains. Using the eSVD estimated embedding, we then investigate the cell developmental trajectories of the oligodendrocytes. While previous results are not able to distinguish the trajectories among the mature oligodendrocyte cell types, our diagnostics and results demonstrate there are two major developmental trajectories that diverge at mature oligodendrocytes. Supplementary materials for this article, including a standardized description of the materials available for reproducing the work, are available as an online supplementary materials.}
@@ -1031,6 +1063,8 @@
       \strng{authorfullhash}{59f6073bb16b58bd1e2e5c1b0fe8059c}
       \field{sortinit}{L}
       \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{We consider the problem of conditional independence testing: given a response Y and co- variates (X, Z), we test the null hypothesis that Y ⊥⊥ X | Z. The conditional randomization test was recently proposed as a way to use distributional information about X | Z to exactly and non-asymptotically control Type-I error using any test statistic in any dimensionality without assuming anything about Y | (X, Z). This flexibility, in principle, allows one to derive powerful 20 test statistics from complex prediction algorithms while maintaining statistical validity. Yet the direct use of such advanced test statistics in the conditional randomization test is prohibitively computationally expensive, especially with multiple testing, due to the requirement to recompute the test statistic many times on resampled data. We propose the distilled conditional randomiza- tion test, a novel approach to using state-of-the-art machine learning algorithms in the conditional 25 randomization test while drastically reducing the number of times those algorithms need to be run, thereby taking advantage of their power and the conditional randomization test's statistical guarantees without suffering the usual computational expense. In addition to distillation, we pro- pose a number of other tricks like screening and recycling computations to further speed up the conditional randomization test without sacrificing its high power and exact validity. Indeed, we 30 show in simulations that all our proposals combined lead to a test that has similar power to the most powerful existing conditional randomization test implementations but requires orders of magnitude less computation, making it a practical tool even for large data sets. We demonstrate these benefits on a breast cancer dataset by identifying biomarkers related to cancer stage.}
@@ -1061,6 +1095,8 @@
       \strng{authorfullhash}{11b3ce2e929969a2b45cd4cd367e2899}
       \field{sortinit}{L}
       \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Society}
@@ -1159,6 +1195,8 @@
       \strng{authorfullhash}{7d9baac6cab26dd2d2256e987da9371d}
       \field{sortinit}{M}
       \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Multimodal single-cell assays provide high-resolution snapshots of complex cell populations, but are mostly limited to transcriptome plus an additional modality. Here, we describe expanded CRISPR-compatible cellular indexing of transcriptomes and epitopes by sequencing (ECCITE-seq) for the high-throughput characterization of at least five modalities of information from each single cell. We demonstrate application of ECCITE-seq to multimodal CRISPR screens with robust direct single-guide RNA capture and to clonotype-aware multimodal phenotyping of cancer samples.}
@@ -1304,6 +1342,8 @@
       \strng{authorfullhash}{e610048d58846e590bab95ce56525197}
       \field{sortinit}{M}
       \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Recent technological advances have enabled massively parallel chromatin profiling with scATAC-seq (single-cell assay for transposase accessible chromatin by sequencing). Here we present ATAC with select antigen profiling by sequencing (ASAP-seq), a tool to simultaneously profile accessible chromatin and protein levels. Our approach pairs sparse scATAC-seq data with robust detection of hundreds of cell surface and intracellular protein markers and optional capture of mitochondrial DNA for clonal tracking, capturing three distinct modalities in single cells. ASAP-seq uses a bridging approach that repurposes antibody:oligonucleotide conjugates designed for existing technologies that pair protein measurements with single-cell RNA sequencing. Together with DOGMA-seq, an adaptation of CITE-seq (cellular indexing of transcriptomes and epitopes by sequencing) for measuring gene activity across the central dogma of gene regulation, we demonstrate the utility of systematic multi-omic profiling by revealing coordinated and distinct changes in chromatin, RNA and surface proteins during native hematopoietic differentiation and peripheral blood mononuclear cell stimulation and as a combinatorial decoder and reporter of multiplexed perturbations in primary T cells.}
@@ -1405,6 +1445,8 @@
       \strng{authorfullhash}{b05110c1a72f09eb62f54d934a0836c4}
       \field{sortinit}{M}
       \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The majority of variants associated with complex traits and common diseases identified by genome-wide association studies (GWAS) map to noncoding regions of the genome with unknown regulatory effects in cis and trans . By leveraging biobank-scale GWAS data, massively parallel CRISPR screens and single cell transcriptome sequencing, we discovered target genes of noncoding variants for blood trait loci. The closest gene was often the target gene, but this was not always the case. We also identified trans -effects networks of noncoding variants when cis target genes encoded transcription factors, such as GFI1B and NFE2 . We observed that GFI1B trans -target genes were enriched for GFI1B binding sites and fine-mapped GWAS variants, and expressed in human bone marrow progenitor cells, suggesting that GFI1B acts as a master regulator of blood traits. This platform will enable massively parallel assays to catalog the target genes of human noncoding variants in both cis and trans . {\#}{\#}{\#} Competing Interest Statement N.E.S. is an advisor to Vertex. T.L. is an advisor to Goldfinch Bio and GSK and, with equity, Variant Bio.}
@@ -1647,6 +1689,8 @@
       \strng{authorfullhash}{2b2386a1383d1bd5034feff7cc522d2c}
       \field{sortinit}{M}
       \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Gene-editing technologies, which include the CRISPR–Cas nucleases1–3 and CRISPR base editors4,5, have the potential to permanently modify disease-causing genes in patients6. The demonstration of durable editing in target organs of nonhuman primates is a key step before in vivo administration of gene editors to patients in clinical trials. Here we demonstrate that CRISPR base editors that are delivered in vivo using lipid nanoparticles can efficiently and precisely modify disease-related genes in living cynomolgus monkeys (Macaca fascicularis). We observed a near-complete knockdown of PCSK9 in the liver after a single infusion of lipid nanoparticles, with concomitant reductions in blood levels of PCSK9 and low-density lipoprotein cholesterol of approximately 90{\%} and about 60{\%}, respectively; all of these changes remained stable for at least 8 months after a single-dose treatment. In addition to supporting a ‘once-and-done' approach to the reduction of low-density lipoprotein cholesterol and the treatment of atherosclerotic cardiovascular disease (the leading cause of death worldwide7), our results provide a proof-of-concept for how CRISPR base editors can be productively applied to make precise single-nucleotide changes in therapeutic target genes in the liver, and potentially in other organs.}
@@ -1695,6 +1739,8 @@
       \strng{authorfullhash}{042784027f29b660943f84d4fa05902c}
       \field{sortinit}{P}
       \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The past 25 years of genomics research first revealed which genes are encoded by the human genome and then a detailed catalogue of human genome variation associated with many diseases. Despite this, the function of many genes and gene regulatory elements remains poorly characterized, which limits our ability to apply these insights to human disease. The advent of new CRISPR functional genomics tools allows for scalable and multiplexable characterization of genes and gene regulatory elements encoded by the human genome. These approaches promise to reveal mechanisms of gene function and regulation, and to enable exploration of how genes work together to modulate complex phenotypes.}
@@ -1817,6 +1863,8 @@
       \strng{authorfullhash}{879b6b2b72270f5f0ad046c8e12320a3}
       \field{sortinit}{R}
       \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Single-cell CRISPR screens enable the exploration of mammalian gene function and genetic regulatory networks. However, use of this technology has been limited by reliance on indirect indexing of single-guide RNAs (sgRNAs). Here we present direct-capture Perturb-seq, a versatile screening approach in which expressed sgRNAs are sequenced alongside single-cell transcriptomes. Direct-capture Perturb-seq enables detection of multiple distinct sgRNA sequences from individual cells and thus allows pooled single-cell CRISPR screens to be easily paired with combinatorial perturbation libraries that contain dual-guide expression vectors. We demonstrate the utility of this approach for high-throughput investigations of genetic interactions and, leveraging this ability, dissect epistatic interactions between cholesterol biogenesis and DNA repair. Using direct capture Perturb-seq, we also show that targeting individual genes with multiple sgRNAs per cell improves efficacy of CRISPR interference and activation, facilitating the use of compact, highly active CRISPR libraries for single-cell screens. Last, we show that hybridization-based target enrichment permits sensitive, specific sequencing of informative transcripts from single-cell RNA-seq experiments.}
@@ -1884,6 +1932,8 @@
       \strng{authorfullhash}{5d12285d1a83f2c5cf09962a8f40e8af}
       \field{sortinit}{R}
       \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Cran r}
@@ -2069,6 +2119,8 @@
       \strng{authorfullhash}{b060de8700cf92da890eaab1ed397960}
       \field{sortinit}{R}
       \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Most known pathogenic point mutations in humans are C•G to T•A substitutions, which can be directly repaired by adenine base editors (ABEs). In this study, we investigated the efficacy and safety of ABEs in the livers of mice and cynomolgus macaques for the reduction of blood low-density lipoprotein (LDL) levels. Lipid nanoparticle–based delivery of mRNA encoding an ABE and a single-guide RNA targeting PCSK9, a negative regulator of LDL, induced up to 67{\%} editing (on average, 61{\%}) in mice and up to 34{\%} editing (on average, 26{\%}) in macaques. Plasma PCSK9 and LDL levels were stably reduced by 95{\%} and 58{\%} in mice and by 32{\%} and 14{\%} in macaques, respectively. ABE mRNA was cleared rapidly, and no off-target mutations in genomic DNA were found. Re-dosing in macaques did not increase editing, possibly owing to the detected humoral immune response to ABE upon treatment. These findings support further investigation of ABEs to treat patients with monogenic liver diseases.}
@@ -2119,6 +2171,8 @@
       \strng{authorfullhash}{490cc8133f0d661cb13d8524bd8dc8c7}
       \field{sortinit}{S}
       \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The high proportion of zeros in typical single-cell RNA sequencing datasets has led to widespread but inconsistent use of terminology such as dropout and missing data. Here, we argue that much of this terminology is unhelpful and confusing, and outline simple ideas to help to reduce confusion. These include: (1) observed single-cell RNA sequencing counts reflect both true gene expression levels and measurement error, and carefully distinguishing between these contributions helps to clarify thinking; and (2) method development should start with a Poisson measurement model, rather than more complex models, because it is simple and generally consistent with existing data. We outline how several existing methods can be viewed within this framework and highlight how these methods differ in their assumptions about expression variation. We also illustrate how our perspective helps to address questions of biological interest, such as whether messenger RNA expression levels are multimodal among cells.}
@@ -2159,6 +2213,8 @@
       \strng{authorfullhash}{3eb50a6ffeef4529dfa5504022f5dd55}
       \field{sortinit}{S}
       \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{This paper presents an overview of the theory of measurement error bias in ordinary regression estimators when several binary explanatory variables are mismeasured. This situation commonly occurs in health-related applications where the effects of illness are modeled in a multivariate framework and where health conditions are usually 0-1 survey responses indicating the absence or presence of diseases. An analysis of the effect of psychiatric diseases on male earnings provides an empirical example that indicates extensive measurement error bias even in sophisticated survey measures that are designed to simulate clinical diagnoses. A corrected covariance matrix is constructed from a validity study of the survey mental health indicators. When ordinary least squares estimators are adjusted by this correction matrix, the estimated earnings effects drop for certain diseases (drug abuse, general phobic disorders) and rise for others (anti-social personality).}
@@ -2242,6 +2298,8 @@
       \strng{authorfullhash}{01c15356f4b6ba5ebf878b63e3e35c45}
       \field{sortinit}{S}
       \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{The transcriptome contains rich information on molecular, cellular and organismal phenotypes. However, experimental and statistical limitations constrain sensitivity and throughput of genetic screening with single-cell transcriptomics readout. To overcome these limitations, we introduce targeted Perturb-seq (TAP-seq), a sensitive, inexpensive and platform-independent method focusing single-cell RNA-seq coverage on genes of interest, thereby increasing the sensitivity and scale of genetic screens by orders of magnitude. TAP-seq permits routine analysis of thousands of CRISPR-mediated perturbations within a single experiment, detects weak effects and lowly expressed genes, and decreases sequencing requirements by up to 50-fold. We apply TAP-seq to generate perturbation-based enhancer–target gene maps for 1,778 enhancers within 2.5{\%} of the human genome. We thereby show that enhancer–target association is jointly determined by three-dimensional contact frequency and epigenetic states, allowing accurate prediction of enhancer targets throughout the genome. In addition, we demonstrate that TAP-seq can identify cell subtypes with only 100 sequencing reads per cell.}
@@ -2283,6 +2341,8 @@
       \strng{authorfullhash}{593bc1833119d5149759e9266c286717}
       \field{sortinit}{S}
       \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{issn}{1537274X}
@@ -2316,6 +2376,8 @@
       \strng{authorfullhash}{6728f2b61ee12d970d8c9dee57b038af}
       \field{sortinit}{S}
       \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{issn}{15461696}
@@ -2367,6 +2429,8 @@
       \strng{authorfullhash}{a82bb23210e811e4cfca21839d138f4d}
       \field{sortinit}{T}
       \field{sortinithash}{6f7aff9db9dcfeb7f95fd5bbd2f78df9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Single-cell RNA-Seq (scRNA-Seq) profiles gene expression of individual cells. Recent scRNA-Seq datasets have incorporated unique molecular identifiers (UMIs). Using negative controls, we show UMI counts follow multinomial sampling with no zero inflation. Current normalization procedures such as log of counts per million and feature selection by highly variable genes produce false variability in dimension reduction. We propose simple multinomial methods, including generalized principal component analysis (GLM-PCA) for non-normal distributions, and feature selection using deviance. These methods outperform the current practice in a downstream clustering assessment using ground truth datasets.}
@@ -2425,6 +2489,8 @@
       \strng{authorfullhash}{ab2e81886d8b78fcd3f33993c16d1f20}
       \field{sortinit}{X}
       \field{sortinithash}{b0b62a29ee4a21a0e618fed53a0313cc}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Single-cell screens enable high-throughput functional assessment of enhancers in their endogenous genomic context. However, the design of current studies limits their application to identifying the primary gene targets of enhancers. Here, we improve the experimental and computational parameters of single-cell enhancer screens to identify the secondary gene targets of enhancers. Our analysis of {>}500 putative enhancers in K562 cells reveals an interwoven enhancer-driven gene regulatory network. We find that enhancers from distinct genomic loci converge to modulate the expression of common sub-modules, including the $\alpha$- and $\beta$-globin loci, by directly regulating transcription factors. Our analysis suggests that several genetic variants associated with myeloid blood cell traits alter the activity of a distal enhancer of MYB (∼140 kb away), with downstream consequences on hemoglobin genes expression and cell state. These data have implications for the understanding of enhancer-associated traits and emphasize the flexibility of controlling transcriptional systems by modifying enhancer activity.}
@@ -2476,6 +2542,8 @@
       \strng{authorfullhash}{2e67a4310f84f1fed80815c18a63b932}
       \field{sortinit}{C}
       \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Heterogeneity in single-cell RNA-seq (scRNA-seq) data is driven by multiple sources, including biological variation in cellular state as well as technical variation introduced during experimental processing. Deconvolving these effects is a key challenge for preprocessing workflows. Recent work has demonstrated the importance and utility of count models for scRNA-seq analysis, but there is a lack of consensus on which statistical distributions and parameter settings are appropriate. Here, we analyze 58 scRNA-seq datasets that span a wide range of technologies, systems, and sequencing depths in order to evaluate the performance of different error models. We find that while a Poisson error model appears appropriate for sparse datasets, we observe clear evidence of overdispersion for genes with sufficient sequencing depth in all biological systems, necessitating the use of a negative binomial model. Moreover, we find that the degree of overdispersion varies widely across datasets, systems, and gene abundances, and argues for a data-driven approach for parameter estimation. Based on these analyses, we provide a set of recommendations for modeling variation in scRNA-seq data, particularly when using generalized linear models or likelihood-based approaches for preprocessing and downstream analysis. {\#}{\#}{\#} Competing Interest Statement In the past three years, RS has worked as a consultant for Bristol-Myers Squibb, Regeneron, and Kallyope, and served as an SAB member for ImmunAI, Resolve Biosciences, Nanostring and the NYC Pandemic Response Lab.}
@@ -2514,6 +2582,8 @@
       \strng{authorfullhash}{957bbc00edfe4cdf315b4dc59df7ab05}
       \field{sortinit}{F}
       \field{sortinithash}{669c706c6f1fbf3b5a83d26f1d9e9e72}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Advanced calculus}}
@@ -2536,6 +2606,8 @@
       \strng{authorfullhash}{11b3ce2e929969a2b45cd4cd367e2899}
       \field{sortinit}{L}
       \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Society}
