@@ -108,7 +108,7 @@ saveRDS(object = covariate_matrix_to_save,
 saveRDS(object = subsetted_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs.rds"))
 # subsetted pc pairs
-saveRDS(object = subsetted_pairs,
+saveRDS(object = pc_pairs,
         paste0(glmeiv_offsite_dir_gasp_data, "gRNA_gene_pairs_pc.rds"))
 # sample pairs
 saveRDS(sample_pairs,

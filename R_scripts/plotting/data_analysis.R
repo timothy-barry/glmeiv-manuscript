@@ -67,6 +67,22 @@ aggregate_df <- resampling_df %>% filter(contam_level >= 0, parameter == "m_pert
                                                                     upper_cover_ci = mean_coverage + 1.96 * sqrt((1/n_pairs) * mean_coverage * (1 - mean_coverage))) %>%
   mutate(method = factor(method, c("glmeiv", "thresholding"), c("GLM-EIV", "Thresh.")))
 
+# another version "aggregate df" that computes CI coverage rate in the more standard way
+gt_ests <- resampling_df %>% filter(contam_level == -1, target == "estimate", parameter == "m_perturbation") %>%
+  select(value, method, pair_id) %>% rename(gt_value = value)
+aggregate_df_std_ci <- resampling_df %>% filter(contam_level >= 0, parameter == "m_perturbation",
+                                 target %in% c("estimate", "confint_lower", "confint_upper")) %>%
+  select(-parameter) %>% tidyr::pivot_wider(names_from = "target", values_from = "value") %>%
+  dplyr::left_join(x = ., y = gt_ests, by = c("method", "pair_id")) %>%
+  dplyr::mutate(covered = confint_lower < gt_value & confint_upper > gt_value) %>%
+  dplyr::group_by(method, pair_id, contam_level) %>%
+  summarize(ci_coverage = mean(covered, na.rm = TRUE)) %>% dplyr::ungroup() %>%
+  dplyr::group_by(method, contam_level) %>%
+  dplyr::summarize(m_coverage = mean(ci_coverage),
+                   m_coverage_upper_ci = m_coverage + 1.96 * sd(ci_coverage)/sqrt(n_pairs),
+                   m_coverage_lower_ci = m_coverage - 1.96 * sd(ci_coverage)/sqrt(n_pairs))
+
+
 p5 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
              mapping = aes(x = contam_level, y = median_p_change, col = method)) + 
   geom_hline(yintercept = 0, col = "black", lwd = 0.5) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.25, 0.88), legend.title=element_blank()) +
@@ -75,11 +91,11 @@ p5 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
   ylab("Median REC") + scale_fill_manual(values = c(my_cols[1], my_cols[3])) + my_theme
 
 
-p6 <- ggplot(data = aggregate_df %>% filter(contam_level <= 0.4),
-             mapping = aes(x = contam_level, y = mean_coverage, col = method)) + 
+p6 <- ggplot(data = aggregate_df_std_ci %>% filter(contam_level <= 0.4),
+             mapping = aes(x = contam_level, y = m_coverage, col = method)) + 
   theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "blank", legend.title=element_blank()) +
   scale_color_manual(values = c(my_cols[1], my_cols[3])) +
-  xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0, 0.01))) + geom_ribbon(aes(ymin = lower_cover_ci, ymax = upper_cover_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
+  xlab("Excess background contamination") + scale_x_continuous(expand = expansion(mult = c(0, 0.01))) + geom_ribbon(aes(ymin = m_coverage_upper_ci, ymax = m_coverage_lower_ci, fill = method), alpha = 0.5) + geom_line(lwd = 0.85) +
   ylab("CI coverage") + scale_fill_manual(values = c(my_cols[1], my_cols[3])) + my_theme
 
 # difference between resampled 0 and fitted 0.

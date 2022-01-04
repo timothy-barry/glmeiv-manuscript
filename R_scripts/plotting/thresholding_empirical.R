@@ -10,7 +10,7 @@ my_theme <- theme(panel.border = element_blank(), panel.grid.major = element_bla
 
 # load the results
 gasp_result_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/gasperini/results/")
-thresh_res <- readRDS(paste0(gasp_result_dir, "result_thresholding.rds"))
+thresh_res <- readRDS(paste0(gasp_result_dir, "thresholding_result_pc.rds"))
 
 # study how choice of threshold influences results on Gasperini self TSS pairs
 thresh_res_pc <- thresh_res %>% dplyr::filter(site_type == "selfTSS", parameter == "m_perturbation")
@@ -38,7 +38,7 @@ p3 <- ggplot(data = to_plot, mapping = aes(x = -log(threshold_5, base = 10), y =
   xlab("Thresh = 5 (-log p)") + ylab("Thresh = 20 (-log p)") + geom_abline(slope = 1, intercept = 0) + theme_bw(base_size = 10) + my_theme
 
 # c) CI width for threshold = 5 vs threshold = 20
-to_plot <- thresh_res_pc_wide %>% dplyr::filter(target == c("confint_lower", "confint_upper")) %>% dplyr::select(-threshold_1, -threshold_3) %>%
+to_plot <- thresh_res_pc_wide %>% dplyr::filter(target == c("confint_lower", "confint_upper")) %>% dplyr::select(-threshold_1) %>%
   tidyr::pivot_longer(cols = c("threshold_5", "threshold_20"), names_to = "threshold") %>% dplyr::group_by(threshold) %>%
   dplyr::group_modify(function(tbl, key) {
     tidyr::pivot_wider(data = tbl, id_cols = "pair_id", names_from = "target", values_from = "value")
@@ -61,10 +61,6 @@ gRNA_ids_xie <- sample(x = get_feature_ids(gRNA_odm_xie), size = 1, replace = FA
 xie_gRNA <- gRNA_odm_xie[[gRNA_ids_xie,]] %>% as.numeric()
 gasp_gRNA <- gRNA_odm_gasp[[gRNA_ids_gasp,]] %>% as.numeric()
 
-# compute thresholds
-gasp_thresh <- 5
-xie_thresh <- sum(xie_gRNA)/sum(xie_gRNA >= 1)
-
 # plot histograms
 p5 <- ggplot(data = xie_gRNA %>% tibble::tibble(count = .) %>%
                dplyr::filter(count >= 1, count <= 40),
@@ -79,7 +75,6 @@ p6 <- ggplot(data = gasp_gRNA %>% tibble::tibble(count = .) %>%
   geom_histogram(binwidth = 2, col = "black", fill = my_cols[4], alpha = 0.7) +
   scale_y_continuous(trans='log10', expand = c(0, NA)) + xlab("gRNA count (Gasperini)") +
   ylab("") + theme_bw(base_size = 10) + my_theme
-  # geom_vline(xintercept = xie_thresh, col = my_cols[1], lwd = 0.8)
 
 # combine plots
 p_out <- plot_grid(p1, p2, p3, p4, p6, p5, labels = c("a", "b", "c", "d", "e", "f"), ncol = 2, rel_heights = c(1,1,0.8), align = "vh")
