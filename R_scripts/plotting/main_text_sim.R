@@ -1,6 +1,6 @@
 library(dplyr)
 library(ggplot2)
-load_all("~/research_code/simulatr/")
+library(simulatr)
 
 my_cols <- c("firebrick3", "dodgerblue3", "orchid4")
 fig_dir <- paste0(.get_config_path("LOCAL_CODE_DIR"), "glmeiv-manuscript/figures/main_text_sim")

@@ -1,4 +1,4 @@
-load_all("~/research_code/glmeiv/")
+load_all(glmeiv)
 my_cols <- c("firebrick3", "dodgerblue4", "orchid4")
 my_theme <- theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                                panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
