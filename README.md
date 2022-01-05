@@ -12,16 +12,16 @@ b. **R language**.
 
 c. **The following `R` packages**.
 ```
-# Our packages
-install.packages("devtools")
-devtools::install_github("timothy-barry/ondisc")
-devtools::install_github("timothy-barry/simulatr")
-devtools::install_github("timothy-barry/glmeiv")
-
 # Other peoples' packages
 install.packages("tidyverse")
 install.packages("cowplot")
 install.packages("MASS")
+install.packages("devtools")
+
+# Our packages
+devtools::install_github("timothy-barry/ondisc")
+devtools::install_github("timothy-barry/simulatr")
+devtools::install_github("timothy-barry/glmeiv")
 ```
 
 d. **simulatr command line utility**. `simulatr` is a (currently in-house) R package and associated command-line utility for running simulations on HPC and cloud. Install the `simulatr` command line utility via the following command:
