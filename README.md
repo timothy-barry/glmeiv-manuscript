@@ -31,7 +31,7 @@ git clone https://github.com/timothy-barry/simulatr-command-line.git
 
 # 2. Data
 
-Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z (Gasperini data), https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of (Xie data), https://upenn.box.com/s/9gv48i342liv7zz8ykedch2m2t9ogisw (GLM-EIV results and metadata). The first two directories contain the Gasperini 2019 and Xie 2019 data, respectively, and the third contains some metadata specific to the current project. The large files in the first two directories are single-cell expression matrices stored as [ondisc](https://github.com/timothy-barry/ondisc) objects.
+Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z (Gasperini data), https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of (Xie data), https://upenn.box.com/s/9gv48i342liv7zz8ykedch2m2t9ogisw (GLM-EIV results and metadata). The first two directories contain the Gasperini 2019 and Xie 2019 data, respectively, and the third contains metadata, results, and other files specific to the GLM-EIV project. The large files in the first two directories are single-cell expression matrices stored as [ondisc](https://github.com/timothy-barry/ondisc) objects.
 
 # 3. Config file
 
@@ -51,3 +51,17 @@ LOCAL_GASPERINI_2019_DATA_DIR="/Users/timbarry/research_offsite/gasperini-2019"
 LOCAL_XIE_2019_DATA_DIR="/Users/timbarry/research_offsite/xie-2019"
 SIMULATR="/Users/timbarry/research_code/simulatr-command-line"
 ```
+
+# 4. Analysis code
+Clone the current `glmeiv-manuscript` repository (which contains all the analysis replication code) to your machine:
+```
+git clone https://github.com/timothy-barry/glmeiv-manuscript.git
+```
+
+# 5. Replicate
+
+We are now ready to replicate the analyses! Change directories to the `bash_scripts` subdirectory of the `glmeiv-manuscript` directory.
+```
+cd glmeiv-manuscript/bash_scripts
+```
+The script `run_all.sh` is the master bash script to replicate all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, it likely is a better idea to execute this script line-by-line. Note that the data directories (downloaded in step 2) contain all intermediate files and results files. Therefore, you should be able to execute _any_ line of the run_all.sh script.
