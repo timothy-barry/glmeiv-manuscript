@@ -1,6 +1,6 @@
 # Code for replicating "Exponential family measurement error models for single-cell CRISPR screens"
 
-This repository contains code to reproduce the analyses reported in the paper "Exponential family measurement error models for single-cell CRISPR screens" by T Barry, E Katsevich, and K Roeder (2022). This paper introduces the "GLM-EIV" (GLM-based errors-in-variables) model and method. The `glmeiv` package is available [here](https://github.com/timothy-barry/glmeiv), and the at-scale GLM-EIV pipeline is available [here](https://github.com/timothy-barry/glmeiv-pipeline).
+This repository contains code to reproduce the analyses reported in the paper "Exponential family measurement error models for single-cell CRISPR screens" by T Barry, E Katsevich, and K Roeder (2022). This paper introduces the "GLM-EIV" (GLM-based errors-in-variables) model and method and applies the method to analyze two large-scale single-cell CRISPR screen datasets. The `glmeiv` package is available [here](https://github.com/timothy-barry/glmeiv), and the at-scale GLM-EIV pipeline is available [here](https://github.com/timothy-barry/glmeiv-pipeline).
 
 # 1. Dependencies
 
