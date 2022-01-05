@@ -74,7 +74,7 @@ The master `run_all.sh` script calls a sequence of bash scripts, each available 
 
 We note that two of the Nextflow pipelines -- namely, those contained in `bash run_gasp_gmeiv.sh` and `bash run_xie_glmeiv.sh` -- may take weeks or longer to run on a laptop. You can execute these pipelines on an HPC or cloud to reduce the compute time to a few hours. The details of how to use Nextflow are beyond the scope of this brief note (see the [docs](https://www.nextflow.io/docs/latest/index.html)). However, if you are working on an HPC with a SLURM scheduler (a common choice on many university HPCs), you can use the following quick setup.
 
-1. Login to your HPC.
+1. Login to your HPC. Install the dependences and data and set up your config file.
 2. Create a file called `~/.nextflow/config` with the following contents:
 
 ```
