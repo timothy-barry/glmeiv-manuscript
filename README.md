@@ -11,7 +11,6 @@ The code in this repository has several dependences.
 2. **R language**.
 
 3. **The following `R` packages**.
-
 ```
 # Our packages
 install.packages("devtools")
@@ -23,4 +22,9 @@ devtools::install_github("timothy-barry/glmeiv")
 install.packages("tidyverse")
 install.packages("cowplot")
 install.packages("MASS")
+```
+
+4. **simulatr command line utility**. `simulatr` is a (currently in-house) R package and associated command-line utility for running simulations on HPC and cloud. Install the `simulatr` command line utility via the following command:
+```
+git clone https://github.com/timothy-barry/simulatr-command-line.git
 ```
