@@ -38,6 +38,7 @@ Download the the following three data directories from Box: https://upenn.box.co
 We use config files to increase code portability. You will need to create a config file of your own to replicate our analyses. Use the following steps.
 
 i. Open the terminal.
+
 ii. `cd` to the home directory and create a file called `.research_config`:
 ```
 cd; touch .research_config
