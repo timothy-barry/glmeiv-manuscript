@@ -52,7 +52,7 @@ LOCAL_XIE_2019_DATA_DIR="/Users/timbarry/research_offsite/xie-2019"
 SIMULATR="/Users/timbarry/research_code/simulatr-command-line"
 ```
 
-Edit the config file above so that it points to the correct locations on your machine.
+Edit the config file above so that the variables point to the correct locations on your machine.
 
 # 4. Manuscript analysis code
 Clone the `glmeiv-manuscript` repository (which contains all the analysis replication code) to your machine:
