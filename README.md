@@ -65,7 +65,7 @@ We are now ready to replicate the analyses! Change directories to the `bash_scri
 ```
 cd glmeiv-manuscript/bash_scripts
 ```
-The script `run_all.sh` is the master bash script that replicates all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, executing this script line-by-line is a better option, as some commands therein would take a month or more to execute on a laptop. Note that the data directories (downloaded in step 2) contain all intermediate and results files required to reproduce the analyses. Therefore, you can execute _any_ line of the run_all.sh script in any order.
+The script `run_all.sh` is the master bash script that replicates all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, executing this script line-by-line is a better option, as some commands within this script take a month or longer to execute on a laptop. Note that the data directories (downloaded in step 2) contain all intermediate and results files required to reproduce the analyses. Therefore, you can execute _any_ line of the run_all.sh script in any order.
 
 # 6. A note on Nextflow
 The master `run_all.sh` script calls a sequence of bash scripts, each available in the `glmeiv-manuscript/bash_scripts` directory. Several of these bash scripts -- namely, `bash run_gasp_gmeiv.sh`, `bash run_xie_glmeiv.sh`, `bash run_gasp_thresholding.sh`, `bash run_xie_thresh.sh`, `bash run_gasp_pc_thresholding.sh`, and `bash run_gasp_resampling.sh` -- call Nextflow pipelines. You can execute all Nextflow-calling bash scripts on your local machine, provided that you have downloaded and installed the Nextflow executable.
