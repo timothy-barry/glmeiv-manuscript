@@ -31,7 +31,7 @@ git clone https://github.com/timothy-barry/simulatr-command-line.git
 
 # 2. Data
 
-Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z (Gasperini data), https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of (Xie data), https://upenn.box.com/s/9gv48i342liv7zz8ykedch2m2t9ogisw (GLM-EIV results and metadata). The first two directories contain the Gasperini 2019 and Xie 2019 data, respectively, and the third contains metadata, results, and other files specific to the GLM-EIV project.
+Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z (Gasperini data), https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of (Xie data), https://upenn.box.com/v/glmeiv-files-v1 (GLM-EIV results and metadata). The first two directories contain the Gasperini 2019 and Xie 2019 data, respectively, and the third contains metadata, results, and other files specific to the GLM-EIV project.
 
 The large files in the first two directories are single-cell expression matrices stored as [ondisc](https://github.com/timothy-barry/ondisc) objects. `ondisc` is an R package for large-scale single-cell computing.
 
