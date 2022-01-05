@@ -12,7 +12,7 @@ b. **R language**.
 
 c. **The following `R` packages**.
 ```
-# Other peoples' packages
+# Other developers' packages
 install.packages("tidyverse")
 install.packages("cowplot")
 install.packages("MASS")
