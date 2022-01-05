@@ -31,7 +31,7 @@ git clone https://github.com/timothy-barry/simulatr-command-line.git
 
 # 2. Data
 
-Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z (Gasperini data), https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of (Xie data), https://upenn.box.com/s/9gv48i342liv7zz8ykedch2m2t9ogisw (GLM-EIV results and metadata). The first two directories contain the Gasperini 2019 and Xie 2019 data, respectively, and the third contains metadata, results, and other files specific to the GLM-EIV project. The large files in the first two directories are single-cell expression matrices stored as [ondisc](https://github.com/timothy-barry/ondisc) objects.
+Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z (Gasperini data), https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of (Xie data), https://upenn.box.com/s/9gv48i342liv7zz8ykedch2m2t9ogisw (GLM-EIV results and metadata). The first two directories contain the Gasperini 2019 and Xie 2019 data, respectively, and the third contains metadata, results, and other files specific to the GLM-EIV project. The large files in the first two directories are single-cell expression matrices stored as [ondisc](https://github.com/timothy-barry/ondisc) objects. `ondisc` is an R package (with a C++ backend) for large-scale single-cell computing.
 
 # 3. Config file
 
@@ -54,8 +54,8 @@ SIMULATR="/Users/timbarry/research_code/simulatr-command-line"
 
 Edit the config file above so that it points to the correct locations on your machine.
 
-# 4. Analysis code
-Clone the current `glmeiv-manuscript` repository (which contains all the analysis replication code) to your machine:
+# 4. Manuscript analysis code
+Clone the `glmeiv-manuscript` repository (which contains all the analysis replication code) to your machine:
 ```
 git clone https://github.com/timothy-barry/glmeiv-manuscript.git
 ```
@@ -65,8 +65,28 @@ We are now ready to replicate the analyses! Change directories to the `bash_scri
 ```
 cd glmeiv-manuscript/bash_scripts
 ```
-The script `run_all.sh` is the master bash script to replicate all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, it is a better idea to execute this script line-by-line, as some of the commands within this bash script would take more than a month to execute on a laptop. Note that the data directories (downloaded in step 2) contain all intermediate files and results files. Therefore, you can execute _any_ line of the run_all.sh script at your discretion.
+The script `run_all.sh` is the master bash script that replicates all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, executing this script line-by-line is a better option, as some commands therein would take a month or more to execute on a laptop. Note that the data directories (downloaded in step 2) contain all intermediate and results files required to reproduce the analyses. Therefore, you can execute _any_ line of the run_all.sh script in any order.
 
 # 6. A note on Nextflow
-Some commands within the `run_all.sh` script call Nextflow pipelines. Those commands are as follows: `bash run_gasp_gmeiv.sh`, `bash run_xie_glmeiv.sh`, `bash run_gasp_thresholding.sh`, `bash run_xie_thresh.sh`, `bash run_gasp_pc_thresholding.sh`, `bash run_gasp_resampling.sh`. You can examine each of these commands by 
-checking the corresponding bash scripts.
+The master `run_all.sh` script basically calls a sequence of bash scripts, each available in the `glmeiv-manuscript/bash_scripts` directory. Several of these bash scripts -- namely, `bash run_gasp_gmeiv.sh`, `bash run_xie_glmeiv.sh`, `bash run_gasp_thresholding.sh`, `bash run_xie_thresh.sh`, `bash run_gasp_pc_thresholding.sh`, and `bash run_gasp_resampling.sh` -- call Nextflow pipelines. You can execute all Nextflow-calling bash scripts on your local machine, provided that you have downloaded and installed the Nextflow program.
+
+We note that two of the Nextflow-calling Bash scipts -- namely, `bash run_gasp_gmeiv.sh` and `bash run_xie_glmeiv.sh` -- may take weeks or longer to run on a laptop. You instead can execute these bash scripts on an HPC or cloud to carry out the computations in a much shorter amount of time (i.e., a few hours). The details of how to build and run a Nextflow pipeline are beyond the scope of this brief note (see the [docs](https://www.nextflow.io/docs/latest/index.html)). However, if you are working on an HPC with a Slurm scheduler (a common choice on university HPCs), you can use the following quick setup.
+
+1. Login to your HPC.
+2. Create a file called `~/.nextflow/config` with the following contents:
+
+```
+process {
+   executor = 'slurm'
+}
+
+executor {
+   queueSize = 200
+   submitRateLimit = '30 sec'
+   pollInterval = '1 min'
+   queueStatInterval = '5 min'
+}
+```
+3. Execute the bash script by submitting it as a job to the scheduler using `sbatch`. For example, `sbatch run_gasp_gmeiv.sh`.
+
+If you are interested in running the pipeline on an HPC that uses a different scheduler (e.g., Sun Grid) or on a cloud (e.g., Azure or AWS), please contact the authors after briefly familiarizing yourself with the Nextflow docs.
