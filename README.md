@@ -24,7 +24,7 @@ devtools::install_github("timothy-barry/simulatr")
 devtools::install_github("timothy-barry/glmeiv")
 ```
 
-d. **simulatr command line utility**. `simulatr` is a (currently in-house) R package and associated command-line utility for running simulations on HPC and cloud. Install the `simulatr` command line utility via the following command:
+d. **simulatr command line utility**. `simulatr` is a (currently in-house) R package and associated command-line utility for running simulation experiments on HPC and cloud. Install the `simulatr` command line utility via the following command:
 ```
 git clone https://github.com/timothy-barry/simulatr-command-line.git
 ```
