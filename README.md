@@ -57,7 +57,6 @@ Clone the current `glmeiv-manuscript` repository (which contains all the analysi
 ```
 git clone https://github.com/timothy-barry/glmeiv-manuscript.git
 ```
-
 # 5. Replicate
 
 We are now ready to replicate the analyses! Change directories to the `bash_scripts` subdirectory of the `glmeiv-manuscript` directory.
