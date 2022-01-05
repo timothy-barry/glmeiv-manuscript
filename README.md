@@ -64,4 +64,4 @@ We are now ready to replicate the analyses! Change directories to the `bash_scri
 ```
 cd glmeiv-manuscript/bash_scripts
 ```
-The script `run_all.sh` is the master bash script that replicate all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, it likely is a better idea to execute this script line-by-line. Note that the data directories (downloaded in step 2) contain all intermediate files and results files. Therefore, you should be able to execute _any_ line of the run_all.sh script.
+The script `run_all.sh` is the master bash script that replicates all analayses reported in the paper. In theory you could run this script by calling `bash run_all.sh`. However, it likely is a better idea to execute this script line-by-line. Note that the data directories (downloaded in step 2) contain all intermediate files and results files. Therefore, you should be able to execute _any_ line of the run_all.sh script.
