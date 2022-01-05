@@ -43,7 +43,7 @@ ii. `cd` to the home directory and create a file called `.research_config`:
 ```
 cd; touch .research_config
 ```
-iii. Edit the .research_config file. Set the variables `LOCAL_GLMEIV_DATA_DIR`, `LOCAL_GASPERINI_2019_DATA_DIR`, `LOCAL_XIE_2019_DATA_DIR`, and `SIMULATR` to the file paths to the GLM-EIV results directory, Gasperini data directory, Xie data directory, and simulatr directory, respectively, on your machine. For example, I (TB) have the above directories stored in the following locations on my machine: "/Users/timbarry/research_offsite/glmeiv", "/Users/timbarry/research_offsite/gasperini-2019", "/Users/timbarry/research_offsite/xie-2019", and "/Users/timbarry/research_code/simulatr-command-line". Therefore, my config file is as follows:  
+iii. Edit the .research_config file. Set the variables `LOCAL_GLMEIV_DATA_DIR`, `LOCAL_GASPERINI_2019_DATA_DIR`, `LOCAL_XIE_2019_DATA_DIR`, and `SIMULATR` to the file paths of the GLM-EIV results directory, Gasperini data directory, Xie data directory, and simulatr directory, respectively, on your machine. For example, I (TB) have the above directories stored in the following locations on my machine: "/Users/timbarry/research_offsite/glmeiv", "/Users/timbarry/research_offsite/gasperini-2019", "/Users/timbarry/research_offsite/xie-2019", and "/Users/timbarry/research_code/simulatr-command-line". Therefore, my config file is as follows:  
 
 ```
 LOCAL_GLMEIV_DATA_DIR="/Users/timbarry/research_offsite/glmeiv"
