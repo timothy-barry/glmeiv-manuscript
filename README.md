@@ -28,3 +28,7 @@ install.packages("MASS")
 ```
 git clone https://github.com/timothy-barry/simulatr-command-line.git
 ```
+
+# 2. Data
+
+Download the the following three data directories from Box: https://upenn.box.com/s/34bi9u90sgsajbvwuacqcd8pog1twq6z, https://upenn.box.com/s/qgbr6dmhr1dkviupibu7ef7bymde37of, https://upenn.box.com/s/9gv48i342liv7zz8ykedch2m2t9ogisw. The first two directories contain the Gasperini 2019 and Xie 2019 data, and the third contains some metadata specific to the GLM-EIV paper. The data are single-cell expression matrices stored as [ondisc](https://github.com/timothy-barry/ondisc) objects.
