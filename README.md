@@ -6,7 +6,7 @@ This repository contains code to reproduce the analyses reported in the paper "E
 
 The code in this repository has several dependences.
 
-a. **Nextflow**. `Nextflow` is a programming language that facilitates building data-intensive pipelines for deployment on HPC and cloud. Download and install `Nextflow`using the instructions [here](https://github.com/timothy-barry/glmeiv).
+a. **Nextflow**. `Nextflow` is a programming language that facilitates building data-intensive pipelines for deployment on HPC and cloud. Download and install `Nextflow`using the instructions [here](https://www.nextflow.io).
 
 b. **R language**.
 
