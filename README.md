@@ -10,7 +10,7 @@ a. **Nextflow**. `Nextflow` is a programming language that facilitates building 
 
 b. **R language**.
 
-c. **The following `R` packages**.
+c. **The following R packages**.
 ```
 # Other developers' packages
 install.packages("tidyverse")
