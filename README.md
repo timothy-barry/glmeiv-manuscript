@@ -56,6 +56,14 @@ SIMULATR="/Users/timbarry/research_code/simulatr-command-line"
 
 Edit the config file above so that the variables point to the correct locations on your machine.
 
+Finally, add the following function to your `.Rprofile`, which should be located in your home directory:
+```
+.get_config_path <- function(dir_name) {
+  cmd <- paste0("source ~/.research_config; echo $", dir_name)
+  system(command = cmd, intern = TRUE)
+}
+```
+
 # 4. Manuscript analysis code
 Clone the `glmeiv-manuscript` repository (which contains all the analysis replication code) to your machine:
 ```
