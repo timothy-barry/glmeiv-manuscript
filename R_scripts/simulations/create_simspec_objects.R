@@ -15,24 +15,21 @@ save_obj <- function(obj, file_path, overwrite) {
 }
 sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/spec_objects")
 
-one_rep_times <- list(generate_data_function = NA_integer_,
-                      thresholding = NA_integer_,
-                      glmeiv_fast = NA_integer_,
-                      glmeiv_slow = NA_integer_)
-
-##############################
-# Experiment 0
+######################################
+# Experiment 0 (NOT REPORTED IN PAPER)
 # Vary g_pert
 # Fix distribution to Poisson
 # All three methods
 # One covariate (batch)
-##############################
+######################################
 set.seed(4)
+m_perturbation <- log(0.25)
 theta <- 20
-n <- 150000
+n <- 15000 # 150000
 g_perturbation_grid <- log(seq(1, 4, 0.5))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid)
 param_grid$grid_id <- seq(1, nrow(param_grid))
+param_grid$ground_truth <- m_perturbation
 
 fixed_params <- list(
   m_fam = poisson() %>% augment_family_object(),
@@ -41,7 +38,7 @@ fixed_params <- list(
   n = n,
   B = 500,
   m_intercept = log(0.01),
-  m_perturbation = log(0.25),
+  m_perturbation = m_perturbation,
   g_intercept = log(0.005),
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
   m_covariate_coefs = log(0.9),
@@ -49,7 +46,7 @@ fixed_params <- list(
   n_processors = 20,
   alpha = 0.95,
   n_em_rep = 15,
-  save_membership_probs_mult = 500,
+  save_membership_probs_mult = 1000L,
   pi = 0.02,
   m_offset = log(rpois(n = n, lambda = 10000)),
   g_offset = log(rpois(n = n, lambda = 5000)),
@@ -60,15 +57,19 @@ fixed_params <- list(
   g_intercept_guess_range = log(c(1e-4, 1e-1)),
   m_covariate_coefs_guess_range = log(c(0.25, 2)),
   g_covariate_coefs_guess_range = log(c(0.25, 2)),
-  run_unknown_theta_precomputation = FALSE)
+  run_unknown_theta_precomputation = FALSE,
+  exponentiate_coefs = FALSE,
+  ep_tol = 1e-4)
 
 sim_spec_0 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
-                                               one_rep_times = one_rep_times,
                                                methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_0, B_in = 2, parallel = TRUE)
-save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = overwrite)
 
+check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_0,
+                                                   B_in = 2,
+                                                   parallel = TRUE)
+
+save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = overwrite)
 
 ####################################################################
 # Experiment 1
