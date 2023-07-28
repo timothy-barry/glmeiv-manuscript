@@ -40,11 +40,11 @@ bash run_gasp_pc_thresholding.sh
 # 4. Simulations
 ################
 sim_dir=$LOCAL_GLMEIV_DATA_DIR"public/simulations/"
-sim_command=$SIMULATR"/run_simulation.sh"
-Rscript ../R_scripts/simulations/create_simspec_objects.R
-$sim_command -f $sim_dir"spec_objects/sim_spec_0.rds" -r $sim_dir"results/raw_result_0.rds"
-$sim_command -f $sim_dir"spec_objects/sim_spec_1.rds" -r $sim_dir"results/raw_result_1.rds"
-$sim_command -f $sim_dir"spec_objects/sim_spec_2.rds" -r $sim_dir"results/raw_result_2.rds"
+#sim_command=$SIMULATR"/run_simulation.sh"
+#Rscript ../R_scripts/simulations/create_simspec_objects.R
+#$sim_command -f $sim_dir"spec_objects/sim_spec_0.rds" -r $sim_dir"results/raw_result_0.rds"
+#$sim_command -f $sim_dir"spec_objects/sim_spec_1.rds" -r $sim_dir"results/raw_result_1.rds"
+#$sim_command -f $sim_dir"spec_objects/sim_spec_2.rds" -r $sim_dir"results/raw_result_2.rds"
 
 ##################################
 # 5. Gasperini resampling analysis

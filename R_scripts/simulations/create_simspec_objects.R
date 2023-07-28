@@ -63,12 +63,10 @@ fixed_params <- list(
 
 sim_spec_0 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
-                                               methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-
+                                               methods = c("glmeiv_fast", "thresholding"))
 check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_0,
                                                    B_in = 2,
                                                    parallel = TRUE)
-
 save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = overwrite)
 
 ####################################################################
@@ -77,6 +75,7 @@ save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overw
 # Vary distribution (Poisson, NB (known theta), NB (estimated theta)
 # One covariate: batch (bernoulli variable)
 ####################################################################
+if (FALSE) {
 set.seed(4)
 theta <- 20
 n <- 150000
@@ -174,3 +173,4 @@ sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
 
 # check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overwrite = overwrite)
+}
