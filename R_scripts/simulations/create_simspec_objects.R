@@ -15,8 +15,9 @@ save_obj <- function(obj, file_path, overwrite) {
 }
 sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/spec_objects")
 
+if (FALSE) {
 ######################################
-# Experiment 0 (NOT REPORTED IN PAPER)
+# Experiment 0 
 # Vary g_pert
 # Fix distribution to Poisson
 # All three methods
@@ -25,7 +26,7 @@ sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations
 set.seed(4)
 m_perturbation <- log(0.25)
 theta <- 20
-n <- 15000 # 150000
+n <- 150000
 g_perturbation_grid <- log(seq(1, 4, 0.5))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid)
 param_grid$grid_id <- seq(1, nrow(param_grid))
@@ -43,7 +44,6 @@ fixed_params <- list(
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
   m_covariate_coefs = log(0.9),
   g_covariate_coefs = log(1.1),
-  n_processors = 20,
   alpha = 0.95,
   n_em_rep = 15,
   save_membership_probs_mult = 1000L,
@@ -68,6 +68,7 @@ check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_0,
                                                    B_in = 2,
                                                    parallel = TRUE)
 save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = overwrite)
+}
 
 ####################################################################
 # Experiment 1
@@ -75,18 +76,20 @@ save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overw
 # Vary distribution (Poisson, NB (known theta), NB (estimated theta)
 # One covariate: batch (bernoulli variable)
 ####################################################################
-if (FALSE) {
 set.seed(4)
+m_perturbation <- log(0.25)
 theta <- 20
-n <- 150000
+n <- 15000 # n <- 150000
 g_perturbation_grid <- log(seq(1, 4, 0.5))
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
-                          fam_str = c("nb_theta_unknown", "nb_theta_known"))
+                          fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
+param_grid$ground_truth <- m_perturbation
 fam_obj <- lapply(as.character(param_grid$fam_str), function(str) {
   switch(EXPR = str,
-         "nb_theta_unknown" = MASS::negative.binomial(theta),
-         "nb_theta_known" = MASS::negative.binomial(theta)) %>% glmeiv::augment_family_object()
+         "nb_theta_unknown" = MASS::negative.binomial(theta) |> glmeiv::augment_family_object(),
+         "nb_theta_known" = MASS::negative.binomial(theta) |> glmeiv::augment_family_object(),
+         "poisson" = poisson() |> glmeiv::augment_family_object())
 })
 param_grid$m_fam <- param_grid$g_fam <- fam_obj
 param_grid$run_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
@@ -101,10 +104,9 @@ fixed_params <- list(
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
   m_covariate_coefs = log(0.9),
   g_covariate_coefs = log(1.1),
-  n_processors = 20,
   alpha = 0.95,
   n_em_rep = 15,
-  save_membership_probs_mult = 500,
+  save_membership_probs_mult = 1000L,
   pi = 0.02,
   m_offset = log(rpois(n = n, lambda = 10000)),
   g_offset = log(rpois(n = n, lambda = 5000)),
@@ -114,15 +116,16 @@ fixed_params <- list(
   m_intercept_guess_range = log(c(1e-4, 1e-1)),
   g_intercept_guess_range = log(c(1e-4, 1e-1)),
   m_covariate_coefs_guess_range = log(c(0.25, 2)),
-  g_covariate_coefs_guess_range = log(c(0.25, 2)))
+  g_covariate_coefs_guess_range = log(c(0.25, 2)),
+  exponentiate_coefs = FALSE,
+  ep_tol = 1e-4)
 
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
-                                               one_rep_times = one_rep_times,
                                                methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
+#check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1,
+#                                                   B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
-
 
 ########################################
 # Experiment 2
@@ -130,6 +133,7 @@ save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overw
 # Vary g_perturbation
 # Two covariates: batch, library size
 ########################################
+if (FALSE) {
 set.seed(4)
 n <- 150000
 g_perturbation_grid <- seq(0, 7)
