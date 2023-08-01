@@ -3,7 +3,7 @@ library(glmeiv)
 library(simulatr)
 
 args <- commandArgs(trailingOnly = TRUE)
-overwrite <- if (is.na(args[1])) TRUE else as.logical(args[1])
+overwrite <- TRUE # if (is.na(args[1])) TRUE else as.logical(args[1])
 save_obj <- function(obj, file_path, overwrite) {
   if (!file.exists(file_path)) { # if file does not exist, save
     saveRDS(obj, file_path)
@@ -15,65 +15,10 @@ save_obj <- function(obj, file_path, overwrite) {
 }
 sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/spec_objects")
 
-if (FALSE) {
-######################################
-# Experiment 0 
-# Vary g_pert
-# Fix distribution to Poisson
-# All three methods
-# One covariate (batch)
-######################################
-set.seed(4)
-m_perturbation <- log(0.25)
-theta <- 20
-n <- 150000
-g_perturbation_grid <- log(seq(1, 4, 0.5))
-param_grid <- expand.grid(g_perturbation = g_perturbation_grid)
-param_grid$grid_id <- seq(1, nrow(param_grid))
-param_grid$ground_truth <- m_perturbation
-
-fixed_params <- list(
-  m_fam = poisson() %>% augment_family_object(),
-  g_fam = poisson() %>% augment_family_object(),
-  seed = 4,
-  n = n,
-  B = 500,
-  m_intercept = log(0.01),
-  m_perturbation = m_perturbation,
-  g_intercept = log(0.005),
-  covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
-  m_covariate_coefs = log(0.9),
-  g_covariate_coefs = log(1.1),
-  alpha = 0.95,
-  n_em_rep = 15,
-  save_membership_probs_mult = 1000L,
-  pi = 0.02,
-  m_offset = log(rpois(n = n, lambda = 10000)),
-  g_offset = log(rpois(n = n, lambda = 5000)),
-  pi_guess_range = c(1e-5, 0.03),
-  m_perturbation_guess_range = log(c(0.1, 1.5)),
-  g_perturbation_guess_range = log(c(0.5, 10)),
-  m_intercept_guess_range = log(c(1e-4, 1e-1)),
-  g_intercept_guess_range = log(c(1e-4, 1e-1)),
-  m_covariate_coefs_guess_range = log(c(0.25, 2)),
-  g_covariate_coefs_guess_range = log(c(0.25, 2)),
-  run_unknown_theta_precomputation = FALSE,
-  exponentiate_coefs = FALSE,
-  ep_tol = 1e-4)
-
-sim_spec_0 <- create_simulatr_specifier_object(param_grid = param_grid,
-                                               fixed_params = fixed_params,
-                                               methods = c("glmeiv_fast", "thresholding"))
-check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_0,
-                                                   B_in = 2,
-                                                   parallel = TRUE)
-save_obj(obj = sim_spec_0, file_path = paste0(sim_dir, "/sim_spec_0.rds"), overwrite = overwrite)
-}
-
 ####################################################################
-# Experiment 1
+# Experiment 1 (main text simulation)
 # Vary g_pert, fix all other parameters
-# Vary distribution (Poisson, NB (known theta), NB (estimated theta)
+# Vary distribution: Poisson, NB (known theta), NB (estimated theta)
 # One covariate: batch (bernoulli variable)
 ####################################################################
 set.seed(4)
@@ -122,9 +67,10 @@ fixed_params <- list(
 
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
-                                               methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-#check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1,
-#                                                   B_in = 2, parallel = TRUE)
+                                               # methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
+                                               methods = c("glmeiv_fast", "thresholding"))
+# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1,
+#                                                    B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
 
 ########################################
@@ -133,21 +79,23 @@ save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overw
 # Vary g_perturbation
 # Two covariates: batch, library size
 ########################################
-if (FALSE) {
 set.seed(4)
-n <- 150000
+n <- 20000
 g_perturbation_grid <- seq(0, 7)
 param_grid <- data.frame(g_perturbation = g_perturbation_grid,
                          grid_id = seq(1, length(g_perturbation_grid)))
+m_perturbation <- -4
+param_grid$ground_truth <- m_perturbation
+
 fixed_params <- list(
-  m_fam = gaussian() %>% augment_family_object(),
-  g_fam = gaussian() %>% augment_family_object(),
+  m_fam = gaussian() |> augment_family_object(),
+  g_fam = gaussian() |> augment_family_object(),
   seed = 4,
   n = n,
-  B = 1000,
+  B = 500,
   m_intercept = 3,
-  m_perturbation = -4,
   g_intercept = 1,
+  m_perturbation = m_perturbation,
   covariate_matrix = data.frame(lib_size = rpois(n = n, lambda = 10000),
                                 batch = rbinom(n = n, size = 1, prob = 0.5)),
   m_covariate_coefs = c(0.0025, 0.1),
@@ -155,7 +103,7 @@ fixed_params <- list(
   n_processors = 20,
   alpha = 0.95,
   n_em_rep = 25,
-  save_membership_probs_mult = 500,
+  save_membership_probs_mult = 1000L,
   pi = 0.05,
   m_offset = NULL,
   g_offset = NULL,
@@ -172,9 +120,58 @@ fixed_params <- list(
 
 sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
-                                               one_rep_times = one_rep_times,
                                                methods = c("glmeiv_fast", "thresholding"))
-
-# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2, parallel = TRUE)
+# check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2)
 save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overwrite = overwrite)
-}
+
+
+#####################################################################################
+# Experiment 3: varying the size parameter
+# We vary the size parameter over the grid 1, 3, 5, 10, 20, 50, 100
+# We hold fixed other parameters. We apply NB regression (known theta)
+# and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
+#####################################################################################
+
+n <- 20000
+m_perturbation <- log(0.5)
+thetas <- c(1, 3, 5, 10, 20, 50, 100)
+m_fams <- lapply(thetas, function(theta) MASS::negative.binomial(theta) |> augment_family_object())
+param_grid <- expand.grid(m_fam = m_fams,
+                          run_unknown_theta_precomputation = c(TRUE, FALSE))
+param_grid$ground_truth <- m_perturbation
+param_grid$grid_id <- seq(1L, nrow(param_grid))
+
+fixed_params <- list(
+  g_fam = poisson() |> augment_family_object(),
+  seed = 4,
+  n = n,
+  B = 500,
+  g_perturbation = log(2),
+  m_intercept = log(0.01),
+  g_intercept = log(0.005),
+  m_perturbation = m_perturbation,
+  covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
+  m_covariate_coefs = log(0.9),
+  g_covariate_coefs = log(1.1),
+  alpha = 0.95,
+  n_em_rep = 25,
+  save_membership_probs_mult = 1000L,
+  pi = 0.05,
+  m_offset = log(rpois(n = n, lambda = 10000)),
+  g_offset = log(rpois(n = n, lambda = 5000)),
+  pi_guess_range = c(1e-5, 0.1),
+  m_perturbation_guess_range = log(c(0.1, 1.5)),
+  g_perturbation_guess_range = log(c(0.5, 10)),
+  m_intercept_guess_range = log(c(1e-4, 1e-1)),
+  g_intercept_guess_range = log(c(1e-4, 1e-1)),
+  m_covariate_coefs_guess_range = log(c(0.25, 2)),
+  g_covariate_coefs_guess_range = log(c(0.25, 2)),
+  exponentiate_coefs = FALSE,
+  ep_tol = 1e-4)
+
+sim_spec_3 <- create_simulatr_specifier_object(param_grid = param_grid,
+                                               fixed_params = fixed_params,
+                                               methods = c("glmeiv_fast", "thresholding"))
+check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_3, B_in = 2)
+save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overwrite = overwrite)
+

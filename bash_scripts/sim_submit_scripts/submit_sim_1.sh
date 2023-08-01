@@ -8,5 +8,5 @@ nextflow pull timothy-barry/simulatr-pipeline
 nextflow run timothy-barry/simulatr-pipeline \
  --simulatr_specifier_fp $spec_obj_1 \
  --result_dir $result_dir \
- --result_file_name "sim_res_1.rds"
- 
+ --result_file_name "sim_res_1.rds" \
+ --max_gb 3
