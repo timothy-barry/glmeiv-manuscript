@@ -134,6 +134,7 @@ param_grid <- expand.grid(m_fam = m_fams,
 param_grid$theta <- sapply(param_grid$m_fam, function(fam) fam$theta)
 param_grid$ground_truth <- m_perturbation
 param_grid$grid_id <- seq(1L, nrow(param_grid))
+
 fixed_params <- list(
   g_fam = poisson() |> augment_family_object(),
   seed = 4,
