@@ -125,22 +125,21 @@ save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overw
 # We hold fixed other parameters. We apply NB regression (known theta)
 # and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
 #####################################################################################
-
 n <- 20000
-m_perturbation <- log(0.5)
+m_perturbation <- log(0.25)
 thetas <- c(1, 3, 5, 10, 20, 50, 100)
 m_fams <- lapply(thetas, function(theta) MASS::negative.binomial(theta) |> augment_family_object())
 param_grid <- expand.grid(m_fam = m_fams,
                           run_unknown_theta_precomputation = c(TRUE, FALSE))
+param_grid$theta <- sapply(param_grid$m_fam, function(fam) fam$theta)
 param_grid$ground_truth <- m_perturbation
 param_grid$grid_id <- seq(1L, nrow(param_grid))
-
 fixed_params <- list(
   g_fam = poisson() |> augment_family_object(),
   seed = 4,
   n = n,
   B = 500,
-  g_perturbation = log(2),
+  g_perturbation = log(3),
   m_intercept = log(0.01),
   g_intercept = log(0.005),
   m_perturbation = m_perturbation,
@@ -156,16 +155,11 @@ fixed_params <- list(
   pi_guess_range = c(1e-5, 0.1),
   m_perturbation_guess_range = log(c(0.1, 1.5)),
   g_perturbation_guess_range = log(c(0.5, 10)),
-  m_intercept_guess_range = log(c(1e-4, 1e-1)),
-  g_intercept_guess_range = log(c(1e-4, 1e-1)),
-  m_covariate_coefs_guess_range = log(c(0.25, 2)),
-  g_covariate_coefs_guess_range = log(c(0.25, 2)),
   exponentiate_coefs = FALSE,
   ep_tol = 1e-4)
-
 sim_spec_3 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                methods = c("glmeiv_fast", "thresholding"))
-# check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_3, B_in = 2)
+check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_3, B_in = 2)
 save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overwrite = overwrite)
 
