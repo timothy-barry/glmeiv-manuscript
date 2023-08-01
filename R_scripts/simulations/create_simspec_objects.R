@@ -100,7 +100,6 @@ fixed_params <- list(
                                 batch = rbinom(n = n, size = 1, prob = 0.5)),
   m_covariate_coefs = c(0.0025, 0.1),
   g_covariate_coefs = c(-0.005, 0.2),
-  n_processors = 20,
   alpha = 0.95,
   n_em_rep = 25,
   save_membership_probs_mult = 1000L,
@@ -110,10 +109,6 @@ fixed_params <- list(
   pi_guess_range = c(0.0, 0.1),
   m_perturbation_guess_range = c(-6, -2),
   g_perturbation_guess_range = c(0, 8),
-  m_intercept_guess_range = c(3, 3),
-  g_intercept_guess_range = c(1, 1),
-  m_covariate_coefs_guess_range = c(0.0025, 0.0025),
-  g_covariate_coefs_guess_range = c(-0.005, -0.005),
   run_unknown_theta_precomputation = FALSE,
   exponentiate_coefs = FALSE,
   ep_tol = 1e-7)
@@ -121,9 +116,8 @@ fixed_params <- list(
 sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                methods = c("glmeiv_fast", "thresholding"))
-# check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2)
+check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2)
 save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overwrite = overwrite)
-
 
 #####################################################################################
 # Experiment 3: varying the size parameter
