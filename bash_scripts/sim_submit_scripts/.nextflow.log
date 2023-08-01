@@ -1,0 +1,110 @@
+Aug-01 14:58:16.876 [main] DEBUG nextflow.cli.Launcher - $> nextflow run /Users/timbarry/research_code/simulatr-pipeline/main.nf --simulatr_specifier_fp /Users/timbarry/research_offsite/projects/glmeiv/public/simulations/spec_objects/sim_spec_1.rds --result_dir /Users/timbarry/research_offsite/projects/glmeiv/public/simulations/results/ --result_file_name sim_res_1.rds --max_gb 3
+Aug-01 14:58:16.994 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.3
+Aug-01 14:58:17.016 [main] DEBUG nextflow.config.ConfigBuilder - Found config home: /Users/timbarry/.nextflow/config
+Aug-01 14:58:17.017 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /Users/timbarry/research_code/simulatr-pipeline/nextflow.config
+Aug-01 14:58:17.019 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/timbarry/.nextflow/config
+Aug-01 14:58:17.019 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/timbarry/research_code/simulatr-pipeline/nextflow.config
+Aug-01 14:58:17.057 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Aug-01 14:58:17.859 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Aug-01 14:58:17.915 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=1 by probing script field
+Aug-01 14:58:17.945 [main] INFO  nextflow.cli.CmdRun - Launching `/Users/timbarry/research_code/simulatr-pipeline/main.nf` [angry_laplace] DSL1 - revision: 7407157641
+Aug-01 14:58:17.964 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/timbarry/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Aug-01 14:58:17.967 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-01 14:58:17.982 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-01 14:58:17.984 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-01 14:58:17.988 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Aug-01 14:58:17.999 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-01 14:58:18.084 [main] DEBUG nextflow.Session - Session uuid: 4db11c7d-89a9-41f7-bc31-e5775d3e2a6b
+Aug-01 14:58:18.084 [main] DEBUG nextflow.Session - Run name: angry_laplace
+Aug-01 14:58:18.085 [main] DEBUG nextflow.Session - Executor pool size: 8
+Aug-01 14:58:18.285 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.3 build 5703
+  Created: 18-05-2022 19:22 UTC (15:22 EDT)
+  System: Mac OS X 10.16
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 1.8.0_242-b08
+  Encoding: UTF-8 (UTF-8)
+  Process: 23745@Tims-MacBook-Pro-2021.local [10.0.0.124]
+  CPUs: 8 - Mem: 16 GB (49.1 MB) - Swap: 2 GB (1.4 GB)
+Aug-01 14:58:18.300 [main] DEBUG nextflow.Session - Work-dir: /Users/timbarry/research_offsite/work [Mac OS X]
+Aug-01 14:58:18.333 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-01 14:58:18.354 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-01 14:58:18.406 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-01 14:58:18.427 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 9; maxThreads: 1000
+Aug-01 14:58:18.611 [main] DEBUG nextflow.Session - Session start invoked
+Aug-01 14:58:19.128 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-01 14:58:19.264 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-01 14:58:19.264 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-01 14:58:19.271 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-01 14:58:19.279 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=8; memory=16 GB; capacity=8; pollInterval=100ms; dumpInterval=5m
+Aug-01 14:58:19.506 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-01 14:58:19.506 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-01 14:58:19.528 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-01 14:58:19.529 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-01 14:58:19.536 [main] DEBUG nextflow.Session - Workflow process names [dsl1]: obtain_basic_info, run_simulation_chunk, run_benchmark
+Aug-01 14:58:19.537 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Aug-01 14:58:19.537 [main] DEBUG nextflow.Session - Session await
+Aug-01 14:58:19.614 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:19.620 [Task submitter] INFO  nextflow.Session - [16/1637d1] Submitted process > obtain_basic_info
+Aug-01 14:58:20.210 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: obtain_basic_info; status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/16/1637d178f552e12fce25142d37ed59]
+Aug-01 14:58:20.312 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:20.313 [Task submitter] INFO  nextflow.Session - [99/bb80ea] Submitted process > run_benchmark (method: glmeiv_fast; grid row: 2)
+Aug-01 14:58:20.326 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:20.326 [Task submitter] INFO  nextflow.Session - [42/4511e0] Submitted process > run_benchmark (method: glmeiv_slow; grid row: 2)
+Aug-01 14:58:20.334 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:20.334 [Task submitter] INFO  nextflow.Session - [44/76af3a] Submitted process > run_benchmark (method: glmeiv_slow; grid row: 3)
+Aug-01 14:58:20.340 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:20.341 [Task submitter] INFO  nextflow.Session - [07/5fdd93] Submitted process > run_benchmark (method: thresholding; grid row: 2)
+Aug-01 14:58:23.262 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 7; name: run_benchmark (method: thresholding; grid row: 2); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/07/5fdd9332d3de549c7a75cd58753dd0]
+Aug-01 14:58:23.268 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:23.270 [Task submitter] INFO  nextflow.Session - [34/b21307] Submitted process > run_benchmark (method: glmeiv_slow; grid row: 1)
+Aug-01 14:58:30.126 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: run_benchmark (method: glmeiv_fast; grid row: 2); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/99/bb80eaa32ae1de1228b4ed04bf625d]
+Aug-01 14:58:30.131 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:30.132 [Task submitter] INFO  nextflow.Session - [cb/870f3a] Submitted process > run_benchmark (method: glmeiv_fast; grid row: 3)
+Aug-01 14:58:38.876 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 8; name: run_benchmark (method: glmeiv_fast; grid row: 3); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/cb/870f3a7ee03113c53d3b8e83fd0053]
+Aug-01 14:58:38.881 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:38.881 [Task submitter] INFO  nextflow.Session - [5a/0aec53] Submitted process > run_benchmark (method: thresholding; grid row: 1)
+Aug-01 14:58:43.634 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: run_benchmark (method: thresholding; grid row: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/5a/0aec539a3847313c13f07cf1f4097c]
+Aug-01 14:58:43.638 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:43.638 [Task submitter] INFO  nextflow.Session - [2b/b64835] Submitted process > run_benchmark (method: glmeiv_fast; grid row: 1)
+Aug-01 14:58:54.971 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: run_benchmark (method: glmeiv_fast; grid row: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/2b/b64835eecb2969a44ada1ae3769554]
+Aug-01 14:58:54.975 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:54.976 [Task submitter] INFO  nextflow.Session - [25/897988] Submitted process > run_benchmark (method: thresholding; grid row: 3)
+Aug-01 14:58:57.596 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 10; name: run_benchmark (method: thresholding; grid row: 3); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/25/8979884c011ec285f1cacf524ef1b8]
+Aug-01 14:58:57.600 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:57.600 [Task submitter] INFO  nextflow.Session - [38/5e3a2b] Submitted process > run_simulation_chunk (method: "thresholding"; grid row: 2; processor: 1)
+Aug-01 14:58:57.658 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 11; name: run_simulation_chunk (method: "thresholding"; grid row: 2; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/38/5e3a2bbfc899f83265c3bdd934ee38]
+Aug-01 14:58:57.662 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:57.662 [Task submitter] INFO  nextflow.Session - [d0/13dd4f] Submitted process > run_simulation_chunk (method: "glmeiv_fast"; grid row: 2; processor: 1)
+Aug-01 14:58:57.739 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 12; name: run_simulation_chunk (method: "glmeiv_fast"; grid row: 2; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/d0/13dd4ffb2a29048ff4728315610f08]
+Aug-01 14:58:57.743 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:57.744 [Task submitter] INFO  nextflow.Session - [3b/e9e0d9] Submitted process > run_simulation_chunk (method: "glmeiv_fast"; grid row: 3; processor: 1)
+Aug-01 14:58:57.812 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 13; name: run_simulation_chunk (method: "glmeiv_fast"; grid row: 3; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/3b/e9e0d93d77e17dcd7a194a761e9a42]
+Aug-01 14:58:57.816 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:57.816 [Task submitter] INFO  nextflow.Session - [79/f1cb64] Submitted process > run_simulation_chunk (method: "thresholding"; grid row: 1; processor: 1)
+Aug-01 14:58:57.865 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 14; name: run_simulation_chunk (method: "thresholding"; grid row: 1; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/79/f1cb64e18ef9f1efa9fd0a0d6ea332]
+Aug-01 14:58:57.868 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:57.868 [Task submitter] INFO  nextflow.Session - [52/06fd7f] Submitted process > run_simulation_chunk (method: "glmeiv_fast"; grid row: 1; processor: 1)
+Aug-01 14:58:57.916 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 15; name: run_simulation_chunk (method: "glmeiv_fast"; grid row: 1; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/52/06fd7fa5caee35af1c2c4167741d9d]
+Aug-01 14:58:57.921 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:58:57.921 [Task submitter] INFO  nextflow.Session - [d0/94d406] Submitted process > run_simulation_chunk (method: "thresholding"; grid row: 3; processor: 1)
+Aug-01 14:58:57.977 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 16; name: run_simulation_chunk (method: "thresholding"; grid row: 3; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/d0/94d40654e50796ce13e32ca3c5e4ec]
+Aug-01 14:59:52.591 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 9; name: run_benchmark (method: glmeiv_slow; grid row: 3); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/44/76af3aa01983e28c40806ac45ee777]
+Aug-01 14:59:52.603 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 14:59:52.603 [Task submitter] INFO  nextflow.Session - [ea/1d96bc] Submitted process > run_simulation_chunk (method: "glmeiv_slow"; grid row: 3; processor: 1)
+Aug-01 14:59:52.646 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 17; name: run_simulation_chunk (method: "glmeiv_slow"; grid row: 3; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/ea/1d96bcd2e98caaa8ae684f36b48c24]
+Aug-01 15:00:19.021 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: run_benchmark (method: glmeiv_slow; grid row: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/34/b213070d88e44c834970b17101ef65]
+Aug-01 15:00:19.030 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 15:00:19.031 [Task submitter] INFO  nextflow.Session - [2c/efe856] Submitted process > run_simulation_chunk (method: "glmeiv_slow"; grid row: 1; processor: 2)
+Aug-01 15:00:19.034 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 15:00:19.034 [Task submitter] INFO  nextflow.Session - [c4/6ba644] Submitted process > run_simulation_chunk (method: "glmeiv_slow"; grid row: 1; processor: 1)
+Aug-01 15:00:19.072 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 19; name: run_simulation_chunk (method: "glmeiv_slow"; grid row: 1; processor: 2); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/2c/efe856cd9ae3a140e7d0927174502a]
+Aug-01 15:00:19.075 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 18; name: run_simulation_chunk (method: "glmeiv_slow"; grid row: 1; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/c4/6ba644bfa0f339c60421d654e1f0f1]
+Aug-01 15:00:19.136 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: run_benchmark (method: glmeiv_slow; grid row: 2); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/42/4511e036dfe2313679fd274db8d49e]
+Aug-01 15:00:19.146 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-01 15:00:19.146 [Task submitter] INFO  nextflow.Session - [b4/92251a] Submitted process > run_simulation_chunk (method: "glmeiv_slow"; grid row: 2; processor: 1)
+Aug-01 15:00:19.189 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 20; name: run_simulation_chunk (method: "glmeiv_slow"; grid row: 2; processor: 1); status: COMPLETED; exit: 0; error: -; workDir: /Users/timbarry/research_offsite/work/b4/92251aeb4ed354aa8e5f57dc85b5ff]
+Aug-01 15:00:19.190 [main] DEBUG nextflow.Session - Session await > all process finished
+Aug-01 15:00:19.191 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-01 15:00:19.202 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=20; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=6m 7s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=4; peakCpus=4; peakMemory=16 GB; ]
+Aug-01 15:00:19.321 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-01 15:00:19.333 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

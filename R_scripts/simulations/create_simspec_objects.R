@@ -26,6 +26,7 @@ m_perturbation <- log(0.25)
 theta <- 20
 n <- 15000 # n <- 150000
 g_perturbation_grid <- log(seq(1, 4, 0.5))
+
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
                           fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
@@ -68,7 +69,6 @@ fixed_params <- list(
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
-                                               # methods = c("glmeiv_fast", "thresholding"))
 # check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1,
 #                                                    B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
