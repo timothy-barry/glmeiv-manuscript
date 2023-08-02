@@ -171,8 +171,8 @@ save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overw
 # We vary the parameter m_pert over log(0, 0.2)
 # We keep g_pert fixed at log(2)
 ##########################################################
-n <- 20000
-m_perturbations <- log(seq(0.2, 1.0, by = 0.1))
+n <- 50000
+m_perturbations <- log(seq(0.2, 1, length.out = 8))
 param_grid <- expand.grid(m_perturbation = m_perturbations,
                           fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
@@ -190,7 +190,7 @@ fixed_params <- list(
   seed = 4,
   n = n,
   B = 500,
-  g_perturbation = log(1.5),
+  g_perturbation = log(2.5),
   m_intercept = log(0.01),
   g_intercept = log(0.005),
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
@@ -199,10 +199,10 @@ fixed_params <- list(
   alpha = 0.95,
   n_em_rep = 25,
   save_membership_probs_mult = 1000L,
-  pi = 0.3,
+  pi = 0.05,
   m_offset = log(rpois(n = n, lambda = 10000)),
   g_offset = log(rpois(n = n, lambda = 5000)),
-  pi_guess_range = c(0.2, 0.4),
+  pi_guess_range = c(1e-5, 0.1),
   m_perturbation_guess_range = log(c(0.1, 1.5)),
   g_perturbation_guess_range = log(c(0.5, 10)),
   exponentiate_coefs = FALSE,
