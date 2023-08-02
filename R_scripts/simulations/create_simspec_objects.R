@@ -118,12 +118,12 @@ sim_spec_2 <- create_simulatr_specifier_object(param_grid = param_grid,
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_2, B_in = 2)
 save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overwrite = overwrite)
 
-#####################################################################################
+##########################################################################################
 # Experiment 3: varying the size parameter
-# We vary the size parameter over the grid 1, 3, 5, 10, 20, 50, 100
+# We vary the size parameter over the grid 10^(seq(log(1, base = 10), 2, length.out = 10))
 # We hold fixed other parameters. We apply NB regression (known theta)
 # and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
-#####################################################################################
+##########################################################################################
 n <- 50000
 m_perturbation <- log(0.25)
 thetas <- 10^(seq(log(1, base = 10), 2, length.out = 10))
@@ -162,3 +162,51 @@ sim_spec_3 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                methods = c("glmeiv_fast", "thresholding"))
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_3, B_in = 2)
 save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overwrite = overwrite)
+
+
+#########################################################
+# Experiment 4: varying m_pert while keeping g_pert fixed
+# We vary the parameter m_pert over log(0, 0.2)
+# We keep g_pert fixed at log(2)
+##########################################################
+n <- 20000
+m_perturbations <- log(seq(0.2, 1.0, by = 0.1))
+param_grid <- expand.grid(m_perturbation = m_perturbations,
+                          fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
+param_grid$grid_id <- seq(1, nrow(param_grid))
+param_grid$ground_truth <- m_perturbations
+fam_obj <- lapply(as.character(param_grid$fam_str), function(str) {
+  switch(EXPR = str,
+         "nb_theta_unknown" = MASS::negative.binomial(20) |> glmeiv::augment_family_object(),
+         "nb_theta_known" = MASS::negative.binomial(20) |> glmeiv::augment_family_object(),
+         "poisson" = poisson() |> glmeiv::augment_family_object())
+})
+param_grid$m_fam <- param_grid$g_fam <- fam_obj
+param_grid$run_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
+
+fixed_params <- list(
+  seed = 4,
+  n = n,
+  B = 500,
+  g_perturbation = log(1.5),
+  m_intercept = log(0.01),
+  g_intercept = log(0.005),
+  covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
+  m_covariate_coefs = log(0.9),
+  g_covariate_coefs = log(1.1),
+  alpha = 0.95,
+  n_em_rep = 25,
+  save_membership_probs_mult = 1000L,
+  pi = 0.3,
+  m_offset = log(rpois(n = n, lambda = 10000)),
+  g_offset = log(rpois(n = n, lambda = 5000)),
+  pi_guess_range = c(0.2, 0.4),
+  m_perturbation_guess_range = log(c(0.1, 1.5)),
+  g_perturbation_guess_range = log(c(0.5, 10)),
+  exponentiate_coefs = FALSE,
+  ep_tol = 1e-4)
+sim_spec_4 <- create_simulatr_specifier_object(param_grid = param_grid,
+                                               fixed_params = fixed_params,
+                                               methods = c("glmeiv_fast", "thresholding"))
+# check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_4, B_in = 2)
+save_obj(obj = sim_spec_4, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overwrite = overwrite)
