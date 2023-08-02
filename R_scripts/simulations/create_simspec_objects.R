@@ -79,7 +79,7 @@ save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overw
 # Two covariates: batch, library size
 ########################################
 set.seed(4)
-n <- 20000
+n <- 50000
 g_perturbation_grid <- seq(0, 7)
 param_grid <- data.frame(g_perturbation = g_perturbation_grid,
                          grid_id = seq(1, length(g_perturbation_grid)))
@@ -139,7 +139,7 @@ fixed_params <- list(
   seed = 4,
   n = n,
   B = 500,
-  g_perturbation = log(1.5),
+  g_perturbation = log(2.5),
   m_intercept = log(0.01),
   g_intercept = log(0.005),
   m_perturbation = m_perturbation,
