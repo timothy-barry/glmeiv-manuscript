@@ -6,28 +6,25 @@ my_cols <- c("firebrick3", "dodgerblue3", "orchid4")
 
 # load the results and specifier objects
 sim_result_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/results")
-sim_spec_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/spec_objects")
+sim_res_3 <- readRDS(paste0(sim_result_dir, "/sim_res_3.rds"))[["metrics"]]
 
-############
-# 1. Poisson
-############
-pois_res <- readRDS(paste0(sim_result_dir, "/sim_res_0.rds"))[["metrics"]]
-
-to_plot <- pois_res |>
+to_plot <- sim_res_3 |>
+  dplyr::mutate(distribution = ifelse(run_unknown_theta_precomputation, "NB (theta unknown)", "NB (theta known)")) |>
   dplyr::filter(metric %in% c("bias", "ci_width", "coverage", "mse", "time")) |>
   mutate(metric_fct = factor(metric, levels = c("bias", "mse", "coverage", "ci_width", "time"),
                              labels = c("Bias", "MSE", "Coverage", "CI width", "Time (s)")),
          Method = factor(method, levels = c("glmeiv_slow", "glmeiv_fast", "thresholding"),
                          labels = c("GLM-EIV", "GLM-EIV (accelerated)", "Thresholding"))) |>
-  arrange(Method) |> mutate(exp_g_perturbation = exp(g_perturbation))
+  arrange(Method)
 
-p <- ggplot(data = to_plot, mapping = aes(x = exp_g_perturbation,
+p <- ggplot(data = to_plot, mapping = aes(x = theta,
                                           y = mean,
                                           ymin = mean - 2 * se, 
                                           ymax = mean + 2 * se,
                                           col = Method)) + 
-  xlab(expression(exp(beta[g]))) + scale_color_manual(values = my_cols) +
-  facet_grid(metric_fct ~ ., scales = "free") + 
+  xlab(expression(theta)) + scale_color_manual(values = my_cols) +
+  scale_x_continuous(trans = "log10") +
+  facet_grid(metric_fct ~ distribution, scales = "free") + 
   geom_hline(data = dplyr::filter(to_plot, metric_fct == "Bias"),
              mapping = aes(yintercept = 0), colour = "black") +
   geom_hline(data = dplyr::filter(to_plot, metric_fct == "MSE"),

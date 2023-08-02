@@ -124,9 +124,9 @@ save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overw
 # We hold fixed other parameters. We apply NB regression (known theta)
 # and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
 #####################################################################################
-n <- 20000
+n <- 50000
 m_perturbation <- log(0.25)
-thetas <- c(1, 3, 5, 10, 20, 50, 100)
+thetas <- 10^(seq(log(1, base = 10), 2, length.out = 10))
 m_fams <- lapply(thetas, function(theta) MASS::negative.binomial(theta) |> augment_family_object())
 param_grid <- expand.grid(m_fam = m_fams,
                           run_unknown_theta_precomputation = c(TRUE, FALSE))
@@ -139,7 +139,7 @@ fixed_params <- list(
   seed = 4,
   n = n,
   B = 500,
-  g_perturbation = log(3),
+  g_perturbation = log(1.5),
   m_intercept = log(0.01),
   g_intercept = log(0.005),
   m_perturbation = m_perturbation,
@@ -162,4 +162,3 @@ sim_spec_3 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                methods = c("glmeiv_fast", "thresholding"))
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_3, B_in = 2)
 save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overwrite = overwrite)
-
