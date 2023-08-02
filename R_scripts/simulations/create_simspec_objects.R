@@ -2,6 +2,8 @@ library(magrittr)
 library(glmeiv)
 library(simulatr)
 
+print("Running create sim_spec objects")
+
 args <- commandArgs(trailingOnly = TRUE)
 overwrite <- TRUE # if (is.na(args[1])) TRUE else as.logical(args[1])
 save_obj <- function(obj, file_path, overwrite) {
