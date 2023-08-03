@@ -172,7 +172,7 @@ save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overw
 # We keep g_pert fixed at log(2)
 ##########################################################
 n <- 50000
-m_perturbations <- log(seq(0.2, 1, length.out = 8))
+m_perturbations <- log(seq(0.05, 1, length.out = 9))
 param_grid <- expand.grid(m_perturbation = m_perturbations,
                           fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
@@ -199,7 +199,7 @@ fixed_params <- list(
   alpha = 0.95,
   n_em_rep = 25,
   save_membership_probs_mult = 1000L,
-  pi = 0.05,
+  pi = 0.02,
   m_offset = log(rpois(n = n, lambda = 10000)),
   g_offset = log(rpois(n = n, lambda = 5000)),
   pi_guess_range = c(1e-5, 0.1),

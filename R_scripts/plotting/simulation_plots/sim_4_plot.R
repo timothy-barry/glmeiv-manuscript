@@ -22,7 +22,6 @@ p <- ggplot(data = to_plot, mapping = aes(x = exp_m_perturbation,
                                           ymax = mean + 2 * se,
                                           col = Method)) + 
   xlab(expression(exp(beta[m]))) + scale_color_manual(values = my_cols) +
-  scale_x_continuous(trans = "log10") +
   facet_grid(metric_fct ~ fam_str, scales = "free") + 
   geom_hline(data = dplyr::filter(to_plot, metric_fct == "Bias"),
              mapping = aes(yintercept = 0), colour = "black") +
