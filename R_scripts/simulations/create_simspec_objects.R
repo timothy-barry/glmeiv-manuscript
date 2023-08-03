@@ -127,7 +127,7 @@ save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overw
 # and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
 ##########################################################################################
 n <- 100000
-m_perturbation <- log(0.25)
+m_perturbation <- log(0.25) # what happens when we set this to a different value, e.g. a value closer to 0?
 thetas <- 10^(seq(log(1, base = 10), 2, length.out = 10))
 m_fams <- lapply(thetas, function(theta) MASS::negative.binomial(theta) |> augment_family_object())
 param_grid <- expand.grid(m_fam = m_fams,
@@ -168,11 +168,11 @@ save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overw
 
 #########################################################
 # Experiment 4: varying m_pert while keeping g_pert fixed
-# We vary the parameter m_pert over log(0, 0.2)
+# We vary the parameter m_pert over log(.2, 1)
 # We keep g_pert fixed at log(2)
 ##########################################################
 n <- 50000
-m_perturbations <- log(seq(0.05, 1, length.out = 9))
+m_perturbations <- log(seq(0.2, 1, length.out = 9))
 param_grid <- expand.grid(m_perturbation = m_perturbations,
                           fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
 param_grid$grid_id <- seq(1, nrow(param_grid))
@@ -202,7 +202,7 @@ fixed_params <- list(
   pi = 0.02,
   m_offset = log(rpois(n = n, lambda = 10000)),
   g_offset = log(rpois(n = n, lambda = 5000)),
-  pi_guess_range = c(1e-5, 0.1),
+  pi_guess_range = c(1e-5, 0.05),
   m_perturbation_guess_range = log(c(0.1, 1.5)),
   g_perturbation_guess_range = log(c(0.5, 10)),
   exponentiate_coefs = FALSE,
