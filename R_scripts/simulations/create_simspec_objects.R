@@ -126,7 +126,7 @@ save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overw
 # We hold fixed other parameters. We apply NB regression (known theta)
 # and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
 ##########################################################################################
-n <- 50000
+n <- 100000
 m_perturbation <- log(0.25)
 thetas <- 10^(seq(log(1, base = 10), 2, length.out = 10))
 m_fams <- lapply(thetas, function(theta) MASS::negative.binomial(theta) |> augment_family_object())
@@ -151,7 +151,7 @@ fixed_params <- list(
   alpha = 0.95,
   n_em_rep = 25,
   save_membership_probs_mult = 1000L,
-  pi = 0.05,
+  pi = 0.02,
   m_offset = log(rpois(n = n, lambda = 10000)),
   g_offset = log(rpois(n = n, lambda = 5000)),
   pi_guess_range = c(1e-5, 0.1),
