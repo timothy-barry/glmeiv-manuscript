@@ -217,3 +217,37 @@ sim_spec_4 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                methods = c("glmeiv_fast", "thresholding"))
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_4, B_in = 2)
 save_obj(obj = sim_spec_4, file_path = paste0(sim_dir, "/sim_spec_4.rds"), overwrite = overwrite)
+
+
+#########################################################
+# Experiment 5: studying the bias cancellation phenomenon
+#########################################################
+n <- 50000
+m_perturbations <- log(seq(0.25, 2, length.out = 8))
+param_grid <- expand.grid(m_perturbation = m_perturbations,
+                          fam_str = c("nb_theta_unknown", "nb_theta_known"))
+param_grid$grid_id <- seq(1, nrow(param_grid))
+param_grid$ground_truth <- m_perturbations
+param_grid$run_mrna_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
+
+fixed_params <- list(
+  m_fam = MASS::negative.binomial(5) |> glmeiv::augment_family_object(),
+  g_fam = poisson() |> glmeiv::augment_family_object(),
+  run_grna_unknown_theta_precomputation = FALSE,
+  seed = 4,
+  n = n,
+  B = 500,
+  g_perturbation = log(2.5),
+  m_intercept = log(0.01),
+  g_intercept = log(0.005),
+  covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
+  m_covariate_coefs = log(0.9),
+  g_covariate_coefs = log(1.1),
+  alpha = 0.95,
+  pi = 0.02,
+  m_offset = log(rpois(n = n, lambda = 10000)),
+  g_offset = log(rpois(n = n, lambda = 5000)))
+sim_spec_5 <- create_simulatr_specifier_object(param_grid = param_grid,
+                                               fixed_params = fixed_params,
+                                               methods = "thresholding")
+check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_5, B_in = 5)
