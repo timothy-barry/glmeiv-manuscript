@@ -218,7 +218,6 @@ sim_spec_4 <- create_simulatr_specifier_object(param_grid = param_grid,
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_4, B_in = 2)
 save_obj(obj = sim_spec_4, file_path = paste0(sim_dir, "/sim_spec_4.rds"), overwrite = overwrite)
 
-
 #########################################################
 # Experiment 5: studying the bias cancellation phenomenon
 #########################################################
@@ -250,4 +249,5 @@ fixed_params <- list(
 sim_spec_5 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                methods = "thresholding")
-check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_5, B_in = 5)
+# check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_5, B_in = 5)
+save_obj(obj = sim_spec_5, file_path = paste0(sim_dir, "/sim_spec_5.rds"), overwrite = overwrite)
