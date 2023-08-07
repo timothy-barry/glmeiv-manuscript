@@ -26,7 +26,7 @@ sim_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations
 set.seed(4)
 m_perturbation <- log(0.25)
 theta <- 20
-n <- 15000 # n <- 150000
+n <- 150000
 g_perturbation_grid <- log(seq(1, 4, 0.5))
 
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
@@ -39,10 +39,12 @@ fam_obj <- lapply(as.character(param_grid$fam_str), function(str) {
          "nb_theta_known" = MASS::negative.binomial(theta) |> glmeiv::augment_family_object(),
          "poisson" = poisson() |> glmeiv::augment_family_object())
 })
-param_grid$m_fam <- param_grid$g_fam <- fam_obj
-param_grid$run_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
+param_grid$m_fam <- fam_obj
+param_grid$run_mrna_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
 
 fixed_params <- list(
+  g_fam = poisson() |> augment_family_object(),
+  run_grna_unknown_theta_precomputation = FALSE,
   seed = 4,
   n = n,
   B = 500,
@@ -70,7 +72,8 @@ fixed_params <- list(
 
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
-                                               methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
+                                               # methods = c("glmeiv_fast", "glmeiv_slow", "thresholding"))
+                                               methods = c("glmeiv_fast", "thresholding"))
 # check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
 
@@ -126,17 +129,18 @@ save_obj(obj = sim_spec_2, file_path = paste0(sim_dir, "/sim_spec_2.rds"), overw
 # We hold fixed other parameters. We apply NB regression (known theta)
 # and NB regression (estimated theta) using both thresholding method and GLM-EIV fast
 ##########################################################################################
-n <- 100000
+n <- 50000
 m_perturbation <- log(0.25) # what happens when we set this to a different value, e.g. a value closer to 0?
 thetas <- 10^(seq(log(1, base = 10), 2, length.out = 10))
 m_fams <- lapply(thetas, function(theta) MASS::negative.binomial(theta) |> augment_family_object())
 param_grid <- expand.grid(m_fam = m_fams,
-                          run_unknown_theta_precomputation = c(TRUE, FALSE))
+                          run_mrna_unknown_theta_precomputation = c(TRUE, FALSE))
 param_grid$theta <- sapply(param_grid$m_fam, function(fam) fam$theta)
 param_grid$ground_truth <- m_perturbation
 param_grid$grid_id <- seq(1L, nrow(param_grid))
 
 fixed_params <- list(
+  run_grna_unknown_theta_precomputation = FALSE,
   g_fam = poisson() |> augment_family_object(),
   seed = 4,
   n = n,
@@ -165,7 +169,6 @@ sim_spec_3 <- create_simulatr_specifier_object(param_grid = param_grid,
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_3, B_in = 2)
 save_obj(obj = sim_spec_3, file_path = paste0(sim_dir, "/sim_spec_3.rds"), overwrite = overwrite)
 
-
 #########################################################
 # Experiment 4: varying m_pert while keeping g_pert fixed
 # We vary the parameter m_pert over log(.2, 1)
@@ -183,10 +186,12 @@ fam_obj <- lapply(as.character(param_grid$fam_str), function(str) {
          "nb_theta_known" = MASS::negative.binomial(20) |> glmeiv::augment_family_object(),
          "poisson" = poisson() |> glmeiv::augment_family_object())
 })
-param_grid$m_fam <- param_grid$g_fam <- fam_obj
-param_grid$run_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
+param_grid$run_mrna_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
+param_grid$m_fam <- fam_obj
 
 fixed_params <- list(
+  g_fam = poisson() |> glmeiv::augment_family_object(),
+  run_grna_unknown_theta_precomputation = FALSE,
   seed = 4,
   n = n,
   B = 500,
