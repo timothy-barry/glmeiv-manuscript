@@ -32,3 +32,5 @@ p <- ggplot(data = to_plot, mapping = aes(x = exp_m_perturbation,
   geom_line() + geom_errorbar(width = 0.05) + geom_point() +
   theme_bw() + theme(legend.position = "bottom", panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank()) + ylab("")
+
+ggsave(filename = "~/Desktop/p4.pdf", plot = p, device = "pdf", scale = 1, width = 5, height = 6)

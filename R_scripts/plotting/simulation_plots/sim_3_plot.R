@@ -9,7 +9,7 @@ sim_result_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simu
 sim_res_3 <- readRDS(paste0(sim_result_dir, "/sim_res_3.rds"))[["metrics"]]
 
 to_plot <- sim_res_3 |>
-  dplyr::mutate(distribution = ifelse(run_unknown_theta_precomputation, "NB (theta unknown)", "NB (theta known)")) |>
+  dplyr::mutate(distribution = ifelse(run_mrna_unknown_theta_precomputation, "NB (theta unknown)", "NB (theta known)")) |>
   dplyr::filter(metric %in% c("bias", "ci_width", "coverage", "mse", "time")) |>
   mutate(metric_fct = factor(metric, levels = c("bias", "mse", "coverage", "ci_width", "time"),
                              labels = c("Bias", "MSE", "Coverage", "CI width", "Time (s)")),
@@ -19,18 +19,20 @@ to_plot <- sim_res_3 |>
 
 p <- ggplot(data = to_plot, mapping = aes(x = theta,
                                           y = mean,
-                                          ymin = mean - 2 * se, 
+                                          ymin = mean - 2 * se,
                                           ymax = mean + 2 * se,
-                                          col = Method)) + 
+                                          col = Method)) +
   xlab(expression(theta)) + scale_color_manual(values = my_cols) +
   scale_x_continuous(trans = "log10") +
-  facet_grid(metric_fct ~ distribution, scales = "free") + 
+  facet_grid(metric_fct ~ distribution, scales = "free") +
   geom_hline(data = dplyr::filter(to_plot, metric_fct == "Bias"),
              mapping = aes(yintercept = 0), colour = "black") +
   geom_hline(data = dplyr::filter(to_plot, metric_fct == "MSE"),
              mapping = aes(yintercept = 0), colour = "black") +
   geom_hline(data = dplyr::filter(to_plot, metric_fct == "Coverage"),
              mapping = aes(yintercept = 0.95), colour = "black") +
-  geom_line() + geom_errorbar(width = 0.05) + geom_point() + 
+  geom_line() + geom_errorbar(width = 0.05) + geom_point() +
   theme_bw() + theme(legend.position = "bottom", panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank()) + ylab("")
+
+ggsave(filename = "~/Desktop/p3.pdf", plot = p, device = "pdf", scale = 1, width = 4, height = 6)
