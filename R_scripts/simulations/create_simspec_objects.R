@@ -52,6 +52,7 @@ fixed_params <- list(
   m_perturbation = log(0.25),
   g_intercept = log(0.005),
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
+  rm_covariate = "",
   m_covariate_coefs = log(0.9),
   g_covariate_coefs = log(1.1),
   alpha = 0.95,
@@ -103,6 +104,7 @@ fixed_params <- list(
   m_perturbation = m_perturbation,
   covariate_matrix = data.frame(lib_size = rpois(n = n, lambda = 10000),
                                 batch = rbinom(n = n, size = 1, prob = 0.5)),
+  rm_covariate = "",
   m_covariate_coefs = c(0.0025, 0.1),
   g_covariate_coefs = c(-0.005, 0.2),
   alpha = 0.95,
@@ -151,6 +153,7 @@ fixed_params <- list(
   g_intercept = log(0.005),
   m_perturbation = m_perturbation,
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
+  rm_covariate = "",
   m_covariate_coefs = log(0.9),
   g_covariate_coefs = log(1.1),
   alpha = 0.95,
@@ -200,6 +203,7 @@ fixed_params <- list(
   m_intercept = log(0.01),
   g_intercept = log(0.005),
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5)),
+  rm_covariate = "",
   m_covariate_coefs = log(0.9),
   g_covariate_coefs = log(1.1),
   alpha = 0.95,
@@ -218,3 +222,63 @@ sim_spec_4 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                methods = c("glmeiv_fast", "thresholding", "unimodal_mixture"))
 # check <- check_simulatr_specifier_object(simulatr_spec = sim_spec_4, B_in = 2)
 save_obj(obj = sim_spec_4, file_path = paste0(sim_dir, "/sim_spec_4.rds"), overwrite = overwrite)
+
+
+###########################################################################################
+# Experiment 5: misspecified gRNA model
+# We vary g_pert, keeping all other parameters fixed; the gRNA distribution is misspecified
+###########################################################################################
+set.seed(4)
+m_perturbation <- log(0.25)
+theta <- 20
+n <- 50000
+g_perturbation_grid <- log(seq(1, 4, 0.5))
+
+param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
+                          fam_str = c("nb_theta_unknown", "nb_theta_known", "poisson"))
+param_grid$grid_id <- seq(1, nrow(param_grid))
+param_grid$ground_truth <- m_perturbation
+fam_obj <- lapply(as.character(param_grid$fam_str), function(str) {
+  switch(EXPR = str,
+         "nb_theta_unknown" = MASS::negative.binomial(theta) |> glmeiv::augment_family_object(),
+         "nb_theta_known" = MASS::negative.binomial(theta) |> glmeiv::augment_family_object(),
+         "poisson" = poisson() |> glmeiv::augment_family_object())
+})
+param_grid$m_fam <- fam_obj
+param_grid$run_mrna_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
+
+fixed_params <- list(
+  g_fam = poisson() |> augment_family_object(),
+  run_grna_unknown_theta_precomputation = FALSE,
+  seed = 4,
+  n = n,
+  B = 500,
+  m_intercept = log(0.01),
+  m_perturbation = m_perturbation,
+  g_intercept = log(0.005),
+  covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5),
+                                cell_cycle = runif(n = n, min = 0, max = 1)),
+  rm_covariate = "cell_cycle",
+  m_covariate_coefs = log(c(0.9, 1)),
+  g_covariate_coefs = log(c(0.8, 1.5)),
+  alpha = 0.95,
+  n_em_rep = 15,
+  save_membership_probs_mult = 1000L,
+  pi = 0.02,
+  m_offset = log(rpois(n = n, lambda = 10000)),
+  g_offset = log(rpois(n = n, lambda = 5000)),
+  pi_guess_range = c(1e-5, 0.03),
+  m_perturbation_guess_range = log(c(0.1, 1.5)),
+  g_perturbation_guess_range = log(c(0.5, 10)),
+  m_intercept_guess_range = log(c(1e-4, 1e-1)),
+  g_intercept_guess_range = log(c(1e-4, 1e-1)),
+  m_covariate_coefs_guess_range = log(c(0.25, 2)),
+  g_covariate_coefs_guess_range = log(c(0.25, 2)),
+  exponentiate_coefs = FALSE,
+  ep_tol = 1e-4)
+
+sim_spec_5 <- create_simulatr_specifier_object(param_grid = param_grid,
+                                               fixed_params = fixed_params,
+                                               methods = c("glmeiv_fast", "thresholding", "unimodal_mixture"))
+# check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_5, B_in = 2, parallel = TRUE)
+save_obj(obj = sim_spec_5, file_path = paste0(sim_dir, "/sim_spec_5.rds"), overwrite = overwrite)
