@@ -43,6 +43,8 @@ param_grid$m_fam <- fam_obj
 param_grid$run_mrna_unknown_theta_precomputation <- as.character(param_grid$fam_str) == "nb_theta_unknown"
 
 fixed_params <- list(
+  grna_duplet_rate = 0.0,
+  mrna_duplet_rate = 0.0,
   g_fam = poisson() |> augment_family_object(),
   run_grna_unknown_theta_precomputation = FALSE,
   seed = 4,
@@ -74,7 +76,6 @@ fixed_params <- list(
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                methods = c("glmeiv_slow", "glmeiv_fast", "thresholding", "unimodal_mixture"))
-
 #sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
 #                                               fixed_params = fixed_params,
 #                                               methods = c("run_replogle_method_simulatr", "thresholding"))
@@ -96,6 +97,8 @@ m_perturbation <- -4
 param_grid$ground_truth <- m_perturbation
 
 fixed_params <- list(
+  grna_duplet_rate = 0.0,
+  mrna_duplet_rate = 0.0,
   run_mrna_unknown_theta_precomputation = FALSE,
   run_grna_unknown_theta_precomputation = FALSE,
   m_fam = gaussian() |> augment_family_object(),
@@ -147,6 +150,8 @@ param_grid$ground_truth <- m_perturbation
 param_grid$grid_id <- seq(1L, nrow(param_grid))
 
 fixed_params <- list(
+  grna_duplet_rate = 0.0,
+  mrna_duplet_rate = 0.0,
   run_grna_unknown_theta_precomputation = FALSE,
   g_fam = poisson() |> augment_family_object(),
   seed = 4,
@@ -198,6 +203,8 @@ param_grid$run_mrna_unknown_theta_precomputation <- as.character(param_grid$fam_
 param_grid$m_fam <- fam_obj
 
 fixed_params <- list(
+  grna_duplet_rate = 0.0,
+  mrna_duplet_rate = 0.0,
   g_fam = poisson() |> glmeiv::augment_family_object(),
   run_grna_unknown_theta_precomputation = FALSE,
   seed = 4,
