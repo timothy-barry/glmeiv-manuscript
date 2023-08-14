@@ -74,6 +74,10 @@ fixed_params <- list(
 sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
                                                fixed_params = fixed_params,
                                                methods = c("glmeiv_slow", "glmeiv_fast", "thresholding", "unimodal_mixture"))
+
+#sim_spec_1 <- create_simulatr_specifier_object(param_grid = param_grid,
+#                                               fixed_params = fixed_params,
+#                                               methods = c("run_replogle_method_simulatr", "thresholding"))
 # check <- simulatr::check_simulatr_specifier_object(simulatr_spec = sim_spec_1, B_in = 2, parallel = TRUE)
 save_obj(obj = sim_spec_1, file_path = paste0(sim_dir, "/sim_spec_1.rds"), overwrite = overwrite)
 
