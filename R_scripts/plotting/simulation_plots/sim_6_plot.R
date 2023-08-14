@@ -4,7 +4,7 @@ library(simulatr)
 
 # load the results and specifier objects
 sim_result_dir <- paste0(.get_config_path("LOCAL_GLMEIV_DATA_DIR"), "public/simulations/results")
-sim_res <- readRDS(paste0(sim_result_dir, "/sim_res_5.rds"))[["metrics"]]
+sim_res <- readRDS(paste0(sim_result_dir, "/sim_res_6.rds"))[["metrics"]]
 source(paste0(.get_config_path("LOCAL_CODE_DIR"), "glmeiv-manuscript/R_scripts/plotting/simulation_plots/shared_plotting_code.R"))
 
 to_plot <- sim_res |> transform_metric_df() |>

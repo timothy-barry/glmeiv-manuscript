@@ -232,7 +232,7 @@ save_obj(obj = sim_spec_4, file_path = paste0(sim_dir, "/sim_spec_4.rds"), overw
 set.seed(4)
 theta <- 20
 n <- 50000
-g_perturbation_grid <- log(seq(1, 4, 0.5))
+g_perturbation_grid <- log(seq(1, 7, 1))
 m_perturbation_grid <- log(seq(1, 0.25, by = -0.25))
 
 param_grid <- expand.grid(g_perturbation = g_perturbation_grid,
@@ -252,7 +252,7 @@ fixed_params <- list(
   g_intercept = log(0.005),
   covariate_matrix = data.frame(batch = rbinom(n = n, size = 1, prob = 0.5),
                                 cell_cycle = runif(n = n, min = 0, max = 1)),
-  grna_duplet_rate = 0.02,
+  grna_duplet_rate = 0.01,
   mrna_duplet_rate = 0.0,
   rm_covariate = "cell_cycle",
   m_covariate_coefs = log(c(0.9, 1)),
