@@ -25,7 +25,8 @@ to_plot <- thresh_res_pc_wide %>% dplyr::filter(target == "estimate") %>% dplyr:
 p1 <- ggplot(data = to_plot, mapping = aes(x = threshold_5, y = threshold_1)) + geom_point(alpha = 0.7, col = my_cols[2]) +
   xlab("Fold change (thresh = 5)") + ylab("Fold change (thresh = 1)") + 
   geom_abline(slope = 1, intercept = 0) + theme_bw(base_size = 10) + my_theme +
-  theme(plot.margin = margin(0.1, 0.5, 0.1, 0.5, "cm"))
+  theme(plot.margin = margin(0.1, 0.5, 0.1, 0.5, "cm")) +
+  coord_flip() + scale_x_reverse() + scale_y_reverse()
 
 # threshold = 1 ests are bigger than (i.e., closer to one than) threshold = 5; this is attenuation bias due to the fact that excessively many unperturbed cells have been classified as perturbed.
 
@@ -33,13 +34,14 @@ p1 <- ggplot(data = to_plot, mapping = aes(x = threshold_5, y = threshold_1)) + 
 to_plot <- thresh_res_pc_wide %>% dplyr::filter(target == "estimate") %>% dplyr::select(threshold_5, threshold_20)
 p2 <- ggplot(data = to_plot, mapping = aes(x = threshold_5, y = threshold_20)) + geom_point(alpha = 0.9, col = my_cols[2]) +
   xlab("Fold change (thresh = 5)") + ylab("Fold change (thresh = 20)") + geom_abline(slope = 1, intercept = 0, lwd = 0.75) +
-  theme_bw(base_size = 10) + my_theme + theme(plot.margin = margin(0.1, 0.5, 0.1, 0.5, "cm"))
+  theme_bw(base_size = 10) + my_theme + theme(plot.margin = margin(0.1, 0.5, 0.1, 0.5, "cm")) +
+  scale_x_reverse() + scale_y_reverse() + coord_flip()
 
 # b) p-value vs. p-value
 to_plot <- thresh_res_pc_wide %>% dplyr::filter(target == "p_value") %>% dplyr::select(threshold_5, threshold_20)
 p3 <- ggplot(data = to_plot, mapping = aes(x = -log(threshold_5, base = 10), y = -log(threshold_20, base = 10))) + geom_point(alpha = 0.7, col = my_cols[3]) +
   xlab("-log p (thresh = 5)") + ylab("-log p (thresh = 20)") + geom_abline(slope = 1, intercept = 0) +
-  theme_bw(base_size = 10) + my_theme + theme(plot.margin = margin(0.1, 0.5, 0.1, 0.5, "cm"))
+  theme_bw(base_size = 10) + my_theme + theme(plot.margin = margin(0.1, 0.5, 0.1, 0.5, "cm")) + coord_flip()
 
 # c) CI width for threshold = 5 vs threshold = 20
 to_plot <- thresh_res_pc_wide %>% dplyr::filter(target == c("confint_lower", "confint_upper")) %>% dplyr::select(-threshold_1) %>%
